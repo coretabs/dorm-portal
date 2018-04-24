@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DormPortal.Core.Models;
+﻿using System.Linq;
 using DormPortal.Data;
 
 namespace DormPortal.Web.Extensions

@@ -30,14 +30,14 @@ namespace DormPortal.Data
 		}
 
 		public DormitoryRespository DormitoryRespository =>
-			LazyGenericRepository<DormitoryRespository, Dormitory>(ref _dormitoryRespository, _context.Dormitories);
+			LazyGenericRepository(ref _dormitoryRespository, _context.Dormitories);
 
 		public RoomRespository RoomRespository =>
-			LazyGenericRepository<RoomRespository, Room>(ref _roomRespository, _context.Rooms);
+			LazyGenericRepository(ref _roomRespository, _context.Rooms);
 
 
 		public StudentRepository StudentRepository =>
-			LazyGenericRepository<StudentRepository, Student>(ref _studentRepository, _context.Students);
+			LazyGenericRepository(ref _studentRepository, _context.Students);
 
 		public int Commit()
 		{

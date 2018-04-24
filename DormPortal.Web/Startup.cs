@@ -1,4 +1,6 @@
-﻿using DormPortal.Data;
+﻿using DormPortal.Core.Dtos;
+using DormPortal.Core.Models;
+using DormPortal.Data;
 using DormPortal.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +41,8 @@ namespace DormPortal.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+			AutoMapper.Mapper.Initialize(config => config.CreateMap<Student, StudentDto>());
 
 	        unitOfWork.EnsureSeedDb();
 
