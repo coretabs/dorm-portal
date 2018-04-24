@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using DormPortal.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DormPortal.Data
 {
     public class RoomRespository : GenericRepository<Room>
     {
-	    public RoomRespository(IQueryable<Room> dbSet) : base(dbSet)
+	    public RoomRespository(DbSet<Room> dbSet) : base(dbSet)
 	    {
 	    }
 

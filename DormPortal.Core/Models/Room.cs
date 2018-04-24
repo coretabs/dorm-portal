@@ -1,9 +1,8 @@
 ﻿namespace DormPortal.Core.Models
 {
-    public class Room : IEntity
+    public class Room : BaseEntity
 	{
-	    public int Id { get; set; }
-	    public Dormitory Dormitory { get; set; }
+	    public BaseEntity Dormitory { get; set; }
 	    public bool IsReserved { get; set; }
     }
 }
