@@ -39,9 +39,9 @@ namespace DormPortal.Data
 		public StudentRepository StudentRepository =>
 			LazyGenericRepository(ref _studentRepository, _context.Students);
 
-		public int Commit()
+		public bool Commit()
 		{
-			return _context.SaveChanges();
+			return _context.SaveChanges() > 0;
 		}
 	}
 }

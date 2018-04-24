@@ -5,9 +5,8 @@ namespace DormPortal.Data
 {
     public class DormPortalDbContext : DbContext
     {
-		public DormPortalDbContext(DbContextOptions<DormPortalDbContext> options)
-		    : base(options)
-	    {
+		public DormPortalDbContext(DbContextOptions<DormPortalDbContext> options): base(options)
+		{
 	    }
 
 	    public DbSet<Student> Students { get; set; }

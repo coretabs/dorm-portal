@@ -1,7 +1,7 @@
-﻿namespace DormPortal.Core.Models
+﻿namespace DormPortal.Core.Dtos
 {
-    public class Student : BaseEntity
-	{
+    public class StudentForCreationDto
+    {
 		public string Name { get; set; }
 	    public string PassportNumber { get; set; }
 	}

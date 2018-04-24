@@ -5,6 +5,6 @@
 		DormitoryRespository DormitoryRespository { get; }
 		RoomRespository RoomRespository { get; }
 		StudentRepository StudentRepository { get; }
-		int Commit();
+		bool Commit();
 	}
 }

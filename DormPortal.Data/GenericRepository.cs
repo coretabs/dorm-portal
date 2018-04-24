@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using DormPortal.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace DormPortal.Data
 {
@@ -25,31 +26,26 @@ namespace DormPortal.Data
 
 		public T FindById(int id)
 		{
-			return Find(x => x.Id == id).FirstOrDefault();
+			var result = Find(x => x.Id == id).FirstOrDefault();
+
+			if (result == null)
+			{
+				throw new KeyNotFoundException("Cannot find the entity");
+			}
+
+			return result;
 		}
 
-		public void Add(IEnumerable<T> entities)
-		{
-			foreach (var entity in entities)
-			{
-				DbSet.Add(entity);
-			}
-		}
+		public EntityEntry<T> Add(T entity) => DbSet.Add(entity);
+		public EntityEntry<T> Update(T entity) => DbSet.Update(entity);
+		public EntityEntry<T> Delete(T entity) => DbSet.Remove(entity);
 
-		public void Update(IEnumerable<T> entities)
-		{
-			foreach (var entity in entities)
-			{
-				DbSet.Update(entity);
-			}
-		}
+		public IEnumerable<EntityEntry<T>> Add(IEnumerable<T> entities) => Perform(entities, Add);
+		public IEnumerable<EntityEntry<T>> Update(IEnumerable<T> entities) => Perform(entities, Update);
+		public IEnumerable<EntityEntry<T>> Delete(IEnumerable<T> entities) => Perform(entities, Delete);
 
-		public void Delete(IEnumerable<T> entities)
-		{
-			foreach (var entity in entities)
-			{
-				DbSet.Remove(entity);
-			}
-		}
+		private IEnumerable<EntityEntry<T>> Perform(IEnumerable<T> entities, Func<T, EntityEntry<T>> operation)
+			=> entities.Select(operation).ToList();
+		
 	}
 }

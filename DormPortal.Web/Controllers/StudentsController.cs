@@ -28,18 +28,47 @@ namespace DormPortal.Web.Controllers
 			return Ok(result);
 		}
 
+		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			return Ok(_unitOfWork.StudentRepository.FindById(id));
+			IActionResult result;
+
+			try
+			{
+				var student = _unitOfWork.StudentRepository.FindById(id);
+				result = Ok(Mapper.Map<StudentDto>(student));
+			}
+			catch (KeyNotFoundException)
+			{
+				result = NotFound("Could not find the entity with this id");
+			}
+
+			return result;
 		}
 
-		public IActionResult Post(Student student)
+		[HttpPost]
+		public IActionResult Post(StudentForCreationDto studentDto)
 		{
-			//var result = _unitOfWork.Add<Student>(student);
-			var result = student;
-			_unitOfWork.Commit();
+			IActionResult result;
 
-			return Ok(result);
+			if (studentDto == null)
+			{
+				result = BadRequest();
+			}
+
+			var student = Mapper.Map<Student>(studentDto);
+			var addedStudent = _unitOfWork.StudentRepository.Add(student);
+
+			if (!_unitOfWork.Commit())
+			{
+				result = Ok(Mapper.Map<StudentDto>(addedStudent));
+			}
+			else
+			{
+				throw new Exception("Creating entity failed");
+			}
+
+			return result;
 		}
 
 		public IActionResult Put(int id, Student student)

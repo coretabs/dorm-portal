@@ -4,6 +4,7 @@ using DormPortal.Data;
 using DormPortal.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,8 +42,21 @@ namespace DormPortal.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+	            app.UseExceptionHandler(appBuilder => 
+	            appBuilder.Run(async context =>
+	            {
+		            context.Response.StatusCode = 500;
+		            await context.Response.WriteAsync("Something weird happened :(");
+	            }));
+            }
 
-			AutoMapper.Mapper.Initialize(config => config.CreateMap<Student, StudentDto>());
+			AutoMapper.Mapper.Initialize(config =>
+			{
+				config.CreateMap<Student, StudentDto>();
+				config.CreateMap<Student, StudentForCreationDto>();
+			});
 
 	        unitOfWork.EnsureSeedDb();
 
