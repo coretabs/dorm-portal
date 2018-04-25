@@ -50,9 +50,13 @@ namespace DormPortal.Data
 		public IEnumerable<T> Add(IEnumerable<T> entities) => Perform(entities, Add);
 		public IEnumerable<T> Update(IEnumerable<T> entities) => Perform(entities, Update);
 		public IEnumerable<T> Delete(IEnumerable<T> entities) => Perform(entities, Delete);
-
 		private IEnumerable<T> Perform(IEnumerable<T> entities, Func<T, T> operation)
 			=> entities.Select(operation).ToList();
+		//public void Add(IEnumerable<T> entities) => DbSet.AddRange(entities);
+		//public void Update(IEnumerable<T> entities) => DbSet.UpdateRange(entities);
+		//public void Delete(IEnumerable<T> entities) => DbSet.RemoveRange(entities);
+
+		
 
 	}
 }
