@@ -28,7 +28,7 @@ namespace DormPortal.Web.Controllers
 			return Ok(result);
 		}
 
-		[HttpGet("{id}")]
+		[HttpGet("{id}", Name = "GET")]
 		public IActionResult Get(int id)
 		{
 			IActionResult result;
@@ -47,7 +47,7 @@ namespace DormPortal.Web.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Post(StudentForCreationDto studentDto)
+		public IActionResult Post([FromBody] StudentForCreationDto studentDto)
 		{
 			IActionResult result;
 
@@ -59,9 +59,9 @@ namespace DormPortal.Web.Controllers
 			var student = Mapper.Map<Student>(studentDto);
 			var addedStudent = _unitOfWork.StudentRepository.Add(student);
 
-			if (!_unitOfWork.Commit())
+			if (_unitOfWork.Commit())
 			{
-				result = Ok(Mapper.Map<StudentDto>(addedStudent));
+				result = CreatedAtRoute("GET", new {id = addedStudent.Id}, Mapper.Map<StudentDto>(addedStudent));
 			}
 			else
 			{
@@ -81,12 +81,13 @@ namespace DormPortal.Web.Controllers
 			return Ok("");
 		}
 
-		//  public IActionResult Delete(Student student)
-		//  {
-		//var result = _unitOfWork.Delete(student);
-		//   _unitOfWork.Commit();
+		[HttpDelete("{id}")]
+		public IActionResult Delete(int id)
+		{
+			_unitOfWork.StudentRepository.Delete(id);
+			_unitOfWork.Commit();
 
-		//   return Ok(result);
-		//  }
+			return NoContent();
+		}
 	}
 }

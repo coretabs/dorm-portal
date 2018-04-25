@@ -19,7 +19,7 @@ namespace DormPortal.Data
 		public TRepository LazyGenericRepository<TRepository, TEntity>
 			(ref TRepository genericRepository, DbSet<TEntity> dbSet)
 			where TRepository: GenericRepository<TEntity>
-			where TEntity : BaseEntity
+			where TEntity : BaseEntity, new ()
 		{
 			genericRepository = genericRepository ??
 								(TRepository)Activator.CreateInstance(typeof(TRepository), dbSet);

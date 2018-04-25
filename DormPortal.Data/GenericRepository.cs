@@ -4,11 +4,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using DormPortal.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace DormPortal.Data
 {
-	public class GenericRepository<T> where T: BaseEntity
+	public class GenericRepository<T> where T : BaseEntity, new()
 	{
 		internal readonly DbSet<T> DbSet;
 
@@ -36,16 +35,24 @@ namespace DormPortal.Data
 			return result;
 		}
 
-		public EntityEntry<T> Add(T entity) => DbSet.Add(entity);
-		public EntityEntry<T> Update(T entity) => DbSet.Update(entity);
-		public EntityEntry<T> Delete(T entity) => DbSet.Remove(entity);
+		public T Add(T entity) => DbSet.Add(entity).Entity;
+		public T Update(T entity) => DbSet.Update(entity).Entity;
+		public T Delete(T entity) => DbSet.Remove(entity).Entity;
 
-		public IEnumerable<EntityEntry<T>> Add(IEnumerable<T> entities) => Perform(entities, Add);
-		public IEnumerable<EntityEntry<T>> Update(IEnumerable<T> entities) => Perform(entities, Update);
-		public IEnumerable<EntityEntry<T>> Delete(IEnumerable<T> entities) => Perform(entities, Delete);
+		public void Delete(int id)
+		{
+			//=> DbSet.Remove(DbSet.Find(id)).Entity;
+			var entity = new T { Id = id };
+			DbSet.Attach(entity);
+			DbSet.Remove(entity);
+		}
 
-		private IEnumerable<EntityEntry<T>> Perform(IEnumerable<T> entities, Func<T, EntityEntry<T>> operation)
+		public IEnumerable<T> Add(IEnumerable<T> entities) => Perform(entities, Add);
+		public IEnumerable<T> Update(IEnumerable<T> entities) => Perform(entities, Update);
+		public IEnumerable<T> Delete(IEnumerable<T> entities) => Perform(entities, Delete);
+
+		private IEnumerable<T> Perform(IEnumerable<T> entities, Func<T, T> operation)
 			=> entities.Select(operation).ToList();
-		
+
 	}
 }
