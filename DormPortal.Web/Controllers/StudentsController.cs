@@ -56,12 +56,11 @@ namespace DormPortal.Web.Controllers
 				result = BadRequest();
 			}
 
-			var student = Mapper.Map<Student>(studentDto);
-			var addedStudent = _unitOfWork.StudentRepository.Add(student);
+			var student = _unitOfWork.StudentRepository.Add(Mapper.Map<Student>(studentDto));
 
 			if (_unitOfWork.Commit())
 			{
-				result = CreatedAtRoute("GET", new {id = addedStudent.Id}, Mapper.Map<StudentDto>(addedStudent));
+				result = CreatedAtRoute("GET", new {id = student.Id}, Mapper.Map<StudentDto>(student));
 			}
 			else
 			{
