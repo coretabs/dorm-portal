@@ -5,7 +5,9 @@ using AutoMapper;
 using DormPortal.Core.Dtos;
 using DormPortal.Core.Models;
 using DormPortal.Data;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DormPortal.Web.Controllers
 {
@@ -47,7 +49,7 @@ namespace DormPortal.Web.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Post([FromBody] StudentForCreationDto studentDto)
+		public IActionResult Post([FromBody] StudentForCreateUpdateDto studentDto)
 		{
 			IActionResult result;
 
@@ -55,38 +57,100 @@ namespace DormPortal.Web.Controllers
 			{
 				result = BadRequest();
 			}
-
-			var student = _unitOfWork.StudentRepository.Add(Mapper.Map<Student>(studentDto));
-
-			if (_unitOfWork.Commit())
-			{
-				result = CreatedAtRoute("GET", new {id = student.Id}, Mapper.Map<StudentDto>(student));
-			}
 			else
 			{
-				throw new Exception("Creating entity failed");
+				var student = _unitOfWork.StudentRepository.Add(Mapper.Map<Student>(studentDto));
+
+				if (_unitOfWork.Commit())
+				{
+					result = CreatedAtRoute("GET", new { id = student.Id }, Mapper.Map<StudentDto>(student));
+				}
+				else
+				{
+					throw new Exception("Creating entity failed");
+				}
 			}
 
 			return result;
 		}
 
-		public IActionResult Put(int id, Student student)
+		[HttpPut("{id}")]
+		public IActionResult Put(int id, [FromBody] StudentForCreateUpdateDto studentDto)
 		{
-			var studentToUpdate = _unitOfWork.StudentRepository.FindById(id);
-			//var result = _unitOfWork.Update(student);
-			_unitOfWork.Commit();
+			IActionResult result;
 
-			//return Ok(result);
-			return Ok("");
+			if (studentDto == null)
+			{
+				result = BadRequest();
+			}
+			else
+			{
+				try
+				{
+					var student = _unitOfWork.StudentRepository.FindById(id);
+					Mapper.Map(studentDto, student);
+
+					_unitOfWork.StudentRepository.Update(student);
+					_unitOfWork.Commit();
+					result = Ok(student);
+				}
+				catch (KeyNotFoundException)
+				{
+					result = NotFound("Could not find the entity with this id");
+				}
+			}
+
+			return result;
+		}
+
+		[HttpPatch("{id}")]
+		public IActionResult Patch(int id, [FromBody] JsonPatchDocument<StudentForCreateUpdateDto> studentPatch)
+		{
+			IActionResult result;
+
+			if (studentPatch == null)
+			{
+				result = BadRequest();
+			}
+			else
+			{
+				try
+				{
+					var student = _unitOfWork.StudentRepository.FindById(id);
+					var studentDto = Mapper.Map<StudentForCreateUpdateDto>(student);
+					studentPatch.ApplyTo(studentDto);
+					Mapper.Map(studentDto, student);
+
+					_unitOfWork.StudentRepository.Update(student);
+					_unitOfWork.Commit();
+					result = Ok(student);
+				}
+				catch (KeyNotFoundException)
+				{
+					result = NotFound("Could not find the entity with this id");
+				}
+			}
+
+			return result;
 		}
 
 		[HttpDelete("{id}")]
 		public IActionResult Delete(int id)
 		{
-			_unitOfWork.StudentRepository.Delete(id);
-			_unitOfWork.Commit();
+			IActionResult result;
 
-			return NoContent();
+			try
+			{
+				_unitOfWork.StudentRepository.Delete(id);
+				_unitOfWork.Commit();
+				result = NoContent();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				result = NotFound("Could not find the entity with this id");
+			}
+
+			return result;
 		}
 	}
 }
