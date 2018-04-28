@@ -8,8 +8,6 @@ namespace DormPortal.Web.Extensions
     {
 	    public static bool IsValid(this ModelStateDictionary modelState, out IActionResult result, object[] paramsObjects)
 	    {
-		    result = new OkResult();
-
 		    foreach (var param in paramsObjects)
 		    {
 			    if (param == null)
@@ -19,13 +17,23 @@ namespace DormPortal.Web.Extensions
 			    }
 		    }
 
-		    if (!modelState.IsValid)
+		    if (!modelState.IsValid(out result)) return false;
+
+			return true;
+	    }
+
+	    public static bool IsValid(this ModelStateDictionary modelState, out IActionResult result)
+	    {
+		    result = new OkResult();
+
+			if (!modelState.IsValid)
 		    {
 			    result = new UnprocessableEntityObjectResult(modelState);
 			    return false;
-			}
+		    }
 
 		    return true;
 	    }
-    }
+
+	}
 }

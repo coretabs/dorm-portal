@@ -2,15 +2,14 @@
 
 namespace DormPortal.Core.Dtos
 {
-    public class StudentForUpdateDto
+
+    public class StudentForUpdateDto : StudentForManipulation
     {
-		[Required]
-		[MaxLength(50)]
-		public string FirstName { get; set; }
 	    [Required]
-		[MaxLength(50)]
-		public string LastName { get; set; }
-		[Required]
-	    public string PassportNumber { get; set; }
+	    public override string PassportNumber
+	    {
+		    get => base.PassportNumber;
+		    set => base.PassportNumber = value;
+	    }
 	}
 }

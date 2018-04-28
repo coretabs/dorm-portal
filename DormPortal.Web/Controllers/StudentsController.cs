@@ -108,12 +108,18 @@ namespace DormPortal.Web.Controllers
 				{
 					var student = _unitOfWork.StudentRepository.FindById(id);
 					var studentDto = Mapper.Map<StudentForUpdateDto>(student);
-					studentPatch.ApplyTo(studentDto);
-					Mapper.Map(studentDto, student);
+					studentPatch.ApplyTo(studentDto, ModelState);
+					TryValidateModel(studentDto);
 
-					_unitOfWork.StudentRepository.Update(student);
-					_unitOfWork.Commit();
-					result = Ok(student);
+					if (ModelState.IsValid(out result))
+					{
+						Mapper.Map(studentDto, student);
+
+						_unitOfWork.StudentRepository.Update(student);
+						_unitOfWork.Commit();
+						result = Ok(student);
+					}
+					
 				}
 				catch (KeyNotFoundException)
 				{
