@@ -3,11 +3,13 @@ using DormPortal.Core.Models;
 using DormPortal.Data;
 using DormPortal.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -36,8 +38,11 @@ namespace DormPortal.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IUnitOfWork unitOfWork)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IUnitOfWork unitOfWork, ILoggerFactory loggerFactory)
         {
+	        loggerFactory.AddConsole();
+	        loggerFactory.AddDebug(LogLevel.Information);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -47,7 +52,16 @@ namespace DormPortal.Web
 	            app.UseExceptionHandler(appBuilder => 
 	            appBuilder.Run(async context =>
 	            {
-		            context.Response.StatusCode = 500;
+		            var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+		            if (exceptionHandlerFeature != null)
+		            {
+			            var logger = loggerFactory.CreateLogger("Global exception logger");
+			            logger.LogError(500,
+				            exceptionHandlerFeature.Error,
+				            exceptionHandlerFeature.Error.Message);
+		            }
+
+					context.Response.StatusCode = 500;
 		            await context.Response.WriteAsync("Something weird happened :(");
 	            }));
             }

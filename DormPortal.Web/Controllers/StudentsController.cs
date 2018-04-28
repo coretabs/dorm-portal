@@ -6,10 +6,10 @@ using DormPortal.Core.Dtos;
 using DormPortal.Core.Models;
 using DormPortal.Data;
 using DormPortal.Web.Extensions;
-using DormPortal.Web.Helpers;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace DormPortal.Web.Controllers
 {
@@ -17,10 +17,12 @@ namespace DormPortal.Web.Controllers
 	public class StudentsController : Controller
 	{
 		private readonly IUnitOfWork _unitOfWork;
+		private readonly ILogger<StudentsController> _logger;
 
-		public StudentsController(IUnitOfWork unitOfWork)
+		public StudentsController(IUnitOfWork unitOfWork, ILogger<StudentsController> logger)
 		{
 			_unitOfWork = unitOfWork;
+			_logger = logger;
 		}
 
 		[HttpGet]
@@ -67,7 +69,11 @@ namespace DormPortal.Web.Controllers
 				{
 					throw new Exception("Creating entity failed");
 				}
+
+				_logger.LogInformation("100", $"Added a new student entity {student.Id}");
 			}
+
+			
 
 			return result;
 		}
@@ -87,6 +93,7 @@ namespace DormPortal.Web.Controllers
 					_unitOfWork.StudentRepository.Update(student);
 					_unitOfWork.Commit();
 					result = Ok(student);
+					_logger.LogInformation("100", $"Updated a student entity {student.Id}");
 				}
 				catch (KeyNotFoundException)
 				{
@@ -119,7 +126,8 @@ namespace DormPortal.Web.Controllers
 						_unitOfWork.Commit();
 						result = Ok(student);
 					}
-					
+
+					_logger.LogInformation("100", $"Updated a student entity {student.Id}");
 				}
 				catch (KeyNotFoundException)
 				{
@@ -140,6 +148,7 @@ namespace DormPortal.Web.Controllers
 				_unitOfWork.StudentRepository.Delete(id);
 				_unitOfWork.Commit();
 				result = NoContent();
+				_logger.LogInformation("100", $"Deleted a student entity {id}");
 			}
 			catch (DbUpdateConcurrencyException)
 			{
