@@ -54,8 +54,14 @@ namespace DormPortal.Web
 
 			AutoMapper.Mapper.Initialize(config =>
 			{
-				config.CreateMap<Student, StudentDto>();
-				config.CreateMap<StudentForCreateUpdateDto, Student>()
+				config.CreateMap<Student, StudentDto>()
+					.ForMember(studentDto => studentDto.Name, 
+						options => options.MapFrom(src => $"{src.FirstName} {src.LastName}"));
+
+				config.CreateMap<StudentForCreationDto, Student>()
+					.ForMember(student => student.Id, options => options.Ignore());
+
+				config.CreateMap<StudentForUpdateDto, Student>()
 					.ForMember(student => student.Id, options => options.Ignore());
 			});
 

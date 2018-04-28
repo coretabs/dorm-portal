@@ -7,10 +7,10 @@ namespace DormPortal.Data
 	{
 		public static List<Student> Students => new List<Student>()
 		{
-			new Student{Name = "Yaser", PassportNumber = "484245aa"},
-			new Student{Name = "Mohammed", PassportNumber = "7d5g4sd4"},
-			new Student{Name = "Nonsu", PassportNumber = "8494sega"},
-			new Student{Name = "Yagmur", PassportNumber = "59f54hr"},
+			new Student{FirstName = "Yaser", LastName = "Al-Najjar", PassportNumber = "484245aa"},
+			new Student{FirstName = "Mohammed", LastName = "Al-Hakem", PassportNumber = "7d5g4sd4"},
+			new Student{FirstName = "Nonsu", LastName = "Doru", PassportNumber = "8494sega"},
+			new Student{FirstName = "Yagmur", LastName = "Tatli", PassportNumber = "59f54hr"},
 		};
 
 		public static List<Room> Rooms => new List<Room>()

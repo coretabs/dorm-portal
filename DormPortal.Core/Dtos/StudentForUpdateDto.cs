@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DormPortal.Core.Models
+namespace DormPortal.Core.Dtos
 {
-    public class Student : BaseEntity
-	{
+    public class StudentForUpdateDto
+    {
 		[Required]
 		[MaxLength(50)]
 		public string FirstName { get; set; }
+	    [Required]
+		[MaxLength(50)]
 		public string LastName { get; set; }
 		[Required]
 	    public string PassportNumber { get; set; }

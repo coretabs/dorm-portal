@@ -5,6 +5,8 @@ using AutoMapper;
 using DormPortal.Core.Dtos;
 using DormPortal.Core.Models;
 using DormPortal.Data;
+using DormPortal.Web.Extensions;
+using DormPortal.Web.Helpers;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -49,15 +51,11 @@ namespace DormPortal.Web.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Post([FromBody] StudentForCreateUpdateDto studentDto)
+		public IActionResult Post([FromBody] StudentForCreationDto studentDto)
 		{
 			IActionResult result;
 
-			if (studentDto == null)
-			{
-				result = BadRequest();
-			}
-			else
+			if (ModelState.IsValid(out result, new []{ studentDto }))
 			{
 				var student = _unitOfWork.StudentRepository.Add(Mapper.Map<Student>(studentDto));
 
@@ -75,15 +73,11 @@ namespace DormPortal.Web.Controllers
 		}
 
 		[HttpPut("{id}")]
-		public IActionResult Put(int id, [FromBody] StudentForCreateUpdateDto studentDto)
+		public IActionResult Put(int id, [FromBody] StudentForUpdateDto studentDto)
 		{
 			IActionResult result;
 
-			if (studentDto == null)
-			{
-				result = BadRequest();
-			}
-			else
+			if (ModelState.IsValid(out result, new[] { studentDto }))
 			{
 				try
 				{
@@ -104,20 +98,16 @@ namespace DormPortal.Web.Controllers
 		}
 
 		[HttpPatch("{id}")]
-		public IActionResult Patch(int id, [FromBody] JsonPatchDocument<StudentForCreateUpdateDto> studentPatch)
+		public IActionResult Patch(int id, [FromBody] JsonPatchDocument<StudentForUpdateDto> studentPatch)
 		{
 			IActionResult result;
 
-			if (studentPatch == null)
-			{
-				result = BadRequest();
-			}
-			else
+			if (ModelState.IsValid(out result, new[] { studentPatch }))
 			{
 				try
 				{
 					var student = _unitOfWork.StudentRepository.FindById(id);
-					var studentDto = Mapper.Map<StudentForCreateUpdateDto>(student);
+					var studentDto = Mapper.Map<StudentForUpdateDto>(student);
 					studentPatch.ApplyTo(studentDto);
 					Mapper.Map(studentDto, student);
 

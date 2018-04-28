@@ -15,13 +15,12 @@ namespace DormPortal.Data
 		    return Find(room => room.IsReserved == false);
 	    }
 
-	    public bool ReserveRoom(int id)
-	    {
-		    var currentRoom = FindById(id);
-
-		    currentRoom.IsReserved = true;
-
-		    return true;
-	    }
+	    //public bool ReserveRoom(int id)
+	    //{
+		//    var currentRoom = FindById(id);
+		//    currentRoom.IsReserved = true;
+		//
+		//    return true;
+	    //}
     }
 }
