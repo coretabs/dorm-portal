@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 using DormPortal.Core.Dtos;
+using DormPortal.Core.Helpers;
 using DormPortal.Core.Models;
 using DormPortal.Data;
 using DormPortal.Web.Helpers;
@@ -9,7 +10,6 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Sieve.Models;
 using Sieve.Services;
 
 namespace DormPortal.Web.Controllers
@@ -34,9 +34,7 @@ namespace DormPortal.Web.Controllers
 		{
 			var students = _unitOfWork.StudentRepository.GetAll();
 
-			var sievedStudents = _sieveProcessor.Apply(sieveModel, students);
-
-			var result = Mapper.Map<IEnumerable<StudentDto>>(sievedStudents);
+			var result = QueryableSieve.Apply(_sieveProcessor, sieveModel, students);
 
 			return Ok(result);
 		}
