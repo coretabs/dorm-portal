@@ -1,8 +1,7 @@
-﻿using DormPortal.Web.Helpers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace DormPortal.Web.Extensions
+namespace DormPortal.Web.Helpers
 {
     public static class ModelState
     {

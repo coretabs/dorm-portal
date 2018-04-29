@@ -1,8 +1,7 @@
-﻿using System.Dynamic;
-using System.Linq;
+﻿using System.Linq;
 using DormPortal.Core.Models;
 
-namespace DormPortal.Web.Extensions
+namespace DormPortal.Web.Helpers
 {
     public static class QueryableShaper
     {

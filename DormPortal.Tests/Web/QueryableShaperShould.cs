@@ -1,6 +1,6 @@
 using System.Linq;
 using DormPortal.Data;
-using DormPortal.Web.Extensions;
+using DormPortal.Web.Helpers;
 using Xunit;
 
 namespace DormPortal.Tests.Web
@@ -13,6 +13,8 @@ namespace DormPortal.Tests.Web
 	        var students = DummyData.Students;
 
 	        var shapedStudents = students.AsQueryable().Shape(new []{ "passportNumber" });
+
+			Assert.Equal(shapedStudents[0], "");
 
 			Assert.Equal(typeof(EnumerableQuery<string>), shapedStudents.GetType());
 		}

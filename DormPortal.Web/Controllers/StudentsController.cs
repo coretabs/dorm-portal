@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using DormPortal.Core.Dtos;
 using DormPortal.Core.Models;
 using DormPortal.Data;
-using DormPortal.Web.Extensions;
+using DormPortal.Web.Helpers;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +34,8 @@ namespace DormPortal.Web.Controllers
 		{
 			var students = _unitOfWork.StudentRepository.GetAll();
 
-			var sievedStudents = _sieveProcessor.Filter(sieveModel, students);
+			var sievedStudents = _sieveProcessor.Apply(sieveModel, students);
+
 			var result = Mapper.Map<IEnumerable<StudentDto>>(sievedStudents);
 
 			return Ok(result);

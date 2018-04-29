@@ -1,7 +1,7 @@
 ﻿using DormPortal.Core.Dtos;
 using DormPortal.Core.Models;
 using DormPortal.Data;
-using DormPortal.Web.Extensions;
+using DormPortal.Web.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;

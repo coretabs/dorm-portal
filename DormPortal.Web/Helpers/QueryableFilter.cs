@@ -3,7 +3,7 @@ using System.Linq;
 using Sieve.Models;
 using Sieve.Services;
 
-namespace DormPortal.Web.Extensions
+namespace DormPortal.Web.Helpers
 {
     public static class QueryableFilter
     {

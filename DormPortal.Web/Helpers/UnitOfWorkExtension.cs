@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using DormPortal.Data;
 
-namespace DormPortal.Web.Extensions
+namespace DormPortal.Web.Helpers
 {
     public static class UnitOfWorkExtension
     {
