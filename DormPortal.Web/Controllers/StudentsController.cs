@@ -70,7 +70,7 @@ namespace DormPortal.Web.Controllers
 					throw new Exception("Creating entity failed");
 				}
 
-				_logger.LogInformation("100", $"Added a new student entity {student.Id}");
+				_logger.LogInformation($"Added a new student entity {student.Id}");
 			}
 
 			
@@ -93,7 +93,7 @@ namespace DormPortal.Web.Controllers
 					_unitOfWork.StudentRepository.Update(student);
 					_unitOfWork.Commit();
 					result = Ok(student);
-					_logger.LogInformation("100", $"Updated a student entity {student.Id}");
+					_logger.LogInformation($"Updated a student entity {student.Id}");
 				}
 				catch (KeyNotFoundException)
 				{
@@ -127,7 +127,7 @@ namespace DormPortal.Web.Controllers
 						result = Ok(student);
 					}
 
-					_logger.LogInformation("100", $"Updated a student entity {student.Id}");
+					_logger.LogInformation($"Updated a student entity {student.Id}");
 				}
 				catch (KeyNotFoundException)
 				{
@@ -148,7 +148,7 @@ namespace DormPortal.Web.Controllers
 				_unitOfWork.StudentRepository.Delete(id);
 				_unitOfWork.Commit();
 				result = NoContent();
-				_logger.LogInformation("100", $"Deleted a student entity {id}");
+				_logger.LogInformation($"Deleted a student entity {id}");
 			}
 			catch (DbUpdateConcurrencyException)
 			{
