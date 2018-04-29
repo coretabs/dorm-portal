@@ -1,0 +1,424 @@
+{
+	"info": {
+		"_postman_id": "8e85701f-4104-442a-a58c-01dc3d0039d0",
+		"name": "DormPortal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49318/api/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Students (sort)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49318/api/students?sorts=firstName&filters=firstName@=Y&page=1&pagesize=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students"
+					],
+					"query": [
+						{
+							"key": "sorts",
+							"value": "firstName"
+						},
+						{
+							"key": "filters",
+							"value": "firstName@=Y"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "pagesize",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49318/api/students/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Student (not-exist)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49318/api/students/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Student",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Abdullah\",\n\t\"lastName\": \"Al-Badani\",\n    \"passportNumber\": \"9851wbx\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49318/api/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Student (validation)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"passportNumber\": \"9851wbx\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49318/api/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Student (bad request)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:49318/api/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Student",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Osaid\",\n\t\"lastName\": \"Alghail\",\n    \"passportNumber\": \"1234qqqq\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49318/api/students/16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students",
+						"16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Student (validation)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Osaid\",\n    \"passportNumber\": \"1234qqqq\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49318/api/students/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Student (bad request)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:49318/api/students/16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students",
+						"16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH student",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\t\"op\": \"replace\",\n\t\t\"path\": \"/firstName\",\n\t\t\"value\": \"Osaid\"\n\t}\n]"
+				},
+				"url": {
+					"raw": "http://localhost:49318/api/students/18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH student (validation)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\t\"op\": \"replace\",\n\t\t\"path\": \"/firstName\",\n\t\t\"value\": \"Not just that you will learn programmin, but also you will get exposed to a wide community of qualified programmers.\"\n\t}\n]"
+				},
+				"url": {
+					"raw": "http://localhost:49318/api/students/18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH student (non existing property)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\t\"op\": \"replace\",\n\t\t\"path\": \"/aaa\",\n\t\t\"value\": \"Osaid\"\n\t}\n]"
+				},
+				"url": {
+					"raw": "http://localhost:49318/api/students/18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Student",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49318/api/students/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Student (not exist)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49318/api/students/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students",
+						"100"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -55,8 +55,5 @@ namespace DormPortal.Data
 		//public void Add(IEnumerable<T> entities) => DbSet.AddRange(entities);
 		//public void Update(IEnumerable<T> entities) => DbSet.UpdateRange(entities);
 		//public void Delete(IEnumerable<T> entities) => DbSet.RemoveRange(entities);
-
-		
-
 	}
 }

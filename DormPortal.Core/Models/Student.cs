@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Sieve.Attributes;
 
 namespace DormPortal.Core.Models
 {
@@ -6,9 +7,11 @@ namespace DormPortal.Core.Models
 	{
 		[Required]
 		[MaxLength(50)]
+		[Sieve(CanFilter = true, CanSort = true)]
 		public string FirstName { get; set; }
-		public string LastName { get; set; }
 		[Required]
+		[MaxLength(50)]
+		public string LastName { get; set; }
 	    public string PassportNumber { get; set; }
 	}
 }

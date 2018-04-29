@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Sieve.Models;
+using Sieve.Services;
 
 namespace DormPortal.Web.Controllers
 {
@@ -18,18 +20,23 @@ namespace DormPortal.Web.Controllers
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly ILogger<StudentsController> _logger;
+		private readonly ISieveProcessor _sieveProcessor;
 
-		public StudentsController(IUnitOfWork unitOfWork, ILogger<StudentsController> logger)
+		public StudentsController(IUnitOfWork unitOfWork, ILogger<StudentsController> logger, 
+			ISieveProcessor sieveProcessor)
 		{
 			_unitOfWork = unitOfWork;
 			_logger = logger;
+			_sieveProcessor = sieveProcessor;
 		}
 
 		[HttpGet]
-		public IActionResult Get()
+		public IActionResult Get(SieveModel sieveModel)
 		{
-			var students = _unitOfWork.StudentRepository.GetAll().ToList();
-			var result = Mapper.Map<IEnumerable<StudentDto>>(students);
+			var students = _unitOfWork.StudentRepository.GetAll();
+
+			var sievedStudents = _sieveProcessor.Filter(sieveModel, students);
+			var result = Mapper.Map<IEnumerable<StudentDto>>(sievedStudents);
 
 			return Ok(result);
 		}

@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DormPortal.Core", "DormPort
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DormPortal.Data", "DormPortal.Data\DormPortal.Data.csproj", "{776AAE90-39EF-4E78-A943-15FC2556D1A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DormPortal.Web", "DormPortal.Web\DormPortal.Web.csproj", "{9A2F293B-1D80-4D29-8F71-58A1F3A134D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DormPortal.Web", "DormPortal.Web\DormPortal.Web.csproj", "{9A2F293B-1D80-4D29-8F71-58A1F3A134D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DormPortal.Tests", "DormPortal.Tests\DormPortal.Tests.csproj", "{AA6A70CB-A5ED-48E9-AEB4-FECFA789D7DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{9A2F293B-1D80-4D29-8F71-58A1F3A134D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A2F293B-1D80-4D29-8F71-58A1F3A134D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A2F293B-1D80-4D29-8F71-58A1F3A134D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA6A70CB-A5ED-48E9-AEB4-FECFA789D7DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA6A70CB-A5ED-48E9-AEB4-FECFA789D7DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA6A70CB-A5ED-48E9-AEB4-FECFA789D7DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA6A70CB-A5ED-48E9-AEB4-FECFA789D7DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

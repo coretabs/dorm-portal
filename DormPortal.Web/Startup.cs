@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Sieve.Services;
 
 namespace DormPortal.Web
 {
@@ -35,10 +36,11 @@ namespace DormPortal.Web
 
 	        services.AddDbContext<DormPortalDbContext>(options => options.UseInMemoryDatabase("InMemDb"));
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
-        }
+	        services.AddScoped<ISieveProcessor, SieveProcessor>();
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IUnitOfWork unitOfWork, ILoggerFactory loggerFactory)
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, IUnitOfWork unitOfWork, ILoggerFactory loggerFactory)
         {
 	        loggerFactory.AddConsole();
 	        loggerFactory.AddDebug(LogLevel.Information);
