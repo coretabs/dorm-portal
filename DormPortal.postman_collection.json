@@ -66,6 +66,49 @@
 			"response": []
 		},
 		{
+			"name": "GET Students (shape)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49318/api/students?sorts=firstName&filters=firstName@=Y&page=1&pagesize=2&fields=passportNumber,name",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49318",
+					"path": [
+						"api",
+						"students"
+					],
+					"query": [
+						{
+							"key": "sorts",
+							"value": "firstName"
+						},
+						{
+							"key": "filters",
+							"value": "firstName@=Y"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "pagesize",
+							"value": "2"
+						},
+						{
+							"key": "fields",
+							"value": "passportNumber,name"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET Student",
 			"request": {
 				"method": "GET",
