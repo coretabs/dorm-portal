@@ -32,11 +32,19 @@ namespace DormPortal.Web.Controllers
 		[HttpGet]
 		public IActionResult Get(SieveModel sieveModel)
 		{
+			IActionResult result;
 			var students = _unitOfWork.StudentRepository.GetAll();
 
-			var result = QueryableSieve.Apply(_sieveProcessor, sieveModel, students);
+			try
+			{
+				result = Ok(QueryableSieve.Apply(_sieveProcessor, sieveModel, students));
+			}
+			catch (Exception)
+			{
+				result = BadRequest();
+			}
 
-			return Ok(result);
+			return result;
 		}
 
 		[HttpGet("{id}", Name = "GET")]
