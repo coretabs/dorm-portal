@@ -1,10 +1,11 @@
 ﻿using DormPortal.Core.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DormPortal.Data
 {
-    public class DormPortalDbContext : DbContext
-    {
+    public class DormPortalDbContext : IdentityDbContext
+	{
 		public DormPortalDbContext(DbContextOptions<DormPortalDbContext> options): base(options)
 		{
 	    }

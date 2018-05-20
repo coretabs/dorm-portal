@@ -41,7 +41,9 @@ namespace DormPortal.Web
 	            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
-	        services.AddDbContext<DormPortalDbContext>(options => options.UseInMemoryDatabase("InMemDb"));
+			//services.AddDbContext<DormPortalDbContext>(options => options.UseInMemoryDatabase("InMemDb"));
+	        services.AddDbContext<DormPortalDbContext>(options =>
+		        options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 	        services.AddScoped<ISieveProcessor, SieveProcessor>();
 		}
