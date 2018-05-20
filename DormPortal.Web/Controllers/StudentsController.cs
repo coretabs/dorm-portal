@@ -6,6 +6,7 @@ using DormPortal.Core.Helpers;
 using DormPortal.Core.Models;
 using DormPortal.Data;
 using DormPortal.Web.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,7 @@ namespace DormPortal.Web.Controllers
 			return result;
 		}
 
+		[Authorize]
 		[HttpGet("{id}", Name = "GET")]
 		public IActionResult Get(int id)
 		{
