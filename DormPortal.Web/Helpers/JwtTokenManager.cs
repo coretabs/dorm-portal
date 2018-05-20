@@ -10,8 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace DormPortal.Web.Helpers
 {
-    public class JwtTokenManager
-    {
+    public class JwtTokenManager : IJwtTokenManager
+	{
 	    private readonly IConfiguration _configuration;
 
 	    public JwtTokenManager(IConfiguration configuration)

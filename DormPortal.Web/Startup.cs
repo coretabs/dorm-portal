@@ -79,6 +79,7 @@ namespace DormPortal.Web
 
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<ISieveProcessor, SieveProcessor>();
+			services.AddScoped<IJwtTokenManager, JwtTokenManager>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -130,6 +131,8 @@ namespace DormPortal.Web
 			});
 
 			unitOfWork.EnsureSeedDb(dbContext);
+
+			app.UseAuthentication();
 
 			app.UseMvc();
 		}
