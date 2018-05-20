@@ -5,9 +5,11 @@ namespace DormPortal.Web.Helpers
 {
     public static class UnitOfWorkExtension
     {
-	    public static void EnsureSeedDb(this IUnitOfWork unitOfWork)
+	    public static void EnsureSeedDb(this IUnitOfWork unitOfWork, DormPortalDbContext dbContext)
 	    {
-		    if (!unitOfWork.StudentRepository.GetAll().Any())
+		    dbContext.Database.EnsureCreated();
+
+			if (!unitOfWork.StudentRepository.GetAll().Any())
 		    {
 				unitOfWork.DormitoryRespository.Add(DummyData.Dormitories);
 				unitOfWork.RoomRespository.Add(DummyData.Rooms);

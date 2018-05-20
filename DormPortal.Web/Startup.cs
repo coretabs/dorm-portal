@@ -73,8 +73,6 @@ namespace DormPortal.Web
 				options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 			});
 
-			var test = Configuration.GetConnectionString("DefaultConnection");
-
 			//services.AddDbContext<DormPortalDbContext>(options => options.UseInMemoryDatabase("InMemDb"));
 			services.AddDbContext<DormPortalDbContext>(options =>
 				options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
@@ -131,9 +129,7 @@ namespace DormPortal.Web
 					.ForMember(student => student.Id, options => options.Ignore());
 			});
 
-			dbContext.Database.EnsureCreated();
-
-			unitOfWork.EnsureSeedDb();
+			unitOfWork.EnsureSeedDb(dbContext);
 
 			app.UseMvc();
 		}
