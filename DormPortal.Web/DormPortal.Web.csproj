@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Content Remove="nlog.config" />
+    <Content Remove="Views\Home\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +28,7 @@
     <None Include="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Views\Home\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
