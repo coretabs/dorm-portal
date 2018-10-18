@@ -1,2 +1,3 @@
-# dorm-portal
-University graduation project
+# Dorm Portal
+
+Dormitory system for both students and managers

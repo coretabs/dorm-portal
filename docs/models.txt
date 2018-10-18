@@ -1,0 +1,73 @@
+dorm
+	description
+	officer_name
+	category (emu, private...)
+	
+	transportation
+	geo_location
+	address
+	contact_email
+	contact_number
+	
+	bank_accounts
+	reviews
+	dorm_photos
+	room_characteristics
+	
+bank_account
+	bank_name
+	bank_iban
+	bank_swift
+	
+	
+dorm_photo
+	url
+	
+	dorm
+	
+review
+	stars
+	description
+	
+	user
+	dorm
+	
+room characteristics
+	available_rooms_number
+	price
+	
+	room_photos
+	filters
+	
+room_photo
+	url
+	
+	room characteristics
+	
+filter
+	name
+	
+mutliple choice filter
+	type (radio, checkbox)
+	default_options
+	
+	filter
+	
+integral filter (not sure if we need it)
+	filter
+	
+activity filter
+	icon
+	
+	filter
+	
+reservation
+	is_confirmed
+	reciept_url
+	update_reciept_date
+	
+	user
+	dorm
+	room_characteristics
+	
+user
