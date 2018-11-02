@@ -12,6 +12,7 @@ show all reviews
 
 manage dorm
 manage rooms
+support multiple languages input for some fields
 
 manage dorm facilities
 create room characteristics
@@ -22,11 +23,16 @@ show avaiable rooms qouta
 report students by dormitory
 search student current dormitory
 
+show address
+show geo location
+search on google map
+
 ```
 dorm
 	name
 	history
-	geo_location
+	geo_longitude
+	geo_latitude
 	address
 	
 	category (emu, private...)
@@ -48,6 +54,7 @@ bank_account
 	
 dorm_photo
 	url
+	is_3d
 	
 	dorm
 	
@@ -59,7 +66,9 @@ review
 	dorm
 	
 room characteristics
-	available_rooms_number
+	total_quota
+	allowed_quota // allowed_quota -= 1
+	available_rooms_number //  available_rooms_number += 1
 	price
 	price_currency
 	
@@ -68,6 +77,7 @@ room characteristics
 	
 room_photo
 	url
+	is_3d
 	
 	room characteristics
 
@@ -100,4 +110,8 @@ activity_facility filter
 dorm_activities_facilities
 	activity_facility
 	dorm
+	
+languages
+	code
+	name
 ```

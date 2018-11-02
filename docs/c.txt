@@ -1,4 +1,0 @@
-show address
-show geo location
-search on google map
-show distance between two points

@@ -1,4 +1,5 @@
 send event decrease quota for 3 days (except Fri Sat Sun)
+// each dorm has the number of days
 show iban for payment & contact & deadline
 
 upload reciept
@@ -17,8 +18,15 @@ reset password
 
 ```
 reservation
+	reservation_creation_date
+	
+	room_type
+	reservation_duration
+	is_reviewed
+	
 	is_confirmed
 	confirmation_deadline
+	
 	reciept_url
 	update_reciept_date
 	
