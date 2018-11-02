@@ -1,16 +1,19 @@
 dorm
-	description
-	officer_name
-	category (emu, private...)
-	
-	transportation
+	name
+	history
 	geo_location
 	address
+	
+	category (emu, private...)
+	
 	contact_email
 	contact_number
 	
+	dorm_facil
+	manager
 	bank_accounts
 	reviews
+	dorm_cover_photo
 	dorm_photos
 	room_characteristics
 	
@@ -18,7 +21,6 @@ bank_account
 	bank_name
 	bank_iban
 	bank_swift
-	
 	
 dorm_photo
 	url
@@ -35,6 +37,7 @@ review
 room characteristics
 	available_rooms_number
 	price
+	price_currency
 	
 	room_photos
 	filters
@@ -43,9 +46,16 @@ room_photo
 	url
 	
 	room characteristics
+
+filter_group
+	name
+	
+	filters
 	
 filter
 	name
+	
+	filter_group
 	
 mutliple choice filter
 	type (radio, checkbox)
@@ -53,13 +63,19 @@ mutliple choice filter
 	
 	filter
 	
-integral filter (not sure if we need it)
+integral filter
+	number
+
 	filter
 	
-activity filter
+activity_facility filter
 	icon
 	
 	filter
+	
+dorm_activities_facilities
+	activity_facility
+	dorm
 	
 reservation
 	is_confirmed
@@ -70,4 +86,9 @@ reservation
 	dorm
 	room_characteristics
 	
+localized_string
+	language_code
+	value
+	
 user
+	name

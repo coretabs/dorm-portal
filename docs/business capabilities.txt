@@ -1,28 +1,20 @@
-manage dorm
-manage rooms
-
-manage managers
-	
 get avaiable dorms
 show 3d images
 filter integral range values (range slider)
 filter radio values
 filter checkbox
-show transportation 
-show airport transfer
 show address
+show geo location
 search on google map
 show distance between two points
-compare two dorms by price
-review a dorm
 
 get dorm all rooms prices
+get last avaiable quota (7 last rooms)
+
+review a dorm
 show all reviews
 
-report students by dormitory
-search student current dormitory
-
-??send email to know student status in next year
+convert currency (koop)
 
 show iban for payment & contact & deadline
 login
@@ -32,9 +24,17 @@ send email for payment documents
 show payment documents
 confirm payment + drop room from the list
 
+manage dorm
+manage rooms
+
+manage dorm facilities
 create room characteristics
 manage rooms avaiable number (qouta)
 send email to increase quota
 show avaiable rooms qouta
+
+manage managers
+report students by dormitory
+search student current dormitory
 
 change language
