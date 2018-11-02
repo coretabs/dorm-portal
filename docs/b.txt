@@ -8,6 +8,12 @@ show payment documents
 
 confirm payment
 send event drop room from the list
+check reservation status
+
+login
+register
+confirm email
+reset password
 
 ```
 reservation
@@ -19,4 +25,8 @@ reservation
 	user
 	dorm
 	room_characteristics
+	
+user
+	name
+	reservations
 ```
