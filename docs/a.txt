@@ -1,3 +1,28 @@
+get avaiable rooms
+get last avaiable quota (7 last rooms)
+filter integral range values (range slider)
+filter radio values
+filter checkbox
+
+get dorm all rooms prices
+convert currency (koop)
+
+review a dorm
+show all reviews
+
+manage dorm
+manage rooms
+
+manage dorm facilities
+create room characteristics
+manage rooms avaiable number (qouta)
+send email to increase quota
+show avaiable rooms qouta
+
+report students by dormitory
+search student current dormitory
+
+```
 dorm
 	name
 	history
@@ -75,19 +100,4 @@ activity_facility filter
 dorm_activities_facilities
 	activity_facility
 	dorm
-	
-reservation
-	is_confirmed
-	reciept_url
-	update_reciept_date
-	
-	user
-	dorm
-	room_characteristics
-	
-localized_string
-	language_code
-	value
-	
-user
-	name
+```

@@ -1,8 +1,9 @@
-get avaiable dorms
+get avaiable rooms
 show 3d images
 filter integral range values (range slider)
 filter radio values
 filter checkbox
+
 show address
 show geo location
 search on google map
@@ -16,13 +17,15 @@ show all reviews
 
 convert currency (koop)
 
+send event decrease quota for 3 days (except Fri Sat Sun)
 show iban for payment & contact & deadline
 login
 upload reciept
 check payment status
 send email for payment documents
 show payment documents
-confirm payment + drop room from the list
+confirm payment
+send event drop room from the list
 
 manage dorm
 manage rooms

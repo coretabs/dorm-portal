@@ -1,0 +1,22 @@
+send event decrease quota for 3 days (except Fri Sat Sun)
+show iban for payment & contact & deadline
+
+upload reciept
+check payment status
+send email for payment documents
+show payment documents
+
+confirm payment
+send event drop room from the list
+
+```
+reservation
+	is_confirmed
+	confirmation_deadline
+	reciept_url
+	update_reciept_date
+	
+	user
+	dorm
+	room_characteristics
+```
