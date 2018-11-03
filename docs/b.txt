@@ -1,5 +1,4 @@
-send event decrease quota for 3 days (except Fri Sat Sun)
-// each dorm has the number of days
+send event decrease quota for n days (except Sat Sun)
 show iban for payment & contact & deadline
 
 upload reciept
@@ -26,6 +25,11 @@ reservation
 	
 	is_confirmed
 	confirmation_deadline
+	
+	is_rejected
+	
+	last_update
+	follow_up_message
 	
 	reciept_url
 	update_reciept_date

@@ -49,8 +49,14 @@ dorm
 	
 bank_account
 	bank_name
-	bank_iban
-	bank_swift
+	
+	account_name
+	account_num
+	
+	iban
+	swift
+	currency
+	
 	
 dorm_photo
 	url
@@ -71,6 +77,8 @@ room characteristics
 	available_rooms_number //  available_rooms_number += 1
 	price
 	price_currency
+	
+	room_confirmation_days
 	
 	room_photos
 	filters
