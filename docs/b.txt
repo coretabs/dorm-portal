@@ -31,12 +31,14 @@ reservation
 	last_update
 	follow_up_message
 	
-	reciept_url
-	update_reciept_date
-	
+	reciepts
 	user
 	dorm
 	room_characteristics
+	
+reciept
+	reciept_url
+	upload_reciept_date
 	
 user
 	name
