@@ -2,6 +2,10 @@
 
 Dormitory reservation and management system for both students and dormitory managers.
 
+## Live Demo
+
+https://dorm-portal.herokuapp.com
+
 ## Running locally
 
 For the API, you can simply write in your command line (this will prepare the virtual environment, migrate the db, and run the server):
