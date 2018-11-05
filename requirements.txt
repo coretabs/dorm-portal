@@ -1,0 +1,10 @@
+dj-database-url==0.5.0
+Django==2.1
+djangorestframework==3.8.2
+gunicorn==19.9.0
+pip==18.1
+psycopg2==2.7.5
+pytz==2018.5
+setuptools==40.5.0
+wheel==0.32.2
+whitenoise==4.0
