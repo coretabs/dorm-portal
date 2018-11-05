@@ -23,7 +23,7 @@ yarn run serve
 ## Deploy on Heroku
 
 <p align="center">
-    <a href="https://heroku.com/deploy?template=https://github.com/yaseralnajjar/dorm-portal">
+    <a href="https://heroku.com/deploy?template=https://github.com/coretabs/dorm-portal">
         <img src="https://www.herokucdn.com/deploy/button.svg">
     </a>
 </p>

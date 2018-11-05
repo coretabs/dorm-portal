@@ -1,7 +1,7 @@
 {
     "name": "Dorm Portal",
     "description": "",
-    "repository": "https://github.com/yaseralnajjar/dorm-portal",
+    "repository": "https://github.com/coretabs/dorm-portal",
     "keywords": [
         "django",
         "vue",
