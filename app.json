@@ -1,7 +1,7 @@
 {
-    "name": "Django VueJs Template",
+    "name": "Dorm Portal",
     "description": "",
-    "repository": "https://github.com/yaseralnajjar/django-vue-template",
+    "repository": "https://github.com/yaseralnajjar/dorm-portal",
     "keywords": [
         "django",
         "vue",
@@ -10,9 +10,17 @@
         "django rest framework"
     ],
     "env": {
-        "DJANGO_SETTINGS_MODULE": {
+        "HOST_ENV": {
             "description": "Set Django Settings to Production",
-            "value": "api.settings"
+            "value": "production"
+        },
+        "SECRET_KEY": {
+            "description": "Your Django Secret Key",
+            "value": "123456"
+        },
+        "ALLOWED_HOSTS": {
+            "description": "Allowing Your app URL",
+            "value": "YOUR_APP_NAME.herokuapp.com"
         }
     },
     "engines": {
