@@ -1,6 +1,6 @@
 <template>
   <header>
-    <v-toolbar light flat fixed>
+    <v-toolbar light flat fixed app :clipped-left="$vuetify.breakpoint.lgAndUp">
       <!-- <v-toolbar-side-icon  @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
       <v-toolbar-title>
           <a href="#" id="logo">
@@ -26,8 +26,6 @@
   </header>
 </template>
 
-
-
 <script>
   export default {
     name: 'HeaderComponent',
@@ -45,7 +43,7 @@
 header{
   .v-toolbar__content{
     background-color: #fff;
-    @include box-shadow(7px,0px,8px,rgba(0,0,0,0.4));
+    @include box-shadow(0px,0px,8px,rgba(0,0,0,0.4));
     #logo{
       display: flex;
       align-items: center;

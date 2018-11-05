@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <app-header></app-header>
     <dorm-filter></dorm-filter>
+    <app-header></app-header>
   </v-app>
 </template>
 
