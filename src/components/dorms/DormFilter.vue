@@ -67,9 +67,6 @@
         ],
         checkboxs: []
       }
-    },
-    props: {
-      source: String
     }
   }
 </script>
