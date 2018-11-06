@@ -24,10 +24,12 @@
             </template>
             <template v-if="filter.integral">
                 <div>
-                                  
+                               
                   <v-layout class="integral-filter" row>
                     <v-flex class="px-3">
-                      <v-range-slider
+                      <v-range-slider 
+                        thumb-label="always"
+                        thumb-color="#3ab86c"
                         v-model="filter.value"
                         :max="filter.max_value"
                         :min="filter.min_value"
@@ -36,7 +38,7 @@
                       ></v-range-slider>
                     </v-flex>
                    </v-layout>
-                   <v-layout class="integral-filter" row>
+                   <v-layout class="integral-filter" v-show="false" row>
                      <v-flex  class="integral-input">
                         <v-text-field
                           label="From"
@@ -47,7 +49,6 @@
                           disabled
                         ></v-text-field>
                       </v-flex>
-                    
                       <v-flex  class="integral-input">
                         <v-text-field
                           label="To"
@@ -55,10 +56,10 @@
                           class="mt-0"
                           hide-details
                           type="text"
-                          disabled 
+                          disabled
                         ></v-text-field>
                       </v-flex>
-                    </v-layout>
+                    </v-layout>   
               </div>
               
             </template>
@@ -235,7 +236,7 @@
   }
   #filters-body{
      background: #fcfcfc;
-     padding: 25px 0px;
+     padding: 20px 0px;
     .filter{
       margin-bottom: 8px;
       .filter-title{
@@ -285,19 +286,24 @@
   }
   #rightside{
     padding: 30px 80px;
-
     @media (max-width: 600px) {
       padding: 30px 20px;
     }
   }
   .integral-filter{
-    max-width: 85%;
-    margin: 0 auto;
+    max-width: 80%;
+    margin: 20px auto 0;
     .integral-input{
       width: 150px;
     }
     .v-text-field{
       margin:0 15px; 
+    }
+    &:nth-child(2){
+      margin: 0px auto 0;
+    }
+    .v-messages{
+      display: none;
     }
   }
 }
