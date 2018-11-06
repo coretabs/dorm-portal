@@ -141,12 +141,10 @@
 
         </v-flex>
         
-        <v-dialog v-model="dialog" width="800px">
-          <v-card>
+        <v-dialog v-model="dialog" lazy width="800px">
             <v-container grid-list-sm>
               <div :style="mapStyle">
                 <l-map
-                  v-resize="onResize"
                   :zoom="zoom"
                   :center="center"
                   :style="mapStyle"
@@ -168,7 +166,6 @@
                 </l-map>
               </div>
             </v-container>
-          </v-card>
         </v-dialog>
 
       </v-layout>
@@ -200,12 +197,12 @@
         reviewsNumber: 126,
         roomsLeft: 7,
         zoom: 15,
-        center: L.latLng(35.14745, 33.90776),
+        center: L.latLng(35.14745, 33.90707),
         url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        marker: L.latLng(35.14745, 33.90776),
+        marker: L.latLng(35.14745, 33.90707),
         currentZoom: 10,
-        currentCenter: L.latLng(35.14745, 33.90776),
+        currentCenter: L.latLng(35.14745, 33.90707),
         showParagraph: false,
         mapStyle: {
           height: '400px'
