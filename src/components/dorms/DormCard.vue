@@ -3,8 +3,12 @@
         <v-flex xs12>
           <v-card>
             <v-layout row wrap>
+              
               <v-flex class="dorm-img" xs12 sm4>
-                <img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" alt="">
+                <!-- <img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" alt=""> -->
+                <v-img src="https://en.alfamcyprus.com/thumbnail.php?file=pics/pics_slider/89d3badf6d8421039a1ccf3b5ad2a191.jpg&pwidth=1903&pheight=850&pw=475.7500&ph=212.5000&px=0.0000&py=67.0000&pscale=0.2478&pangle=0.0000&force=y" 
+                gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)"
+                height="100%" width="100%"></v-img>
               </v-flex>
               
               <v-flex class="dorm-details" xs12 sm8>
@@ -174,9 +178,10 @@
     }
     .dorm-img{
       overflow: hidden;
-      img{
-        height: 100%;
-      }
+      min-height: 250px;
+      // img{
+      //   height: 100%;
+      // }
     }
     .dorm-details{
       padding: 20px 30px;
