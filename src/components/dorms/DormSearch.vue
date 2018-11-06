@@ -9,7 +9,12 @@
               label="Dormitories type"
               prepend-inner-icon="meeting_room"
               solo color="success"
-              append-icon="expand_more" offset-y transition="slide-y-transition" bottom
+              append-icon="expand_more" 
+              :menu-props="{
+                offsetY: '',
+                transition: 'slide-y-transition',
+                bottom: ''
+              }"
             ></v-select>
         </v-flex>
         <v-flex xs12 sm2>
@@ -18,7 +23,12 @@
               label="Academic Year"
               prepend-inner-icon="calendar_today"
               solo color="success"
-              append-icon="expand_more" offset-y transition="slide-y-transition" bottom
+              append-icon="expand_more" 
+              :menu-props="{
+                offsetY: '',
+                transition: 'slide-y-transition',
+                bottom: ''
+              }"
             ></v-select>
         </v-flex>
         <v-flex xs12 sm2>
