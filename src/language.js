@@ -1,5 +1,5 @@
-import studentEnglishLanguage from '../local/student.en.json'
-import studentTurkishLanguage from '../local/student.tr.json'
+import studentEnglishLanguage from '../locale/student.en.json'
+import studentTurkishLanguage from '../locale/student.tr.json'
 
 let language = ...
 

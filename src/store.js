@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import language from '../local/student.en.json'
+import language from '../locale/student.en.json'
 
 Vue.use(Vuex);
 
