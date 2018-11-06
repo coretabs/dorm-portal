@@ -1,6 +1,6 @@
 <template>
   <v-form id="search-dorm">
-      <h2>{{searchHeading}}</h2>
+      <h2 v-html="lang.en.dormSearch.heading"></h2>
       <v-layout row wrap>
 
         <v-flex xs12 sm3>
@@ -37,11 +37,13 @@
     name: 'DormSearch',
     data: function (){
       return{
-        searchHeading: 'Find Dormitories in EMU',
         DormsType: ['All Dorms', 'EMU Dorms', 'Private Dorms'],
         AcademicYear: ['Academic year', 'Spring', 'Fall', 'Summer']
       }
-    }
+    },
+    computed: {
+      lang(){ return this.$store.state.language }
+    },
   }
 </script>
 
