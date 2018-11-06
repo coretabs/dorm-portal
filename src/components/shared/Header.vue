@@ -9,19 +9,34 @@
           </a>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+
       <v-toolbar-items class="">
-        <!-- <v-menu>
-          <v-btn slot="activator" color="primary" dark >
-            Dropdown
+        <!-- Currency -->
+        <v-menu transition="slide-y-transition" bottom offset-y >
+          <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
+            <v-icon>attach_money</v-icon>  <v-icon color="#ccc">expand_more</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile v-for="(item, index) in items" :key="index" @click="" >
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile v-for="(currency, index) in currencies" :key="index" @click="" >
+              <v-list-tile-title>{{ currency.code }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
-        </v-menu> -->
+        </v-menu>
+        <!-- language -->
+        <v-menu transition="slide-y-transition" bottom offset-y >
+          <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
+            <v-icon>language</v-icon> Language <v-icon color="#ccc">expand_more</v-icon>
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="(language, index) in languages" :key="index" @click="" >
+              <v-list-tile-title>{{ language.symbol }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+        <!-- check status -->
         <v-btn flat dark class="status-btn">{{statusBtn}}</v-btn>
       </v-toolbar-items>
+
     </v-toolbar>
   </header>
 </template>
@@ -31,6 +46,14 @@
     name: 'HeaderComponent',
     data: function(){
       return{
+        currencies: [
+          {"symbol": "$", "code": "USD"},
+          {"symbol": "₺", "code": "TL"}
+        ],
+        languages: [
+          {"symbol": "English", "code": "en"},
+          {"symbol": "Turkish", "code": "tr"}
+        ],
         statusBtn: "Reservation Status"
       }
     }
@@ -62,9 +85,13 @@ header{
     }
     .status-btn{
       background-color: $primary-btn-color;
-      height: 38px !important;
-      @include radius(5px);
       text-transform: capitalize;
+    }
+    .lang-btn{
+      padding: 0 15px;
+      .v-icon{
+        margin-right: 5px;
+      }
     }
 
   }
