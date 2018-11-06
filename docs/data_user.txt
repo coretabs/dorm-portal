@@ -6,6 +6,20 @@ email
 password
 ```
 
+POST /user/resend-confirmation/ accepts
+```
+email
+```
+
+POST /user/resend-confirmation/ returns 200 OK
+```
+```
+
+POST /user/resend-confirmation/ returns 400 Bad request
+```
+user not registered
+```
+
 POST /user/login accepts
 ```
 email
