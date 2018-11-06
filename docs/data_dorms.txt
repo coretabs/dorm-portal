@@ -1,5 +1,4 @@
-GET /dorm/{id} accepts
-
+POST /dorm/{id} accepts
 ```
 currency=USD
 language=EN
@@ -14,7 +13,6 @@ filters
 ```
 
 GET /dorm/{id} returns
-
 ```
 dorm
     cover

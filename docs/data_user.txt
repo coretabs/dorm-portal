@@ -1,0 +1,56 @@
+POST /user/register accepts
+```
+first_name
+last_name
+email
+password
+```
+
+POST /user/login accepts
+```
+email
+password
+```
+
+POST /user/login returns 200 OK
+```
+current_step (confirm_email, confirm_payment, awaiting)
+```
+
+POST /user/login returns 400  Bad request
+```
+you entered wrong email or password
+```
+
+POST /user/confirm-email/{token} returns 200 OK
+```
+```
+
+POST /user/confirm-email/{token} returns 400 Bad request
+```
+token expired, try sending another email
+```
+
+
+POST /user/reset-password accepts
+```
+email
+```
+
+POST /user/reset-password returns 200 OK
+```
+```
+
+POST /user/reset-password returns 400 Bad request
+```
+you entered a wrong email address
+```
+
+GET /user/reset-password/{token} returns 200 OK
+```
+```
+
+GET /user/reset-password/{token} returns 400 Bad request
+```
+token expired
+```
