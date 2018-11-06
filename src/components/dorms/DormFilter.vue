@@ -1,36 +1,68 @@
 <template>
 
-  <div id="filters">
-        <v-navigation-drawer
+  <div id="filter">
+
+    <!-- filters sidebar -->
+    <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
-      v-model="drawer"
-      >
-
-        <template>
-          <div id="filters-heading"><v-icon left>filter_list</v-icon> {{filtersHeading}}</div>
-
-         <div id="filters-body">
-            <div class="filter" v-for= "(filter,index) in filters" :key="index">
-              <div class="filter-title">{{filter.title}}</div>
-              <ul>
-                <li v-for= "(option, index) in filter.options" :key="index">
-                  <v-checkbox v-model="checkboxs" :value="option" :label="option" color="success"></v-checkbox>
-                </li>
-              </ul>
-            </div>
-          </div> 
-
-
-        </template>
-
+      v-model="drawer" fixed app>
+      <template>
+        <div id="filters-heading"><v-icon left>filter_list</v-icon> {{filtersHeading}}</div>
+        <div id="filters-body">
+          <div class="filter" v-for= "(filter,index) in filters" :key="index">
+            <div class="filter-title">{{filter.title}}</div>
+            <ul>
+              <li v-for= "(option, index) in filter.options" :key="index">
+                <v-checkbox v-model="checkboxs" :value="option" :label="option" color="success"></v-checkbox>
+              </li>
+            </ul>
+          </div>
+        </div> 
+      </template>
     </v-navigation-drawer>
+
+    <!-- Filtered dorms -->
+    <v-content>
+      <v-container id="rightside" fluid>
+        <v-layout row wrap>
+
+            <!-- search form -->
+            <v-flex xs12>
+              <dorm-search></dorm-search>
+            </v-flex>
+
+            <!-- number of result -->
+            <!-- <v-flex xs12>
+              <v-alert :value="true" type="success" >
+                {{successSearch}}
+              </v-alert>
+               <v-alert :value="true" type="error" >
+                {{successSearch}}
+              </v-alert> 
+            </v-flex>-->
+
+            <!-- dorms card -->
+            <v-flex xs12>
+              <dorm-card v-for="n in 5" :key="n"></dorm-card>
+            </v-flex>
+          
+        </v-layout>
+      </v-container>
+    </v-content>
+
   </div>
 
 </template>
 
 <script>
+  import DormCard from './DormCard'
+  import DormSearch from './DormSearch'
   export default {
     name: 'DormFilter',
+    components: {
+      'dorm-card' :DormCard,
+      'dorm-search': DormSearch
+    },
     data: function (){
       return{
         drawer: null,
@@ -74,26 +106,31 @@
 <style lang="scss">
 @import '../../assets/styles/vars';
 @import '../../assets/styles/mixins';
-#filters{
-  *{
-    box-sizing: border-box;
-    outline: none;
+
+#filter{
+  aside::-webkit-scrollbar {
+      width: 0.5em;
   }
-  height: auto;
-  padding-bottom: 10px;
-  background-color: #fcfcfc;
-  position: relative;
-  overflow: hidden;
+  
+  aside::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+  }
+  
+  aside::-webkit-scrollbar-thumb {
+    background-color: $light-gray-color;
+    outline: 1px solid slategrey;
+    @include radius(10px);
+  }
   #filters-heading{
     line-height: 50px;
     padding: 2px 15px 0;
     background: #ff884e;
     background: -webkit-linear-gradient(to right, #f9ba23, #ff884e); 
     background: linear-gradient(to right, #f9ba23, #ff884e); 
-    border-right: 1px solid rgba(0,0,0,.1);
     font-size: 1.3em;
     color: #000;
     margin-bottom: 15px;
+    width: 100%;
       .v-icon{
         color: #b75f11;
         margin-right: 6px;
@@ -142,6 +179,18 @@
             }
           }
       }
+    }
+  }
+  .v-alert{
+    margin: 0 10px;
+    padding: 5px 15px 10px;
+    font-size: 20px;
+  }
+  #rightside{
+    padding: 30px 80px;
+
+    @media (max-width: 600px) {
+      padding: 30px 20px;
     }
   }
 }
