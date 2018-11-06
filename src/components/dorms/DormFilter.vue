@@ -9,14 +9,58 @@
       <template>
         <div id="filters-heading"><v-icon left>filter_list</v-icon> {{filtersHeading}}</div>
         <div id="filters-body">
-          <div class="filter" v-for= "(filter,index) in filters" :key="index">
-            <div class="filter-title">{{filter.title}}</div>
-            <ul>
-              <li v-for= "(option, index) in filter.options" :key="index">
-                <v-checkbox v-model="checkboxs" :value="option" :label="option" color="success"></v-checkbox>
-              </li>
-            </ul>
+
+          <div class="filter" v-for= "(filters,index) in filter_gourps" :key="index">
+            <div class="filter-title">{{filters.name}}</div>
+            <template v-if="filters.checkbox">
+              <ul>
+                  <li v-for= "(option, index) in filters.filters" :key="index">
+                    <v-checkbox :value="option.option_id" :label="option.name" color="success"></v-checkbox>
+                  </li>
+              </ul>
+            </template>
+            <template v-if="filters.integral">
+                <div>
+                                  
+                  <v-layout class="integral-filter" row>
+                    <v-flex class="px-3">
+                      <v-range-slider
+                        v-model="filters.value"
+                        :max="filters.max_value"
+                        :min="filters.min_value"
+                        :step="1"
+                        color="success"
+                      ></v-range-slider>
+                    </v-flex>
+                   </v-layout>
+                   <v-layout class="integral-filter" row>
+                     <v-flex  class="integral-input">
+                        <v-text-field
+                          label="From"
+                          v-model="filters.value[0]"
+                          class="mt-0"
+                          hide-details
+                          type="text"
+                          disabled
+                        ></v-text-field>
+                      </v-flex>
+                    
+                      <v-flex  class="integral-input">
+                        <v-text-field
+                          label="To"
+                          v-model="filters.value[1]"
+                          class="mt-0"
+                          hide-details
+                          type="text"
+                          disabled 
+                        ></v-text-field>
+                      </v-flex>
+                    </v-layout>
+              </div>
+              
+            </template>
           </div>
+
         </div> 
       </template>
     </v-navigation-drawer>
@@ -67,37 +111,75 @@
       return{
         drawer: null,
         filtersHeading: 'Filter by:',
-        filters: [
-          {
-            title: 'Availabilty',
-            options: ['show only available dorms', "show all dorms"]
-          },
-          {
-            title: "Discount Opportunity",
-            options: ["Discounted dorms"]
-          },
-          {
-            title: "Meals",
-            options: ["3 Meals included", "Breakfast included", "Dinner included"]
-          },
-          {
-            title: "Shopping Opportunity",
-            options: ["Restorant / Cafeteria", "Hairdresser / Barber", "Market"]
-          },
-          {
-            title: "Campus Area",
-            options: ["Northern Campus", "Southern Campus", "Other"]
-          },
-          {
-            title: "Dorms Activities",
-            options: ["Free sports / Fitness", "paid sports / Fitness", "Other Activities"]
-          },
-          {
-            title: "24 Hours Reception",
-            options: ["Dorms with 24/7 reception"]
-          }
+        currencies: [
+          {"symbol": "$", "code": "USD"},
+          {"symbol": "t", "code": "TL"}
         ],
-        checkboxs: []
+        languages: [
+          {"symbol": "English", "code": "en"},
+          {"symbol": "Turkish", "code": "tr"}
+        ],
+          filter_gourps: [
+            {
+                "id": "1",
+                "name": "meals",
+                "checkbox": true,
+                "integral": false,
+                "filters": [
+                    {
+                        "option_id": 1,
+                        "name": "dinner"
+                    },
+                    {
+                        "option_id": 2,
+                        "name": "three meals"
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "name": "price",
+                "integral": true,
+                "checkbox": false,
+                "min_value": "0",
+                "max_value":"2000",
+                 value: [0, 2000]
+            },
+             {
+                "id": "5",
+                "name": "number of people",
+                "integral": true,
+                "checkbox": false,
+                "min_value": "1",
+                "max_value":"5",
+                 value: [1, 5]
+            },
+            {
+                "id": "3",
+                "name": "Devices",
+                "checkbox": true,
+                "integral": false,
+                "filters": [
+                    {
+                        "option_id": 1,
+                        "name": "washing"
+                    },
+                    {
+                        "option_id": 2,
+                        "name": "air cond"
+                    },
+                    {
+                        "option_id": 3,
+                        "name": "microwave"
+                    }
+                ]
+            }
+          ]
+      }
+    }, 
+    methods:{
+      test(){
+        alert(this.filter_gourps[1].value)
       }
     }
   }
@@ -140,7 +222,7 @@
   #filters-body{
     padding: 10px 0px;
     .filter{
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       .filter-title{
         color: #585858;
         font-size: 1.2em;
@@ -191,6 +273,16 @@
 
     @media (max-width: 600px) {
       padding: 30px 20px;
+    }
+  }
+  .integral-filter{
+    max-width: 85%;
+    margin: 0 auto;
+    .integral-input{
+      width: 150px;
+    }
+    .v-text-field{
+      margin:0 15px; 
     }
   }
 }
