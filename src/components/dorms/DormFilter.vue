@@ -111,14 +111,6 @@
       return{
         drawer: null,
         filtersHeading: 'Filter by:',
-        currencies: [
-          {"symbol": "$", "code": "USD"},
-          {"symbol": "t", "code": "TL"}
-        ],
-        languages: [
-          {"symbol": "English", "code": "en"},
-          {"symbol": "Turkish", "code": "tr"}
-        ],
           filters: [
             {
                 "id": "1",
@@ -135,24 +127,6 @@
                         "name": "three meals"
                     }
                 ]
-            },
-            {
-                "id": "2",
-                "name": "price",
-                "integral": true,
-                "checkbox": false,
-                "min_value": "0",
-                "max_value":"2000",
-                 value: [0, 2000]
-            },
-             {
-                "id": "5",
-                "name": "number of people",
-                "integral": true,
-                "checkbox": false,
-                "min_value": "1",
-                "max_value":"5",
-                 value: [1, 5]
             },
             {
                 "id": "3",
@@ -173,6 +147,24 @@
                         "name": "microwave"
                     }
                 ]
+            },
+            {
+                "id": "2",
+                "name": "price",
+                "integral": true,
+                "checkbox": false,
+                "min_value": "0",
+                "max_value":"2000",
+                 value: [0, 2000]
+            },
+             {
+                "id": "5",
+                "name": "number of people",
+                "integral": true,
+                "checkbox": false,
+                "min_value": "1",
+                "max_value":"5",
+                 value: [1, 5]
             }
           ]
       }
