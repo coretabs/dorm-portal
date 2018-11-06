@@ -17,7 +17,7 @@
             <v-icon>attach_money</v-icon>  <v-icon color="#ccc">expand_more</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile v-for="(currency, index) in currencies" :key="index" @click="" >
+            <v-list-tile v-for="(currency, index) in currencies" :key="index"  >
               <v-list-tile-title>{{ currency.code }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
@@ -25,10 +25,10 @@
         <!-- language -->
         <v-menu transition="slide-y-transition" bottom offset-y >
           <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
-            <v-icon>language</v-icon> Language <v-icon color="#ccc">expand_more</v-icon>
+            <v-icon>language</v-icon> <v-icon color="#ccc">expand_more</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile v-for="(language, index) in languages" :key="index" @click="" >
+            <v-list-tile v-for="(language, index) in languages" :key="index"  >
               <v-list-tile-title>{{ language.symbol }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
@@ -88,7 +88,7 @@ header{
       text-transform: capitalize;
     }
     .lang-btn{
-      padding: 0 15px;
+      padding: 0 10px;
       .v-icon{
         margin-right: 5px;
       }
