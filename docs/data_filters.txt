@@ -18,7 +18,7 @@ filter_groups
         min_value max_value
 ```
 
-GET /dorms accepts
+POST /dorms accepts
 
 ```
 currency=USD
@@ -33,7 +33,7 @@ filters
     }
 ```
 
-GET /dorms returns
+POST /dorms returns
 
 ```
 dorms
@@ -49,14 +49,15 @@ dorms
 
     facilities
         name
-        icon (could be empty)
+        icon (optional field)
     
     activities
         name
-        icon (could be empty)
+        icon (optional field)
 
     number_of_found_rooms
     rooms
+        id
         cover
         price
         room_type
@@ -64,7 +65,7 @@ dorms
 
         facilities
             name
-            icon (could be empty)
+            icon (optional field)
 ```
 
 GET /dorms/{id}/reviews

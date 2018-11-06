@@ -30,10 +30,10 @@ dorm
     history
     dorm_facilities
         name
-        icon (could be empty)
+        icon (optional field)
     dorm_activities
         name
-        icon (could be empty)
+        icon (optional field)
 
     number_of_reviews
     reviews_average
@@ -51,10 +51,10 @@ dorm
 
         facilities
             name
-            icon (could be empty)
+            icon (optional field)
     
         activities
             name
-            icon (could be empty)
+            icon (optional field)
     
 ```
