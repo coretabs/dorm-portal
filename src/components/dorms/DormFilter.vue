@@ -7,7 +7,6 @@
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
       width="320"
-      touchless
       fixed app>
       <template>
         <div id="filters-heading"><v-icon left>filter_list</v-icon> {{filtersHeading}}</div>
