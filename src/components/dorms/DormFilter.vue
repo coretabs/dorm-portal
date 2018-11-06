@@ -5,7 +5,10 @@
     <!-- filters sidebar -->
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
-      v-model="drawer" fixed app>
+      v-model="drawer"
+      width="320"
+      touchless
+      fixed app>
       <template>
         <div id="filters-heading"><v-icon left>filter_list</v-icon> {{filtersHeading}}</div>
         <div id="filters-body">
@@ -83,7 +86,7 @@
                <v-alert :value="true" type="error" >
                 {{successSearch}}
               </v-alert> 
-            </v-flex>-->
+            </v-flex> -->
 
             <!-- dorms card -->
             <v-flex xs12>
@@ -125,6 +128,26 @@
                     {
                         "option_id": 2,
                         "name": "three meals"
+                    }
+                ]
+            },
+            {
+                "id": "3",
+                "name": "Devices",
+                "checkbox": true,
+                "integral": false,
+                "options": [
+                    {
+                        "option_id": 1,
+                        "name": "washing"
+                    },
+                    {
+                        "option_id": 2,
+                        "name": "air cond"
+                    },
+                    {
+                        "option_id": 3,
+                        "name": "microwave"
                     }
                 ]
             },
@@ -214,7 +237,7 @@
      background: #fcfcfc;
      padding: 25px 0px;
     .filter{
-      margin-bottom: 20px;
+      margin-bottom: 8px;
       .filter-title{
         color: #585858;
         font-size: 1.2em;
