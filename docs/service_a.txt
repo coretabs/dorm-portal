@@ -96,7 +96,7 @@ room_photo
 
 filter_group
 	name
-    order
+  order
 	
 	filters
 	
@@ -108,10 +108,10 @@ filter
 radio choice filter
 	radio
 	
-	default_options
+	options
 	filter
 
-default_option
+option
     name
 	
 integral filter

@@ -2,18 +2,20 @@ GET /filters returns
 
 ```
 currencies
+    symbol
+    code
+
 languages
+    name
+    code
 
 filter_groups
-    filters
-        id
-        name
-        type (radio, integral, activity_facility)
-        {
-            default_options {id, name}
-            number
-            icon
-        }
+    id
+    name
+    type checkbox
+        options {id, name}
+    type integral
+        min_value max_value
 ```
 
 GET /dorms accepts
