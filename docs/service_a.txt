@@ -56,7 +56,11 @@ bank_account
 	iban
 	swift
 	currency
-	
+
+Currency
+    code
+    name
+    symbol
 	
 dorm_photo
 	url
@@ -80,6 +84,7 @@ room characteristics
 	
 	room_confirmation_days
 	
+    room_cover
 	room_photos
 	filters
 	
@@ -91,6 +96,7 @@ room_photo
 
 filter_group
 	name
+    order
 	
 	filters
 	
@@ -99,11 +105,14 @@ filter
 	
 	filter_group
 	
-mutliple choice filter
-	type (radio, checkbox)
-	default_options
+radio choice filter
+	radio
 	
+	default_options
 	filter
+
+default_option
+    name
 	
 integral filter
 	number
@@ -111,6 +120,8 @@ integral filter
 	filter
 	
 activity_facility filter
+    type (activity, facility)
+    is_dorm_facility_activity
 	icon
 	
 	filter
@@ -118,8 +129,4 @@ activity_facility filter
 dorm_activities_facilities
 	activity_facility
 	dorm
-	
-languages
-	code
-	name
 ```
