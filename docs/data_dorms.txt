@@ -1,0 +1,60 @@
+GET /dorm/{id} accepts
+
+```
+currency=USD
+language=EN
+
+filters
+    id
+    {
+        choosen_options_ids
+        min_value max_value
+        // activity facility doesn't need an extra field
+    }
+```
+
+GET /dorm/{id} returns
+
+```
+dorm
+    cover
+
+    photos
+        url
+        is_3d
+
+    geo_longitude
+    geo_latitude
+    address
+
+    history
+    dorm_facilities
+        name
+        icon (could be empty)
+    dorm_activities
+        name
+        icon (could be empty)
+
+    number_of_reviews
+    reviews_average
+    reviews
+        student_name
+        stars
+        description
+
+    rooms
+        rooms_left
+        cover
+        room_type
+        price
+        people_allowed_number
+
+        facilities
+            name
+            icon (could be empty)
+    
+        activities
+            name
+            icon (could be empty)
+    
+```
