@@ -1,0 +1,56 @@
+POST /dorms/{id}/rooms/{id} accepts
+```
+```
+
+POST /dorms/{id}/rooms/{id} returns 200 OK
+```
+reservation_id
+```
+
+POST /dorms/{id}/rooms/{id} returns 400 Bad request
+```
+quota is full, try another room
+```
+
+POST /dorms/{id}/rooms/{id} returns 401 Unauthorized
+```
+please login before making a reservation
+```
+
+
+GET /user/reservation/{id} returns
+```
+room_type
+reservation_duration
+people_allowed_number
+
+price
+currency
+
+room
+
+banks
+    bank_name
+	account_name
+	account_num
+	iban
+	swift
+	currency
+
+reciepts
+    reciept_url
+	upload_reciept_date (ordered by recent date)
+
+is_confirmed
+confirmation_deadline
+
+is_rejected
+
+last_update
+follow_up_message
+```
+
+POST /user/reservation/{id} accepts
+```
+reciepts
+```

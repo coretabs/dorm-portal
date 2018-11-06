@@ -21,6 +21,8 @@ reservation
 	
 	room_type
 	reservation_duration
+    people_allowed_number
+    
 	is_reviewed
 	
 	is_confirmed

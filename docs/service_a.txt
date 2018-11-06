@@ -81,6 +81,7 @@ room characteristics
 	available_rooms_number //  available_rooms_number += 1
 	price
 	price_currency
+    people_allowed_number
 	
 	room_confirmation_days
 	
