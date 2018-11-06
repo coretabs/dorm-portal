@@ -12,9 +12,9 @@ languages
 filter_groups
     id
     name
-    type checkbox
+    (checkbox true) (integral false)
         options {id, name}
-    type integral
+    (checkbox false) (integral true)
         min_value max_value
 ```
 
