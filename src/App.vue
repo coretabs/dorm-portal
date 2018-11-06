@@ -20,5 +20,7 @@
 </script>
 
 <style lang="scss">
-
+  .container {
+    background: #fff;
+  }
 </style>

@@ -1,6 +1,6 @@
 <template>
       <v-layout justify-start row wrap id="card">
-        <v-flex xs12 sm10>
+        <v-flex xs12>
           <v-card>
             <v-layout row wrap>
               <v-flex class="dorm-img" xs12 sm4>
@@ -157,7 +157,10 @@
 @import '../../assets/styles/mixins';
 #card{
   margin: 0 0 40px;
+  
   .v-card{
+    box-shadow: none;
+    border:1px solid $light-gray-color;
     @include radius(5px);   
     overflow: hidden;
     .headline{
@@ -231,7 +234,7 @@
     width: 100%;
     min-height: 180px;
     .price-bar{
-      height: 6px;
+      height: 5px;
       width: 95%;
       margin: 0 auto;
       position: relative;
