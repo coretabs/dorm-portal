@@ -10,11 +10,11 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-toolbar-items class="">
+      <v-toolbar-items>
         <!-- Currency -->
         <v-menu transition="slide-y-transition" bottom offset-y >
           <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
-            <v-icon>attach_money</v-icon>  <v-icon color="#ccc">expand_more</v-icon>
+            <v-icon color="#666">attach_money</v-icon><v-icon color="#ccc">expand_more</v-icon>
           </v-btn>
           <v-list>
             <v-list-tile v-for="(currency, index) in currencies" :key="index"  >
@@ -25,10 +25,10 @@
         <!-- language -->
         <v-menu transition="slide-y-transition" bottom offset-y >
           <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
-            <v-icon>language</v-icon> <v-icon color="#ccc">expand_more</v-icon>
+            <v-icon color="#666">language</v-icon> <v-icon color="#ccc">expand_more</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile v-for="(language, index) in languages" :key="index"  >
+            <v-list-tile v-for="(language, index) in languages" :key="index">
               <v-list-tile-title>{{ language.symbol }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
