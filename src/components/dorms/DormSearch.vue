@@ -9,7 +9,7 @@
               label="Dormitories type"
               prepend-inner-icon="meeting_room"
               solo color="success"
-              append-icon="expand_more" 
+              append-icon="expand_more" offset-y transition="slide-y-transition" bottom
             ></v-select>
         </v-flex>
         <v-flex xs12 sm2>
@@ -18,11 +18,11 @@
               label="Academic Year"
               prepend-inner-icon="calendar_today"
               solo color="success"
-              append-icon="expand_more"
+              append-icon="expand_more" offset-y transition="slide-y-transition" bottom
             ></v-select>
         </v-flex>
         <v-flex xs12 sm2>
-          <v-btn large><v-icon>search</v-icon></v-btn>
+          <v-btn depressed large><v-icon>fa-search</v-icon></v-btn>
         </v-flex>
 
 
@@ -59,8 +59,8 @@
     padding: 0px;
   }
   .v-input__slot{
-    // box-shadow: none;
-    // border: 1px solid #ccc;
+    box-shadow: none;
+    border: 1px solid #ccc;
   }
   .shift-left .v-input__slot{
     margin-left: -2px;
@@ -80,11 +80,11 @@
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     margin-left: -3px;
-    // -webkit-box-shadow:inset 0px 0px 0px 1px #ccc;
-    // -moz-box-shadow:inset 0px 0px 0px 1px #ccc;
-    // box-shadow:inset 0px 0px 0px 1px #ccc;
+    -webkit-box-shadow:inset 0px 0px 0px 1px #ccc;
+    -moz-box-shadow:inset 0px 0px 0px 1px #ccc;
+    box-shadow:inset 0px 0px 0px 1px #ccc;
     .v-icon{
-      font-size: 30px;
+      font-size: 20px;
     }
   }
 }
