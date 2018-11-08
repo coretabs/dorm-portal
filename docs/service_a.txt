@@ -97,12 +97,13 @@ room_photo
 
 filter_group
 	name
-  order
+    order
 	
 	filters
 	
 filter
 	name
+    order
 	
 	filter_group
 	
