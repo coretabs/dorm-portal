@@ -12,7 +12,13 @@ languages
 
 GET /filters returns
 ```
-filter
+search_filters
+    id
+    name
+    (checkbox true) (integral false)
+        options {id, name}
+
+filters
     id
     name
     (checkbox true) (integral false)
