@@ -1,6 +1,6 @@
 <template>
       <v-layout justify-start row wrap id="card">
-        <v-flex xs12>
+        <v-flex md10 xs12>
           <v-card>
             <v-layout row wrap>
               
@@ -51,26 +51,26 @@
 
                     <v-tooltip top>
                       <v-icon class="facility-icon" slot="activator"
-                      >local_parking</v-icon>
+                      >fa-parking</v-icon>
                       <span>Free Parking</span>
                     </v-tooltip>
 
                     <v-tooltip top>
                       <v-icon class="facility-icon" slot="activator"
-                      >wifi</v-icon>
+                      >fa-wifi</v-icon>
                       <span>Free wifi</span>
                     </v-tooltip>
 
                     <v-tooltip top>
                       <v-icon class="facility-icon" slot="activator"
-                      >wifi</v-icon>
-                      <span>Free wifi</span>
+                      >fa-utensils</v-icon>
+                      <span>Restaurant</span>
                     </v-tooltip>
 
                     <v-tooltip top>
                       <v-icon class="facility-icon" slot="activator"
-                      >wifi</v-icon>
-                      <span>Free wifi</span>
+                      >fa-bus</v-icon>
+                      <span>Free Transportation</span>
                     </v-tooltip>
 
                     <v-tooltip top>
@@ -86,20 +86,20 @@
 
                     <v-tooltip top>
                       <v-icon class="facility-icon" slot="activator"
-                      >local_parking</v-icon>
+                      >fa-swimmer</v-icon>
                       <span>Free Parking</span>
                     </v-tooltip>
 
                     <v-tooltip top>
                       <v-icon class="facility-icon" slot="activator"
-                      >wifi</v-icon>
+                      >fa-futbol</v-icon>
                       <span>Free wifi</span>
                     </v-tooltip>
                     
 
                     <v-tooltip top>
                       <v-icon class="facility-icon" slot="activator"
-                      >wifi</v-icon>
+                      >fa-handshake</v-icon>
                       <span>Free wifi</span>
                     </v-tooltip>
 
@@ -309,6 +309,7 @@
       .facility-icon{
         width: 40px;
         height: 40px;
+        font-size: 20px;
         @include radius(50%);
         border: 2px solid #ccc;
         text-align: center;

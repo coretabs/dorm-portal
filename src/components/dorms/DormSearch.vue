@@ -15,12 +15,13 @@
                 transition: 'slide-y-transition',
                 bottom: ''
               }"
+              v-model="defaultDormType"
             ></v-select>
         </v-flex>
         <v-flex xs12 sm2>
             <v-select class="shift-left"
               :items="AcademicYear"
-              label="Academic Year"
+              label="Duration"
               prepend-inner-icon="calendar_today"
               solo color="success"
               append-icon="expand_more" 
@@ -29,10 +30,11 @@
                 transition: 'slide-y-transition',
                 bottom: ''
               }"
+              v-model="defaultAcademicYear"
             ></v-select>
         </v-flex>
-        <v-flex xs12 sm2>
-          <v-btn depressed large><v-icon>fa-search</v-icon></v-btn>
+        <v-flex xs12 md1>
+          <v-btn depressed large><v-icon>fa-search</v-icon> Search</v-btn>
         </v-flex>
 
 
@@ -47,8 +49,11 @@
     name: 'DormSearch',
     data: function (){
       return{
+        number: 5,
         DormsType: ['All Dorms', 'EMU Dorms', 'Private Dorms'],
-        AcademicYear: ['Academic year', 'Spring', 'Fall', 'Summer']
+        AcademicYear: ['Academic year', 'Spring', 'Fall', 'Summer'],
+        defaultDormType: 'All Dorms',
+        defaultAcademicYear: 'Academic year',
       }
     },
     computed: {
@@ -87,6 +92,7 @@
     background: #feae25;
     padding: 0;
     height: 48px;
+    width: 100%;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     margin-left: -3px;
@@ -94,7 +100,8 @@
     -moz-box-shadow:inset 0px 0px 0px 1px #ccc;
     box-shadow:inset 0px 0px 0px 1px #ccc;
     .v-icon{
-      font-size: 20px;
+      font-size: 14px;
+      margin-right: 6px; 
     }
   }
 }
