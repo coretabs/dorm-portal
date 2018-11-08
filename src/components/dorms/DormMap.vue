@@ -43,16 +43,20 @@
       LMarker,
       LPopup
     },
+    props:{
+      'longitude': Number,
+      'latitude' : Number
+    },
     data: function (){
       return{
        roomsLeft: 7,
         zoom: 15,
-        center: L.latLng(35.14745, 33.90707),
+        center: L.latLng(this.longitude, this.latitude),
         url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        marker: L.latLng(35.14745, 33.90707),
+        marker: L.latLng(this.longitude, this.latitude),
         currentZoom: 10,
-        currentCenter: L.latLng(35.14745, 33.90707),
+        currentCenter: L.latLng(this.longitude, this.latitude),
         showParagraph: false,
         mapStyle: {
           height: '400px'

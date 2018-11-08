@@ -5,7 +5,7 @@
             <v-layout row wrap>
 
               <v-flex class="dorm-img" xs12 sm4>
-                <v-img src="https://en.alfamcyprus.com/thumbnail.php?file=pics/pics_slider/89d3badf6d8421039a1ccf3b5ad2a191.jpg&pwidth=1903&pheight=850&pw=475.7500&ph=212.5000&px=0.0000&py=67.0000&pscale=0.2478&pangle=0.0000&force=y" 
+                <v-img :src="dorm.cover" 
                 gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)"
                 height="100%" width="100%"></v-img>
               </v-flex>
@@ -14,13 +14,13 @@
 
                 <v-card-title class="pa-0">
                     <h3 class="headline">
-                      <a href="#">Alfam Dorm</a>
+                      <a href="#">{{dorm.name}}</a>
                     </h3>
                 </v-card-title>
 
                 <v-layout class="dorm-rating" row>
                   <v-rating
-                    v-model="rating"
+                    v-model="dorm.stars"
                     length="5"
                     readonly
                     background-color="rgba(0,0,0,0.2)"
@@ -29,19 +29,21 @@
                     half-increments
                     dense>
                   </v-rating>
-                  <a href="#" @click.stop.prevent="showReviews">{{reviewsNumber}} reviews</a>
+                  <a href="#" @click.stop.prevent="showReviews">{{dorm.number_of_reviews}} reviews</a>
                 </v-layout>
 
                 <v-layout class="dorm-address">
                   <v-icon>place</v-icon>
-                  <span>Address of the dorm </span>
+                  <span>{{dorm.address}}</span>
                   <a href="#" @click.stop.prevent="showMap"> open map</a>
                 </v-layout>
                 
-                <v-layout class="dorm-warning">
-                  <v-icon>warning</v-icon>
-                  <span>Only {{roomsLeft}} rooms left</span>
-                </v-layout>
+                <template v-if=" roomsLeft <= 10 ">
+                  <v-layout class="dorm-warning">
+                    <v-icon>warning</v-icon>
+                    <span>Only {{roomsLeft}} rooms left</span>
+                  </v-layout>
+                </template>
 
                 <v-layout wrap class="dorm-facilities">
 
@@ -100,7 +102,7 @@
         </v-flex>
         <!-- Map Model -->
         <v-dialog v-model="mapModel" lazy width="800px">
-            <dorm-map></dorm-map>
+            <dorm-map :longitude="dorm.geo_longitude" :latitude="dorm.geo_latitude"></dorm-map>
         </v-dialog>
 
         <!-- Reviews Model -->
@@ -114,56 +116,22 @@
 <script>
   import DormMap from './DormMap'
   import DormReviews from './DormReviews'
+  import { mapState } from 'vuex'
+
   export default {
     name: 'DormCard',
     components: {
       'dorm-map': DormMap,
       'dorm-reviews' : DormReviews
     },
+    props:{
+      'dorm': []
+    },
     data: function (){
       return{
         mapModel: false,
         reviewsModel: false,
-        rating: 4,
-        reviewsNumber: 126,
-        activities: [
-          {
-            icon: 'fa-swimmer',
-            name: 'swimming'
-          },
-          {
-            icon: 'fa-futbol',
-            name: 'football'
-          },
-          {
-            icon: 'fa-handshake',
-            name: 'handshake'
-          },
-          {
-            icon: 'fa-handshake',
-            name: 'handshake2'
-          }
-        ],
-        facilities: [
-          {
-            icon: 'fa-wifi',
-            name: 'free wifi'
-          },
-          {
-            icon: 'fa-parking',
-            name: 'free parking'
-          },
-          {
-            icon: 'fa-bus',
-            name: 'free bus'
-          },
-          {
-            icon: 'fa-bus',
-            name: 'free bus'
-          }
-        ],
-        pobularFacilities: []
-
+        roomsLeft : this.dorm.number_of_found_rooms
       }
     },
     methods: {
@@ -176,10 +144,10 @@
     },
     computed:{
       popularFacilities(){
-        return this.pobularFacilities = this.facilities.slice(0, 4)
+        return this.dorm.facilities.slice(0, 4)
       },
       popularActivities(){
-        return this.popularActivities = this.activities.slice(0, 4)
+        return this.dorm.activities.slice(0, 4)
       }
     }
   }
@@ -232,7 +200,7 @@
       span::after{
         content: "-";
         display: inline-block;
-        padding-right: 3px;
+        padding:0 3px;
       }
     }
     .dorm-warning{
