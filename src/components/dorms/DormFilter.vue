@@ -1,7 +1,5 @@
 <template>
-
   <div id="filter">
-
     <!-- filters sidebar -->
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
@@ -22,83 +20,75 @@
               </ul>
             </template>
             <template v-if="filter.integral">
-                <div>
-                               
-                  <v-layout class="integral-filter" row>
-                    <v-flex class="px-3">
-                      <v-range-slider 
-                        thumb-label="always"
-                        thumb-color="#3ab86c"
-                        v-model="filter.value"
-                        :max="filter.max_value"
-                        :min="filter.min_value"
-                        :step="1"
-                        color="success"
-                      ></v-range-slider>
+              <div>
+                <v-layout class="integral-filter" row>
+                  <v-flex class="px-3">
+                    <v-range-slider 
+                      thumb-label="always"
+                      thumb-color="#3ab86c"
+                      v-model="filter.value"
+                      :max="filter.max_value"
+                      :min="filter.min_value"
+                      :step="1"
+                      color="success"
+                    ></v-range-slider>
+                  </v-flex>
+                  </v-layout>
+                  <v-layout class="integral-filter" v-show="false" row>
+                    <v-flex  class="integral-input">
+                      <v-text-field
+                        label="From"
+                        v-model="filter.value[0]"
+                        class="mt-0"
+                        hide-details
+                        type="text"
+                        disabled
+                      ></v-text-field>
                     </v-flex>
-                   </v-layout>
-                   <v-layout class="integral-filter" v-show="false" row>
-                     <v-flex  class="integral-input">
-                        <v-text-field
-                          label="From"
-                          v-model="filter.value[0]"
-                          class="mt-0"
-                          hide-details
-                          type="text"
-                          disabled
-                        ></v-text-field>
-                      </v-flex>
-                      <v-flex  class="integral-input">
-                        <v-text-field
-                          label="To"
-                          v-model="filter.value[1]"
-                          class="mt-0"
-                          hide-details
-                          type="text"
-                          disabled
-                        ></v-text-field>
-                      </v-flex>
-                    </v-layout>   
+                    <v-flex  class="integral-input">
+                      <v-text-field
+                        label="To"
+                        v-model="filter.value[1]"
+                        class="mt-0"
+                        hide-details
+                        type="text"
+                        disabled
+                      ></v-text-field>
+                    </v-flex>
+                </v-layout>   
               </div>
-              
             </template>
           </div>
-
         </div> 
       </template>
     </v-navigation-drawer>
-
-    <!-- Filtered dorms -->
     <v-content>
       <v-container id="rightside" fluid>
         <v-layout row wrap>
+          <!-- search form -->
+          <v-flex xs12>
+            <dorm-search></dorm-search>
+          </v-flex>
 
-            <!-- search form -->
-            <v-flex xs12>
-              <dorm-search></dorm-search>
-            </v-flex>
+          <!-- number of result -->
+          <!-- <v-flex xs12>
+            <v-alert :value="true" type="success" >
+              {{successSearch}}
+            </v-alert>
+              <v-alert :value="true" type="error" >
+              {{successSearch}}
+            </v-alert> 
+          </v-flex> -->
 
-            <!-- number of result -->
-            <!-- <v-flex xs12>
-              <v-alert :value="true" type="success" >
-                {{successSearch}}
-              </v-alert>
-               <v-alert :value="true" type="error" >
-                {{successSearch}}
-              </v-alert> 
-            </v-flex> -->
-
-            <!-- dorms card -->
-            <v-flex xs12>
-              <dorm-card v-for="n in 5" :key="n"></dorm-card>
-            </v-flex>
+          <!-- dorms card -->
+          <v-flex xs12>
+            <dorm-card v-for="n in 5" :key="n"></dorm-card>
+          </v-flex>
           
         </v-layout>
       </v-container>
     </v-content>
-
   </div>
-
 </template>
 
 <script>
@@ -116,85 +106,85 @@
         filtersHeading: 'Filter by:',
           filters: [
             {
-                "id": "1",
-                "name": "24 Hours Reception",
-                "checkbox": true,
-                "integral": false,
-                "options": [
-                    {
-                        "option_id": 1,
-                        "name": "Dorms with 7/24 open reception"
-                    }
-                ]
+              "id": "1",
+              "name": "24 Hours Reception",
+              "checkbox": true,
+              "integral": false,
+              "options": [
+                  {
+                      "option_id": 1,
+                      "name": "Dorms with 7/24 open reception"
+                  }
+              ]
             },
             {
-                "id": "3",
-                "name": "Dorms Activities",
-                "checkbox": true,
-                "integral": false,
-                "options": [
-                    {
-                        "option_id": 1,
-                        "name": "Free sport/Fitness"
-                    },
-                    {
-                        "option_id": 2,
-                        "name": "Paid sport/Fitness"
-                    },
-                    {
-                        "option_id": 3,
-                        "name": "Other activities"
-                    }
-                ]
+              "id": "3",
+              "name": "Dorms Activities",
+              "checkbox": true,
+              "integral": false,
+              "options": [
+                  {
+                      "option_id": 1,
+                      "name": "Free sport/Fitness"
+                  },
+                  {
+                      "option_id": 2,
+                      "name": "Paid sport/Fitness"
+                  },
+                  {
+                      "option_id": 3,
+                      "name": "Other activities"
+                  }
+              ]
             },
             {
-                "id": "3",
-                "name": "Meals",
-                "checkbox": true,
-                "integral": false,
-                "options": [
-                    {
-                        "option_id": 1,
-                        "name": "3 meals included"
-                    },
-                    {
-                        "option_id": 2,
-                        "name": "Breakfast included"
-                    },
-                    {
-                        "option_id": 3,
-                        "name": "Breakfast/Dinner included"
-                    }
-                ]
+              "id": "3",
+              "name": "Meals",
+              "checkbox": true,
+              "integral": false,
+              "options": [
+                  {
+                      "option_id": 1,
+                      "name": "3 meals included"
+                  },
+                  {
+                      "option_id": 2,
+                      "name": "Breakfast included"
+                  },
+                  {
+                      "option_id": 3,
+                      "name": "Breakfast/Dinner included"
+                  }
+              ]
             },
             {
-                "id": "4",
-                "name": "Shopping Opportunity",
-                "checkbox": true,
-                "integral": false,
-                "options": [
-                    {
-                        "option_id": 1,
-                        "name": "Restorant/Cafeteria"
-                    },
-                    {
-                        "option_id": 2,
-                        "name": "Hairdresser/Barber"
-                    },
-                    {
-                        "option_id": 3,
-                        "name": "Market"
-                    }
-                ]
+              "id": "4",
+              "name": "Shopping Opportunity",
+              "checkbox": true,
+              "integral": false,
+              "options": [
+                  {
+                      "option_id": 1,
+                      "name": "Restorant/Cafeteria"
+                  },
+                  {
+                      "option_id": 2,
+                      "name": "Hairdresser/Barber"
+                  },
+                  {
+                      "option_id": 3,
+                      "name": "Market"
+                  }
+              ]
             },
             {
-                "id": "5",
-                "name": "Price Range",
-                "integral": true,
-                "checkbox": false,
-                "min_value": "0",
-                "max_value":"2000",
-                 value: [0, 2000]
+              "id": "5",
+              "name": "Price Range",
+              "integral": true,
+              "checkbox": false,
+              "min_value": "0",
+              "max_value":"2000",
+                value: [0, 2000]
             }
           ]
       }

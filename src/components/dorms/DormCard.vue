@@ -3,9 +3,8 @@
         <v-flex md10 xs12>
           <v-card>
             <v-layout row wrap>
-              
+
               <v-flex class="dorm-img" xs12 sm4>
-                <!-- <img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" alt=""> -->
                 <v-img src="https://en.alfamcyprus.com/thumbnail.php?file=pics/pics_slider/89d3badf6d8421039a1ccf3b5ad2a191.jpg&pwidth=1903&pheight=850&pw=475.7500&ph=212.5000&px=0.0000&py=67.0000&pscale=0.2478&pangle=0.0000&force=y" 
                 gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)"
                 height="100%" width="100%"></v-img>
@@ -47,72 +46,35 @@
                 <v-layout wrap class="dorm-facilities">
 
                   <v-flex>
-                  <h3>Popular Facilities:</h3>
+                    <h3>Popular Facilities:</h3>
 
-                    <v-tooltip top>
+                    <v-tooltip top v-for="(facility, index) in popularFacilities" :key="index">
                       <v-icon class="facility-icon" slot="activator"
-                      >fa-parking</v-icon>
-                      <span>Free Parking</span>
-                    </v-tooltip>
-
-                    <v-tooltip top>
-                      <v-icon class="facility-icon" slot="activator"
-                      >fa-wifi</v-icon>
-                      <span>Free wifi</span>
-                    </v-tooltip>
-
-                    <v-tooltip top>
-                      <v-icon class="facility-icon" slot="activator"
-                      >fa-utensils</v-icon>
-                      <span>Restaurant</span>
-                    </v-tooltip>
-
-                    <v-tooltip top>
-                      <v-icon class="facility-icon" slot="activator"
-                      >fa-bus</v-icon>
-                      <span>Free Transportation</span>
+                      >{{facility.icon}}</v-icon>
+                      <span>{{facility.name}}</span>
                     </v-tooltip>
 
                     <v-tooltip top>
                       <v-icon class="facility-icon" slot="activator"
                       >more_horiz</v-icon>
-                      <span>more</span>
+                      <span>More Facilities</span>
                     </v-tooltip>
                     
                   </v-flex>
 
                   <v-flex>
-                  <h3>Popular Activities:</h3>
+                    <h3>Popular Activities:</h3>
 
-                    <v-tooltip top>
+                    <v-tooltip top v-for="(activity, index) in popularActivities" :key="index">
                       <v-icon class="facility-icon" slot="activator"
-                      >fa-swimmer</v-icon>
-                      <span>Free Parking</span>
-                    </v-tooltip>
-
-                    <v-tooltip top>
-                      <v-icon class="facility-icon" slot="activator"
-                      >fa-futbol</v-icon>
-                      <span>Free wifi</span>
-                    </v-tooltip>
-                    
-
-                    <v-tooltip top>
-                      <v-icon class="facility-icon" slot="activator"
-                      >fa-handshake</v-icon>
-                      <span>Free wifi</span>
-                    </v-tooltip>
-
-                    <v-tooltip top>
-                      <v-icon class="facility-icon" slot="activator"
-                      >wifi</v-icon>
-                      <span>Free wifi</span>
+                      >{{activity.icon}}</v-icon>
+                      <span>{{activity.name}}</span>
                     </v-tooltip>
 
                     <v-tooltip top>
                       <v-icon class="facility-icon" slot="activator"
                       >more_horiz</v-icon>
-                      <span>more</span>
+                      <span>More Activities</span>
                     </v-tooltip>
 
                   </v-flex>
@@ -164,7 +126,44 @@
         reviewsModel: false,
         rating: 4,
         reviewsNumber: 126,
-        
+        activities: [
+          {
+            icon: 'fa-swimmer',
+            name: 'swimming'
+          },
+          {
+            icon: 'fa-futbol',
+            name: 'football'
+          },
+          {
+            icon: 'fa-handshake',
+            name: 'handshake'
+          },
+          {
+            icon: 'fa-handshake',
+            name: 'handshake2'
+          }
+        ],
+        facilities: [
+          {
+            icon: 'fa-wifi',
+            name: 'free wifi'
+          },
+          {
+            icon: 'fa-parking',
+            name: 'free parking'
+          },
+          {
+            icon: 'fa-bus',
+            name: 'free bus'
+          },
+          {
+            icon: 'fa-bus',
+            name: 'free bus'
+          }
+        ],
+        pobularFacilities: []
+
       }
     },
     methods: {
@@ -173,6 +172,14 @@
       },
       showReviews(){
         this.reviewsModel = !this.reviewsModel
+      }
+    },
+    computed:{
+      popularFacilities(){
+        return this.pobularFacilities = this.facilities.slice(0, 4)
+      },
+      popularActivities(){
+        return this.popularActivities = this.activities.slice(0, 4)
       }
     }
   }
