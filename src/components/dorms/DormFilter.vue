@@ -117,78 +117,86 @@
           filters: [
             {
                 "id": "1",
-                "name": "meals",
+                "name": "24 Hours Reception",
                 "checkbox": true,
                 "integral": false,
                 "options": [
                     {
                         "option_id": 1,
-                        "name": "dinner"
-                    },
-                    {
-                        "option_id": 2,
-                        "name": "three meals"
+                        "name": "Dorms with 7/24 open reception"
                     }
                 ]
             },
             {
                 "id": "3",
-                "name": "Devices",
+                "name": "Dorms Activities",
                 "checkbox": true,
                 "integral": false,
                 "options": [
                     {
                         "option_id": 1,
-                        "name": "washing"
+                        "name": "Free sport/Fitness"
                     },
                     {
                         "option_id": 2,
-                        "name": "air cond"
+                        "name": "Paid sport/Fitness"
                     },
                     {
                         "option_id": 3,
-                        "name": "microwave"
+                        "name": "Other activities"
                     }
                 ]
             },
             {
                 "id": "3",
-                "name": "Devices",
+                "name": "Meals",
                 "checkbox": true,
                 "integral": false,
                 "options": [
                     {
                         "option_id": 1,
-                        "name": "washing"
+                        "name": "3 meals included"
                     },
                     {
                         "option_id": 2,
-                        "name": "air cond"
+                        "name": "Breakfast included"
                     },
                     {
                         "option_id": 3,
-                        "name": "microwave"
+                        "name": "Breakfast/Dinner included"
                     }
                 ]
             },
             {
-                "id": "2",
+                "id": "4",
+                "name": "Shopping Opportunity",
+                "checkbox": true,
+                "integral": false,
+                "options": [
+                    {
+                        "option_id": 1,
+                        "name": "Restorant/Cafeteria"
+                    },
+                    {
+                        "option_id": 2,
+                        "name": "Hairdresser/Barber"
+                    },
+                    {
+                        "option_id": 3,
+                        "name": "Market"
+                    }
+                ]
+            },
+            {
+                "id": "5",
                 "name": "price",
                 "integral": true,
                 "checkbox": false,
                 "min_value": "0",
                 "max_value":"2000",
                  value: [0, 2000]
-            },
-             {
-                "id": "5",
-                "name": "number of people",
-                "integral": true,
-                "checkbox": false,
-                "min_value": "1",
-                "max_value":"5",
-                 value: [1, 5]
             }
+             
           ]
       }
     }, 
