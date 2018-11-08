@@ -25,10 +25,8 @@ reservation
     
 	is_reviewed
 	
-	is_confirmed
+	status {pending, rejected, confirmed, updated}
 	confirmation_deadline
-	
-	is_rejected
 	
 	last_update
 	follow_up_message

@@ -6,6 +6,12 @@ email
 password
 ```
 
+PUT /user accepts
+```
+name
+passport_number
+```
+
 POST /user/resend-confirmation/ accepts
 ```
 email

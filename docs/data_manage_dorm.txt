@@ -1,0 +1,219 @@
+GET /manager/dorms returns
+```
+dorms
+    id
+    cover
+    name
+```
+
+GET /manager/dorms/{id} returns
+```
+name
+histories
+    lang_code
+    history
+
+banks
+    id
+    bank_name
+    account_name
+    account_number
+    swift
+    iban
+    currency_name
+
+facilities
+    id
+    name
+    
+activities
+    id
+    name
+
+cover
+
+photos
+    url
+    is_3d
+
+geo_longitude
+geo_latitude
+address
+
+contact_email
+contact_number
+```
+
+PUT /manager/dorms/{id} accepts
+```
+name
+histories
+    lang_code
+    history
+
+banks
+    id
+    bank_name
+    account_name
+    account_number
+    swift
+    iban
+    currency_name
+
+facilities
+    id
+    
+activities
+    id
+
+cover
+
+photos
+    photo
+
+    is_3d
+    url
+
+geo_longitude
+geo_latitude
+address
+
+contact_email
+contact_number
+```
+
+
+
+GET /manager/dorms/{id}/rooms returns
+```
+rooms
+    id
+    room_type
+    total_quota
+    reserved_rooms_number
+    available_rooms_number
+    allowed_quota
+```
+
+PUT /manager/dorms/{id}/rooms/{id} accepts
+```
+total_quota
+allowed_quota
+
+room_type_id
+people_allowed_number
+
+price
+currency_id
+
+confirmation_days
+
+academic_year_id
+```
+
+DELETE /manager/dorms/{id}/rooms/{id} accepts
+```
+```
+
+GET /manager/dorms/{id}/rooms/filters returns
+```
+currencies
+    id
+    name
+
+room_types 
+    id
+    name
+
+academic_year
+    id
+    name
+
+facilities
+    id
+    name
+```
+
+POST /manager/dorms/{id}/rooms accepts
+```
+total_quota
+allowed_quota
+
+room_type_id
+people_allowed_number
+
+price
+currency_id
+
+confirmation_days
+
+academic_year_id
+```
+
+GET /manager/dorms/{id}/reservations returns
+```
+id
+
+confirmed_reservations
+pending_reservations
+rejected_reservations
+awaiting_reservations
+
+reservations
+    reservation_date
+    confirmation_deadline
+
+    price
+    currency_symbol
+    
+    duration
+    room_type
+
+    student_name
+    email
+    passport_number
+    
+    reciepts
+        reciept_url
+	    upload_reciept_date
+
+    status
+```
+
+GET /manager/dorms/{id}/reservations?
+studentName={studentName}&email={email}&passport_number={passport_number}&status={status}&price={price}
+returns
+```
+id
+
+confirmed_reservations
+pending_reservations
+rejected_reservations
+awaiting_reservations
+
+reservations
+    reservation_date
+    confirmation_deadline
+
+    price
+    currency_symbol
+    
+    duration
+    room_type
+
+    student_name
+    email
+    passport_number
+    
+    reciepts
+        reciept_url
+	    upload_reciept_date
+
+    status
+```
+
+PUT /manager/dorms/{id}/reservations/{id} accepts
+```
+status
+confirmation_deadline
+```

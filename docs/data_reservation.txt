@@ -20,6 +20,7 @@ please login before making a reservation
 
 GET /user/reservation/{id} returns
 ```
+student_name
 passport_number
 
 room_type
@@ -50,11 +51,6 @@ is_rejected
 
 last_update
 follow_up_message
-```
-
-POST /user/reservation/{id}/passport accepts
-```
-passport_number
 ```
 
 POST /user/reservation/{id} accepts

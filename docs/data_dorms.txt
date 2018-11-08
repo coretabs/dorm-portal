@@ -14,45 +14,48 @@ filters
 
 GET /dorm/{id} returns
 ```
-dorm
+
+cover
+
+photos
+    url
+    is_3d
+
+geo_longitude
+geo_latitude
+address
+
+history
+
+contact_email
+contact_number
+
+dorm_facilities
+    name
+    icon (optional field)
+dorm_activities
+    name
+    icon (optional field)
+
+number_of_reviews
+reviews_average
+reviews
+    student_name
+    stars
+    description
+
+rooms
+    rooms_left
     cover
+    room_type
+    price
+    people_allowed_number
 
-    photos
-        url
-        is_3d
-
-    geo_longitude
-    geo_latitude
-    address
-
-    history
-    dorm_facilities
-        name
-        icon (optional field)
-    dorm_activities
+    facilities
         name
         icon (optional field)
 
-    number_of_reviews
-    reviews_average
-    reviews
-        student_name
-        stars
-        description
-
-    rooms
-        rooms_left
-        cover
-        room_type
-        price
-        people_allowed_number
-
-        facilities
-            name
-            icon (optional field)
-    
-        activities
-            name
-            icon (optional field)
-    
+    activities
+        name
+        icon (optional field)
 ```
