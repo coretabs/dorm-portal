@@ -118,13 +118,9 @@
                   </v-flex>
 
                 </v-layout>
-
                 
-
               </v-flex>
               
-              
-
             </v-layout>
 
             <v-divider light></v-divider>
@@ -140,10 +136,12 @@
           </v-card>
 
         </v-flex>
-        
-        <v-dialog v-model="dialog" lazy width="800px">
+        <!-- Map Model -->
+        <v-dialog v-model="mapModel" lazy width="800px">
             <dorm-map></dorm-map>
         </v-dialog>
+
+        <!-- Reviews Model -->
 
       </v-layout>
 </template>
@@ -157,7 +155,7 @@
     },
     data: function (){
       return{
-        dialog: false,
+        mapModel: false,
         rating: 4,
         reviewsNumber: 126,
         
@@ -165,7 +163,7 @@
     },
     methods: {
       showMap(){
-        this.dialog = !this.dialog
+        this.mapModel = !this.mapModel
       }
     }
   }
