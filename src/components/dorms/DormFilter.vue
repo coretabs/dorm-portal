@@ -237,51 +237,22 @@
             "rooms" : [
               {
                 "id": "1",
-                "cover": "https:",
-                "price": "2000",
+                "cover": "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+                "price": "1000",
                 "room_type": "single",
+                "people_number": "1",
+              },
+              {
+                "id": "2",
+                "cover": "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+                "price": "2000",
+                "room_type": "double",
                 "people_number": "2",
-                activities: [
-                {
-                  icon: 'fa-swimmer',
-                  name: 'swimming'
-                },
-                {
-                  icon: 'fa-futbol',
-                  name: 'football'
-                },
-                {
-                  icon: 'fa-handshake',
-                  name: 'handshake'
-                },
-                {
-                  icon: 'fa-handshake',
-                  name: 'handshake2'
-                }
-              ],
-              facilities: [
-                {
-                  icon: 'fa-wifi',
-                  name: 'free wifi'
-                },
-                {
-                  icon: 'fa-parking',
-                  name: 'free parking'
-                },
-                {
-                  icon: 'fa-bus',
-                  name: 'free bus'
-                },
-                {
-                  icon: 'fa-bus',
-                  name: 'free bus'
-                }
-              ],
-              }	
+              }
             ]
           },
           {
-            "id": "1",
+            "id": "2",
             "name":"DAU Two",
             "cover": "https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
             "stars": "3",
@@ -329,46 +300,17 @@
             "rooms" : [
               {
                 "id": "1",
-                "cover": "https:",
-                "price": "2000",
-                "room_type": "single",
-                "people_number": "2",
-                activities: [
-                {
-                  icon: 'fa-swimmer',
-                  name: 'swimming'
-                },
-                {
-                  icon: 'fa-futbol',
-                  name: 'football'
-                },
-                {
-                  icon: 'fa-handshake',
-                  name: 'handshake'
-                },
-                {
-                  icon: 'fa-handshake',
-                  name: 'handshake2'
-                }
-              ],
-              facilities: [
-                {
-                  icon: 'fa-wifi',
-                  name: 'free wifi'
-                },
-                {
-                  icon: 'fa-parking',
-                  name: 'free parking'
-                },
-                {
-                  icon: 'fa-bus',
-                  name: 'free bus'
-                },
-                {
-                  icon: 'fa-bus',
-                  name: 'free bus'
-                }
-              ],
+                "cover": "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+                "price": "800",
+                "room_type": "double",
+                "people_number": "2"
+              },
+              {
+                "id": "2",
+                "cover": "https://images.pexels.com/photos/189293/pexels-photo-189293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+                "price": "4000",
+                "room_type": "double",
+                "people_number": "3"
               }	
             ]
           }
