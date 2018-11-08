@@ -30,7 +30,7 @@
                     half-increments
                     dense>
                   </v-rating>
-                  <a href="#">{{reviewsNumber}} reviews</a>
+                  <a href="#" @click.stop.prevent="showReviews">{{reviewsNumber}} reviews</a>
                 </v-layout>
 
                 <v-layout class="dorm-address">
@@ -142,20 +142,26 @@
         </v-dialog>
 
         <!-- Reviews Model -->
+        <v-dialog v-model="reviewsModel" lazy width="800px">
+            <dorm-reviews></dorm-reviews>
+        </v-dialog>
 
       </v-layout>
 </template>
 
 <script>
   import DormMap from './DormMap'
+  import DormReviews from './DormReviews'
   export default {
     name: 'DormCard',
     components: {
-      'dorm-map': DormMap
+      'dorm-map': DormMap,
+      'dorm-reviews' : DormReviews
     },
     data: function (){
       return{
         mapModel: false,
+        reviewsModel: false,
         rating: 4,
         reviewsNumber: 126,
         
@@ -164,6 +170,9 @@
     methods: {
       showMap(){
         this.mapModel = !this.mapModel
+      },
+      showReviews(){
+        this.reviewsModel = !this.reviewsModel
       }
     }
   }
