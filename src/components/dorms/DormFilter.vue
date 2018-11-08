@@ -189,14 +189,13 @@
             },
             {
                 "id": "5",
-                "name": "price",
+                "name": "Price Range",
                 "integral": true,
                 "checkbox": false,
                 "min_value": "0",
                 "max_value":"2000",
                  value: [0, 2000]
             }
-             
           ]
       }
     }, 
@@ -245,7 +244,7 @@
      background: #fcfcfc;
      padding: 20px 0px;
     .filter{
-      margin-bottom: 8px;
+      margin-bottom: 15px;
       .filter-title{
         color: #585858;
         font-size: 1.2em;
