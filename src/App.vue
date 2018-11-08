@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <dorm-filter></dorm-filter>
+    <router-view></router-view>
     <app-header></app-header>
   </v-app>
 </template>

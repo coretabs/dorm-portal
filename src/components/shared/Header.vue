@@ -3,10 +3,10 @@
     <v-toolbar light flat fixed app :clipped-left="$vuetify.breakpoint.lgAndUp">
       <!-- <v-toolbar-side-icon  @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
       <v-toolbar-title>
-          <a href="#" id="logo">
+        <router-link to="/" id="logo">
             <img src="../../assets/images/header/logo.png" alt="EMU">
             <span>dormitories</span>
-          </a>
+        </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -14,7 +14,7 @@
         <!-- Currency -->
         <v-menu transition="slide-y-transition" bottom offset-y >
           <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
-            <v-icon color="#666">attach_money</v-icon><v-icon color="#ccc">expand_more</v-icon>
+            USD<v-icon color="#ccc" right>expand_more</v-icon>
           </v-btn>
           <v-list>
             <v-list-tile v-for="(currency, index) in currencies" :key="index"  >
@@ -25,7 +25,7 @@
         <!-- language -->
         <v-menu transition="slide-y-transition" bottom offset-y >
           <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
-            <v-icon color="#666">language</v-icon> <v-icon color="#ccc">expand_more</v-icon>
+            <v-icon color="#666">language</v-icon> <v-icon color="#ccc" right>expand_more</v-icon>
           </v-btn>
           <v-list>
             <v-list-tile v-for="(language, index) in languages" :key="index">
@@ -34,7 +34,7 @@
           </v-list>
         </v-menu>
         <!-- check status -->
-        <v-btn flat dark class="status-btn">{{statusBtn}}</v-btn>
+        <v-btn flat dark class="status-btn" to="/login">{{statusBtn}}</v-btn>
       </v-toolbar-items>
 
     </v-toolbar>
@@ -89,9 +89,6 @@ header{
     }
     .lang-btn{
       padding: 0 10px;
-      .v-icon{
-        margin-right: 5px;
-      }
     }
 
   }
