@@ -36,7 +36,7 @@
                 <v-layout class="dorm-address">
                   <v-icon>place</v-icon>
                   <span>Address of the dorm </span>
-                  <a href="#" @click.stop="showMap"> open map</a>
+                  <a href="#" @click.stop.prevent="showMap"> open map</a>
                 </v-layout>
                 
                 <v-layout class="dorm-warning">
