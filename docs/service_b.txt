@@ -44,5 +44,7 @@ reciept
 	
 user
 	name
+    passport_number
+    
 	reservations
 ```
