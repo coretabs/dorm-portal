@@ -94,18 +94,10 @@ room_photo
 	is_3d
 	
 	room characteristics
-
-filter_group
-	name
-    order
-	
-	filters
 	
 filter
 	name
     order
-	
-	filter_group
 	
 radio choice filter
 	radio
@@ -127,6 +119,13 @@ activity_facility filter
 	icon
 	
 	filter
+    activity_facility_group
+
+activity_facility_group
+	name
+    order
+	
+	filters
 	
 dorm_activities_facilities
 	activity_facility
