@@ -125,7 +125,7 @@
       'dorm-reviews' : DormReviews
     },
     props:{
-      'dorm': []
+      'dorm': {}
     },
     data: function (){
       return{
