@@ -1,6 +1,6 @@
 <template>
   <v-form id="search-dorm">
-    <h2 v-html="lang.en.dormSearch.heading"></h2>
+    <h2 v-html="lang.dormSearch.heading"></h2>
     <v-layout row wrap>
       <v-flex xs12 sm3>
         <v-select

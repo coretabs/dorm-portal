@@ -1,6 +1,12 @@
-import studentEnglishLanguage from '../locale/student.en.json'
-import studentTurkishLanguage from '../locale/student.tr.json'
 
-let language = ...
+let currentLang = 'en'
 
-export language
+const lang = require(`../locale/student.${currentLang}.json`);
+
+export const language = lang[currentLang]
+
+// export const language = {
+//   "dormSearch": {
+//     "heading":"Find Dormitories in EMU"
+//   }
+// }

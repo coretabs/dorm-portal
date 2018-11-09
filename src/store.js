@@ -1,12 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import language from '../locale/student.en.json'
+import * as lang from './language'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    language: language
+    language: lang.language,
+    cureentLang: 'en'
   },
   mutations: {},
   actions: {}
