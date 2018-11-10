@@ -148,7 +148,7 @@
       popularActivities(){
         return this.dorm.activities.slice(0, 4)
       },
-      lang(){ return this.$store.state.language }
+      lang(){ return this.$store.getters.lang }
     }
   }
 </script>

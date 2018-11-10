@@ -52,7 +52,7 @@
       }
     },
     computed: {
-      lang(){ return this.$store.state.language }
+      lang(){ return this.$store.getters.lang }
     }
   }
 </script>

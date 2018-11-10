@@ -1,14 +1,21 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { language } from './language'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    language: language
+    language: localStorage.getItem("lang") || 'en'
   },
-  mutations: {},
+  getters:{
+    lang: state => {
+      let currentLang = state.language
+      const lang = require(`../locale/student.${currentLang}.json`);
+      return lang[currentLang]
+    }
+  },
+  mutations: {
+  },
   actions: {}
 });
 

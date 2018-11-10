@@ -58,12 +58,12 @@
     },
     methods:{
       changeLang(lang){
+        this.$store.state.language = lang
         localStorage.setItem("lang", lang)
-        window.location.reload()
       }
     },
     computed: {
-      lang(){ return this.$store.state.language }
+      lang(){ return this.$store.getters.lang }
     }
   }
 </script>
