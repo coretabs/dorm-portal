@@ -75,7 +75,7 @@
         this.showParagraph = !this.showParagraph;
       },
       popupClick () {
-        alert('Popup Click!');
+
       }
     }
   }

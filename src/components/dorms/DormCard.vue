@@ -114,115 +114,117 @@
 </template>
 
 <script>
-  import DormMap from './DormMap'
-  import DormReviews from './DormReviews'
+import DormMap from "./DormMap";
+import DormReviews from "./DormReviews";
 
-  export default {
-    name: 'DormCard',
-    components: {
-      'dorm-map': DormMap,
-      'dorm-reviews' : DormReviews
+export default {
+  name: "DormCard",
+  components: {
+    "dorm-map": DormMap,
+    "dorm-reviews": DormReviews
+  },
+  props: {
+    dorm: {}
+  },
+  data: function() {
+    return {
+      mapModel: false,
+      reviewsModel: false,
+      roomsLeft: this.dorm.number_of_found_rooms
+    };
+  },
+  methods: {
+    showMap() {
+      this.mapModel = !this.mapModel;
     },
-    props:{
-      'dorm': {}
+    showReviews() {
+      this.reviewsModel = !this.reviewsModel;
+    }
+  },
+  computed: {
+    popularFacilities() {
+      return this.dorm.facilities.slice(0, 4);
     },
-    data: function (){
-      return{
-        mapModel: false,
-        reviewsModel: false,
-        roomsLeft : this.dorm.number_of_found_rooms
-      }
+    popularActivities() {
+      return this.dorm.activities.slice(0, 4);
     },
-    methods: {
-      showMap(){
-        this.mapModel = !this.mapModel
-      },
-      showReviews(){
-        this.reviewsModel = !this.reviewsModel
-      }
-    },
-    computed:{
-      popularFacilities(){
-        return this.dorm.facilities.slice(0, 4)
-      },
-      popularActivities(){
-        return this.dorm.activities.slice(0, 4)
-      },
-      lang(){ return this.$store.getters.lang }
+    lang() {
+      return this.$store.getters.lang;
     }
   }
+};
 </script>
 
 <style lang="scss">
-@import '../../assets/styles/vars';
-@import '../../assets/styles/mixins';
+@import "../../assets/styles/vars";
+@import "../../assets/styles/mixins";
 
-#card{
+#card {
   margin: 0 0 40px;
-  
-  .v-card{
+
+  .v-card {
     box-shadow: none;
-    border:1px solid $light-gray-color;
-    @include radius(5px);   
+    border: 1px solid $light-gray-color;
+    @include radius(5px);
     overflow: hidden;
-    .headline{
+    .headline {
       margin: 10px 5px;
-      a{
+      a {
         font-weight: 500;
         font-size: 28px !important;
         text-decoration: none;
         color: $light-black;
       }
     }
-    .dorm-img{
+    .dorm-img {
       overflow: hidden;
       min-height: 250px;
       // img{
       //   height: 100%;
       // }
     }
-    .dorm-details{
+    .dorm-details {
       padding: 20px 30px;
-      .dorm-rating a{
+      .dorm-rating a {
         color: $gray-color;
         display: inline-block;
         margin: 2px 0 0 6px;
         font-size: 16px;
       }
     }
-    .dorm-address{
+    .dorm-address {
       margin-top: 25px;
-      .v-icon{
+      .v-icon {
         font-size: 20px;
         color: $gray-color;
         margin-right: 5px;
       }
-      span::after{
+      span::after {
         content: "-";
         display: inline-block;
-        padding:0 3px;
+        padding: 0 3px;
       }
     }
-    .dorm-warning{
+    .dorm-warning {
       background-color: #fafafa;
       padding: 10px 15px;
       border-left: 5px solid #e33333;
       margin: 20px 0 10px 6px;
       font-size: 16px;
-      .v-icon{
+      .v-icon {
         color: #e33333;
         font-size: 20px;
         margin-right: 10px;
       }
     }
-    .dorm-facilities{
+    .dorm-facilities {
       margin: 15px 0 0 6px;
 
-      h3{
+      h3 {
         margin: 15px 0 15px;
-        color: $gray-color
+        color: $gray-color;
       }
-      .facility-icon{
+      .facility-icon {
         width: 40px;
         height: 40px;
         font-size: 20px;
@@ -235,11 +237,11 @@
       }
     }
   }
-  .v-card__actions{
+  .v-card__actions {
     background: #fbfbfb;
     width: 100%;
     min-height: 180px;
-    .price-bar{
+    .price-bar {
       height: 5px;
       width: 95%;
       margin: 0 auto;

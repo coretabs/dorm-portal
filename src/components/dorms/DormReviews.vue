@@ -7,13 +7,12 @@
 </template>
 
 <script>
-  export default {
-    name: 'DormReviews'
-  }
+export default {
+  name: "DormReviews"
+};
 </script>
 
 <style lang="scss">
-@import '../../assets/styles/vars';
-@import '../../assets/styles/mixins';
-
+@import "../../assets/styles/vars";
+@import "../../assets/styles/mixins";
 </style>

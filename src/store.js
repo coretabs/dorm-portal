@@ -9,7 +9,7 @@ export default new Vuex.Store({
   },
   getters:{
     lang: state => {
-      let currentLang = state.language
+      const currentLang = state.language
       const lang = require(`../locale/student.${currentLang}.json`);
       return lang[currentLang]
     }

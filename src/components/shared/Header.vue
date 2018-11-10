@@ -42,48 +42,47 @@
 </template>
 
 <script>
-  export default {
-    name: 'HeaderComponent',
-    data: function(){
-      return{
-        currencies: [
-          {"symbol": "$", "code": "USD"},
-          {"symbol": "₺", "code": "TL"}
-        ],
-        languages: [
-          {"symbol": "English", "code": "en"},
-          {"symbol": "Turkish", "code": "tr"}
-        ]
-      }
-    },
-    methods:{
-      changeLang(lang){
-        this.$store.state.language = lang
-        localStorage.setItem("lang", lang)
-      }
-    },
-    computed: {
-      lang(){ return this.$store.getters.lang }
+export default {
+  name: "HeaderComponent",
+  data: function() {
+    return {
+      currencies: [{ symbol: "$", code: "USD" }, { symbol: "₺", code: "TL" }],
+      languages: [
+        { symbol: "English", code: "en" },
+        { symbol: "Turkish", code: "tr" }
+      ]
+    };
+  },
+  methods: {
+    changeLang(lang) {
+      this.$store.state.language = lang;
+      localStorage.setItem("lang", lang);
+    }
+  },
+  computed: {
+    lang() {
+      return this.$store.getters.lang;
     }
   }
+};
 </script>
 
 
 <style lang="scss">
-@import '../../assets/styles/vars';
-@import '../../assets/styles/mixins';
-header{
-  .v-toolbar__content{
+@import "../../assets/styles/vars";
+@import "../../assets/styles/mixins";
+header {
+  .v-toolbar__content {
     background-color: #fff;
-    @include box-shadow(0px,0px,8px,rgba(0,0,0,0.4));
-    #logo{
+    @include box-shadow(0px, 0px, 8px, rgba(0, 0, 0, 0.4));
+    #logo {
       display: flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
       color: $gray-color;
       outline: none;
-      span{
+      span {
         margin-left: 12px;
         padding-left: 8px;
         display: inline-block;
@@ -92,14 +91,13 @@ header{
         text-transform: uppercase;
       }
     }
-    .status-btn{
+    .status-btn {
       background-color: $primary-btn-color;
       text-transform: capitalize;
     }
-    .lang-btn{
+    .lang-btn {
       padding: 0 10px;
     }
-
   }
 }
 </style>
