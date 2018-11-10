@@ -82,7 +82,5 @@
 </script>
 
 <style lang="scss">
-@import '../../assets/styles/vars';
-@import '../../assets/styles/mixins';
 @import "~leaflet/dist/leaflet.css";
 </style>
