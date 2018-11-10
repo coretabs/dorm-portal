@@ -11,9 +11,6 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css' 
 Vue.use(Vuetify)
 
-
-// Vue.use(VueRouter)
-
 const vue = new Vue({
   router,
   store,
@@ -21,3 +18,5 @@ const vue = new Vue({
 })
 
 vue.$mount('#app')
+
+

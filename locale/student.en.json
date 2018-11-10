@@ -1,7 +1,29 @@
 {
   "en": {
+    "header":{
+      "logo": "Dorms",
+      "button": "Reservation Status"
+    },
+    "login":{
+      "heading": "Reservation Status",
+      "password": "Password",
+      "email": "Email",
+      "button": "Check"
+    },
     "dormSearch": {
-      "heading":"Find Dormitories in EMU"
+      "heading": "Find Dormitories in EMU",
+      "button": "Search"
+    },
+    "dormFilter": {
+      "heading": "Filter by"
+    },
+    "dormCard": {
+      "roomsLeft": "Rooms left",
+      "popularFacilities": "Popular Facilities",
+      "popularActivities": "Popular Activities",
+      "openMap": "open map",
+      "reviews": "reviews",
+      "more": "More"
     }
   }
 }

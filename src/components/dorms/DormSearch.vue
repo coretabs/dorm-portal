@@ -1,6 +1,6 @@
 <template>
   <v-form id="search-dorm">
-    <h2 v-html="lang.dormSearch.heading"></h2>
+    <h2>{{lang.dormSearch.heading}}</h2>
     <v-layout row wrap>
       <v-flex xs12 sm3>
         <v-select
@@ -33,7 +33,7 @@
         ></v-select>
       </v-flex>
       <v-flex xs12 md1>
-        <v-btn depressed large><v-icon>fa-search</v-icon> Search</v-btn>
+        <v-btn depressed large><v-icon>fa-search</v-icon>{{lang.dormSearch.button}}</v-btn>
       </v-flex>
     </v-layout>
   </v-form>
@@ -53,7 +53,7 @@
     },
     computed: {
       lang(){ return this.$store.state.language }
-    },
+    }
   }
 </script>
 

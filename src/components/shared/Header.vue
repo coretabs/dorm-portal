@@ -5,7 +5,7 @@
       <v-toolbar-title>
         <router-link to="/" id="logo">
             <img src="../../assets/images/header/logo.png" alt="EMU">
-            <span>dormitories</span>
+            <span>{{lang.header.logo}}</span>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -28,13 +28,13 @@
             <v-icon color="#666">language</v-icon> <v-icon color="#ccc" right>expand_more</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile v-for="(language, index) in languages" :key="index">
+            <v-list-tile v-for="(language, index) in languages" :key="index" @click="changeLang(language.code)">
               <v-list-tile-title>{{ language.symbol }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
         <!-- check status -->
-        <v-btn flat dark class="status-btn" to="/login">{{statusBtn}}</v-btn>
+        <v-btn flat dark class="status-btn" to="/login">{{lang.header.button}}</v-btn>
       </v-toolbar-items>
 
     </v-toolbar>
@@ -53,12 +53,21 @@
         languages: [
           {"symbol": "English", "code": "en"},
           {"symbol": "Turkish", "code": "tr"}
-        ],
-        statusBtn: "Reservation Status"
+        ]
       }
+    },
+    methods:{
+      changeLang(lang){
+        localStorage.setItem("lang", lang)
+        window.location.reload()
+      }
+    },
+    computed: {
+      lang(){ return this.$store.state.language }
     }
   }
 </script>
+
 
 <style lang="scss">
 @import '../../assets/styles/vars';

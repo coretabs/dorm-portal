@@ -7,7 +7,7 @@
       width="320"
       fixed app>
       <template>
-        <div id="filters-heading"><v-icon left>filter_list</v-icon> {{filtersHeading}}</div>
+        <div id="filters-heading"><v-icon left>filter_list</v-icon>{{lang.dormFilter.heading}} :</div>
         <div id="filters-body">
 
           <div class="filter" v-for= "(filter,index) in filters" :key="index">
@@ -103,7 +103,6 @@
     data: function (){
       return{
         drawer: null,
-        filtersHeading: 'Filter by:',
           filters: [
             {
               "id": "1",
@@ -321,6 +320,9 @@
       test(){
         alert(this.filter_gourps[1].value)
       }
+    },
+    computed: {
+      lang(){ return this.$store.state.language }
     }
   }
 </script>

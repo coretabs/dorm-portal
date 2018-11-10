@@ -1,7 +1,29 @@
 {
   "tr": {
+    "header":{
+      "logo": "yurtlar",
+      "button": "Rezervasyon durumu"
+    },
     "dormSearch": {
-      "heading":"DAÜ'de Yurtları Bulun"
+      "heading":"DAÜ'de Yurtları Bulun",
+      "button": "arama"
+    },
+    "dormFilter": {
+      "heading": "Tarafından filtre"
+    },
+    "login":{
+      "heading":"Rezervasyon durumu",
+      "password": "sefra",
+      "email": "Email",
+      "button": "Kontrol"
+    },
+    "dormCard": {
+      "roomsLeft": "Kalan odalar",
+      "popularFacilities": "Popüler Tesisler",
+      "popularActivities": "Popüler Etkinlikler",
+      "openMap": "haritayı aç",
+      "reviews": "yorumlar",
+      "more": "Daha"
     }
   }
 }

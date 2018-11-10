@@ -29,26 +29,26 @@
                     half-increments
                     dense>
                   </v-rating>
-                  <a href="#" @click.stop.prevent="showReviews">{{dorm.number_of_reviews}} reviews</a>
+                  <a href="#" @click.stop.prevent="showReviews">{{dorm.number_of_reviews}} {{lang.dormCard.reviews}}</a>
                 </v-layout>
 
                 <v-layout class="dorm-address">
                   <v-icon>place</v-icon>
                   <span>{{dorm.address}}</span>
-                  <a href="#" @click.stop.prevent="showMap"> open map</a>
+                  <a href="#" @click.stop.prevent="showMap"> {{lang.dormCard.openMap}}</a>
                 </v-layout>
                 
                 <template v-if=" roomsLeft <= 10 ">
                   <v-layout class="dorm-warning">
                     <v-icon>warning</v-icon>
-                    <span>Only {{roomsLeft}} rooms left</span>
+                    <span>{{roomsLeft}} {{lang.dormCard.roomsLeft}}</span>
                   </v-layout>
                 </template>
 
                 <v-layout wrap class="dorm-facilities">
 
                   <v-flex>
-                    <h3>Popular Facilities:</h3>
+                    <h3>{{lang.dormCard.popularFacilities}}:</h3>
 
                     <v-tooltip top v-for="(facility, index) in popularFacilities" :key="index">
                       <v-icon class="facility-icon" slot="activator"
@@ -59,13 +59,13 @@
                     <v-tooltip top>
                       <v-icon class="facility-icon" slot="activator"
                       >more_horiz</v-icon>
-                      <span>More Facilities</span>
+                      <span>{{lang.dormCard.more}}</span>
                     </v-tooltip>
                     
                   </v-flex>
 
                   <v-flex>
-                    <h3>Popular Activities:</h3>
+                    <h3>{{lang.dormCard.popularActivities}}:</h3>
 
                     <v-tooltip top v-for="(activity, index) in popularActivities" :key="index">
                       <v-icon class="facility-icon" slot="activator"
@@ -76,7 +76,7 @@
                     <v-tooltip top>
                       <v-icon class="facility-icon" slot="activator"
                       >more_horiz</v-icon>
-                      <span>More Activities</span>
+                      <span>{{lang.dormCard.more}}</span>
                     </v-tooltip>
 
                   </v-flex>
@@ -116,7 +116,6 @@
 <script>
   import DormMap from './DormMap'
   import DormReviews from './DormReviews'
-  import { mapState } from 'vuex'
 
   export default {
     name: 'DormCard',
@@ -148,7 +147,8 @@
       },
       popularActivities(){
         return this.dorm.activities.slice(0, 4)
-      }
+      },
+      lang(){ return this.$store.state.language }
     }
   }
 </script>

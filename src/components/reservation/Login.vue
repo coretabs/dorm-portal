@@ -5,17 +5,17 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-3">
               <v-toolbar color="#fff" class="elevation-0">
-                <v-toolbar-title>Reservation Status</v-toolbar-title>
+                <v-toolbar-title>{{lang.login.heading}}</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form>
                   <v-text-field 
                   prepend-icon="fa-envelope" 
-                  label="Email" 
+                  :label="lang.login.email" 
                   type="email"></v-text-field>
                   <v-text-field 
                   prepend-icon="fa-key" 
-                  label="Password" 
+                  :label="lang.login.password" 
                   :append-icon="show ? 'visibility_off' : 'visibility'"
                   @click:append="show = !show"
                   :type="show ? 'text' : 'password'"
@@ -24,7 +24,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="#feae25" large class="elevation-0">Check</v-btn>
+                <v-btn color="#feae25" large class="elevation-0">{{lang.login.button}}</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -41,6 +41,9 @@
         show: false,
         password: 'Password'
       }
+    },
+    computed: {
+      lang(){ return this.$store.state.language }
     }
   }
 </script>
