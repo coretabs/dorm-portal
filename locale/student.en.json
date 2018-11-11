@@ -24,6 +24,18 @@
       "openMap": "open map",
       "reviews": "reviews",
       "more": "More"
+    },
+    "signup":{
+      "heading": "Create an Account",
+      "password": "Password",
+      "email": "Email",
+      "firstName": "First Name",
+      "passport": "Passport Number",
+      "lastName": "Last Name",
+      "button": "Upload"
+    },
+    "confirmPayment":{
+      "file": "Choose files"
     }
   }
 }
