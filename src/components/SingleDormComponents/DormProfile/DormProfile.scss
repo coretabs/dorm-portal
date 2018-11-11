@@ -15,6 +15,7 @@
       h1{
         font-weight: 500;
         margin-bottom: 2px;
+        font-size: 32px;
       }
       a,
       .v-icon{
@@ -23,6 +24,21 @@
       .v-icon{
         font-size: 20px;
         margin-right: 5px;
+      }
+    }
+    #dorm-photos{
+      position: absolute;
+      bottom: 25px;
+      display: flex;
+      width: 80%;
+      overflow-x: scroll; 
+      div{
+        min-width: 110px;
+        height: 70px;
+        background: #fff;
+        @include radius(4px);
+        margin: 0 5px 10px;
+        
       }
     }
   }
