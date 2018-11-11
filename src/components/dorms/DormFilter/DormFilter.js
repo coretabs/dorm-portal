@@ -73,7 +73,7 @@ export default {
         id: "2",
         name: "DAU Two",
         cover: "https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-        stars: "3",
+        stars: 3.5,
         number_of_reviews: "15",
         geo_longitude: "35.15010",
         geo_latitude: "33.90111",
