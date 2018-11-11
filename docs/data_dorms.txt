@@ -14,7 +14,7 @@ filters
 
 GET /dorm/{id} returns
 ```
-
+id
 cover
 
 photos

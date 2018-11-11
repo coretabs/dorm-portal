@@ -68,4 +68,5 @@
 </template>
 
 <script src="./DormFilter.js"></script>
+
 <style src="./DormFilter.scss" lang="scss"></style>

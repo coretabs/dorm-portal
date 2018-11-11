@@ -12,7 +12,7 @@
 
           <v-card-title class="pa-0">
             <h3 class="headline">
-              <a href="#">{{dorm.name}}</a>
+              <router-link to="/profile" >{{dorm.name}}</router-link>
             </h3>
           </v-card-title>
 
