@@ -1,3 +1,29 @@
+@import "../../../assets/styles/vars";
+@import "../../../assets/styles/mixins";
 #dorm-profile{
-  
+  .v-parallax{
+    .v-parallax__content{
+      padding: 0;
+      position: relative;
+    }
+    .layout{
+      background-image:linear-gradient(rgba(255,0,0,0),rgba(41, 60, 91, 1));
+    }
+    #dorm-banner{
+      position: absolute;
+      bottom: 140px;
+      h1{
+        font-weight: 500;
+        margin-bottom: 2px;
+      }
+      a,
+      .v-icon{
+        color: $white-color;
+      }
+      .v-icon{
+        font-size: 20px;
+        margin-right: 5px;
+      }
+    }
+  }
 }
