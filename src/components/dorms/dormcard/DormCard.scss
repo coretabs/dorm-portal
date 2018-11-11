@@ -1,0 +1,108 @@
+@import "../../../assets/styles/vars";
+@import "../../../assets/styles/mixins";
+
+#card {
+  margin: 0 0 40px;
+
+  .v-card {
+    box-shadow: none;
+    border: 1px solid $light-gray-color;
+    @include radius(5px);
+    overflow: hidden;
+
+    .headline {
+      margin: 10px 5px;
+
+      a {
+        font-weight: 500;
+        font-size: 28px !important;
+        text-decoration: none;
+        color: $light-black;
+      }
+    }
+
+    .dorm-img {
+      overflow: hidden;
+      min-height: 250px;
+      // img{
+      //   height: 100%;
+      // }
+    }
+
+    .dorm-details {
+      padding: 20px 30px;
+
+      .dorm-rating a {
+        color: $gray-color;
+        display: inline-block;
+        margin: 2px 0 0 6px;
+        font-size: 16px;
+      }
+    }
+
+    .dorm-address {
+      margin-top: 25px;
+
+      .v-icon {
+        font-size: 20px;
+        color: $gray-color;
+        margin-right: 5px;
+      }
+
+      span::after {
+        content: "-";
+        display: inline-block;
+        padding: 0 3px;
+      }
+    }
+
+    .dorm-warning {
+      background-color: #fafafa;
+      padding: 10px 15px;
+      border-left: 5px solid #e33333;
+      margin: 20px 0 10px 6px;
+      font-size: 16px;
+
+      .v-icon {
+        color: #e33333;
+        font-size: 20px;
+        margin-right: 10px;
+      }
+    }
+
+    .dorm-facilities {
+      margin: 15px 0 0 6px;
+
+      h3 {
+        margin: 15px 0 15px;
+        color: $gray-color;
+      }
+
+      .facility-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        @include radius(50%);
+        border: 2px solid #ccc;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        margin: 0 10px 10px 0;
+      }
+    }
+  }
+
+  .v-card__actions {
+    background: #fbfbfb;
+    width: 100%;
+    min-height: 180px;
+
+    .price-bar {
+      height: 5px;
+      width: 95%;
+      margin: 0 auto;
+      position: relative;
+      background-color: $light-gray-color;
+    }
+  }
+}

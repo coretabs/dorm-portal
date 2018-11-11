@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import DormCard from "./DormCard";
+import DormCard from "./dormcard/DormCard.vue";
 import DormSearch from "./DormSearch";
 export default {
   name: "DormFilter",
