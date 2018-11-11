@@ -9,8 +9,8 @@
       <template>
         <div id="filters-heading"><v-icon left>filter_list</v-icon>{{lang.dormFilter.heading}} :</div>
         <div id="filters-body">
-
-          <div class="filter" v-for= "(filter,index) in filters" :key="index">
+          
+          <div class="filter" v-for= "(filter,index) in filters.filters" :key="index">
             <div class="filter-title">{{filter.name}}</div>
             <template v-if="filter.checkbox">
               <ul>
@@ -103,89 +103,6 @@ export default {
   data: function() {
     return {
       drawer: null,
-      filters: [
-        {
-          id: "1",
-          name: "24 Hours Reception",
-          checkbox: true,
-          integral: false,
-          options: [
-            {
-              option_id: 1,
-              name: "Dorms with 7/24 open reception"
-            }
-          ]
-        },
-        {
-          id: "3",
-          name: "Dorms Activities",
-          checkbox: true,
-          integral: false,
-          options: [
-            {
-              option_id: 1,
-              name: "Free sport/Fitness"
-            },
-            {
-              option_id: 2,
-              name: "Paid sport/Fitness"
-            },
-            {
-              option_id: 3,
-              name: "Other activities"
-            }
-          ]
-        },
-        {
-          id: "3",
-          name: "Meals",
-          checkbox: true,
-          integral: false,
-          options: [
-            {
-              option_id: 1,
-              name: "3 meals included"
-            },
-            {
-              option_id: 2,
-              name: "Breakfast included"
-            },
-            {
-              option_id: 3,
-              name: "Breakfast/Dinner included"
-            }
-          ]
-        },
-        {
-          id: "4",
-          name: "Shopping Opportunity",
-          checkbox: true,
-          integral: false,
-          options: [
-            {
-              option_id: 1,
-              name: "Restorant/Cafeteria"
-            },
-            {
-              option_id: 2,
-              name: "Hairdresser/Barber"
-            },
-            {
-              option_id: 3,
-              name: "Market"
-            }
-          ]
-        },
-        {
-          id: "5",
-          name: "Price Range",
-          integral: true,
-          checkbox: false,
-          min_value: "0",
-          max_value: "2000",
-          value: [0, 2000]
-        }
-      ],
       dorms: [
         {
           id: "1",
@@ -319,18 +236,24 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      filters: []
     };
   },
   methods: {
-    test() {
-      alert(this.filter_gourps[1].value);
+    fetchFilters(){
+      this.$backend.$fetchFilters().then( responseDate =>{
+        this.filters = responseDate
+      });
     }
   },
   computed: {
     lang() {
       return this.$store.getters.lang;
     }
+  },
+  mounted(){
+    this.fetchFilters();
   }
 };
 </script>
