@@ -1,7 +1,7 @@
 
-import Signup from '../signup/Signup.vue'
-import ConfirmPayment from '../confirmPayment/ConfirmPayment.vue'
-import Status from '../status/Status.vue'
+import Signup from '../Signup/Signup.vue'
+import ConfirmPayment from '../ConfirmPayment/ConfirmPayment.vue'
+import Status from '../Status/Status.vue'
 export default {
   name: "ReservationProcess",
   data: function () {
