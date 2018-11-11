@@ -1,2 +1,9 @@
 @import "../../../assets/styles/vars";
 @import "../../../assets/styles/mixins";
+
+#signup{
+  .v-card{
+    max-width: 400px;
+    margin: 0 auto 30px;
+  }
+}
