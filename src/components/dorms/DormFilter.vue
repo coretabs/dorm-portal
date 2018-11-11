@@ -92,8 +92,8 @@
 </template>
 
 <script>
-import DormCard from "./dormcard/DormCard.vue";
-import DormSearch from "./DormSearch";
+import DormCard from "./DormCard/DormCard.vue";
+import DormSearch from "./DormSearch/DormSearch.vue";
 export default {
   name: "DormFilter",
   components: {
