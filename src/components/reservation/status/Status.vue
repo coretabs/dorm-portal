@@ -3,7 +3,7 @@
   <v-flex xs12 md4>
     <div class="uploaded-file">
       <v-list two-line subheader>
-        <v-subheader inset>Uploaded Documents </v-subheader>
+        <v-subheader inset>{{lang.reservationStatus.uploadedDocuments}}</v-subheader>
         <v-list-tile v-for="item in items" :key="item.title" avata>
           <v-list-tile-content>
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
@@ -16,20 +16,20 @@
               </v-list-tile-action> -->
         </v-list-tile>
       </v-list>
-      <v-btn color="#feae25" class="elevation-0" @click="e1 = 2">{{lang.confirmPayment.confirmButton}}</v-btn>
+      <v-btn color="#feae25" class="elevation-0" @click="e1 = 2">{{lang.reservationStatus.newUpload}}</v-btn>
     </div>
   </v-flex>
   <v-flex xs12 md8>
     <div class="status-row">
-      <h3>Reservation Status:</h3>
+      <h3>{{lang.reservationStatus.statusHeading}}:</h3>
       <span><v-icon>fa-spinner</v-icon> Pending</span>
     </div>
     <div class="status-row">
-      <h3>Comment:</h3>
+      <h3>{{lang.reservationStatus.commentHeading}}:</h3>
       <span>Your payment is being reviewed.</span>
     </div>
     <div class="status-row">
-      <h3>Submitted on:</h3>
+      <h3>{{lang.reservationStatus.submittedHeading}}:</h3>
       <span>17/08/2018</span>
     </div>
   </v-flex>

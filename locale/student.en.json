@@ -42,6 +42,13 @@
       "startUpload": "Start Upload",
       "stopUpload": "Stop Upload",
       "confirmButton": "Next step"
+    },
+    "reservationStatus":{
+      "uploadedDocuments": "Uploaded Documents",
+      "newUpload": "Upload New",
+      "statusHeading": "Reservation Status",
+      "commentHeading": "comment",
+      "submittedHeading": "Submitted on"
     }
   }
 }
