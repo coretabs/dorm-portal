@@ -18,10 +18,10 @@
               <swiper :options="swiperOption">
                 <swiper-slide v-for="(photo,i) in photos" :key="i" >
                   <template v-if="photo.is_3d">
-                    <v-img :src="photo.src" @click="sendPhotoUrl(photo.src, photo.is_3d)"></v-img>
+                     <img src="../../../assets/images/dormprofile/360.png" @click="sendPhotoUrl(photo.src, photo.is_3d)">
                   </template> 
                   <template v-else>
-                    <v-img :src="photo.src" @click="sendPhotoUrl(photo.src, photo.is_3d)"></v-img>
+                    <v-img :src="photo.src" gradient="to top right, rgba(255,255,255,.2), rgba(255,255,255,0)" @click="sendPhotoUrl(photo.src, photo.is_3d)"></v-img>
                   </template> 
                 </swiper-slide>
               </swiper> 
@@ -30,7 +30,7 @@
             <v-card>
               <v-card-text>
                 <template v-if="iframe">
-                  <iframe height="400px" width="100%" allowfullscreen="true" :src="lightboxPhotoUrl" frameBorder="0"></iframe>
+                  <iframe height="500px" width="100%" allowfullscreen="true" :src="lightboxPhotoUrl" frameBorder="0"></iframe>
                 </template> 
                 <template v-else>
                   <v-img :src="lightboxPhotoUrl" height="100%" width="100%"></v-img>
