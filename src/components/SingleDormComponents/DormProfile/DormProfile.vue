@@ -18,7 +18,7 @@
               <swiper :options="swiperOption">
                 <swiper-slide v-for="(photo,i) in photos" :key="i" >
                   <template v-if="photo.is_3d">
-                     <img src="../../../assets/images/dormprofile/360.png" @click="sendPhotoUrl(photo.src, photo.is_3d)">
+                     <img class="elevation-3" src="../../../assets/images/dormprofile/360.png" @click="sendPhotoUrl(photo.src, photo.is_3d)">
                   </template> 
                   <template v-else>
                     <v-img :src="photo.src" gradient="to top right, rgba(255,255,255,.2), rgba(255,255,255,0)" @click="sendPhotoUrl(photo.src, photo.is_3d)"></v-img>
