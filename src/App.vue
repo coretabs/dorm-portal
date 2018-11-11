@@ -7,7 +7,7 @@
 
 <script>
   import HeaderComponent from './components/shared/Header/Header.vue'
-  import DormFilter from './components/dorms/DormFilter'
+  import DormFilter from './components/dorms/DormFilter/DormFilter.vue'
   export default {
     data: function (){
       return{}

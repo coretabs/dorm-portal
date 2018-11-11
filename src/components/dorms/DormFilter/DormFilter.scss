@@ -1,0 +1,108 @@
+@import "../../../assets/styles/vars";
+@import "../../../assets/styles/mixins";
+
+#filter {
+  aside::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  aside::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+  }
+
+  aside::-webkit-scrollbar-thumb {
+    background-color: $light-gray-color;
+    outline: 1px solid slategrey;
+    @include radius(10px);
+  }
+  #filters-heading {
+    line-height: 50px;
+    padding: 2px 15px 0;
+    background: #ff884e;
+    background: -webkit-linear-gradient(to right, #f9ba23, #ff884e);
+    background: linear-gradient(to right, #f9ba23, #ff884e);
+    font-size: 1.3em;
+    color: #000;
+    width: 100%;
+    .v-icon {
+      color: #b75f11;
+      margin-right: 6px;
+      margin-left: 6px;
+    }
+  }
+  #filters-body {
+    background: #fcfcfc;
+    padding: 20px 0px;
+    .filter {
+      margin-bottom: 15px;
+      .filter-title {
+        color: #585858;
+        font-size: 1.2em;
+        font-weight: 600;
+        padding: 10px 10px 10px 30px;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        li {
+          padding: 0px 0px 2px 30px;
+          cursor: pointer;
+          transition: all 0.2s;
+          .v-input,
+          .v-input__slot {
+            margin-top: 0px;
+            margin-bottom: 0px;
+          }
+          .v-messages {
+            display: none;
+          }
+          .v-label {
+            line-height: 35px;
+          }
+          .v-input__control,
+          .v-input__slot,
+          .v-label {
+            width: 100%;
+            min-height: 30px;
+          }
+          &:hover {
+            background: #ccfbde;
+          }
+          .v-input--selection-controls {
+            padding: 0 !important;
+          }
+        }
+      }
+    }
+  }
+  .v-alert {
+    margin: 0 10px;
+    padding: 5px 15px 10px;
+    font-size: 20px;
+  }
+  #rightside {
+    padding: 30px 80px;
+    @media (max-width: 600px) {
+      padding: 30px 20px;
+    }
+  }
+  .integral-filter {
+    max-width: 80%;
+    margin: 20px auto 0;
+    .integral-input {
+      width: 150px;
+    }
+    .v-text-field {
+      margin: 0 15px;
+    }
+    &:nth-child(2) {
+      margin: 0px auto 0;
+    }
+    .v-messages {
+      display: none;
+    }
+  }
+}
+aside {
+  margin-top: 60px !important;
+}
