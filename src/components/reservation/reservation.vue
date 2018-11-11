@@ -2,7 +2,7 @@
    <v-content id="reservation">
       <v-container fluid fill-height>
         <v-layout justify-center>
-          <v-flex xs12 sm8 md8>
+          <v-flex xs12 sm8 md6>
           <v-stepper v-model="e1">
             <v-stepper-header class="elevation-3">
               <v-stepper-step :complete="e1 > 1" step="1" color="#1c3a70">Signup</v-stepper-step>
@@ -133,7 +133,7 @@
                             </v-card-text>
                             <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn color="#feae25" class="elevation-0" @click="e1 = 3" v-show="$refs.upload && $refs.upload.uploaded">{{lang.confirmPayment.confirmButton}}</v-btn>
+                              <v-btn color="#feae25" class="elevation-0" @click="e1 = 3" v-if="$refs.upload && $refs.upload.uploaded">{{lang.confirmPayment.confirmButton}}</v-btn>
                             </v-card-actions>
                           </v-card>
                         </div>
@@ -143,20 +143,47 @@
               </v-stepper-content>
 
               <v-stepper-content step="3">
-                <v-card
-                  class="mb-5"
-                  color="grey lighten-1"
-                  height="200px"
-                ></v-card>
+                
+                <v-layout id="status-step" row wrap>
+                      <v-flex xs12 md4>
+                        
+                      <div class="uploaded-file">
+                        <v-list two-line subheader>
+                          <v-subheader inset>Uploaded Documents </v-subheader>
+                          <v-list-tile v-for="item in items" :key="item.title" avatar @click="">
+                            <v-list-tile-content>
+                              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                              <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+                            </v-list-tile-content>
+                            <v-list-tile-action>
+                              <v-btn icon>
+                                <v-icon color="grey lighten-1">fa-eye</v-icon>
+                              </v-btn>
+                            </v-list-tile-action>
+                          </v-list-tile>
+                        </v-list>
+                        <v-btn color="#feae25" class="elevation-0" @click="e1 = 2" v-if="$refs.upload && $refs.upload.uploaded">{{lang.confirmPayment.confirmButton}}</v-btn>
+                        </div>
+                         
+                      </v-flex>
 
-                <v-btn
-                  color="primary"
-                  @click="e1 = 1"
-                >
-                  Continue
-                </v-btn>
-
-                <v-btn flat>Cancel</v-btn>
+                      <v-flex xs12 md8>
+                        <div class="status-row">
+                          <h3>Reservation Status:</h3>
+                          <span><v-icon>fa-spinner</v-icon> Pending</span>
+                        </div>
+                         <div class="status-row">
+                          <h3>Comment:</h3>
+                          <span>Your payment is being reviewed.</span>
+                        </div>
+                        <div class="status-row">
+                          <h3>Submitted on:</h3>
+                          <span>17/08/2018</span>
+                        </div>
+                      </v-flex>
+                      
+                    </v-layout>
+                
               </v-stepper-content>
             </v-stepper-items>
           </v-stepper>
@@ -176,7 +203,12 @@ export default {
       e1: 0,
       show: false,
       password: "Password",
-      files: []
+      files: [],
+      items: [
+          {iconClass: 'grey lighten-1 white--text', title: 'Receipt01', subtitle: 'Jan 9, 2014' },
+          {iconClass: 'grey lighten-1 white--text', title: 'Receipt02', subtitle: 'Jan 17, 2014' },
+          {iconClass: 'grey lighten-1 white--text', title: 'Receipt03', subtitle: 'Jan 28, 2014' }
+        ]
     };
   },
   components: {
@@ -310,6 +342,46 @@ export default {
       }
     }
     
+  }
+  #status-step{
+    .status-row{
+      margin: 5px 0 35px 30px;
+      @media (max-width: 600px) {
+        margin: 35px 0;
+        padding: 0 5px;
+      }
+      h3{
+        color: #222;
+        margin-bottom: 8px;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .v-icon{
+        font-size: 16px;
+        margin-right: 6px;
+      }
+    }
+    .uploaded-file{
+      margin-bottom: 30px;
+      h3{
+        margin-bottom: 10px;
+      }
+      .v-subheader--inset{
+        margin: 0 !important;
+        background: #f9e7c8;
+      }
+      .v-list{
+        @include radius(4px);
+        background: #fff7ea;
+        overflow: hidden;
+      }
+      .v-btn{
+        margin: 0 2px;
+      }
+      .v-icon{
+        font-size: 18px;
+      }
+    }
   }
 }
 </style>
