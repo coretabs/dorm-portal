@@ -16,9 +16,15 @@ $backend.interceptors.response.use(function (response) {
 })
 
 $backend.$fetchFilters = () => {
-    return $backend.get(`/filtersa`)
-        .then(response => response.data)
+  return $backend.get(`/filtersa`)
+      .then(response => response.data)
 }
+
+$backend.$fetchDorms = (dormId) => {
+  return $backend.get(`/dorms/${dormId}`)
+      .then(response => response.data)
+}
+
 
 $backend.$postMessage = (payload) => {
     return $backend.post(`messages/`, payload)
