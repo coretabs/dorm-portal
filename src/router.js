@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import DormFilter from './components/dorms/DormFilter'
-import Login from './components/reservation/Login'
-import Reservation from './components/reservation/reservation'
+import Login from './components/reservation/login/Login'
+import Reservation from './components/reservation/reservationProcess/ReservationProcess'
 
 Vue.use(Router)
 

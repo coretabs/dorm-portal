@@ -1,0 +1,17 @@
+@import "../../../assets/styles/vars";
+@import "../../../assets/styles/mixins";
+#login {
+  .container {
+    background: $gray-background;
+  }
+  .v-card {
+    padding: 15px 25px 20px;
+    @include radius(4px);
+    .v-btn {
+      @include radius(4px);
+    }
+    .v-icon {
+      font-size: 20px;
+    }
+  }
+}
