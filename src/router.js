@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import DormFilter from './components/dorms/DormFilter/DormFilter.vue';
-import Login from './components/reservation/Login/Login.vue';
-import Reservation from './components/reservation/ReservationProcess/ReservationProcess.vue';
-import DormProfile from './components/dorms/DormProfile/DormProfile.vue';
+import DormFilter from './components/DormsComponents/DormFilter/DormFilter.vue';
+import Login from './components/ReservationComponents/Login/Login.vue';
+import Reservation from './components/ReservationComponents/ReservationProcess/ReservationProcess.vue';
+import DormProfile from './components/SingleDormComponents/DormProfile/DormProfile.vue';
 
 Vue.use(Router)
 
@@ -22,7 +22,7 @@ export default new Router({
       component: Reservation
     },
     {
-      path: '/profile',
+      path: '/dorms/:id',
       component: DormProfile
     },
   ],

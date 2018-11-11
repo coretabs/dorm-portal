@@ -6,7 +6,7 @@ export default {
   name: "ReservationProcess",
   data: function () {
     return {
-      e1: 1
+      e1: 2
     };
   },
   components: {
