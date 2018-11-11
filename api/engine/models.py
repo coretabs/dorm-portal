@@ -9,17 +9,21 @@ from django.db import models as django_models
 
 class DormitoryQuerySet(django_models.QuerySet):
     def apply_filters(self, filters):
+
         combined_filters = reduce(lambda filter1, filter2: filter1 & filter2, filters)
-        result = self.filter(combined_filters)
+
+        filtered_rooms = RoomCharacteristics.objects.filter(combined_filters)
+
+        room_characteristics = django_models.Prefetch(
+            'room_characteristics', queryset=filtered_rooms)
+
+        dorms = self.filter(room_characteristics__in=filtered_rooms).prefetch_related(room_characteristics)
         
-        return result
+        return dorms
 
-class DormitoryManager(django_models.Manager):
-    def get_queryset(self):
-        return DormitoryQuerySet(self.model, using=self._db)
+    def available(self):
+        return self.filter(room_characteristics__allowed_quota__gte = 1)
 
-    def apply_filters(self, filters):
-        return self.get_queryset().apply_filters(filters)
 
 class Dormitory(models.Model):
     PUBLIC = '0'
@@ -39,7 +43,7 @@ class Dormitory(models.Model):
     category = models.CharField(
         max_length=2, choices=CATEGORIES, default=PUBLIC)
 
-    objects = DormitoryManager()
+    objects = DormitoryQuerySet.as_manager()
 
     def __str__(self):
         return f'{self.name}'
@@ -53,8 +57,8 @@ class IntegralFilter(Filter):
     number = models.IntegerField(default=0)
 
     def get_query(self, min, max):
-        return (models.Q(room_characteristics__filters__integralfilter__number__gte = min) & 
-                models.Q(room_characteristics__filters__integralfilter__number__lte = max))
+        return (models.Q(filters__integralfilter__number__gte = min) & 
+                models.Q(filters__integralfilter__number__lte = max))
 
     def __str__(self):
         return f'{self.name} filter with number {self.number}'
@@ -62,6 +66,8 @@ class IntegralFilter(Filter):
 
 class RoomCharacteristics(models.Model):
     total_quota = models.IntegerField(default=0)
+    allowed_quota = models.IntegerField(default=0)
+
     filters = models.ManyToManyField(
         Filter, related_name='filters')
 
