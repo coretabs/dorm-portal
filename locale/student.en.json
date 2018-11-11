@@ -32,10 +32,16 @@
       "firstName": "First Name",
       "passport": "Passport Number",
       "lastName": "Last Name",
-      "button": "Upload"
+      "button": "Signup"
     },
     "confirmPayment":{
-      "file": "Choose files"
+      "instruction": "Please make a transiction to one of our bank accounts, then upload the receipt below.",
+      "dragMessage": "Drag and Drop files to upload",
+      "chooseFile": "Choose files",
+      "selectFile": "Select files",
+      "startUpload": "Start Upload",
+      "stopUpload": "Stop Upload",
+      "confirmButton": "Next step"
     }
   }
 }

@@ -78,16 +78,62 @@
                         <div>
                           <v-card class="elevation-0">
                             <v-card-text>
-                               <p>Please make a transiction to one of our bank accounts, then upload the receipt below.</p>
-                              <v-form>
-                                <v-text-field 
-                                :label="lang.confirmPayment.file" 
-                                type="file"></v-text-field>
-                              </v-form>
+                              <p>{{lang.confirmPayment.instruction}}</p>
+                              <div class="drag-drop">
+                                <div class="upload">
+                                  <ul v-if="files.length">
+                                    <li v-for="file in files" :key="file.id">
+                                      <span>{{file.name}}</span> -
+                                      <span>{{file.size | formatSize}}</span> -
+                                      <span v-if="file.error">{{file.error}}</span>
+                                      <span v-else-if="file.success">success</span>
+                                      <span v-else-if="file.active">active</span>
+                                      <span v-else-if="file.active">active</span>
+                                      <span v-else></span>
+                                    </li>
+                                  </ul>
+                                  <ul v-else>
+                                      <div>
+                                        <v-icon>fa-file-import</v-icon>
+                                        <h4>{{lang.confirmPayment.dragMessage}}</h4>
+                                        <label for="file">{{lang.confirmPayment.chooseFile}}</label>
+                                      </div>
+                                  </ul>
+
+                                  <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
+                                    <h3>{{lang.confirmPayment.dragMessage}}</h3>
+                                  </div>
+                                  </div>
+
+                                  <v-flex class="action-btn">
+                                    <file-upload
+                                      class="select-btn"
+                                      post-action="/upload/post"
+                                      :multiple="true"
+                                      :drop="true"
+                                      :drop-directory="true"
+                                      v-model="files"
+                                      ref="upload">
+                                      <v-icon left>fa-plus</v-icon>
+                                      {{lang.confirmPayment.selectFile}}
+                                    </file-upload>
+
+                                    <v-btn color="#1c3a70" dark class="elevation-0" v-if="!$refs.upload || !$refs.upload.active"  @click.prevent="$refs.upload.active = true">
+                                      <v-icon left>fa-arrow-up</v-icon>
+                                      {{lang.confirmPayment.startUpload}}
+                                    </v-btn>
+
+                                    <v-btn color="red darken-1" dark class="elevation-0" v-else  @click.prevent="$refs.upload.active = false">
+                                      <v-icon left>fa-times-circle</v-icon>
+                                      {{lang.confirmPayment.stopUpload}}
+                                    </v-btn>
+
+                                  </v-flex>
+                                </div>
                             </v-card-text>
                             <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn color="#feae25" class="elevation-0" @click="e1 = 2">{{lang.signup.button}}</v-btn>
+                              <v-btn color="#feae25" class="elevation-0" @click="e1 = 3" v-show="$refs.upload && $refs.upload.uploaded">{{lang.confirmPayment.confirmButton}}</v-btn>
                             </v-card-actions>
                           </v-card>
                         </div>
@@ -122,14 +168,19 @@
 </template>
 
 <script>
+import FileUpload from "vue-upload-component/src";
 export default {
   name: "Reservation",
   data: function() {
     return {
-      e1: 2,
+      e1: 0,
       show: false,
-      password: "Password"
+      password: "Password",
+      files: []
     };
+  },
+  components: {
+    "file-upload": FileUpload
   },
   computed: {
     lang() {
@@ -142,6 +193,7 @@ export default {
 <style lang="scss">
 @import "../../assets/styles/vars";
 @import "../../assets/styles/mixins";
+@import "~vue-upload-component/dist/vue-upload-component.part.css";
 #reservation {
   .container {
     background: $gray-background;
@@ -189,11 +241,75 @@ export default {
       color: $gray-color;
       margin-bottom: 20px;
     }
-    .v-expansion-panel__container{
+    .v-expansion-panel__container {
       @include radius(4px);
     }
   }
-  #upload-file{
+  .drag-drop{
+    .upload{
+      padding: 40px 20px;
+      @include radius(4px);
+      border: 2px dashed $light-gray-color;
+      text-align: center;
+      margin: 20px 0;
+      .v-icon{
+        font-size: 60px;
+        color: $light-gray-color;
+        margin-bottom: 20px;
+      }
+      label{
+        margin-top: 5px;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li{
+          padding: 5px 0;
+          margin: 4px 0;
+          background: $gray-background;
+        }
+      }
+    }
+    .drop-active {
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      position: fixed;
+      z-index: 9999;
+      opacity: 0.6;
+      text-align: center;
+      background: #000;
+    }
+    .drop-active h3 {
+      margin: -0.5em 0 0;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      font-size: 40px;
+      color: #fff;
+      padding: 0;
+    }
+    .action-btn{
+      .select-btn{
+        top: 13px;
+        padding: 7px 20px;
+        background: #feae25;
+        @include radius(4px);
+        @media (max-width: 600px) {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+      }
+    }
+    
   }
 }
 </style>
