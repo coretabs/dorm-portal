@@ -1,0 +1,31 @@
+@import "../../../assets/styles/vars";
+@import "../../../assets/styles/mixins";
+header {
+  .v-toolbar__content {
+    background-color: #fff;
+    @include box-shadow(0px, 0px, 8px, rgba(0, 0, 0, 0.4));
+    #logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: $gray-color;
+      outline: none;
+      span {
+        margin-left: 12px;
+        padding-left: 8px;
+        display: inline-block;
+        border-left: 2px solid $light-gray-color;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+    }
+    .status-btn {
+      background-color: $primary-btn-color;
+      text-transform: capitalize;
+    }
+    .lang-btn {
+      padding: 0 10px;
+    }
+  }
+}
