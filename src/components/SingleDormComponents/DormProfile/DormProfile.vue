@@ -15,13 +15,36 @@
             </div>
           </section>
           <section id="dorm-photos">
-              <div v-for="n in 15" :key="n"></div>
+              <swiper :options="swiperOption">
+                <swiper-slide v-for="(photo,i) in photos" :key="i" >
+                  <template v-if="photo.is_3d">
+                    <v-img :src="photo.src" @click="sendPhotoUrl(photo.src, photo.is_3d)"></v-img>
+                  </template> 
+                  <template v-else>
+                    <v-img :src="photo.src" @click="sendPhotoUrl(photo.src, photo.is_3d)"></v-img>
+                  </template> 
+                </swiper-slide>
+              </swiper> 
           </section>
+          <v-dialog v-model="lightbox" lazy width="800px">
+            <v-card>
+              <v-card-text>
+                <template v-if="iframe">
+                  <iframe height="400px" width="100%" allowfullscreen="true" :src="lightboxPhotoUrl" frameBorder="0"></iframe>
+                </template> 
+                <template v-else>
+                  <v-img :src="lightboxPhotoUrl" height="100%" width="100%"></v-img>
+                </template> 
+              </v-card-text>
+            </v-card>
+          </v-dialog>
         </v-flex>
-
+       
       </v-layout>
     </v-parallax>
-
+    <div>
+      
+    </div>
   </v-content>
 </div>
 </template>

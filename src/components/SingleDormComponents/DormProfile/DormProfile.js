@@ -1,7 +1,28 @@
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+
 export default {
   name: "DormProfile",
+  components: {
+    swiper,
+    swiperSlide
+  },
   data: function () {
     return {
+      lightboxPhotoUrl: '',
+      iframe: false,
+      lightbox: false,
+      model: true,
+      swiperOption: {
+        slidesPerView: 12,
+        centeredSlides: false,
+        spaceBetween: 8,
+        grabCursor: true,
+        preventClicks: false,
+        clickable: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        }},
       "name": "Alfam dorm",
       "cover": "https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
       "photos": [
@@ -81,11 +102,18 @@ export default {
           ]
         }
       ]
-    };
+    }
   },
   computed: {
     lang() {
       return this.$store.getters.lang;
+    }
+  },
+  methods:{
+    sendPhotoUrl(url,is_3d){
+      this.lightboxPhotoUrl = url
+      this.iframe = is_3d
+      this.lightbox = !this.lightbox
     }
   }
 };

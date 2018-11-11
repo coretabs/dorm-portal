@@ -1,5 +1,7 @@
 @import "../../../assets/styles/vars";
 @import "../../../assets/styles/mixins";
+@import '~swiper/dist/css/swiper.css';
+
 #dorm-profile{
   .v-parallax{
     .v-parallax__content{
@@ -28,17 +30,30 @@
     }
     #dorm-photos{
       position: absolute;
-      bottom: 25px;
+      bottom: 40px;
       display: flex;
-      width: 80%;
-      overflow-x: scroll; 
+      width: auto;
+      overflow: hidden;
       div{
-        min-width: 110px;
         height: 70px;
-        background: #fff;
-        @include radius(4px);
-        margin: 0 5px 10px;
-        
+        .swiper-slide{
+          margin: 0 5px 10px;
+          @include radius(4px);
+          background: #fff;
+          color: #000;
+          max-width: 120px;
+          min-width: 120px;
+          text-align: center;
+          overflow: hidden;
+        }
+      }
+      img{
+        width: 120px;
+      }
+      .v-card{
+        img{
+          width: 200px;
+        }
       }
     }
   }
