@@ -2,17 +2,20 @@
 <div id="dorm-profile">
   <v-content>
 
-    <v-parallax dark src="https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+    <v-parallax dark :src="cover">
       <v-layout justify-center>
 
         <v-flex md8 xs10>
           <section id="dorm-banner">
-            <h1>Alfam Dormitory</h1>
+            <h1>{{name}}</h1>
             <div>
               <v-icon>place</v-icon>
-              <span>Kaleland street bla bla</span> - 
+              <span>{{address}}</span> - 
               <a href="#" @click.stop.prevent="showMap"> show map</a>
             </div>
+          </section>
+          <section id="dorm-photos">
+              <div v-for="n in 15" :key="n"></div>
           </section>
         </v-flex>
 
