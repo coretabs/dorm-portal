@@ -70,7 +70,7 @@ dorms
         name
         icon (optional field)
 
-    number_of_found_rooms
+    rooms_left_in_dorm
     rooms
         id
         cover

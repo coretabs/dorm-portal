@@ -12,9 +12,10 @@ filters
     }
 ```
 
-GET /dorm/{id} returns
+GET /dorms/{id} returns
 ```
-id
+name
+
 cover
 
 photos
@@ -45,17 +46,14 @@ reviews
     description
 
 rooms
+    id
     rooms_left
-    cover
+    photos [cover, rest photos] // just images src
     room_type
     price
     people_allowed_number
 
     facilities
-        name
-        icon (optional field)
-
-    activities
         name
         icon (optional field)
 ```
