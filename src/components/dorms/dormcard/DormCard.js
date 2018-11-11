@@ -1,5 +1,5 @@
 
-import DormMap from "../DormMap";
+import DormMap from "../dormmap/DormMap.vue";
 import DormReviews from "../DormReviews";
 
 export default {
