@@ -1,7 +1,6 @@
-Feature: Creating a message
-    Let's create a message dude!
+Feature: Integral feature
 
-    Scenario: The Test
+    Scenario:
         Given we have 2 dormitories
         When filtering alfam right price
         Then get alfam dormitory

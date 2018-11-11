@@ -64,6 +64,25 @@ class IntegralFilter(Filter):
         return f'{self.name} filter with number {self.number}'
 
 
+class RadioFilter(Filter):
+
+    def get_query(self, selected_options):
+        return models.Q(filters__radiofilter__options__name__in = selected_options)
+
+    def __str__(self):
+        return f'{self.name} filter with options {self.options}'
+
+
+class Option(models.Model):
+    name = models.CharField(max_length=60)
+
+    radio_filter = models.ForeignKey(
+        RadioFilter, related_name='options', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.name} option for the filter {self.radio_filter.name}'
+
+
 class RoomCharacteristics(models.Model):
     total_quota = models.IntegerField(default=0)
     allowed_quota = models.IntegerField(default=0)

@@ -100,9 +100,8 @@ filter
     order
 	
 radio choice filter
-	radio
-	
 	options
+	
 	filter
 
 option
