@@ -16,7 +16,6 @@ class DormitoryQuerySet(django_models.QuerySet):
         for current_filter in filters:
             filtered_rooms = filtered_rooms.filter(current_filter)
         
-
         room_characteristics = django_models.Prefetch(
             'room_characteristics', queryset=filtered_rooms)
 
@@ -34,9 +33,26 @@ class DormitoryQuerySet(django_models.QuerySet):
         return self.filter(room_characteristics__allowed_quota__gte = 1)
 
 
-class Filter(PolymorphicModel):
+class Choice(PolymorphicModel):
     name = models.CharField(max_length=60)
 
+
+class RadioChoice(Choice):
+    is_optional = models.BooleanField(default=True)
+
+
+class Option(models.Model):
+    name = models.CharField(max_length=60)
+
+    radio_choice = models.ForeignKey(
+        RadioChoice, related_name='options', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.name} option for the filter {self.radio_choice.name}'
+
+
+class Filter(PolymorphicModel):
+    pass
 
 class IntegralFilter(Filter):
     number = models.IntegerField(default=0)
@@ -50,22 +66,16 @@ class IntegralFilter(Filter):
 
 
 class RadioFilter(Filter):
+    selected_option = models.ForeignKey(
+                        Option, related_name='radio_filters', on_delete=models.CASCADE)
+    radio_choice = models.ForeignKey(
+                        RadioChoice, related_name='radio_filters', on_delete=models.CASCADE)
 
     def get_query(self, selected_options):
-        return models.Q(filters__radiofilter__options__id__in = selected_options)
+        return models.Q(filters__radiofilter__selected_option__id__in = selected_options)
 
     def __str__(self):
         return f'{self.name} filter with options {self.options}'
-
-
-class Option(models.Model):
-    name = models.CharField(max_length=60)
-
-    radio_filter = models.ForeignKey(
-        RadioFilter, related_name='options', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.name} option for the filter {self.radio_filter.name}'
 
 
 class FeatureFilter(Filter):
@@ -80,7 +90,6 @@ class FeatureFilter(Filter):
 
     def __str__(self):
         return f'{self.name} filter'
-
 
 class Dormitory(models.Model):
     PUBLIC = '0'

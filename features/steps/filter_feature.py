@@ -1,34 +1,34 @@
 from django.test import TestCase
 from behave import given, when, then
 
-from api.engine.models import Dormitory, RoomCharacteristics, RadioFilter, Option, ActivityFacilityFilter
+from api.engine.models import Dormitory, RoomCharacteristics, RadioFilter, Option, FeatureFilter
 
-def create_dorm_activities_facilities(self):
-    self.swimming_pool = ActivityFacilityFilter(name='Swimming pool', is_dorm_activity_facility=True)
-    self.free_wifi = ActivityFacilityFilter(name='Free WiFi', is_dorm_activity_facility=True)
+def create_dorm_features(self):
+    self.swimming_pool = FeatureFilter(name='Swimming pool', is_dorm_feature=True)
+    self.free_wifi = FeatureFilter(name='Free WiFi', is_dorm_feature=True)
 
     self.swimming_pool.save()
     self.free_wifi.save()
 
-    self.swimming_pool = ActivityFacilityFilter.objects.filter(name='Swimming pool').first()
-    self.free_wifi = ActivityFacilityFilter.objects.filter(name='Free WiFi').first()
+    self.swimming_pool = FeatureFilter.objects.filter(name='Swimming pool').first()
+    self.free_wifi = FeatureFilter.objects.filter(name='Free WiFi').first()
 
 
 @given('we have 2 dormitory with different facilities')
 def prepare_dormitory(self):
 
-    create_dorm_activities_facilities(self)
+    create_dorm_features(self)
 
     self.alfam = Dormitory(name='Alfam')
     self.alfam.save()
 
-    self.alfam.activities_facilities.add(self.swimming_pool)
+    self.alfam.features.add(self.swimming_pool)
     self.alfam.save()
 
     self.dovec = Dormitory(name='Dovec')
     self.dovec.save()
 
-    self.dovec.activities_facilities.add(self.free_wifi)
+    self.dovec.features.add(self.free_wifi)
     self.dovec.save()
 
 
@@ -44,20 +44,20 @@ def test_model_can_create_a_message(self):
     assert self.filtered_dorm_alfam.all().count() == 1
 
 
-def create_room_activities_facilities(self):
-    self.luxury_shower = ActivityFacilityFilter(name='Luxury shower')
+def create_room_features(self):
+    self.luxury_shower = FeatureFilter(name='Luxury shower')
     self.luxury_shower.save()
-    self.luxury_shower = ActivityFacilityFilter.objects.filter(name='Luxury shower').first()
+    self.luxury_shower = FeatureFilter.objects.filter(name='Luxury shower').first()
 
-    self.air_conditioner = ActivityFacilityFilter(name='Air Conditioner')
+    self.air_conditioner = FeatureFilter(name='Air Conditioner')
     self.air_conditioner.save()
-    self.air_conditioner = ActivityFacilityFilter.objects.filter(name='Air Conditioner').first()
+    self.air_conditioner = FeatureFilter.objects.filter(name='Air Conditioner').first()
 
 
 @given('we have 2 dormitoroes with room-specific facilities')
 def prepare_dormitory(self):
 
-    create_room_activities_facilities(self)
+    create_room_features(self)
 
     self.alfam = Dormitory(name='Alfam')
     self.alfam.save()
