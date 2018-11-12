@@ -46,6 +46,10 @@
       
     </div>
   </v-content>
+  <!-- Map Model -->
+  <v-dialog v-model="mapModel" lazy width="800px">
+    <dorm-map :longitude="geo_longitude" :latitude="geo_latitude"></dorm-map>
+  </v-dialog>
 </div>
 </template>
 

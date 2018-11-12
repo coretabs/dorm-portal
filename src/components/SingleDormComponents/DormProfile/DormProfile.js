@@ -1,16 +1,19 @@
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import DormMap from "../../SharedComponents/DormMap/DormMap.vue";
 
 export default {
   name: "DormProfile",
   components: {
     swiper,
-    swiperSlide
+    swiperSlide,
+    DormMap
   },
   data: function () {
     return {
       lightboxPhotoUrl: '',
       iframe: false,
       lightbox: false,
+      mapModel: false,
       model: true,
       swiperOption: {
         slidesPerView: 10,
@@ -155,6 +158,9 @@ export default {
       this.lightboxPhotoUrl = url
       this.iframe = is_3d
       this.lightbox = !this.lightbox
-    }
+    },
+    showMap() {
+      this.mapModel = !this.mapModel;
+    },
   }
 };
