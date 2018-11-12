@@ -60,9 +60,8 @@ def prepare_dormitory(self):
 
 @when('filtering alfam rooms by meal Breakfast')
 def filtering(self):
-    choosen_option_id = self.meals_filter1.selected_option.id
-    filters = [self.meals_filter1.get_query([choosen_option_id,]), ]
-    #breakpoint()
+    choosen_option_id = [self.meals_filter1.selected_option.id, ]
+    filters = [self.meals.get_query(choosen_option_id), ]
     self.filtered_dorm_alfam = Dormitory.objects.apply_room_filters(filters)
 
 
@@ -76,8 +75,8 @@ def test_model_can_create_a_message(self):
     
 @when('filtering alfam rooms by meal Dinner')
 def filtering(self):
-    choosen_option_id = self.meals_filter2.selected_option.id
-    filters = [self.meals_filter2.get_query([choosen_option_id,]), ]
+    choosen_option_id = [self.meals_filter2.selected_option.id, ]
+    filters = [self.meals.get_query(choosen_option_id), ]
     self.filtered_dorm_alfam = Dormitory.objects.apply_room_filters(filters)
 
 
@@ -98,7 +97,7 @@ def test_model_can_create_a_message(self):
 def filtering(self):
     choosen_option_ids = [self.meals_filter1.selected_option.id,
                           self.meals_filter2.selected_option.id]
-    filters = [self.meals_filter2.get_query(choosen_option_ids), ]
+    filters = [self.meals.get_query(choosen_option_ids), ]
     self.filtered_dorm_alfam = Dormitory.objects.apply_room_filters(filters)
 
 
