@@ -40,6 +40,25 @@ class Choice(PolymorphicModel):
 class RadioChoice(Choice):
     is_optional = models.BooleanField(default=True)
 
+    def get_query(self, selected_options):
+        return (models.Q(filters__radiofilter__radio_choice__id = self.id) &
+                models.Q(filters__radiofilter__selected_option__id__in = selected_options))
+
+    def __str__(self):
+        return f'{self.name} radio choice'
+
+
+class IntegralChoice(Choice):
+    is_optional = models.BooleanField(default=True)
+
+    def get_query(self, min, max):
+        return (models.Q(filters__integralfilter__integral_choice__id = self.id) & 
+                models.Q(filters__integralfilter__selected_number__gte = min) & 
+                models.Q(filters__integralfilter__selected_number__lte = max))
+
+    def __str__(self):
+        return f'{self.name} intgeral choice'
+
 
 class Option(models.Model):
     name = models.CharField(max_length=60)
@@ -55,14 +74,13 @@ class Filter(PolymorphicModel):
     pass
 
 class IntegralFilter(Filter):
-    number = models.IntegerField(default=0)
+    selected_number = models.IntegerField(default=0)
 
-    def get_query(self, min, max):
-        return (models.Q(filters__integralfilter__number__gte = min) & 
-                models.Q(filters__integralfilter__number__lte = max))
+    integral_choice = models.ForeignKey(
+        IntegralChoice, related_name='integral_filters', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.name} filter with number {self.number}'
+        return f'{self.integral_choice.name} filter with number {self.number}'
 
 
 class RadioFilter(Filter):
@@ -71,11 +89,8 @@ class RadioFilter(Filter):
     radio_choice = models.ForeignKey(
                         RadioChoice, related_name='radio_filters', on_delete=models.CASCADE)
 
-    def get_query(self, selected_options):
-        return models.Q(filters__radiofilter__selected_option__id__in = selected_options)
-
     def __str__(self):
-        return f'{self.name} filter with options {self.options}'
+        return f'{self.radio_choice.name} filter with options {self.options}'
 
 
 class FeatureFilter(Filter):

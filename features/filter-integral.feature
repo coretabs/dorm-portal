@@ -1,9 +1,12 @@
 Feature: Integral feature
 
-    Scenario:
-        Given we have 2 dormitories
-        When filtering alfam right price
-        Then get alfam dormitory
+    Scenario: The user wants to filter numbers based on
+              a min and a max value
 
-        When filtering dovec wrong price
-        Then not getting any dorm
+        Given we have 4 rooms different prices (alfam: 3 rooms, dovec: 1 room)
+
+        When filtering alfam prices between 500, 1500
+        Then get alfam dormitory with just 2 rooms
+
+        When filtering dovec with wrong price range
+        Then not getting any dorm in dovec for wrong price
