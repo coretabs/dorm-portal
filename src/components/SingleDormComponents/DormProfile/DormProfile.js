@@ -13,7 +13,7 @@ export default {
       lightbox: false,
       model: true,
       swiperOption: {
-        slidesPerView: 12,
+        slidesPerView: 10,
         centeredSlides: false,
         spaceBetween: 8,
         grabCursor: true,
@@ -35,9 +35,50 @@ export default {
           "src": "https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
         },
         {
+          "is_3d": false,
+          "src": "https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+        },
+        {
           "is_3d": true,
           "src": "https://momento360.com/e/u/a9b53aa8f8b0403ba7a4e18243aabc66"
+        },
+        {
+          "is_3d": true,
+          "src": "https://momento360.com/e/u/a9b53aa8f8b0403ba7a4e18243aabc66"
+        },
+        {
+          "is_3d": false,
+          "src": "https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+        },
+        {
+          "is_3d": true,
+          "src": "https://momento360.com/e/u/a9b53aa8f8b0403ba7a4e18243aabc66"
+        },
+        {
+          "is_3d": false,
+          "src": "https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+        },
+        {
+          "is_3d": false,
+          "src": "https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+        },
+        {
+          "is_3d": false,
+          "src": "https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+        },
+        {
+          "is_3d": false,
+          "src": "https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+        },
+        {
+          "is_3d": false,
+          "src": "https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+        },
+        {
+          "is_3d": false,
+          "src": "https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
         }
+        
       ],
       "geo_longitude": 35.1501,
       "geo_latitude": 33.90111,
