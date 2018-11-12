@@ -1,5 +1,5 @@
 <template>
-<v-layout justify-start row wrap id="card">
+<v-layout justify-start row wrap id="dorm-card">
   <v-flex md10 xs12>
     <v-card>
       <v-layout row wrap>
