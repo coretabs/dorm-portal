@@ -10,41 +10,43 @@
             <h1>{{name}}</h1>
             <div>
               <v-icon>place</v-icon>
-              <span>{{address}}</span> - 
+              <span>{{address}}</span> -
               <a href="#" @click.stop.prevent="showMap"> show map</a>
             </div>
           </section>
           <section id="dorm-photos">
-              <swiper :options="swiperOption">
-                <swiper-slide v-for="(photo,i) in photos" :key="i" >
-                  <template v-if="photo.is_3d">
-                     <img class="elevation-3" src="../../../assets/images/dormprofile/360.png" @click="sendPhotoUrl(photo.src, photo.is_3d)">
-                  </template> 
+            <swiper :options="swiperOption">
+              <swiper-slide v-for="(photo,i) in photos" :key="i">
+                <template v-if="photo.is_3d">
+                  <img class="elevation-3" src="../../../assets/images/dormprofile/360.png" @click="sendPhotoUrl(photo.src, photo.is_3d)">
+                  </template>
                   <template v-else>
                     <v-img :src="photo.src" gradient="to top right, rgba(255,255,255,.2), rgba(255,255,255,0)" @click="sendPhotoUrl(photo.src, photo.is_3d)"></v-img>
-                  </template> 
-                </swiper-slide>
-              </swiper> 
+                  </template>
+              </swiper-slide>
+            </swiper>
           </section>
           <v-dialog v-model="lightbox" lazy width="800px">
             <v-card>
               <v-card-text>
                 <template v-if="iframe">
                   <iframe height="500px" width="100%" allowfullscreen="true" :src="lightboxPhotoUrl" frameBorder="0"></iframe>
-                </template> 
+                </template>
                 <template v-else>
                   <v-img :src="lightboxPhotoUrl" height="100%" width="100%"></v-img>
-                </template> 
+                </template>
               </v-card-text>
             </v-card>
           </v-dialog>
         </v-flex>
-       
+
       </v-layout>
     </v-parallax>
-    <div>
-      
-    </div>
+
+    <v-layout justify-center row wrap md>
+        <room-card v-for="n in 6" :key="n"></room-card>
+    </v-layout>
+
   </v-content>
   <!-- Map Model -->
   <v-dialog v-model="mapModel" lazy width="800px">
