@@ -8,7 +8,7 @@ filters
     {
         choosen_options_ids
         min_value max_value
-        // activity facility doesn't need an extra field
+        // feature doesn't need an extra field
     }
 ```
 
@@ -29,10 +29,7 @@ history
 contact_email
 contact_number
 
-dorm_facilities
-    name
-    icon (optional field)
-dorm_activities
+dorm_features
     name
     icon (optional field)
 
@@ -50,11 +47,7 @@ rooms
     price
     people_allowed_number
 
-    facilities
-        name
-        icon (optional field)
-
-    activities
+    features
         name
         icon (optional field)
 ```

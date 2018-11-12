@@ -10,9 +10,12 @@ from django.db import models as django_models
 class DormitoryQuerySet(django_models.QuerySet):
     def apply_room_filters(self, filters):
 
-        combined_filters = reduce(lambda filter1, filter2: filter1 & filter2, filters)
-
-        filtered_rooms = RoomCharacteristics.objects.filter(combined_filters)
+        #combined_filters = reduce(lambda filter1, filter2: filter1 & filter2, filters)
+        
+        filtered_rooms = RoomCharacteristics.objects.filter(filters[0])
+        for current_filter in filters:
+            filtered_rooms = filtered_rooms.filter(current_filter)
+        
 
         room_characteristics = django_models.Prefetch(
             'room_characteristics', queryset=filtered_rooms)
@@ -65,15 +68,15 @@ class Option(models.Model):
         return f'{self.name} option for the filter {self.radio_filter.name}'
 
 
-class ActivityFacilityFilter(Filter):
+class FeatureFilter(Filter):
 
-    is_dorm_activity_facility = models.BooleanField(default=False)
+    is_dorm_feature = models.BooleanField(default=False)
 
     def get_query(self):
-        if(self.is_dorm_activity_facility):
-            return models.Q(activities_facilities__id=self.id)
+        if(self.is_dorm_feature):
+            return models.Q(features__id=self.id)
         else:
-            return models.Q(filters__activityfacilityfilter__id = self.id)
+            return models.Q(filters__featurefilter__id = self.id)
 
     def __str__(self):
         return f'{self.name} filter'
@@ -97,8 +100,8 @@ class Dormitory(models.Model):
     category = models.CharField(
         max_length=2, choices=CATEGORIES, default=PUBLIC)
 
-    activities_facilities = models.ManyToManyField(
-        ActivityFacilityFilter, related_name='activities_facilities')
+    features = models.ManyToManyField(
+        FeatureFilter, related_name='features')
 
     objects = DormitoryQuerySet.as_manager()
 
