@@ -1,6 +1,7 @@
 behave-django==1.1.0
 dj-database-url==0.5.0
 Django==2.0
+django-polymorphic==2.0.3
 djangorestframework==3.8.2
 gunicorn==19.9.0
 pip==18.1

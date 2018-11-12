@@ -3,15 +3,15 @@ from behave import given, when, then
 
 from api.engine.models import Dormitory, RoomCharacteristics, RadioFilter, Option
 
-def create_meals():
+def create_meals(self):
     meals = RadioFilter(name='meals')
     meals.save()
 
-    options = [Option(name='Breakfast'),
+    self.options = [Option(name='Breakfast'),
                Option(name='Dinner'),
                Option(name='Both')]
     
-    for option in options:
+    for option in self.options:
         option.radio_filter = meals
         option.save()
         option = Option.objects.filter(name=option.name)
@@ -25,7 +25,7 @@ def prepare_dormitory(self):
     self.alfam = Dormitory(name='Alfam')
     self.alfam.save()
 
-    self.meals = create_meals()
+    self.meals = create_meals(self)
 
     self.room1 = RoomCharacteristics(dormitory=self.alfam)
     self.room1.save()
@@ -38,8 +38,9 @@ def prepare_dormitory(self):
 
 @when('filtering alfam rooms by meal')
 def filtering(self):
-    filters = [self.meals.get_query(['Dinner',]), ]
-    self.filtered_dorm_alfam = Dormitory.objects.apply_filters(filters)
+    choosen_option_id = self.options[0].id
+    filters = [self.meals.get_query([choosen_option_id,]), ]
+    self.filtered_dorm_alfam = Dormitory.objects.apply_room_filters(filters)
 
 @then('get alfam dormitory with just one room')
 def test_model_can_create_a_message(self):

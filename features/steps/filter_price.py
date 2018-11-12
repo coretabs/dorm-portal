@@ -37,7 +37,7 @@ def prepare_dormitory(self):
 @when('filtering alfam right price')
 def filtering(self):
     filters = [self.price_alfam1.get_query(500, 1500), self.price_alfam2.get_query(500, 1500), ]
-    self.filtered_dorm_alfam = Dormitory.objects.filter(name='Alfam').apply_filters(filters)
+    self.filtered_dorm_alfam = Dormitory.objects.filter(name='Alfam').apply_room_filters(filters)
 
 @then('get alfam dormitory')
 def test_model_can_create_a_message(self):
@@ -46,7 +46,7 @@ def test_model_can_create_a_message(self):
 @when('filtering dovec wrong price')
 def filtering(self):
     filters = [self.price_dovec1.get_query(500, 1500), ]
-    self.filtered_dorm_dovec = Dormitory.objects.filter(name='Dovec').apply_filters(filters)
+    self.filtered_dorm_dovec = Dormitory.objects.filter(name='Dovec').apply_room_filters(filters)
 
 @then('not getting any dorm')
 def test_model_can_create_a_message(self):
