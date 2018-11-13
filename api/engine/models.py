@@ -10,8 +10,6 @@ from django.db import models as django_models
 class DormitoryQuerySet(django_models.QuerySet):
     def apply_room_filters(self, filters):
 
-        #combined_filters = reduce(lambda filter1, filter2: filter1 & filter2, filters)
-        
         filtered_rooms = RoomCharacteristics.objects.filter(filters[0])
         for current_filter in filters:
             filtered_rooms = filtered_rooms.filter(current_filter)
@@ -19,7 +17,8 @@ class DormitoryQuerySet(django_models.QuerySet):
         room_characteristics = django_models.Prefetch(
             'room_characteristics', queryset=filtered_rooms)
 
-        dorms = self.filter(room_characteristics__in=filtered_rooms).prefetch_related(room_characteristics)
+        dorms = self.filter(room_characteristics__in=filtered_rooms)\
+                    .prefetch_related(room_characteristics).distinct()
 
         return dorms
 
@@ -93,18 +92,16 @@ class RadioFilter(Filter):
         return f'{self.radio_choice.name} filter with options {self.options}'
 
 
-class FeatureFilter(Filter):
+class FeatureChoice(Choice):
 
     is_dorm_feature = models.BooleanField(default=False)
 
     def get_query(self):
-        if(self.is_dorm_feature):
-            return models.Q(features__id=self.id)
-        else:
-            return models.Q(filters__featurefilter__id = self.id)
+        return models.Q(features__id=self.id)
 
     def __str__(self):
         return f'{self.name} filter'
+
 
 class Dormitory(models.Model):
     PUBLIC = '0'
@@ -125,7 +122,7 @@ class Dormitory(models.Model):
         max_length=2, choices=CATEGORIES, default=PUBLIC)
 
     features = models.ManyToManyField(
-        FeatureFilter, related_name='features')
+        FeatureChoice, related_name='dormitories')
 
     objects = DormitoryQuerySet.as_manager()
 
@@ -139,6 +136,9 @@ class RoomCharacteristics(models.Model):
 
     filters = models.ManyToManyField(
         Filter, related_name='filters')
+
+    features = models.ManyToManyField(
+        FeatureChoice, related_name='room_characteristics')
 
     dormitory = models.ForeignKey(
         Dormitory, related_name='room_characteristics', on_delete=models.CASCADE)

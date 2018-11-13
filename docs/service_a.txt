@@ -115,9 +115,13 @@ feature choice
 
 feature_group choice
 	features choices
+	
+room_features
+	feature choice
+	room
 
-features
-	feature
+dorm_features
+	feature choice
 	dorm
 
 filter
@@ -131,10 +135,4 @@ integral filter
     selected_number
 
     integral choice
-
-
-feature filter
-    selected_feature
-
-    feature choice
 ```

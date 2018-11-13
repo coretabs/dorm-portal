@@ -1,20 +1,20 @@
 from django.test import TestCase
 from behave import given, when, then
 
-from api.engine.models import Dormitory, RoomCharacteristics, RadioFilter, Option, FeatureFilter
+from api.engine.models import Dormitory, RoomCharacteristics, RadioFilter, Option, FeatureChoice
 
 def create_dorm_features(self):
-    self.swimming_pool = FeatureFilter(name='Swimming pool', is_dorm_feature=True)
-    self.free_wifi = FeatureFilter(name='Free WiFi', is_dorm_feature=True)
+    self.swimming_pool = FeatureChoice(name='Swimming pool', is_dorm_feature=True)
+    self.free_wifi = FeatureChoice(name='Free WiFi', is_dorm_feature=True)
 
     self.swimming_pool.save()
     self.free_wifi.save()
 
-    self.swimming_pool = FeatureFilter.objects.filter(name='Swimming pool').first()
-    self.free_wifi = FeatureFilter.objects.filter(name='Free WiFi').first()
+    self.swimming_pool = FeatureChoice.objects.filter(name='Swimming pool').first()
+    self.free_wifi = FeatureChoice.objects.filter(name='Free WiFi').first()
 
 
-@given('we have 2 dormitory with different facilities')
+@given('we have 2 dormitory with different features')
 def prepare_dormitory(self):
 
     create_dorm_features(self)
@@ -45,16 +45,16 @@ def test_model_can_create_a_message(self):
 
 
 def create_room_features(self):
-    self.luxury_shower = FeatureFilter(name='Luxury shower')
+    self.luxury_shower = FeatureChoice(name='Luxury shower')
     self.luxury_shower.save()
-    self.luxury_shower = FeatureFilter.objects.filter(name='Luxury shower').first()
+    self.luxury_shower = FeatureChoice.objects.filter(name='Luxury shower').first()
 
-    self.air_conditioner = FeatureFilter(name='Air Conditioner')
+    self.air_conditioner = FeatureChoice(name='Air Conditioner')
     self.air_conditioner.save()
-    self.air_conditioner = FeatureFilter.objects.filter(name='Air Conditioner').first()
+    self.air_conditioner = FeatureChoice.objects.filter(name='Air Conditioner').first()
 
 
-@given('we have 2 dormitoroes with room-specific facilities')
+@given('we have 2 dormitoroes with room-specific features')
 def prepare_dormitory(self):
 
     create_room_features(self)
@@ -64,12 +64,12 @@ def prepare_dormitory(self):
 
     self.room1 = RoomCharacteristics(dormitory=self.alfam)
     self.room1.save()
-    self.room1.filters.add(self.luxury_shower, self.air_conditioner)
+    self.room1.features.add(self.luxury_shower, self.air_conditioner)
     self.room1.save()
 
     self.room2 = RoomCharacteristics(dormitory=self.alfam)
     self.room2.save()
-    self.room2.filters.add(self.air_conditioner)
+    self.room2.features.add(self.air_conditioner)
     self.room2.save()
 
     self.dovec = Dormitory(name='Dovec')
@@ -91,13 +91,12 @@ def test_model_can_create_a_message(self):
     assert self.filtered_dorms.count() == 1
 
     assert self.filtered_dorms.first().room_characteristics.count() == 1
-    assert self.filtered_dorms.first().room_characteristics.first().filters.first().name == 'Luxury shower'
+    assert self.filtered_dorms.first().room_characteristics.first().features.first().name == 'Luxury shower'
 
 
 @when('filtering dorms by luxury shower & air conditioner')
 def filtering(self):
     filters = [self.luxury_shower.get_query(), self.air_conditioner.get_query(), ]
-    #breakpoint()
     self.filtered_dorms = Dormitory.objects.apply_room_filters(filters)
 
 
@@ -107,8 +106,8 @@ def test_model_can_create_a_message(self):
     assert self.filtered_dorms.count() == 1
 
     assert self.filtered_dorms.first().room_characteristics.all().count() == 1
-    assert self.filtered_dorms.first().room_characteristics.first().filters.all()[0].name == 'Luxury shower'
-    assert self.filtered_dorms.first().room_characteristics.first().filters.all()[1].name == 'Air Conditioner'
+    assert self.filtered_dorms.first().room_characteristics.first().features.all()[0].name == 'Luxury shower'
+    assert self.filtered_dorms.first().room_characteristics.first().features.all()[1].name == 'Air Conditioner'
 
 
 @when('filtering dorms by air conditioner')
@@ -124,5 +123,5 @@ def test_model_can_create_a_message(self):
 
     assert self.filtered_dorms.first().room_characteristics.all().count() == 2
     # use exists
-    assert self.filtered_dorms.first().room_characteristics.all()[0].filters.filter(name='Air Conditioner').count() == 1
-    assert self.filtered_dorms.first().room_characteristics.all()[1].filters.filter(name='Air Conditioner').count() == 1
+    assert self.filtered_dorms.first().room_characteristics.all()[0].features.filter(name='Air Conditioner').count() == 1
+    assert self.filtered_dorms.first().room_characteristics.all()[1].features.filter(name='Air Conditioner').count() == 1

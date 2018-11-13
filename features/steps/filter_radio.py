@@ -30,7 +30,7 @@ def prepare_dormitory(self):
     self.meals_filter1.selected_option = self.options[0]
     self.meals_filter1.radio_choice = self.meals
     self.meals_filter1.save()
-    self.meals_filter1 = RadioFilter.objects.get(pk=1)
+    self.meals_filter1 = RadioFilter.objects.get(pk=self.meals_filter1.id)
 
     self.room1 = RoomCharacteristics(dormitory=self.alfam)
     self.room1.save()
@@ -42,7 +42,7 @@ def prepare_dormitory(self):
     self.meals_filter2.selected_option = self.options[1]
     self.meals_filter2.radio_choice = self.meals
     self.meals_filter2.save()
-    self.meals_filter2 = RadioFilter.objects.get(pk=2)
+    self.meals_filter2 = RadioFilter.objects.get(pk=self.meals_filter2.id)
 
     self.room2 = RoomCharacteristics(dormitory=self.alfam)
     self.room2.save()

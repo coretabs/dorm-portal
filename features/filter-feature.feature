@@ -7,7 +7,7 @@ Feature: Feature filter
         When filtering dorms by swimming pool
         Then get only the dorm which has swimming pool
 
-    Scenario: The user wants to filter dorms whether they have
+    Scenario: The user wants to filter rooms whether they have
               luxury shower & air conditioner
 
         Given we have 2 dormitoroes with room-specific features
