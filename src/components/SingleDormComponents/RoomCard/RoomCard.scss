@@ -25,8 +25,13 @@
       overflow: hidden;
       min-height: 250px;
       .swiper-container{
-        height: 100%;
         width: 100%;
+        height: 100%;
+      }
+      .v-responsive{
+        height: 100%;
+      }
+      .swiper-slide {
       }
       .swiper-button-next,
       .swiper-button-prev{
@@ -43,7 +48,7 @@
       }
     }
     .room-details {
-      padding: 40px 20px 0 60px;
+      padding: 20px 35px 0;
       @media (max-width: 600px) {
         padding: 40px 20px;
       }
@@ -53,27 +58,66 @@
         margin: 4px 0;
       }
       span{
-        font-size: 24px;
+        font-size: 20px;
         .v-icon{
-          font-size: 20px;
-          line-height: 30px;
+          font-size: 18px;
+          line-height: 26px;
           color: #999;
         }
       }
-    }
-    .room-warning {
-      background-color: #fafafa;
-      padding: 8px 15px;
-      border-left: 5px solid #e33333;
-      margin: 25px 20px 10px 0;
-      span{
-        font-size: 18px;
+      .room-price{
+        margin: 10px 0;
       }
-      .v-icon {
-        color: #e33333;
-        font-size: 20px;
-        margin-right: 10px;
+      .reserve-btn{
+        margin: 10px 0 0; 
       }
+      .room-feature{
+        display: inline-block;
+        margin: 6px 10px 5px 0;
+        border: 1px solid #eee;
+        padding: 2px 15px 2px 10px;
+        @include radius(5px);
+        background: #fff;
+        .v-icon{
+          font-size: 14px;
+          line-height: 22px;
+          margin-right: 8px;
+          color: $light-green-color;
+        }
+        span{
+          font-size: 16px;
+        }
+      }
+      .room-warning {
+        background-color: #fafafa;
+        padding: 8px 15px;
+        border-left: 5px solid #e33333;
+        
+        span{
+          font-size: 18px;
+        }
+        .v-icon {
+          color: #e33333;
+          font-size: 20px;
+          margin-right: 10px;
+        }
+      }
+      .detail-block{
+        margin: 10px 0;
+      }
+      .feature-block{
+        margin: 10px 0;
+        
+        @include radius(5px);
+        max-height: 250px;
+        overflow-y: auto;
+        h3 {
+          margin: 5px 0 10px 0px;
+          color: #7f7f7f;
+        }
+      }
+
+      
     }
     .room-facilities {
       margin: 15px 0 30px;
