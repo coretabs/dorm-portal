@@ -14,7 +14,7 @@ manage dorm
 manage rooms
 support multiple languages input for some fields
 
-manage dorm facilities
+manage dorm features
 create room characteristics
 manage rooms avaiable number (qouta)
 send email to increase quota
@@ -79,7 +79,6 @@ room characteristics
 	total_quota
 	allowed_quota // allowed_quota -= 1
 	available_rooms_number //  available_rooms_number += 1
-	price
 	price_currency
     people_allowed_number
 	
@@ -95,39 +94,45 @@ room_photo
 	
 	room characteristics
 	
-filter
-	name
+choice
+    name
     order
-	
-radio choice filter
-	radio
-	
+
+radio choice
+    is_optional
+
 	options
-	filter
 
 option
     name
-	
-integral filter
-	number
 
-	filter
-	
-activity_facility filter
-    type (activity, facility)
-    is_dorm_facility_activity
+integral choice
+    is_optional
+
+feature choice
+    is_dorm_feature // consider looking at m2m table instead of this field
 	icon
-	
-	filter
-    activity_facility_group
 
-activity_facility_group
-	name
-    order
+feature_group choice
+	features choices
 	
-	filters
-	
-dorm_activities_facilities
-	activity_facility
+room_features
+	feature choice
+	room
+
+dorm_features
+	feature choice
 	dorm
+
+filter
+
+radio filter
+    selected_option
+
+    radio choice
+
+integral filter
+    selected_number
+
+    integral choice
 ```

@@ -30,7 +30,7 @@ send event drop room from the list
 manage dorm
 manage rooms
 
-manage dorm facilities
+manage dorm features
 create room characteristics
 manage rooms avaiable number (qouta)
 send email to increase quota

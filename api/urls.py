@@ -2,10 +2,11 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from .engine.views import index_view, MessageViewSet
+from .engine.views import index_view
+#from .engine.views import index_view, MessageViewSet
 
 router = routers.DefaultRouter()
-router.register('messages', MessageViewSet)
+#router.register('messages', MessageViewSet)
 
 urlpatterns = [
 
