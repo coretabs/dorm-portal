@@ -30,7 +30,7 @@ search on google map
 ```
 dorm
 	name
-	history
+	about
 	geo_longitude
 	geo_latitude
 	address

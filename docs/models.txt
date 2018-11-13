@@ -1,6 +1,6 @@
 dorm
 	name
-	history
+	about
 	geo_location
 	address
 	

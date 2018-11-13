@@ -9,9 +9,9 @@ dorms
 GET /manager/dorms/{id} returns
 ```
 name
-histories
+abouts
     lang_code
-    history
+    about
 
 banks
     id
@@ -43,9 +43,9 @@ contact_number
 PUT /manager/dorms/{id} accepts
 ```
 name
-histories
+abouts
     lang_code
-    history
+    about
 
 banks
     id

@@ -26,7 +26,7 @@ geo_longitude
 geo_latitude
 address
 
-history
+about
 
 contact_email
 contact_number

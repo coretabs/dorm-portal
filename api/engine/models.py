@@ -112,7 +112,7 @@ class Dormitory(models.Model):
     )
 
     name = models.CharField(max_length=60)
-    history = models.CharField(max_length=1000)
+    about = models.CharField(max_length=1000)
 
     geo_longitude = models.CharField(max_length=20)
     geo_latitude = models.CharField(max_length=20)
