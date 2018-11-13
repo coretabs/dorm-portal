@@ -32,12 +32,18 @@
     .dorm-details {
       padding: 20px 30px;
 
-      .dorm-rating a {
-        color: $gray-color;
-        display: inline-block;
-        margin: 2px 0 0 6px;
-        font-size: 16px;
+      .dorm-rating {
+        a {
+          color: $gray-color;
+          display: inline-block;
+          margin: 2px 0 0 6px;
+          font-size: 16px;
+        }
+        .v-icon{
+          padding: 0;
+        }
       }
+      
     }
 
     .dorm-address {
