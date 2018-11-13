@@ -40,9 +40,22 @@
       }
       .v-icon{
         font-size: 14px;
-        line-height: 17px;
-        margin-right: 5px;
+        line-height: 18px;
+        margin-right: 10px;
         color: $light-gray-color;
+      }
+    }
+    .dorm-feature{
+      display: inline-block;
+      margin: 5px;
+      border: 1px solid #eee;
+      padding: 2px 15px 2px 10px;
+      @include radius(5px);
+      .v-icon{
+        font-size: 16px;
+        line-height: 22px;
+        margin-right: 8px;
+        color: $light-green-color;
       }
     }
   }

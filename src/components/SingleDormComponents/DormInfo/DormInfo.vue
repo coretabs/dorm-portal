@@ -7,7 +7,7 @@
 
         <v-tabs light slider-color="#7b7b7b">
           <v-tab ripple>About us</v-tab>
-          <v-tab ripple>Our Features</v-tab>
+          <v-tab ripple>Features</v-tab>
           <v-tab ripple>Contact Us</v-tab>
           <v-tab-item lazy>
             <v-card flat>
@@ -19,7 +19,10 @@
           <v-tab-item lazy>
             <v-card flat>
               <v-card-text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim ve
+                <div class="dorm-feature" v-for="(feature,index) in features" :key="index">
+                  <v-icon>{{feature.icon}}</v-icon>
+                  <span>{{feature.name}}</span>
+                </div>
               </v-card-text>
             </v-card>
           </v-tab-item>
@@ -27,8 +30,9 @@
             <v-card flat>
               <v-card-text>
                 <p>You can contact us through:</p>
-                <div class="contact-info"><v-icon>fa-envelope</v-icon> {{contact_email}}</div>
-                <div class="contact-info"><v-icon>fa-phone</v-icon> {{contact_number}}</div>
+                <div class="contact-info"><v-icon>fa-envelope</v-icon> <strong>Email:</strong> {{contact_email}}</div>
+                <div class="contact-info"><v-icon>fa-phone</v-icon> <strong>Phone:</strong> {{contact_number}}</div>
+                <div class="contact-info"><v-icon>fa-fax</v-icon> <strong>Fax:</strong> {{contact_number}}</div>
               </v-card-text>
             </v-card>
           </v-tab-item>
