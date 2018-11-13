@@ -1,3 +1,4 @@
+import ptvsd
 from .base import *
 
 
@@ -22,7 +23,6 @@ DATABASES = {
     }
 }
 
-import ptvsd
 
 # 5678 is the default attach port in the VS Code debug configurations
 if False:

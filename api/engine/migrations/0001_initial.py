@@ -16,7 +16,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Choice',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=60)),
             ],
             options={
@@ -27,19 +28,22 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Dormitory',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=60)),
                 ('about', models.CharField(max_length=1000)),
                 ('geo_longitude', models.CharField(max_length=20)),
                 ('geo_latitude', models.CharField(max_length=20)),
                 ('address', models.CharField(max_length=150)),
-                ('category', models.CharField(choices=[('0', 'public'), ('1', 'private')], default='0', max_length=2)),
+                ('category', models.CharField(choices=[
+                 ('0', 'public'), ('1', 'private')], default='0', max_length=2)),
             ],
         ),
         migrations.CreateModel(
             name='Filter',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
             ],
             options={
                 'abstract': False,
@@ -49,23 +53,27 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Option',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=60)),
             ],
         ),
         migrations.CreateModel(
             name='RoomCharacteristics',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('total_quota', models.IntegerField(default=0)),
                 ('allowed_quota', models.IntegerField(default=0)),
-                ('dormitory', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='room_characteristics', to='engine.Dormitory')),
+                ('dormitory', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                                related_name='room_characteristics', to='engine.Dormitory')),
             ],
         ),
         migrations.CreateModel(
             name='FeatureChoice',
             fields=[
-                ('choice_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='engine.Choice')),
+                ('choice_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE,
+                                                    parent_link=True, primary_key=True, serialize=False, to='engine.Choice')),
                 ('is_dorm_feature', models.BooleanField(default=False)),
             ],
             options={
@@ -77,7 +85,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='IntegralChoice',
             fields=[
-                ('choice_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='engine.Choice')),
+                ('choice_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE,
+                                                    parent_link=True, primary_key=True, serialize=False, to='engine.Choice')),
                 ('is_optional', models.BooleanField(default=True)),
             ],
             options={
@@ -89,9 +98,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='IntegralFilter',
             fields=[
-                ('filter_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='engine.Filter')),
+                ('filter_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE,
+                                                    parent_link=True, primary_key=True, serialize=False, to='engine.Filter')),
                 ('selected_number', models.IntegerField(default=0)),
-                ('integral_choice', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='integral_filters', to='engine.IntegralChoice')),
+                ('integral_choice', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                                      related_name='integral_filters', to='engine.IntegralChoice')),
             ],
             options={
                 'abstract': False,
@@ -102,7 +113,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='RadioChoice',
             fields=[
-                ('choice_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='engine.Choice')),
+                ('choice_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE,
+                                                    parent_link=True, primary_key=True, serialize=False, to='engine.Choice')),
                 ('is_optional', models.BooleanField(default=True)),
             ],
             options={
@@ -114,9 +126,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='RadioFilter',
             fields=[
-                ('filter_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='engine.Filter')),
-                ('radio_choice', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='radio_filters', to='engine.RadioChoice')),
-                ('selected_option', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='radio_filters', to='engine.Option')),
+                ('filter_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE,
+                                                    parent_link=True, primary_key=True, serialize=False, to='engine.Filter')),
+                ('radio_choice', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                                   related_name='radio_filters', to='engine.RadioChoice')),
+                ('selected_option', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, related_name='radio_filters', to='engine.Option')),
             ],
             options={
                 'abstract': False,
@@ -127,31 +142,37 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='roomcharacteristics',
             name='filters',
-            field=models.ManyToManyField(related_name='filters', to='engine.Filter'),
+            field=models.ManyToManyField(
+                related_name='filters', to='engine.Filter'),
         ),
         migrations.AddField(
             model_name='filter',
             name='polymorphic_ctype',
-            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='polymorphic_engine.filter_set+', to='contenttypes.ContentType'),
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='polymorphic_engine.filter_set+', to='contenttypes.ContentType'),
         ),
         migrations.AddField(
             model_name='choice',
             name='polymorphic_ctype',
-            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='polymorphic_engine.choice_set+', to='contenttypes.ContentType'),
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='polymorphic_engine.choice_set+', to='contenttypes.ContentType'),
         ),
         migrations.AddField(
             model_name='roomcharacteristics',
             name='features',
-            field=models.ManyToManyField(related_name='room_characteristics', to='engine.FeatureChoice'),
+            field=models.ManyToManyField(
+                related_name='room_characteristics', to='engine.FeatureChoice'),
         ),
         migrations.AddField(
             model_name='option',
             name='radio_choice',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='options', to='engine.RadioChoice'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='options', to='engine.RadioChoice'),
         ),
         migrations.AddField(
             model_name='dormitory',
             name='features',
-            field=models.ManyToManyField(related_name='dormitories', to='engine.FeatureChoice'),
+            field=models.ManyToManyField(
+                related_name='dormitories', to='engine.FeatureChoice'),
         ),
     ]

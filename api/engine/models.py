@@ -13,7 +13,7 @@ class DormitoryQuerySet(django_models.QuerySet):
         filtered_rooms = RoomCharacteristics.objects.filter(filters[0])
         for current_filter in filters:
             filtered_rooms = filtered_rooms.filter(current_filter)
-        
+
         room_characteristics = django_models.Prefetch(
             'room_characteristics', queryset=filtered_rooms)
 
@@ -23,13 +23,14 @@ class DormitoryQuerySet(django_models.QuerySet):
         return dorms
 
     def apply_dorm_filters(self, filters):
-        combined_filters = reduce(lambda filter1, filter2: filter1 & filter2, filters)
+        combined_filters = reduce(
+            lambda filter1, filter2: filter1 & filter2, filters)
         dorms = self.filter(combined_filters)
 
         return dorms
 
     def available(self):
-        return self.filter(room_characteristics__allowed_quota__gte = 1)
+        return self.filter(room_characteristics__allowed_quota__gte=1)
 
 
 class Choice(PolymorphicModel):
@@ -40,8 +41,8 @@ class RadioChoice(Choice):
     is_optional = models.BooleanField(default=True)
 
     def get_query(self, selected_options):
-        return (models.Q(filters__radiofilter__radio_choice__id = self.id) &
-                models.Q(filters__radiofilter__selected_option__id__in = selected_options))
+        return (models.Q(filters__radiofilter__radio_choice__id=self.id) &
+                models.Q(filters__radiofilter__selected_option__id__in=selected_options))
 
     def __str__(self):
         return f'{self.name} radio choice'
@@ -51,9 +52,9 @@ class IntegralChoice(Choice):
     is_optional = models.BooleanField(default=True)
 
     def get_query(self, min, max):
-        return (models.Q(filters__integralfilter__integral_choice__id = self.id) & 
-                models.Q(filters__integralfilter__selected_number__gte = min) & 
-                models.Q(filters__integralfilter__selected_number__lte = max))
+        return (models.Q(filters__integralfilter__integral_choice__id=self.id) &
+                models.Q(filters__integralfilter__selected_number__gte=min) &
+                models.Q(filters__integralfilter__selected_number__lte=max))
 
     def __str__(self):
         return f'{self.name} intgeral choice'
@@ -72,6 +73,7 @@ class Option(models.Model):
 class Filter(PolymorphicModel):
     pass
 
+
 class IntegralFilter(Filter):
     selected_number = models.IntegerField(default=0)
 
@@ -84,9 +86,9 @@ class IntegralFilter(Filter):
 
 class RadioFilter(Filter):
     selected_option = models.ForeignKey(
-                        Option, related_name='radio_filters', on_delete=models.CASCADE)
+        Option, related_name='radio_filters', on_delete=models.CASCADE)
     radio_choice = models.ForeignKey(
-                        RadioChoice, related_name='radio_filters', on_delete=models.CASCADE)
+        RadioChoice, related_name='radio_filters', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.radio_choice.name} filter with options {self.options}'

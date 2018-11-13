@@ -9,11 +9,9 @@ from rest_framework import viewsets
 index_view = never_cache(TemplateView.as_view(template_name='index.html'))
 
 
-#class MessageViewSet(viewsets.ModelViewSet):
+# class MessageViewSet(viewsets.ModelViewSet):
 #    """
 #    API endpoint that allows messages to be viewed or edited.
 #    """
 #    queryset = Message.objects.all()
 #    serializer_class = MessageSerializer
-
-
