@@ -28,4 +28,12 @@ header {
       padding: 0 10px;
     }
   }
+  .v-item-group.v-bottom-nav--fixed{
+    z-index: 7;
+  }
+  #bottom-nav{
+    @media (min-width: 600px) {
+      display: none;
+    }
+  }
 }

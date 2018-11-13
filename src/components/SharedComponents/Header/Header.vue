@@ -39,6 +39,18 @@
     </v-toolbar-items>
 
   </v-toolbar>
+
+  <v-bottom-nav id="bottom-nav" :active.sync="activeBtn" :value="showNav" fixed color="#fff">
+
+    <v-btn flat color="teal" @click="toggleDrawer">
+      <template>
+        <span>Filters</span>
+        <v-icon>fa-filter</v-icon>
+      </template>
+    </v-btn>
+
+  </v-bottom-nav>
+
 </header>
 </template>
 

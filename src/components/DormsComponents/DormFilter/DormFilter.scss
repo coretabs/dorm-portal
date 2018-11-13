@@ -102,6 +102,17 @@
       display: none;
     }
   }
+  .v-navigation-drawer{
+    width: 320px !important;
+  }
+  @media (max-width: 600px) {
+    .v-navigation-drawer--close{
+      transform: translateX(-100%) !important;
+    }
+    .v-navigation-drawer{
+      width: 100% !important;
+    }
+  }
 }
 aside {
   margin-top: 60px !important;

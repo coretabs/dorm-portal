@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    language: localStorage.getItem("lang") || 'en'
+    language: localStorage.getItem("lang") || 'en',
+    drawer: null
   },
   getters:{
     lang: state => {

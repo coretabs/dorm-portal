@@ -8,7 +8,6 @@ export default {
   },
   data: function () {
     return {
-      drawer: null,
       dorms: [{
         id: "1",
         name: "Alfam Dorm",
@@ -148,6 +147,9 @@ export default {
   computed: {
     lang() {
       return this.$store.getters.lang;
+    },
+    drawerControl(){
+      return this.$store.state.drawer;
     }
   },
   mounted() {

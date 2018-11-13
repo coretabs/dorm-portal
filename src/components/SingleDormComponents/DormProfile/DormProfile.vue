@@ -2,7 +2,7 @@
 <div id="dorm-profile">
   <v-content>
 
-    <v-parallax dark :src="cover">
+    <v-parallax height="450" dark :src="cover">
       <v-layout justify-center>
         <v-flex md8 xs10>
           <section id="dorm-banner">
@@ -20,7 +20,7 @@
                   <img class="elevation-3" src="../../../assets/images/dormprofile/360.png" @click="sendPhotoUrl(photo.src, photo.is_3d)">
                   </template>
                   <template v-else>
-                    <v-img :src="photo.src" gradient="to top right, rgba(255,255,255,0.1), rgba(255,255,255,0)" @click="sendPhotoUrl(photo.src, photo.is_3d)"></v-img>
+                    <v-img :src="photo.src" gradient="to top right, rgba(255,255,255,0), rgba(0,0,0,0.1)" @click="sendPhotoUrl(photo.src, photo.is_3d)"></v-img>
                   </template>
               </swiper-slide>
             </swiper>
