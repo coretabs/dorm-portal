@@ -55,7 +55,7 @@ export default {
       {
         name: "Barber",
         icon: "fa-cut"
-      }       
+      }     
     ]
     };
   },

@@ -4,7 +4,6 @@
 
     <v-parallax dark :src="cover">
       <v-layout justify-center>
-
         <v-flex md8 xs10>
           <section id="dorm-banner">
             <h1>{{name}}</h1>
@@ -21,7 +20,7 @@
                   <img class="elevation-3" src="../../../assets/images/dormprofile/360.png" @click="sendPhotoUrl(photo.src, photo.is_3d)">
                   </template>
                   <template v-else>
-                    <v-img :src="photo.src" gradient="to top right, rgba(255,255,255,.2), rgba(255,255,255,0)" @click="sendPhotoUrl(photo.src, photo.is_3d)"></v-img>
+                    <v-img :src="photo.src" gradient="to top right, rgba(255,255,255,0.1), rgba(255,255,255,0)" @click="sendPhotoUrl(photo.src, photo.is_3d)"></v-img>
                   </template>
               </swiper-slide>
             </swiper>
@@ -30,7 +29,7 @@
             <v-card>
               <v-card-text>
                 <template v-if="iframe">
-                  <iframe height="500px" width="100%" allowfullscreen="true" :src="lightboxPhotoUrl" frameBorder="0"></iframe>
+                  <iframe height="450px" width="100%" allowfullscreen="true" :src="lightboxPhotoUrl" frameBorder="0"></iframe>
                 </template>
                 <template v-else>
                   <v-img :src="lightboxPhotoUrl" height="100%" width="100%"></v-img>
@@ -39,17 +38,30 @@
             </v-card>
           </v-dialog>
         </v-flex>
-
       </v-layout>
     </v-parallax>
-    <v-layout justify-center row wrap md>
-        <dorm-info></dorm-info>
-    </v-layout>
-    <v-layout justify-center row wrap md>
-        <room-card v-for="n in 2" :key="n"></room-card>
-    </v-layout>
 
-    
+    <v-layout justify-center row wrap>
+
+      <dorm-info></dorm-info>
+
+      <v-flex id="filter-results-number" md8>
+        <v-layout justify-center row wrap>
+          <v-flex md10>
+            <p>
+              <v-icon>fa-filter</v-icon>
+              We have found 4 rooms matching your search in this dorm
+            </p>
+          </v-flex>
+          <v-flex md2>
+            <v-btn class="elevation-0"><v-icon>fa-search</v-icon> Do anther search</v-btn>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+   
+      <room-card v-for="n in 2" :key="n"></room-card>
+      
+    </v-layout>
 
   </v-content>
   <!-- Map Model -->

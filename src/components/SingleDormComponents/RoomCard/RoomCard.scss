@@ -2,7 +2,7 @@
 @import "../../../assets/styles/mixins";
 
 #room-card {
-  margin: 40px 0 0;
+  margin: 35px 0 10px;
   @media (max-width: 600px) {
     margin: 20px 10px;
   }
@@ -21,9 +21,10 @@
         color: $light-black;
       }
     }
-    .room-img {
+    .room-images {
       overflow: hidden;
       min-height: 250px;
+      max-height: 500px;
       .swiper-container{
         width: 100%;
         height: 100%;
@@ -31,8 +32,8 @@
       .v-responsive{
         height: 100%;
       }
-      .swiper-slide {
-      }
+      // .swiper-slide {
+      // }
       .swiper-button-next,
       .swiper-button-prev{
         cursor: pointer;
@@ -46,6 +47,13 @@
       .swiper-pagination-bullet{
         outline: none;
       }
+      .swiper-button-next,
+      .swiper-button-prev{
+        background: none;
+        .v-icon{
+          color: $white-color;
+        }
+      }
     }
     .room-details {
       padding: 20px 35px 0;
@@ -58,19 +66,14 @@
         margin: 4px 0;
       }
       span{
-        font-size: 20px;
+        font-size: 18px;
         .v-icon{
-          font-size: 18px;
+          font-size: 16px;
           line-height: 26px;
           color: #999;
         }
       }
-      .room-price{
-        margin: 10px 0;
-      }
-      .reserve-btn{
-        margin: 10px 0 0; 
-      }
+      
       .room-feature{
         display: inline-block;
         margin: 6px 10px 5px 0;
@@ -94,7 +97,7 @@
         border-left: 5px solid #e33333;
         
         span{
-          font-size: 18px;
+          font-size: 16px;
         }
         .v-icon {
           color: #e33333;
@@ -112,29 +115,25 @@
         max-height: 250px;
         overflow-y: auto;
         h3 {
-          margin: 5px 0 10px 0px;
+          margin: 5px 0 10px;
           color: #7f7f7f;
         }
       }
 
-      
-    }
-    .room-facilities {
-      margin: 15px 0 30px;
-      h3 {
+      .reservation-block{
+        border-top: 1px dashed $light-gray-color;
         margin: 15px 0;
-        color: #7f7f7f;
-      }
-      .facility-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-        @include radius(50%);
-        border: 2px solid #ccc;
-        text-align: center;
-        line-height: 40px;
-        cursor: pointer;
-        margin: 0 10px 10px 0;
+        padding-top: 10px;
+        .room-price{
+          margin: 10px 0;
+        }
+        .reserve-btn{
+          margin: 10px 0 0; 
+          text-align: right;
+          .v-btn{
+            @include radius(5px);
+          }
+        }
       }
     }
   }
