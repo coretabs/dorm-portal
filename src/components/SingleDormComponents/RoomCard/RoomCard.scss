@@ -3,6 +3,9 @@
 
 #room-card {
   margin: 40px 0 0;
+  @media (max-width: 600px) {
+    margin: 40px 10px;
+  }
   .v-card {
     box-shadow: none;
     border: 1px solid $light-gray-color;
@@ -24,6 +27,9 @@
     }
     .room-details {
       padding: 40px 20px 0 60px;
+      @media (max-width: 600px) {
+        padding: 40px 20px;
+      }
       h3 {
         color: #7f7f7f;
         font-size: 14px;

@@ -44,7 +44,7 @@
         <v-layout row wrap class="room-facilities">
 
           <v-flex xs12 >
-              <h3>Facilites:</h3>
+              <h3>Room Features:</h3>
               <v-tooltip top v-for="n in 14" :key="n">
                 <v-icon class="facility-icon" slot="activator">fa-wifi</v-icon>
                 <span>free wifi</span>
