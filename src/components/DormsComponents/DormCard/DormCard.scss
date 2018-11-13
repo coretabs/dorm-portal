@@ -31,7 +31,7 @@
 
     .dorm-details {
       padding: 20px 30px;
-
+       
       .dorm-rating {
         a {
           color: $gray-color;
@@ -48,13 +48,14 @@
 
     .dorm-address {
       margin-top: 25px;
-
       .v-icon {
         font-size: 20px;
         color: $gray-color;
         margin-right: 5px;
       }
-
+      a{
+        color: #1c3a70;
+      }
       span::after {
         content: "-";
         display: inline-block;
