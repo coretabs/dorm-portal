@@ -27,11 +27,8 @@ export default {
     }
   },
   computed: {
-    popularFacilities() {
-      return this.dorm.facilities.slice(0, 4);
-    },
-    popularActivities() {
-      return this.dorm.activities.slice(0, 4);
+    popularFeatures() {
+      return this.dorm.features.slice(0, 10);
     },
     lang() {
       return this.$store.getters.lang;

@@ -19,8 +19,7 @@
     },
     "dormCard": {
       "roomsLeft": "Rooms left",
-      "popularFacilities": "Popular Facilities",
-      "popularActivities": "Popular Activities",
+      "dormFeatures": "Dorm Features",
       "openMap": "open map",
       "reviews": "reviews",
       "more": "More"

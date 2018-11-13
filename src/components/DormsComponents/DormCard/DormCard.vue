@@ -35,29 +35,14 @@
             </v-layout>
           </template>
 
-          <v-layout wrap class="dorm-facilities">
+          <v-layout wrap class="dorm-features">
 
             <v-flex>
-              <h3>{{lang.dormCard.popularFacilities}}:</h3>
+              <h3>{{lang.dormCard.dormFeatures}}:</h3>
 
-              <v-tooltip top v-for="(facility, index) in popularFacilities" :key="index">
-                <v-icon class="facility-icon" slot="activator">{{facility.icon}}</v-icon>
-                <span>{{facility.name}}</span>
-              </v-tooltip>
-
-              <v-tooltip top>
-                <v-icon class="facility-icon" slot="activator">more_horiz</v-icon>
-                <span>{{lang.dormCard.more}}</span>
-              </v-tooltip>
-
-            </v-flex>
-
-            <v-flex>
-              <h3>{{lang.dormCard.popularActivities}}:</h3>
-
-              <v-tooltip top v-for="(activity, index) in popularActivities" :key="index">
-                <v-icon class="facility-icon" slot="activator">{{activity.icon}}</v-icon>
-                <span>{{activity.name}}</span>
+              <v-tooltip top v-for="(feature, index) in popularFeatures" :key="index">
+                <v-icon class="facility-icon" slot="activator">{{feature.icon}}</v-icon>
+                <span>{{feature.name}}</span>
               </v-tooltip>
 
               <v-tooltip top>

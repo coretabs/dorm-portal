@@ -19,24 +19,39 @@ export default {
         geo_latitude: "33.90707",
         address: "Next to computer facuilty",
         number_of_found_rooms: "9",
-        activities: [{
-          icon: "fa-swimmer",
-          name: "swimming"
+        features: [{
+          icon: "fa-wifi",
+          name: "free wifi"
         },
         {
-          icon: "fa-futbol",
-          name: "football"
+          icon: "fa-parking",
+          name: "free parking"
         },
         {
-          icon: "fa-handshake",
-          name: "handshake"
+          icon: "fa-shower",
+          name: "Shower"
         },
         {
-          icon: "fa-handshake",
-          name: "handshake2"
-        }
-        ],
-        facilities: [{
+          icon: "fa-wind",
+          name: "Air condition"
+        },
+        {
+          icon: "fa-wifi",
+          name: "free wifi"
+        },
+        {
+          icon: "fa-parking",
+          name: "free parking"
+        },
+        {
+          icon: "fa-shower",
+          name: "Shower"
+        },
+        {
+          icon: "fa-wind",
+          name: "Air condition"
+        },
+        {
           icon: "fa-wifi",
           name: "free wifi"
         },
@@ -79,24 +94,7 @@ export default {
         geo_latitude: "33.90111",
         address: "EMU Campus, in front of lemar",
         number_of_found_rooms: "15",
-        activities: [{
-          icon: "fa-swimmer",
-          name: "swimming"
-        },
-        {
-          icon: "fa-futbol",
-          name: "football"
-        },
-        {
-          icon: "fa-handshake",
-          name: "handshake"
-        },
-        {
-          icon: "fa-handshake",
-          name: "handshake2"
-        }
-        ],
-        facilities: [{
+        features: [{
           icon: "fa-wifi",
           name: "free wifi"
         },
