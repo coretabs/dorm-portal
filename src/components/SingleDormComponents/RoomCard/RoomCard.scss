@@ -4,7 +4,7 @@
 #room-card {
   margin: 40px 0 0;
   @media (max-width: 600px) {
-    margin: 40px 10px;
+    margin: 20px 10px;
   }
   .v-card {
     box-shadow: none;
@@ -24,6 +24,23 @@
     .room-img {
       overflow: hidden;
       min-height: 250px;
+      .swiper-container{
+        height: 100%;
+        width: 100%;
+      }
+      .swiper-button-next,
+      .swiper-button-prev{
+        cursor: pointer;
+        color: #fff;
+      }
+      .swiper-pagination-bullet-active{
+        background: $white-color;
+      }
+      .swiper-button-next,
+      .swiper-button-prev,
+      .swiper-pagination-bullet{
+        outline: none;
+      }
     }
     .room-details {
       padding: 40px 20px 0 60px;

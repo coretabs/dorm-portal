@@ -5,7 +5,9 @@
       <v-layout row wrap>
 
         <v-flex class="dorm-img" xs12 sm4>
+
           <v-img :src="dorm.cover" gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)" height="100%" width="100%"></v-img>
+        
         </v-flex>
 
         <v-flex class="dorm-details" xs12 sm8>
