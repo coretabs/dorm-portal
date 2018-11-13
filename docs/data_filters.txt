@@ -12,19 +12,27 @@ languages
 
 GET /filters returns
 ```
-search_filters
+main_filters
     id
     name
     (checkbox true) (integral false)
         options {id, name}
 
-filters
+additional_filters
     id
     name
     (checkbox true) (integral false)
         options {id, name}
     (checkbox false) (integral true)
         min_value max_value value [min_value,max_value]
+
+dorm_features
+    id
+    name
+
+room_features
+    id
+    name
 ```
 
 POST /dorms accepts
@@ -32,21 +40,25 @@ POST /dorms accepts
 currency=USD
 language=EN
 
-search_filters
+main_filters
     id
     {
         choosen_options_ids
         min_value max_value
-        // feature doesn't need an extra field
     }
 
-filters
+additional_filters
     id
     {
         choosen_options_ids
         min_value max_value
-        // feature doesn't need an extra field
     }
+
+dorm_features
+    id
+
+room_features
+    id
 ```
 
 POST /dorms returns
