@@ -80,7 +80,7 @@
 
   <!-- Reviews Model -->
   <v-dialog v-model="reviewsModel" lazy width="800px">
-    <dorm-reviews></dorm-reviews>
+    <dorm-reviews  :dormName="dorm.name"></dorm-reviews>
   </v-dialog>
 
   <!-- Features Model -->
