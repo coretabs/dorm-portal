@@ -96,6 +96,7 @@
         margin: 0 10px 10px 0;
       }
     }
+
   }
 
   .v-card__actions {
@@ -103,12 +104,32 @@
     width: 100%;
     min-height: 180px;
 
-    .price-bar {
+    .rooms-price-bar {
       height: 5px;
       width: 95%;
       margin: 0 auto;
+      @include radius(20px);
       position: relative;
       background-color: $light-gray-color;
+      display: flex;
+      justify-content: space-between;
+
+      .room-price{
+        cursor: pointer;
+        .bar{
+          width: 4px;
+          height: 20px;
+          background: #999;
+          @include radius(20px);
+          margin: -7px auto 0;
+        }
+        .price{
+          font-size: 18px;
+          display: block;
+          margin-top: 6px;
+        }
+      }
+
     }
   }
 }

@@ -81,6 +81,13 @@ export default {
           price: "2000",
           room_type: "double",
           people_number: "2"
+        },
+        {
+          id: "2",
+          cover: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+          price: "3500",
+          room_type: "double",
+          people_number: "2"
         }
         ]
       },

@@ -64,8 +64,17 @@
 
       <v-layout>
         <v-card-actions justify-center align-center>
-          <div class="price-bar">
-
+          <div class="rooms-price-bar">
+            
+            <div class="room-price"  v-for="(room,index) in dorm.rooms" :key="index">
+              <div class="bar"></div>
+              <span class="price">${{room.price}}</span>
+              <div class="room-card">
+                
+              </div>
+            </div>
+            
+             
           </div>
         </v-card-actions>
       </v-layout>
@@ -80,7 +89,7 @@
 
   <!-- Reviews Model -->
   <v-dialog v-model="reviewsModel" lazy width="800px">
-    <dorm-reviews  :dormName="dorm.name"></dorm-reviews>
+    <dorm-reviews :dormName="dorm.name"></dorm-reviews>
   </v-dialog>
 
   <!-- Features Model -->
