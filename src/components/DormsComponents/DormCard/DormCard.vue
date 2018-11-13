@@ -7,14 +7,14 @@
         <v-flex class="dorm-img" xs12 sm4>
 
           <v-img :src="dorm.cover" gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)" height="100%" width="100%"></v-img>
-        
+
         </v-flex>
 
         <v-flex class="dorm-details" xs12 sm8>
 
           <v-card-title class="pa-0">
             <h3 class="headline">
-              <router-link to="/dorms/5" >{{dorm.name}}</router-link>
+              <router-link to="/dorms/5">{{dorm.name}}</router-link>
             </h3>
           </v-card-title>
 
@@ -48,7 +48,7 @@
               </v-tooltip>
 
               <v-tooltip top>
-                <v-icon class="facility-icon" slot="activator">more_horiz</v-icon>
+                <v-icon class="facility-icon" slot="activator" @click.stop.prevent="showFeatures">more_horiz</v-icon>
                 <span>{{lang.dormCard.more}}</span>
               </v-tooltip>
 
@@ -81,6 +81,11 @@
   <!-- Reviews Model -->
   <v-dialog v-model="reviewsModel" lazy width="800px">
     <dorm-reviews></dorm-reviews>
+  </v-dialog>
+
+  <!-- Features Model -->
+  <v-dialog v-model="featuresModel" lazy width="800px">
+    <dorm-features :features="dorm.features" :dormName="dorm.name"></dorm-features>
   </v-dialog>
 
 </v-layout>

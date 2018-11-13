@@ -1,0 +1,26 @@
+@import "../../../assets/styles/vars";
+@import "../../../assets/styles/mixins";
+
+#all-features{
+  padding-bottom: 30px;
+  h2{
+    margin: 0 0  20px 0;
+  }
+  .dorm-feature{
+    display: inline-block;
+    margin: 6px 10px 5px 0;
+    border: 1px solid #eee;
+    padding: 2px 15px 2px 10px;
+    @include radius(5px);
+    background: #fff;
+    .v-icon{
+      font-size: 14px;
+      line-height: 22px;
+      margin-right: 8px;
+      color: $light-green-color;
+    }
+    span{
+      font-size: 16px;
+    }
+  }
+}

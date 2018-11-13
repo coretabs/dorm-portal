@@ -22,7 +22,8 @@
       "dormFeatures": "Dorm Features",
       "openMap": "open map",
       "reviews": "reviews",
-      "more": "More"
+      "more": "More",
+      "features": "features"
     },
     "signup":{
       "heading": "Create an Account",

@@ -1,12 +1,14 @@
 
 import DormMap from "../../SharedComponents/DormMap/DormMap.vue";
 import DormReviews from "../DormReviews/DormReviews.vue";
+import DormFeatures from "../DormFeatures/DormFeatures.vue";
 
 export default {
   name: "DormCard",
   components: {
     "dorm-map": DormMap,
-    "dorm-reviews": DormReviews
+    "dorm-reviews": DormReviews,
+    'dorm-features': DormFeatures
   },
   props: {
     dorm: {}
@@ -15,6 +17,7 @@ export default {
     return {
       mapModel: false,
       reviewsModel: false,
+      featuresModel: false,
       roomsLeft: this.dorm.number_of_found_rooms
     };
   },
@@ -24,6 +27,9 @@ export default {
     },
     showReviews() {
       this.reviewsModel = !this.reviewsModel;
+    },
+    showFeatures(){
+      this.featuresModel = !this.featuresModel;
     }
   },
   computed: {
