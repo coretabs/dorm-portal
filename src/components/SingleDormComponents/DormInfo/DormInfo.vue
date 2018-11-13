@@ -12,7 +12,7 @@
           <v-tab-item lazy>
             <v-card flat>
               <v-card-text>
-                {{history}}
+                <div class="pre-line">{{history}}</div>
               </v-card-text>
             </v-card>
           </v-tab-item>

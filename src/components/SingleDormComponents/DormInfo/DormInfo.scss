@@ -22,6 +22,9 @@
       .v-card__text{
         line-height: 1.7em;
         padding: 5px 15px;
+        .pre-line{
+          white-space: pre-line;
+        }
       }
     }
     .v-tabs__item{
