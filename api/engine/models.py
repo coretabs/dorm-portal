@@ -60,6 +60,17 @@ class IntegralChoice(Choice):
         return f'{self.name} intgeral choice'
 
 
+class FeatureChoice(Choice):
+
+    is_dorm_feature = models.BooleanField(default=False)
+
+    def get_query(self):
+        return models.Q(features__id=self.id)
+
+    def __str__(self):
+        return f'{self.name} filter'
+
+
 class Option(models.Model):
     name = models.CharField(max_length=60)
 
@@ -92,17 +103,6 @@ class RadioFilter(Filter):
 
     def __str__(self):
         return f'{self.radio_choice.name} filter with options {self.options}'
-
-
-class FeatureChoice(Choice):
-
-    is_dorm_feature = models.BooleanField(default=False)
-
-    def get_query(self):
-        return models.Q(features__id=self.id)
-
-    def __str__(self):
-        return f'{self.name} filter'
 
 
 class Dormitory(models.Model):
