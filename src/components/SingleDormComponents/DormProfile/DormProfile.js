@@ -1,13 +1,15 @@
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import DormMap from '../../SharedComponents/DormMap/DormMap.vue';
 import RoomCard from '../RoomCard/RoomCard.vue'
+import DormInfo from '../DormInfo/DormInfo.vue'
 export default {
   name: "DormProfile",
   components: {
     swiper,
     swiperSlide,
     DormMap,
-    RoomCard
+    RoomCard,
+    DormInfo
   },
   data: function () {
     return {

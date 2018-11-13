@@ -1,0 +1,115 @@
+@import "../../../assets/styles/vars";
+@import "../../../assets/styles/mixins";
+
+#dorm-info {
+  margin: -50px 0 0;
+  @media (max-width: 600px) {
+  margin: 40px 10px;
+  }
+  .v-card {
+    box-shadow: none;
+    border: 1px solid $light-gray-color;
+    @include radius(5px);
+    overflow: hidden;
+  }
+  .general-info{
+    padding: 0px 10px;
+    .v-card{
+      border: none;
+      border-top: 1px solid #dedede;
+      @include radius(0);
+      padding: 20px 0;
+      .v-card__text{
+        line-height: 1.7em;
+        padding: 5px 15px;
+      }
+    }
+    .v-tabs__item{
+      text-transform: capitalize;
+    }
+    .contact{
+      p{
+        color: $gray-color;
+        font-weight: 500;
+      }
+      .contact-info{
+        margin: 15px 0;
+      }
+      .v-icon{
+        font-size: 14px;
+        line-height: 17px;
+        margin-right: 5px;
+        color: $light-gray-color;
+      }
+    }
+  }
+  .dorm-reviews{
+    > div{
+      width: 100%;
+      height: 100%;
+      background: #fbfbfb;
+      border-left: 1px solid $light-gray-color;
+      position: relative;
+      &:after{
+        content: "\275D";
+        position: absolute;
+        top: 0px;
+        left: 40px;
+        font-size: 80px;
+        color: rgb(228, 228, 228);
+      }
+      @media (max-width: 600px) {
+        border-left: none;
+        border-top: 1px solid $light-gray-color;
+      }
+    }
+    .reviews-avarage{
+      position: absolute;
+      width: 60px;
+      text-align: center;
+      line-height: 50px;
+      background: $gold-color;
+      right: 0;
+      top: 0;
+      @include border-radius(0, 0, 0, 10px);
+      font-size: 22px;
+      font-weight: 500;
+    }
+    .review-details{
+      text-align: center;
+      padding: 35px 0;
+      .v-icon{
+        font-size: 52px;
+        color: $light-gray-color;
+      }
+      span{
+        display: block;
+        font-weight: 500;
+        font-size: 16px;
+        margin: 14px 0 6px;
+      }
+      .v-rating{
+        .v-icon{
+          font-size: 22px;
+          padding: 0;
+        }
+      }
+      p{
+        max-width: 280px;
+        margin: 10px auto;
+        color: $gray-color;
+      }
+      .dots{
+        height: 30px;
+        margin: 10px 0;
+      }
+      a{
+        display: block;
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        color:  $gray-color;
+      }
+    }
+  }
+}

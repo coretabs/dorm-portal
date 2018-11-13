@@ -42,10 +42,14 @@
 
       </v-layout>
     </v-parallax>
-
     <v-layout justify-center row wrap md>
-        <room-card v-for="n in 6" :key="n"></room-card>
+        <dorm-info></dorm-info>
     </v-layout>
+    <v-layout justify-center row wrap md>
+        <room-card v-for="n in 2" :key="n"></room-card>
+    </v-layout>
+
+    
 
   </v-content>
   <!-- Map Model -->
