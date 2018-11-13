@@ -1,7 +1,7 @@
 <template>
 <div id="filter">
   <!-- filters sidebar -->
-  <v-navigation-drawer :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawerControl" fixed app>
+  <v-navigation-drawer touchless :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawerControl" fixed app>
     <template>
       <div id="filters-heading">
         <v-icon left>filter_list</v-icon>{{lang.dormFilter.heading}} :
