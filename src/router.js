@@ -26,5 +26,8 @@ export default new Router({
       component: DormProfile
     },
   ],
-  mode: 'history'
+  mode: 'history',
+  scrollBehavior() {
+    return { x: 0, y: 0 }
+  }
 })
