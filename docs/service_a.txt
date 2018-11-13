@@ -37,8 +37,10 @@ dorm
 	
 	category (emu, private...)
 	
+	contact_name
 	contact_email
 	contact_number
+	contact_fax
 	
 	manager
 	bank_accounts

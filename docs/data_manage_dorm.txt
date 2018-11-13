@@ -36,8 +36,10 @@ geo_longitude
 geo_latitude
 address
 
+contact_name
 contact_email
 contact_number
+contact_fax
 ```
 
 PUT /manager/dorms/{id} accepts
@@ -71,8 +73,10 @@ geo_longitude
 geo_latitude
 address
 
+contact_name
 contact_email
 contact_number
+contact_fax
 ```
 
 

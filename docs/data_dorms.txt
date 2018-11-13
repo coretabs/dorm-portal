@@ -28,8 +28,10 @@ address
 
 about
 
+contact_name
 contact_email
 contact_number
+contact_fax
 
 dorm_features
     name
