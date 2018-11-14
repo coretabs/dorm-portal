@@ -146,13 +146,38 @@
 }
 
 .room-card{
-  padding: 40px 140px;
   @media (max-width: 600px) {
     padding: 0;
   }
   .room-images{
     max-height: 900px;
     overflow: hidden;
+    position: relative;
+    .v-carousel__controls{
+      background: transparent;
+    }
+    .close-room{
+      position: absolute;
+      top: 0;
+      z-index: 300;
+      padding: 20px;
+      text-align: center;
+      display: none;
+      @media (max-width: 600px) {
+        display: block;
+      }
+      cursor: pointer;
+      .v-icon{
+        color: #000;
+        font-size: 32px;
+      }
+    }
+    .v-window,
+    .v-responsive {
+      @media (max-width: 600px) {
+        height: 350px !important;
+      }
+    }
   }
   .room-details {
     padding: 20px 35px 0;
@@ -209,10 +234,26 @@
     }
     .feature-block{
       margin: 10px 0;
+      @media (min-width:600px) {
+        max-height: 250px;
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+          width: 0.5em;
+        }
       
-      @include radius(5px);
-      max-height: 250px;
-      overflow-y: auto;
+        &::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+          @include radius(50px);
+
+        }
+      
+        &::-webkit-scrollbar-thumb {
+          background-color: $gold-color;
+          outline: 1px solid slategrey;
+          @include radius(50px);
+        }
+      }
+      
       h3 {
         margin: 5px 0 10px;
         color: #7f7f7f;
@@ -234,5 +275,15 @@
         }
       }
     }
+
+  
+  }
+}
+@media (max-width: 600px){
+  .v-bottom-sheet.v-dialog{
+    overflow: scroll !important;
+  }
+  .v-dialog{
+    max-height: 100% !important;
   }
 }

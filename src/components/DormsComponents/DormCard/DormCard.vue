@@ -67,14 +67,76 @@
           <div class="rooms-price-bar">
 
             <div class="room-price" v-for="(room,index) in dorm.rooms" :key="index">
-              <div @click="showRooms(room)" class="bar"></div>
-              <span @click="showRooms(room)" class="price">${{room.price}}</span>
+              <v-tooltip top>
+                <div @click="showRooms(room)" class="bar" slot="activator"></div>
+                <span @click="showRooms(room)" class="price" slot="activator">${{room.price}}</span>
+                <span>Click To show room details</span>
+              </v-tooltip>
+
             </div>
 
           </div>
 
           <div>
-            <v-dialog v-model="roomMode" lazy fullscreen hide-overlay transition="dialog-bottom-transition">
+
+            <v-bottom-sheet v-model="roomMode" lazy>
+              <v-card>
+                <v-layout class="room-card" row wrap>
+
+                  <v-flex class="room-images" xs12 sm6>
+                    <div class="close-room" @click="closeRoomModel">
+                      <v-icon>fa-times</v-icon>
+                    </div>
+                    <v-carousel>
+                      <v-carousel-item v-for="(image,index) in room.photos" :key="index" :src="image"></v-carousel-item>
+                    </v-carousel>
+
+                  </v-flex>
+
+                  <v-flex class="room-details" xs12 sm6>
+                    <v-layout row wrap justify-center align-center>
+
+                      <v-flex class="detail-block" xs6 md4>
+                        <h3>Room Type:</h3>
+                        <span>{{room.room_type}}</span>
+                      </v-flex>
+
+                      <v-flex class="detail-block" xs6 md4>
+                        <h3>Number of People:</h3>
+                        <span>
+                              <v-icon>fa-user</v-icon>
+                              X {{room.people_number}}
+                            </span>
+                      </v-flex>
+
+                      <v-flex class="detail-block" xs12 md4>
+                        <h3>Price:</h3>
+                        <span>${{room.price}}</span>
+                      </v-flex>
+
+                      <v-flex class="detail-block" xs12>
+                        <div class="room-warning">
+                          <v-icon>warning</v-icon>
+                          <span>5 {{lang.dormCard.roomsLeft}}</span>
+                        </div>
+                      </v-flex>
+
+                      <v-flex class="feature-block" xs12>
+                        <h3>Room Features:</h3>
+                        <div class="room-feature" v-for="(feature,index) in room.features" :key="index">
+                          <v-icon>{{feature.icon}}</v-icon>
+                          <span>{{feature.name}}</span>
+                        </div>
+                      </v-flex>
+
+                    </v-layout>
+                  </v-flex>
+
+                </v-layout>
+              </v-card>
+            </v-bottom-sheet>
+
+            <!-- <v-dialog v-model="roomMode" lazy fullscreen hide-overlay transition="dialog-bottom-transition">
               <v-card>
 
                 <v-toolbar color="#fff">
@@ -90,7 +152,7 @@
 
                 <v-layout class="room-card" row wrap>
 
-                  <v-flex class="room-images" xs12 sm6>
+                  <v-flex class="room-images" xs12 sm8>
 
                     <v-carousel touch>
                       <v-carousel-item v-for="(image,index) in room.photos" :key="index" :src="image" ></v-carousel-item>
@@ -98,7 +160,7 @@
 
                   </v-flex>
 
-                  <v-flex class="room-details" xs12 sm6>
+                  <v-flex class="room-details" xs12 sm4>
                     <v-layout row wrap justify-center align-center>
 
                       <v-flex class="detail-block" xs6>
@@ -135,7 +197,7 @@
                 </v-layout>
 
               </v-card>
-            </v-dialog>
+            </v-dialog> -->
           </div>
 
         </v-card-actions>

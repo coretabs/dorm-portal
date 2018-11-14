@@ -36,6 +36,9 @@ export default {
     showRooms(room){
       this.room = room;
       this.roomMode = !this.roomMode;
+    },
+    closeRoomModel(){
+      this.roomMode = !this.roomMode;
     }
   },
   computed: {
