@@ -70,22 +70,22 @@ export default {
         rooms: [{
           id: "1",
           cover: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          price: "1000",
-          room_type: "single",
+          price: "1111",
+          room_type: "single room",
           people_number: "1"
         },
         {
           id: "2",
           cover: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
           price: "2000",
-          room_type: "double",
+          room_type: "double room",
           people_number: "2"
         },
         {
           id: "2",
           cover: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
           price: "3500",
-          room_type: "double",
+          room_type: "dalux room",
           people_number: "2"
         }
         ]
@@ -166,7 +166,88 @@ export default {
         ]
       }
       ],
-      filters: []
+      filters: [],
+      filter:{
+        "filters": [
+            {
+              "id": "3",
+              "name": "Dorms Activities",
+              "checkbox": true,
+              "integral": false,
+              "options": [
+                  {
+                      "option_id": 1,
+                      "name": "Free sport/Fitness"
+                  },
+                  {
+                      "option_id": 2,
+                      "name": "Paid sport/Fitness"
+                  },
+                  {
+                      "option_id": 3,
+                      "name": "Other activities"
+                  }
+              ]
+          },
+          {
+            "id": "3",
+            "name": "Dorms Activities",
+            "checkbox": true,
+            "integral": false,
+            "options": [
+                {
+                    "option_id": 1,
+                    "name": "Free sport/Fitness"
+                },
+                {
+                    "option_id": 2,
+                    "name": "Paid sport/Fitness"
+                },
+                {
+                    "option_id": 3,
+                    "name": "Other activities"
+                }
+            ]
+        },
+        {
+          "id": "3",
+          "name": "Dorms Activities",
+          "checkbox": true,
+          "integral": false,
+          "options": [
+              {
+                  "option_id": 1,
+                  "name": "Free sport/Fitness"
+              },
+              {
+                "option_id": 2,
+                "name": "Paid sport/Fitness"
+            },
+            {
+                "option_id": 3,
+                "name": "Other activities"
+            },
+            {
+              "option_id": 2,
+              "name": "Paid sport/Fitness"
+            },
+            {
+              "option_id": 3,
+              "name": "Other activities"
+            }
+          ]
+      },
+            {
+              "id": 5,
+              "name": "Price Range",
+              "integral": true,
+              "checkbox": false,
+              "min_value": 0,
+              "max_value": 2000,
+              "value": [0, 2000]
+            }
+        ]
+    }
     };
   },
   methods: {

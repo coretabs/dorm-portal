@@ -8,7 +8,7 @@
       </div>
       <div id="filters-body">
 
-        <div class="filter" v-for="(filter,index) in filters.filters" :key="index">
+        <div class="filter" v-for="(filter,index) in filter.filters" :key="index">
           <div class="filter-title">{{filter.name}}</div>
           <template v-if="filter.checkbox">
             <ul>
@@ -45,16 +45,6 @@
         <v-flex xs12>
           <dorm-search></dorm-search>
         </v-flex>
-
-        <!-- number of result -->
-        <!-- <v-flex xs12>
-            <v-alert :value="true" type="success" >
-              {{successSearch}}
-            </v-alert>
-              <v-alert :value="true" type="error" >
-              {{successSearch}}
-            </v-alert> 
-          </v-flex> -->
 
         <!-- dorms card -->
         <v-flex xs12>
