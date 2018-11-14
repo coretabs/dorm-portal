@@ -57,7 +57,7 @@
           </v-layout>
 
         </v-flex>
-
+        <div class="reviews-avarage">{{dorm.stars}}</div>
       </v-layout>
 
       <v-divider light></v-divider>

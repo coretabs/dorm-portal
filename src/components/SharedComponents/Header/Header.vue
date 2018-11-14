@@ -12,7 +12,7 @@
 
     <v-toolbar-items>
       <!-- Currency -->
-      <v-menu transition="slide-y-transition" bottom offset-y>
+      <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y>
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
           USD<v-icon color="#ccc" right>expand_more</v-icon>
         </v-btn>
@@ -23,7 +23,7 @@
         </v-list>
       </v-menu>
       <!-- language -->
-      <v-menu transition="slide-y-transition" bottom offset-y>
+      <v-menu id="language-menu"  transition="slide-y-transition" bottom offset-y>
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
           <v-icon color="#666">language</v-icon>
           <v-icon color="#ccc" right>expand_more</v-icon>

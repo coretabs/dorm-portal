@@ -2,9 +2,7 @@
 <v-flex md8 xs12 id="dorm-info">
   <v-card>
     <v-layout row wrap>
-
       <v-flex class="general-info" xs12 sm8>
-
         <v-tabs light slider-color="#7b7b7b">
           <v-tab ripple>About us</v-tab>
           <v-tab ripple>Features</v-tab>
@@ -30,17 +28,20 @@
             <v-card flat>
               <v-card-text>
                 <p>You can contact us through:</p>
-                <div class="contact-info"><v-icon>fa-envelope</v-icon> <strong>Email:</strong> {{contact_email}}</div>
-                <div class="contact-info"><v-icon>fa-phone</v-icon> <strong>Phone:</strong> {{contact_number}}</div>
-                <div class="contact-info"><v-icon>fa-fax</v-icon> <strong>Fax:</strong> {{contact_number}}</div>
+                <div class="contact-info">
+                  <v-icon>fa-envelope</v-icon> <strong>Email:</strong> {{contact_email}}
+                </div>
+                <div class="contact-info">
+                  <v-icon>fa-phone</v-icon> <strong>Phone:</strong> {{contact_number}}
+                </div>
+                <div class="contact-info">
+                  <v-icon>fa-fax</v-icon> <strong>Fax:</strong> {{contact_number}}
+                </div>
               </v-card-text>
             </v-card>
           </v-tab-item>
-
         </v-tabs>
-
       </v-flex>
-
       <v-flex class="dorm-reviews" xs12 sm4>
         <div>
           <div class="reviews-avarage">{{reviews_average}}</div>
@@ -57,11 +58,8 @@
           </div>
         </div>
       </v-flex>
-
     </v-layout>
-
   </v-card>
-
 </v-flex>
 </template>
 

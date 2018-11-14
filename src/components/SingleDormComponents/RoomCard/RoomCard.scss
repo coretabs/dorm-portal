@@ -4,7 +4,7 @@
 #room-card {
   margin: 5px 0 30px;
   @media (max-width: 600px) {
-    margin: 20px 10px;
+    margin: 20px 10px 0;
   }
   .v-card {
     box-shadow: none;
@@ -38,7 +38,7 @@
     .room-details {
       padding: 20px 35px 0;
       @media (max-width: 600px) {
-        padding: 40px 20px;
+        padding: 20px 20px 10px;
       }
       h3 {
         color: #7f7f7f;
@@ -112,6 +112,7 @@
           text-align: right;
           .v-btn{
             @include radius(5px);
+            
           }
         }
       }

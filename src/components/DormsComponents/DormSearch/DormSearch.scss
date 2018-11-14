@@ -16,14 +16,17 @@
     box-shadow: none;
     border: 1px solid #ccc;
   }
-
+  .v-input{
+    .v-messages{
+      display: none;
+    }
+  }
   .shift-left .v-input__slot {
     margin-left: -2px;
   }
 
   .v-input__prepend-inner {
     margin-right: 10px;
-
     .v-icon {
       color: #ccc;
       font-size: 20px;
@@ -36,13 +39,12 @@
     padding: 0;
     height: 48px;
     width: 100%;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+    @include border-radius(0, 8px, 8px, 0);
     margin-left: -3px;
-    -webkit-box-shadow: inset 0px 0px 0px 1px #ccc;
-    -moz-box-shadow: inset 0px 0px 0px 1px #ccc;
-    box-shadow: inset 0px 0px 0px 1px #ccc;
-
+    @media (max-width: 600px) {
+      @include radius(4px);
+      margin-bottom: 15px;
+    }
     .v-icon {
       font-size: 14px;
       margin-right: 6px;
