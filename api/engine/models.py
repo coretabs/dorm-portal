@@ -57,6 +57,15 @@ class FilterQuerySet(PolymorphicQuerySet):
 
         return result
 
+    def additional_filters(self):
+        return (self.radio_filters() | self.integral_filters()).distinct()
+
+    def dorm_features(self):
+        return self.instance_of(FeatureFilter).filter(featurefilter__is_dorm_feature=True)
+
+    def room_features(self):
+        return self.instance_of(FeatureFilter).filter(featurefilter__is_dorm_feature=False)
+
 
 class Filter(PolymorphicModel):
     name = django_models.CharField(max_length=60)

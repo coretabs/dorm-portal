@@ -4,7 +4,13 @@ from rest_framework import serializers
 
 from rest_polymorphic.serializers import PolymorphicSerializer
 
-from .models import Filter, RadioFilter, IntegralFilter, Option
+from .models import Filter, RadioFilter, IntegralFilter, FeatureFilter, Option
+
+
+class FeatureFilterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FeatureFilter
+        fields = ('id', 'name')
 
 
 class IntegralFilterSerializer(serializers.ModelSerializer):
@@ -48,16 +54,30 @@ class AddtionalFiltersSerializer(PolymorphicSerializer):
     }
 
 
+class FeatureFiltersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FeatureFilter
+        fields = ('id', 'name')
+
+
 class FiltersSerializer(serializers.Serializer):
     main_filters = serializers.SerializerMethodField()
     additional_filters = serializers.SerializerMethodField()
+    dorm_features = serializers.SerializerMethodField()
+    room_features = serializers.SerializerMethodField()
 
     def get_main_filters(self, obj):
         filters = Filter.objects.main_filters()
         return RadioFilterSerializer(filters, many=True).data
 
     def get_additional_filters(self, obj):
-        filters = (Filter.objects.radio_filters() |
-                   Filter.objects.integral_filters()).distinct()
-
+        filters = Filter.objects.additional_filters()
         return AddtionalFiltersSerializer(filters, many=True).data
+
+    def get_dorm_features(self, obj):
+        filters = Filter.objects.dorm_features()
+        return FeatureFilterSerializer(filters, many=True).data
+
+    def get_room_features(self, obj):
+        filters = Filter.objects.room_features()
+        return FeatureFilterSerializer(filters, many=True).data

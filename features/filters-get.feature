@@ -14,3 +14,6 @@ Feature: Getting all filters
         When adding main filters (category and academic year)
         Then will get main filters (category and academic year)
         And not get main filters with the additional filters
+
+        When adding features filters for dorms and rooms
+        Then got both features filters for dorms and room
