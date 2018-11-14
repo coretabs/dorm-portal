@@ -5,20 +5,9 @@
 
       <v-flex class="room-images" xs12 sm8>
 
-        <swiper :options="swiperOption">
-          <swiper-slide>
-            <v-img position src="https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)"></v-img>
-          </swiper-slide>
-          <swiper-slide>
-            <v-img position src="https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)"></v-img>
-          </swiper-slide>
-          <swiper-slide>
-            <v-img position src="https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)"></v-img>
-          </swiper-slide>
-          <div class="swiper-pagination" slot="pagination"></div>
-          <div class="swiper-button-prev" slot="button-prev"><v-icon>fa-chevron-left</v-icon></div>
-          <div class="swiper-button-next" slot="button-next"><v-icon>fa-chevron-right</v-icon></div>
-        </swiper>
+        <v-carousel>
+          <v-carousel-item v-for="(image,index) in photos" :key="index" :src="image"></v-carousel-item>
+        </v-carousel>
 
       </v-flex>
 

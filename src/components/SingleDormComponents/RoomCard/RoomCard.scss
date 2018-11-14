@@ -25,33 +25,13 @@
       overflow: hidden;
       min-height: 250px;
       max-height: 500px;
-      .swiper-container{
-        width: 100%;
-        height: 100%;
+      .v-carousel__controls{
+        background: transparent;
       }
-      .v-responsive{
-        height: 100%;
-      }
-      // .swiper-slide {
-      // }
-      .swiper-button-next,
-      .swiper-button-prev{
-        cursor: pointer;
-        color: #fff;
-      }
-      .swiper-pagination-bullet-active{
-        background: $white-color;
-      }
-      .swiper-button-next,
-      .swiper-button-prev,
-      .swiper-pagination-bullet{
-        outline: none;
-      }
-      .swiper-button-next,
-      .swiper-button-prev{
-        background: none;
-        .v-icon{
-          color: $white-color;
+      .v-window,
+      .v-responsive {
+        @media (max-width: 600px) {
+          height: 350px !important;
         }
       }
     }
