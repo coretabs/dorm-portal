@@ -122,10 +122,13 @@
         .bar{
           width: 20px;
           height: 20px;
-          background: $light-green-color;
-          @include radius(50px);
+          background-color: #999;
+          @include radius(20px);
           margin: -7px auto 0;
-         
+          transition: background-color 0.5s;
+          &:hover{
+            background-color: $light-green-color;
+          }
         }
         .price{
           font-size: 18px;
