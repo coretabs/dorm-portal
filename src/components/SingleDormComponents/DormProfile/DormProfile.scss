@@ -67,31 +67,4 @@
       }
     }
   }
-  #filter-results-number{
-    background-color: #fbefd5;
-    padding: 8px 15px;
-    border-left: 5px solid #efca77;
-    font-size: 18px;
-    .v-icon{
-      margin-right: 10px;
-      color: #efca77;
-    }
-    p{
-      line-height: 50px;
-      margin: 0;
-    }
-    .v-btn{
-      @include radius(5px);
-      font-weight: 400;
-      color: $light-black;
-      border: 1px solid #ccc;
-      .v-icon{
-        color: $gray-color;
-        font-size: 14px;
-      }
-    }
-    @media (max-width:600px) {
-      margin: 10px;
-    }
-  }
 }

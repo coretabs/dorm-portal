@@ -44,20 +44,6 @@
     <v-layout justify-center row wrap>
 
       <dorm-info></dorm-info>
-
-      <v-flex id="filter-results-number" md8>
-        <v-layout justify-center row wrap>
-          <v-flex md10>
-            <p>
-              <v-icon>fa-filter</v-icon>
-              We have found 4 rooms matching your search in this dorm
-            </p>
-          </v-flex>
-          <v-flex md2>
-            <v-btn class="elevation-0"><v-icon>fa-search</v-icon> Do anther search</v-btn>
-          </v-flex>
-        </v-layout>
-      </v-flex>
    
       <room-card v-for="n in 2" :key="n"></room-card>
       
