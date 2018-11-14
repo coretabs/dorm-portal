@@ -131,6 +131,38 @@ export default {
           room_type: "double",
           people_number: "3"
         }
+        ,
+        {
+          id: "2",
+          cover: "https://images.pexels.com/photos/189293/pexels-photo-189293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+          price: "4000",
+          room_type: "double",
+          people_number: "3"
+        }
+        ,
+        {
+          id: "2",
+          cover: "https://images.pexels.com/photos/189293/pexels-photo-189293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+          price: "4000",
+          room_type: "double",
+          people_number: "3"
+        }
+        ,
+        {
+          id: "2",
+          cover: "https://images.pexels.com/photos/189293/pexels-photo-189293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+          price: "4000",
+          room_type: "double",
+          people_number: "3"
+        }
+        ,
+        {
+          id: "2",
+          cover: "https://images.pexels.com/photos/189293/pexels-photo-189293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+          price: "4000",
+          room_type: "double",
+          people_number: "3"
+        }
         ]
       }
       ],

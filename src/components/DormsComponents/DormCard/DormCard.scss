@@ -114,20 +114,31 @@
       background-color: $light-gray-color;
       display: flex;
       justify-content: space-between;
-
+      @media (max-width: 600px) {
+        margin-top: -50px;
+      }
       .room-price{
         cursor: pointer;
         .bar{
-          width: 4px;
+          width: 20px;
           height: 20px;
-          background: #999;
-          @include radius(20px);
+          background: $light-green-color;
+          @include radius(50px);
           margin: -7px auto 0;
+         
         }
         .price{
           font-size: 18px;
           display: block;
-          margin-top: 6px;
+          margin-top: 15px;
+          font-weight: 500;
+          @media (max-width: 600px) {
+            margin-top: 20px;
+            -ms-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg); 
+            transform: rotate(45deg);
+          }
+         
         }
       }
 
