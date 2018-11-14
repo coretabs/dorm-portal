@@ -67,27 +67,142 @@ export default {
           name: "Air condition"
         }
         ],
-        rooms: [{
-          id: "1",
-          cover: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          price: "1111",
-          room_type: "single room",
-          people_number: "1"
-        },
-        {
-          id: "2",
-          cover: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          price: "2000",
-          room_type: "double room",
-          people_number: "2"
-        },
-        {
-          id: "2",
-          cover: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          price: "3500",
-          room_type: "dalux room",
-          people_number: "2"
-        }
+        rooms: [
+          {
+            "id": 5,
+            "room_type": "single room",
+            "photos": [
+              "https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+              "https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            ],
+            "rooms_left": 5,
+            "price": 500,
+            "people_number": 2,
+            "features": [
+              {
+                name: "free Wifi",
+                icon: "fa-wifi"
+              },
+              {
+                  name: "Restaurant",
+                  icon: "fa-utensils"
+              },
+              {
+                  name: "Laundry",
+                  icon: "local_laundry_service"
+              },
+              {
+                name: "Market",
+                icon: "fa-shopping-cart"
+              },
+              {
+                name: "Elevator",
+                icon: "fa-check"
+              },
+              {
+                name: "Air condition",
+                icon: "fa-wind"
+              },
+              {
+                name: "Fire alarm",
+                icon: "fa-fire"
+              },
+              {
+                name: "Barber",
+                icon: "fa-cut"
+              } 
+            ]
+          },
+          {
+            "id": 4,
+            "room_type": "double room",
+            "photos": [
+              "https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+              "https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            ],
+            "rooms_left": 5,
+            "price": 600,
+            "people_number": 2,
+            "features": [
+              {
+                name: "free Wifi",
+                icon: "fa-wifi"
+              },
+              {
+                  name: "Restaurant",
+                  icon: "fa-utensils"
+              },
+              {
+                  name: "Laundry",
+                  icon: "local_laundry_service"
+              },
+              {
+                name: "Market",
+                icon: "fa-shopping-cart"
+              },
+              {
+                name: "Elevator",
+                icon: "fa-check"
+              },
+              {
+                name: "Air condition",
+                icon: "fa-wind"
+              },
+              {
+                name: "Fire alarm",
+                icon: "fa-fire"
+              },
+              {
+                name: "Barber",
+                icon: "fa-cut"
+              } 
+            ]
+          },
+          {
+            "id": 2,
+            "room_type": "www room",
+            "photos": [
+              "https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+              "https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            ],
+            "rooms_left": 5,
+            "price": 1500,
+            "people_number": 6,
+            "features": [
+              {
+                name: "free Wifi",
+                icon: "fa-wifi"
+              },
+              {
+                  name: "Restaurant",
+                  icon: "fa-utensils"
+              },
+              {
+                  name: "Laundry",
+                  icon: "local_laundry_service"
+              },
+              {
+                name: "Market",
+                icon: "fa-shopping-cart"
+              },
+              {
+                name: "Elevator",
+                icon: "fa-check"
+              },
+              {
+                name: "Air condition",
+                icon: "fa-wind"
+              },
+              {
+                name: "Fire alarm",
+                icon: "fa-fire"
+              },
+              {
+                name: "Barber",
+                icon: "fa-cut"
+              } 
+            ]
+          }
         ]
       },
       {
@@ -117,51 +232,96 @@ export default {
           name: "free bus"
         }
         ],
-        rooms: [{
-          id: "1",
-          cover: "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          price: "800",
-          room_type: "double",
-          people_number: "2"
+        rooms: [
+          {
+          "id": 15225,
+          "room_type": "single room",
+          "photos": [
+            "https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            "https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          ],
+          "rooms_left": 5,
+          "price": 2000,
+          "people_number": 2,
+          "features": [
+            {
+              name: "free Wifi",
+              icon: "fa-wifi"
+            },
+            {
+                name: "Restaurant",
+                icon: "fa-utensils"
+            },
+            {
+                name: "Laundry",
+                icon: "local_laundry_service"
+            },
+            {
+              name: "Market",
+              icon: "fa-shopping-cart"
+            },
+            {
+              name: "Elevator",
+              icon: "fa-check"
+            },
+            {
+              name: "Air condition",
+              icon: "fa-wind"
+            },
+            {
+              name: "Fire alarm",
+              icon: "fa-fire"
+            },
+            {
+              name: "Barber",
+              icon: "fa-cut"
+            } 
+          ]
         },
         {
-          id: "2",
-          cover: "https://images.pexels.com/photos/189293/pexels-photo-189293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          price: "4000",
-          room_type: "double",
-          people_number: "3"
-        }
-        ,
-        {
-          id: "2",
-          cover: "https://images.pexels.com/photos/189293/pexels-photo-189293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          price: "4000",
-          room_type: "double",
-          people_number: "3"
-        }
-        ,
-        {
-          id: "2",
-          cover: "https://images.pexels.com/photos/189293/pexels-photo-189293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          price: "4000",
-          room_type: "double",
-          people_number: "3"
-        }
-        ,
-        {
-          id: "2",
-          cover: "https://images.pexels.com/photos/189293/pexels-photo-189293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          price: "4000",
-          room_type: "double",
-          people_number: "3"
-        }
-        ,
-        {
-          id: "2",
-          cover: "https://images.pexels.com/photos/189293/pexels-photo-189293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          price: "4000",
-          room_type: "double",
-          people_number: "3"
+          "id": 15225,
+          "room_type": "single room",
+          "photos": [
+            "https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            "https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          ],
+          "rooms_left": 5,
+          "price": 2000,
+          "people_number": 2,
+          "features": [
+            {
+              name: "free Wifi",
+              icon: "fa-wifi"
+            },
+            {
+                name: "Restaurant",
+                icon: "fa-utensils"
+            },
+            {
+                name: "Laundry",
+                icon: "local_laundry_service"
+            },
+            {
+              name: "Market",
+              icon: "fa-shopping-cart"
+            },
+            {
+              name: "Elevator",
+              icon: "fa-check"
+            },
+            {
+              name: "Air condition",
+              icon: "fa-wind"
+            },
+            {
+              name: "Fire alarm",
+              icon: "fa-fire"
+            },
+            {
+              name: "Barber",
+              icon: "fa-cut"
+            } 
+          ]
         }
         ]
       }

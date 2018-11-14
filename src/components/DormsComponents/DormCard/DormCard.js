@@ -15,6 +15,8 @@ export default {
   },
   data: function () {
     return {
+      roomMode: false,
+      room: {},
       mapModel: false,
       reviewsModel: false,
       featuresModel: false,
@@ -30,6 +32,10 @@ export default {
     },
     showFeatures(){
       this.featuresModel = !this.featuresModel;
+    },
+    showRooms(room){
+      this.room = room;
+      this.roomMode = !this.roomMode;
     }
   },
   computed: {
