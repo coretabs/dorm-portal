@@ -71,6 +71,7 @@ dorm_photo
 	dorm
 	
 review
+    date
 	stars
 	description
 	
@@ -88,7 +89,10 @@ room characteristics
 	
     room_cover
 	room_photos
-	filters
+	
+	radio_choices
+	integral_choices
+	feature_filters
 	
 room_photo
 	url
@@ -96,11 +100,11 @@ room_photo
 	
 	room characteristics
 	
-choice
+filter
     name
     order
 
-radio choice
+radio filter
     is_optional
 
 	options
@@ -108,33 +112,33 @@ radio choice
 option
     name
 
-integral choice
+integral filter
     is_optional
 
-feature choice
+feature filter
     is_dorm_feature // consider looking at m2m table instead of this field
 	icon
 
-feature_group choice
+feature_group filter
 	features choices
 	
 room_features
-	feature choice
+	feature filter
 	room
 
 dorm_features
-	feature choice
+	feature filter
 	dorm
 
-filter
+choice
 
-radio filter
+radio choice
     selected_option
 
-    radio choice
+    radio filter
 
-integral filter
+integral choice
     selected_number
 
-    integral choice
+    integral filter
 ```

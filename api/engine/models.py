@@ -1,10 +1,10 @@
 from functools import reduce
 
-from django.db import models
+from django.db import models as django_models
 
 from polymorphic.models import PolymorphicModel
-
-from django.db import models as django_models
+from polymorphic.managers import PolymorphicManager
+from polymorphic.query import PolymorphicQuerySet
 
 
 class DormitoryQuerySet(django_models.QuerySet):
@@ -33,79 +33,105 @@ class DormitoryQuerySet(django_models.QuerySet):
         return self.filter(room_characteristics__allowed_quota__gte=1)
 
 
-class Choice(PolymorphicModel):
-    name = models.CharField(max_length=60)
+class FilterQuerySet(PolymorphicQuerySet):
+
+    def additional_filters(self):
+
+        radio_filters = self.instance_of(RadioFilter)\
+            .annotate(is_checkbox=django_models.Value(True, output_field=django_models.BooleanField()))\
+            .annotate(is_integral=django_models.Value(False, output_field=django_models.BooleanField()))\
+
+        integer_filters = self.instance_of(IntegralFilter)\
+            .annotate(is_checkbox=django_models.Value(False, output_field=django_models.BooleanField()))\
+            .annotate(is_integral=django_models.Value(True, output_field=django_models.BooleanField()))\
+            .annotate(min_value=django_models.Min('integralfilter__integral_choices__selected_number'))\
+            .annotate(max_value=django_models.Max('integralfilter__integral_choices__selected_number'))
+
+        result = (radio_filters | integer_filters).distinct()
+
+        print(result.filter(name='price').first().is_integral)
+
+        return result
 
 
-class RadioChoice(Choice):
-    is_optional = models.BooleanField(default=True)
+class Filter(PolymorphicModel):
+    name = django_models.CharField(max_length=60)
 
-    def get_query(self, selected_options):
-        return (models.Q(filters__radiofilter__radio_choice__id=self.id) &
-                models.Q(filters__radiofilter__selected_option__id__in=selected_options))
-
-    def __str__(self):
-        return f'{self.name} radio choice'
-
-
-class IntegralChoice(Choice):
-    is_optional = models.BooleanField(default=True)
-
-    def get_query(self, min, max):
-        return (models.Q(filters__integralfilter__integral_choice__id=self.id) &
-                models.Q(filters__integralfilter__selected_number__gte=min) &
-                models.Q(filters__integralfilter__selected_number__lte=max))
-
-    def __str__(self):
-        return f'{self.name} intgeral choice'
-
-
-class FeatureChoice(Choice):
-
-    is_dorm_feature = models.BooleanField(default=False)
-
-    def get_query(self):
-        return models.Q(features__id=self.id)
+    objects = PolymorphicManager.from_queryset(FilterQuerySet)()
 
     def __str__(self):
         return f'{self.name} filter'
 
 
-class Option(models.Model):
-    name = models.CharField(max_length=60)
+class RadioFilter(Filter):
+    is_optional = django_models.BooleanField(default=True)
 
-    radio_choice = models.ForeignKey(
-        RadioChoice, related_name='options', on_delete=models.CASCADE)
+    def get_query(self, selected_options):
+        return (django_models.Q(radio_choices__radio_filter__id=self.id) &
+                django_models.Q(radio_choices__selected_option__id__in=selected_options))
 
     def __str__(self):
-        return f'{self.name} option for the filter {self.radio_choice.name}'
-
-
-class Filter(PolymorphicModel):
-    pass
+        return f'{self.name} radio filter'
 
 
 class IntegralFilter(Filter):
-    selected_number = models.IntegerField(default=0)
+    is_optional = django_models.BooleanField(default=True)
 
-    integral_choice = models.ForeignKey(
-        IntegralChoice, related_name='integral_filters', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.integral_choice.name} filter with number {self.number}'
-
-
-class RadioFilter(Filter):
-    selected_option = models.ForeignKey(
-        Option, related_name='radio_filters', on_delete=models.CASCADE)
-    radio_choice = models.ForeignKey(
-        RadioChoice, related_name='radio_filters', on_delete=models.CASCADE)
+    def get_query(self, min, max):
+        return (django_models.Q(integral_choices__integral_filter__id=self.id) &
+                django_models.Q(integral_choices__selected_number__gte=min) &
+                django_models.Q(integral_choices__selected_number__lte=max))
 
     def __str__(self):
-        return f'{self.radio_choice.name} filter with options {self.options}'
+        return f'{self.name} intgeral filter'
 
 
-class Dormitory(models.Model):
+class FeatureFilter(Filter):
+
+    is_dorm_feature = django_models.BooleanField(default=False)
+
+    def get_query(self):
+        return django_models.Q(features__id=self.id)
+
+    def __str__(self):
+        return f'{self.name} filter'
+
+
+class Option(django_models.Model):
+    name = django_models.CharField(max_length=60)
+
+    radio_filter = django_models.ForeignKey(
+        RadioFilter, related_name='options', on_delete=django_models.CASCADE)
+
+    def __str__(self):
+        return f'{self.name} option for the filter {self.radio_filter.name}'
+
+
+class Choice(PolymorphicModel):
+    pass
+
+
+class IntegralChoice(Choice):
+    selected_number = django_models.IntegerField(default=0)
+
+    integral_filter = django_models.ForeignKey(
+        IntegralFilter, related_name='integral_choices', on_delete=django_models.CASCADE)
+
+    def __str__(self):
+        return f'{self.integral_filter.name} choice with number {self.selected_number}'
+
+
+class RadioChoice(Choice):
+    selected_option = django_models.ForeignKey(
+        Option, related_name='radio_choices', on_delete=django_models.CASCADE)
+    radio_filter = django_models.ForeignKey(
+        RadioFilter, related_name='radio_choices', on_delete=django_models.CASCADE)
+
+    def __str__(self):
+        return f'{self.radio_filter.name} filter with options {self.options}'
+
+
+class Dormitory(django_models.Model):
     PUBLIC = '0'
     PRIVATE = '1'
     CATEGORIES = (
@@ -113,18 +139,18 @@ class Dormitory(models.Model):
         (PRIVATE, 'private'),
     )
 
-    name = models.CharField(max_length=60)
-    about = models.CharField(max_length=1000)
+    name = django_models.CharField(max_length=60)
+    about = django_models.CharField(max_length=1000)
 
-    geo_longitude = models.CharField(max_length=20)
-    geo_latitude = models.CharField(max_length=20)
-    address = models.CharField(max_length=150)
+    geo_longitude = django_models.CharField(max_length=20)
+    geo_latitude = django_models.CharField(max_length=20)
+    address = django_models.CharField(max_length=150)
 
-    category = models.CharField(
+    category = django_models.CharField(
         max_length=2, choices=CATEGORIES, default=PUBLIC)
 
-    features = models.ManyToManyField(
-        FeatureChoice, related_name='dormitories')
+    features = django_models.ManyToManyField(
+        FeatureFilter, related_name='dormitories')
 
     objects = DormitoryQuerySet.as_manager()
 
@@ -132,15 +158,18 @@ class Dormitory(models.Model):
         return f'{self.name}'
 
 
-class RoomCharacteristics(models.Model):
-    total_quota = models.IntegerField(default=0)
-    allowed_quota = models.IntegerField(default=0)
+class RoomCharacteristics(django_models.Model):
+    total_quota = django_models.IntegerField(default=0)
+    allowed_quota = django_models.IntegerField(default=0)
 
-    filters = models.ManyToManyField(
-        Filter, related_name='filters')
+    radio_choices = django_models.ManyToManyField(
+        RadioChoice, related_name='radio_choices')
 
-    features = models.ManyToManyField(
-        FeatureChoice, related_name='room_characteristics')
+    integral_choices = django_models.ManyToManyField(
+        IntegralChoice, related_name='integral_choices')
 
-    dormitory = models.ForeignKey(
-        Dormitory, related_name='room_characteristics', on_delete=models.CASCADE)
+    features = django_models.ManyToManyField(
+        FeatureFilter, related_name='room_characteristics')
+
+    dormitory = django_models.ForeignKey(
+        Dormitory, related_name='room_characteristics', on_delete=django_models.CASCADE)

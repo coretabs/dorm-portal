@@ -11,27 +11,27 @@ def prepare_dormitory(self):
     self.alfam = Dormitory(name='Alfam')
     self.alfam.save()
 
-    self.integral_choice = IntegralChoice(name='price')
-    self.integral_choice.save()
+    self.integral_filter = IntegralFilter(name='price')
+    self.integral_filter.save()
 
-    self.price_alfam1 = create_integral_filter(self.integral_choice, 1000)
-    self.price_alfam2 = create_integral_filter(self.integral_choice, 1200)
-    self.price_alfam3 = create_integral_filter(self.integral_choice, 1700)
+    self.price_alfam1 = create_integral_choice(self.integral_filter, 1000)
+    self.price_alfam2 = create_integral_choice(self.integral_filter, 1200)
+    self.price_alfam3 = create_integral_choice(self.integral_filter, 1700)
 
-    self.room1 = create_room_with_filters(self.alfam, [self.price_alfam1, ])
-    self.room2 = create_room_with_filters(self.alfam, [self.price_alfam2, ])
-    self.room3 = create_room_with_filters(self.alfam, [self.price_alfam3, ])
+    self.room1 = create_room_with_integral_choices(self.alfam, [self.price_alfam1, ])
+    self.room2 = create_room_with_integral_choices(self.alfam, [self.price_alfam2, ])
+    self.room3 = create_room_with_integral_choices(self.alfam, [self.price_alfam3, ])
 
     self.dovec = Dormitory(name='Dovec')
     self.dovec.save()
 
-    self.price_dovec1 = create_integral_filter(self.integral_choice, 2000)
-    self.room4 = create_room_with_filters(self.dovec, [self.price_dovec1, ])
+    self.price_dovec1 = create_integral_choice(self.integral_filter, 2000)
+    self.room4 = create_room_with_integral_choices(self.dovec, [self.price_dovec1, ])
 
 
 @when('filtering alfam prices between 500, 1500')
 def filtering(self):
-    filters = [self.integral_choice.get_query(500, 1500), ]
+    filters = [self.integral_filter.get_query(500, 1500), ]
     self.filtered_dorm_alfam = Dormitory.objects.filter(
         name='Alfam').apply_room_filters(filters)
 
@@ -44,7 +44,7 @@ def test_model_can_create_a_message(self):
 
 @when('filtering dovec with wrong price range')
 def filtering(self):
-    filters = [self.integral_choice.get_query(500, 1500), ]
+    filters = [self.integral_filter.get_query(500, 1500), ]
     self.filtered_dorm_dovec = Dormitory.objects.filter(
         name='Dovec').apply_room_filters(filters)
 
