@@ -17,7 +17,9 @@
     <v-container fluid>
       <v-layout row wrap>
         <v-flex xs12>
-          <component :is="currentTabComponent"></component>
+          <keep-alive>
+            <component :is="currentTabComponent"></component>
+          </keep-alive>
         </v-flex>
       </v-layout>
     </v-container>

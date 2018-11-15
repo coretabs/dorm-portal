@@ -1,0 +1,59 @@
+@import "../../../assets/styles/vars";
+@import "../../../assets/styles/mixins";
+#manage-rooms{
+  #statistics-cards{
+    > div{
+      @include box-sizing();
+      padding: 10px;
+      div{
+        background: #ccc;
+        padding: 20px 40px;
+        @include radius(5px);
+      }
+      span{
+        font-size: 32px;
+        font-weight: 500;
+      }
+      &:nth-of-type(1){
+        div{
+          background: #d2d2d2;
+          h3{
+            color: #83919e;
+          }
+        }
+      }
+      &:nth-of-type(2){
+        div{
+          background: #ebcc81;
+          h3{
+            color: #9c7e37;
+          }
+        }
+      }
+      &:nth-of-type(3){
+        div{
+          background: #b5e698;
+          h3{
+            color: #60993e;
+          }
+        }
+      }
+      &:nth-of-type(4){
+        div{
+          background: #d85b5b;
+          h3{
+            color: #903434;
+          }
+        }
+      }
+      &:nth-of-type(5){
+        div{
+          background: #5b91d8;
+          h3{
+            color: #434d70;
+          }
+        }
+      }
+    }
+  }
+}

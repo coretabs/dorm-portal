@@ -1,19 +1,27 @@
 
+import ManagerDashboard from '../ManagerDashboard/ManagerDashboard.vue'
 import ManageDorm from '../ManageDorm/ManageDorm.vue'
+import ManageRooms from '../ManageRooms/ManageRooms.vue'
+import ManagePayments from '../ManagePayments/ManagePayments.vue'
+import ManageStudents from '../ManageStudents/ManageStudents.vue'
 
 export default {
   name: "DormManager",
   components: {
-    ManageDorm
+    ManageDorm,
+    ManageRooms,
+    ManagePayments,
+    ManageStudents,
+    ManagerDashboard
   },
   data: function () {
     return {
       drawerControl: null,
-      currentTabComponent: ManageDorm,
+      currentTabComponent: ManagePayments,
       drawerMenu: [
         {
           icon: 'fa-chart-line',
-          componentName : 'DashboardComponent'
+          componentName : 'ManagerDashboard'
         },
         {
           icon: 'fa-building',
@@ -21,15 +29,15 @@ export default {
         },
         {
           icon: 'fa-bed',
-          componentName : 'RoomsComponent'
+          componentName : 'ManageRooms'
         },
         {
           icon: 'fa-money-bill-wave',
-          componentName : 'PaymentsComponent'
+          componentName : 'ManagePayments'
         },
         {
           icon: 'fa-users',
-          componentName : 'StudentsComponent'
+          componentName : 'ManageStudents'
         }
       ]
     };
