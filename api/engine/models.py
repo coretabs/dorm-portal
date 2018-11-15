@@ -36,11 +36,11 @@ class DormitoryQuerySet(django_models.QuerySet):
 class FilterQuerySet(PolymorphicQuerySet):
 
     def main_filters(self):
-        return self.filter(django_models.Q(name='category') | django_models.Q(name='academic year'))
+        return self.filter(django_models.Q(name='academic year'))
 
     def radio_filters(self):
 
-        result = self.instance_of(RadioFilter).exclude(django_models.Q(name='category') | django_models.Q(name='academic year'))\
+        result = self.instance_of(RadioFilter).exclude(django_models.Q(name='academic year'))\
             # .annotate(is_checkbox=django_models.Value(True, output_field=django_models.BooleanField()))\
         # .annotate(is_integral=django_models.Value(False, output_field=django_models.BooleanField()))\
         # .prefetch_related('options')
@@ -144,14 +144,11 @@ class RadioChoice(Choice):
         return f'{self.radio_filter.name} filter with options {self.options}'
 
 
-class Dormitory(django_models.Model):
-    PUBLIC = '0'
-    PRIVATE = '1'
-    CATEGORIES = (
-        (PUBLIC, 'public'),
-        (PRIVATE, 'private'),
-    )
+class DormitoryCategory(django_models.Model):
+    name = django_models.CharField(max_length=60)
 
+
+class Dormitory(django_models.Model):
     name = django_models.CharField(max_length=60)
     about = django_models.CharField(max_length=1000)
 
@@ -159,11 +156,11 @@ class Dormitory(django_models.Model):
     geo_latitude = django_models.CharField(max_length=20)
     address = django_models.CharField(max_length=150)
 
-    category = django_models.CharField(
-        max_length=2, choices=CATEGORIES, default=PUBLIC)
+    category = django_models.ForeignKey(
+        DormitoryCategory, related_name='dormitories', on_delete=django_models.CASCADE)
 
     features = django_models.ManyToManyField(
-        FeatureFilter, related_name='dormitories')
+        FeatureFilter, related_name='features')
 
     objects = DormitoryQuerySet.as_manager()
 

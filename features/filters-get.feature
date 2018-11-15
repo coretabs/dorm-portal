@@ -5,14 +5,15 @@ Feature: Getting all filters
 
         Given we have 2 dormitory with 3 prices and 3 meal options
 
+        When adding main filters (academic year)
+        Then will get main filters (academic year and category)
+
         When getting additional_filters: prices and meals
         Then get additional_filters: with price min_max and meals
 
         When having more than one integral filter (bathrooms)
         Then will get bathrooms with the max bathrooms number correctly
 
-        When adding main filters (category and academic year)
-        Then will get main filters (category and academic year)
         And not get main filters with the additional filters
 
         When adding features filters for dorms and rooms

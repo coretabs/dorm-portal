@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from rest_polymorphic.serializers import PolymorphicSerializer
 
-from .models import Filter, RadioFilter, IntegralFilter, FeatureFilter, Option
+from .models import Filter, RadioFilter, IntegralFilter, FeatureFilter, Option, DormitoryCategory
 
 
 class FeatureFilterSerializer(serializers.ModelSerializer):
@@ -29,7 +29,6 @@ class IntegralFilterSerializer(serializers.ModelSerializer):
 
 
 class OptionSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Option
         fields = ('id', 'name')
@@ -60,15 +59,26 @@ class FeatureFiltersSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+class DormitoryCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DormitoryCategory
+        fields = ('id', 'name')
+
+
 class FiltersSerializer(serializers.Serializer):
-    main_filters = serializers.SerializerMethodField()
+    category_options = serializers.SerializerMethodField()
+    academic_year_options = serializers.SerializerMethodField()
     additional_filters = serializers.SerializerMethodField()
     dorm_features = serializers.SerializerMethodField()
     room_features = serializers.SerializerMethodField()
 
-    def get_main_filters(self, obj):
-        filters = Filter.objects.main_filters()
-        return RadioFilterSerializer(filters, many=True).data
+    def get_category_options(self, obj):
+        categories = DormitoryCategory.objects.all()
+        return OptionSerializer(categories, many=True).data
+
+    def get_academic_year_options(self, obj):
+        academic_year_filter = Filter.objects.filter(name='academic year').first()
+        return OptionSerializer(academic_year_filter.options, many=True).data
 
     def get_additional_filters(self, obj):
         filters = Filter.objects.additional_filters()

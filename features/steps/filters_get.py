@@ -14,7 +14,12 @@ from features.steps.factory import *
 
 @given('we have 2 dormitory with 3 prices and 3 meal options')
 def prepare_dormitory(self):
+
+    DormitoryCategory(name='public').save()
+    category_public = DormitoryCategory.objects.filter(name='public').first()
+
     self.alfam = Dormitory(name='Alfam')
+    self.alfam.category = category_public
     self.alfam.save()
 
     self.integral_filter = IntegralFilter(name='price')
@@ -32,6 +37,30 @@ def prepare_dormitory(self):
 
     self.meals_choice1 = create_radio_choice(self.options[0], self.meals)
     self.meals_choice2 = create_radio_choice(self.options[1], self.meals)
+
+
+@when('adding main filters (academic year)')
+def prepare_dormitory(self):
+    self.options_academic_year = [Option(name='Spring'),
+                                  Option(name='Winter'),
+                                  Option(name='Summer'),
+                                  Option(name='Full year')]
+    self.academic_year = create_radio_filter(self.options_academic_year, 'academic year')
+    self.academic_year_choice = create_radio_choice(
+        self.options_academic_year[0], self.academic_year)
+
+    self.all_filters = FiltersSerializer([])
+    self.all_filters_string = str(self.all_filters.data)
+
+
+@then('will get main filters (academic year and category)')
+def test_model_can_create_a_message(self):
+    assert Filter.objects.main_filters().count() == 1
+
+    print(self.all_filters_string)
+
+    assert self.all_filters_string.count("('name', 'Spring')") == 1
+    assert self.all_filters_string.count("('name', 'public')") == 1
 
 
 @when('getting additional_filters: prices and meals')
@@ -72,44 +101,11 @@ def test_model_can_create_a_message(self):
         "('name', 'price'), ('is_checkbox', False), ('is_integral', True), ('value', {'selected_number__max': 1700, 'selected_number__min': 1000})") == 1
 
 
-@when('adding main filters (category and academic year)')
-def prepare_dormitory(self):
-    self.options_category = [Option(name='Public'),
-                             Option(name='Private'),
-                             Option(name='Both')]
-    self.category = create_radio_filter(self.options_category, 'category')
-    self.category_choice = create_radio_choice(
-        self.options_category[0], self.category)
-
-    self.options_academic_year = [Option(name='Spring'),
-                                  Option(name='Winter'),
-                                  Option(name='Summer'),
-                                  Option(name='Full year')]
-    self.academic_year = create_radio_filter(self.options_academic_year, 'academic year')
-    self.academic_year_choice = create_radio_choice(
-        self.options_academic_year[0], self.academic_year)
-
-    self.all_filters = FiltersSerializer([])
-    self.all_filters_string = str(self.all_filters.data)
-
-
-@then('will get main filters (category and academic year)')
-def test_model_can_create_a_message(self):
-    assert Filter.objects.main_filters().count() == 2
-
-    assert self.all_filters_string.count(
-        "('name', 'academic year'), ('is_checkbox', True), ('is_integral', False),") == 1
-
-    assert self.all_filters_string.count(
-        "('name', 'category'), ('is_checkbox', True), ('is_integral', False),") == 1
-
-
 @then('not get main filters with the additional filters')
 def test_model_can_create_a_message(self):
     additional_filters = Filter.objects.additional_filters()
     assert additional_filters.count() == 3
 
-    assert additional_filters.filter(name='category').count() == 0
     assert additional_filters.filter(name='academic year').count() == 0
 
 
@@ -152,4 +148,4 @@ def test_model_can_create_a_message(self):
     filters_keys = self.response.render().data.keys()
     number_of_returned_json_filters = len(list(filters_keys))
     print(self.response.render().data)
-    assert number_of_returned_json_filters == 4
+    assert number_of_returned_json_filters == 5

@@ -35,13 +35,13 @@ dorm
 	geo_latitude
 	address
 	
-	category (emu, private...)
 	
 	contact_name
 	contact_email
 	contact_number
 	contact_fax
 	
+    category (emu, private...)
 	manager
 	bank_accounts
 	reviews
@@ -49,6 +49,9 @@ dorm
 	dorm_photos
 	room_characteristics
 	
+dormitory_category
+    name
+
 bank_account
 	bank_name
 	
@@ -59,7 +62,7 @@ bank_account
 	swift
 	currency
 
-Currency
+currency
     code
     name
     symbol
