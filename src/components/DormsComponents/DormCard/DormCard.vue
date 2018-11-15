@@ -128,7 +128,11 @@
                           <span>{{feature.name}}</span>
                         </div>
                       </v-flex>
-
+                      
+                      <v-flex xs12>
+                        <v-btn color="success" to="/reservation" class="reserve-btn elevation-0" large>Reserve Now</v-btn>
+                      </v-flex>
+                      
                     </v-layout>
                   </v-flex>
 
@@ -136,68 +140,6 @@
               </v-card>
             </v-bottom-sheet>
 
-            <!-- <v-dialog v-model="roomMode" lazy fullscreen hide-overlay transition="dialog-bottom-transition">
-              <v-card>
-
-                <v-toolbar color="#fff">
-                  <v-btn icon @click.native="roomMode = false">
-                    <v-icon>close</v-icon>
-                  </v-btn>
-                  <v-toolbar-title class="room-title">{{dorm.name}}</v-toolbar-title>
-                  <v-spacer></v-spacer>
-                  <v-toolbar-items>
-                    <v-btn color="green" dark>Reserve Now</v-btn>
-                  </v-toolbar-items>
-                </v-toolbar>
-
-                <v-layout class="room-card" row wrap>
-
-                  <v-flex class="room-images" xs12 sm8>
-
-                    <v-carousel touch>
-                      <v-carousel-item v-for="(image,index) in room.photos" :key="index" :src="image" ></v-carousel-item>
-                    </v-carousel>
-
-                  </v-flex>
-
-                  <v-flex class="room-details" xs12 sm4>
-                    <v-layout row wrap justify-center align-center>
-
-                      <v-flex class="detail-block" xs6>
-                        <h3>Room Type:</h3>
-                        <span>{{room.room_type}}</span>
-                      </v-flex>
-
-                      <v-flex class="detail-block" xs6>
-                        <h3>Number of People:</h3>
-                        <span>
-                              <v-icon>fa-user</v-icon>
-                              X {{room.people_number}}
-                            </span>
-                      </v-flex>
-
-                      <v-flex class="detail-block" xs12>
-                        <div class="room-warning">
-                          <v-icon>warning</v-icon>
-                          <span>5 {{lang.dormCard.roomsLeft}}</span>
-                        </div>
-                      </v-flex>
-
-                      <v-flex class="feature-block" xs12>
-                        <h3>Room Features:</h3>
-                        <div class="room-feature" v-for="(feature,index) in room.features" :key="index">
-                          <v-icon>{{feature.icon}}</v-icon>
-                          <span>{{feature.name}}</span>
-                        </div>
-                      </v-flex>
-
-                    </v-layout>
-                  </v-flex>
-
-                </v-layout>
-
-              </v-card>
-            </v-dialog> -->
           </div>
 
         </v-card-actions>

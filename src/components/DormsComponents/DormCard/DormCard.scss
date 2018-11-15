@@ -256,7 +256,7 @@
     .feature-block{
       margin: 10px 0;
       @media (min-width:600px) {
-        max-height: 250px;
+        max-height: 200px;
         overflow-y: auto;
         &::-webkit-scrollbar {
           width: 0.5em;
@@ -288,16 +288,14 @@
       .room-price{
         margin: 10px 0;
       }
-      .reserve-btn{
-        margin: 10px 0 0; 
-        text-align: right;
-        .v-btn{
-          @include radius(5px);
-        }
+      
+    }
+    .reserve-btn{
+      margin: 25px 0; 
+      @media (max-width: 600px) {
+        width: 100%;
       }
     }
-
-  
   }
 }
 @media (max-width: 600px){
