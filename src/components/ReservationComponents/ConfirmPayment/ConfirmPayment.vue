@@ -72,7 +72,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="#feae25" class="elevation-0" @click="e1 = 3" v-if="$refs.upload && $refs.upload.uploaded">{{lang.confirmPayment.confirmButton}}</v-btn>
+          <v-btn color="#feae25" class="elevation-0" @click="submit" v-if="$refs.upload && $refs.upload.uploaded">{{lang.confirmPayment.confirmButton}}</v-btn>
         </v-card-actions>
       </v-card>
     </div>

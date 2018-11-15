@@ -12,7 +12,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="#feae25" large class="elevation-0" @click="e1 = 2">{{lang.signup.button}}</v-btn>
+      <v-btn color="#feae25" large class="elevation-0" @click="submit">{{lang.signup.button}}</v-btn>
     </v-card-actions>
   </v-card>
 </div>

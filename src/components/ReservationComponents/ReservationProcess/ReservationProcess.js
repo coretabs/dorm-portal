@@ -6,7 +6,7 @@ export default {
   name: "ReservationProcess",
   data: function () {
     return {
-      e1: 2
+    
     };
   },
   components: {
@@ -17,6 +17,9 @@ export default {
   computed: {
     lang() {
       return this.$store.getters.lang;
+    },
+    reservationStep(){
+      return this.$store.state.reservationStep;
     }
   }
 };

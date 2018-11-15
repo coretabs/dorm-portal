@@ -2,8 +2,8 @@
 <v-content id="reservation">
   <v-container fluid fill-height>
     <v-layout justify-center>
-      <v-flex xs12 sm8 md6>
-        <v-stepper v-model="e1">
+      <v-flex xs12 sm8 md8>
+        <v-stepper v-model="reservationStep">
           <v-stepper-header class="elevation-3">
             <v-stepper-step :complete="e1 > 1" step="1" color="#1c3a70">Signup</v-stepper-step>
 
