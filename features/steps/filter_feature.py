@@ -11,14 +11,13 @@ def prepare_dormitory(self):
     self.swimming_pool = create_dorm_feature('Swimming pool')
     self.free_wifi = create_dorm_feature('Free WiFi')
 
-    self.alfam = Dormitory(name='Alfam')
-    self.alfam.save()
+    category_public = create_category('public')
+    self.alfam = create_dorm('Alfam', category_public)
 
     self.alfam.features.add(self.swimming_pool)
     self.alfam.save()
 
-    self.dovec = Dormitory(name='Dovec')
-    self.dovec.save()
+    self.dovec = create_dorm('Dovec', category_public)
 
     self.dovec.features.add(self.free_wifi)
     self.dovec.save()
@@ -42,14 +41,8 @@ def prepare_dormitory(self):
     self.luxury_shower = create_room_feature('Luxury shower')
     self.air_conditioner = create_room_feature('Air Conditioner')
 
-    self.alfam = Dormitory(name='Alfam')
-    self.alfam.save()
-
     self.room1 = create_room_with_features(self.alfam, [self.luxury_shower, self.air_conditioner])
     self.room2 = create_room_with_features(self.alfam, [self.air_conditioner, ])
-
-    self.dovec = Dormitory(name='Dovec')
-    self.dovec.save()
 
     self.room3 = RoomCharacteristics(dormitory=self.dovec)
     self.room3.save()

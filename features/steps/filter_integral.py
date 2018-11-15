@@ -7,8 +7,8 @@ from features.steps.factory import *
 
 @given('we have 4 rooms different prices (alfam: 3 rooms, dovec: 1 room)')
 def prepare_dormitory(self):
-    self.alfam = Dormitory(name='Alfam')
-    self.alfam.save()
+    category_public = create_category('public')
+    self.alfam = create_dorm('Alfam', category_public)
 
     self.integral_filter = IntegralFilter(name='price')
     self.integral_filter.save()
@@ -21,8 +21,7 @@ def prepare_dormitory(self):
     self.room2 = create_room_with_integral_choices(self.alfam, [self.price_alfam2, ])
     self.room3 = create_room_with_integral_choices(self.alfam, [self.price_alfam3, ])
 
-    self.dovec = Dormitory(name='Dovec')
-    self.dovec.save()
+    self.dovec = create_dorm('Dovec', category_public)
 
     self.price_dovec1 = create_integral_choice(self.integral_filter, 2000)
     self.room4 = create_room_with_integral_choices(self.dovec, [self.price_dovec1, ])

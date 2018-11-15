@@ -1,18 +1,20 @@
 from django.test import TestCase
 from behave import given, when, then
 
+from features.steps.factory import *
+
 from api.engine.models import Dormitory, RoomCharacteristics
+
 
 @given('we have 2 dormitories with some quota')
 def prepare_dormitory(self):
-    self.alfam = Dormitory(name='Alfam')
-    self.alfam.save()
+    category_public = create_category('public')
+    self.alfam = create_dorm('Alfam', category_public)
 
     self.room1 = RoomCharacteristics(dormitory=self.alfam, allowed_quota=5)
     self.room1.save()
 
-    self.dovec = Dormitory(name='Dovec')
-    self.dovec.save()
+    self.dovec = create_dorm('Dovec', category_public)
 
     self.room2 = RoomCharacteristics(dormitory=self.dovec, allowed_quota=0)
     self.room2.save()
@@ -21,6 +23,7 @@ def prepare_dormitory(self):
 @when('getting available dorms')
 def filtering(self):
     self.filtered_dorm = Dormitory.objects.available()
+
 
 @then('get alfam dormitory and not getting dovec')
 def test_model_can_create_a_message(self):

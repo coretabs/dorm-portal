@@ -7,8 +7,9 @@ from features.steps.factory import *
 
 @given('we have 1 dormitory with 2 rooms')
 def prepare_dormitory(self):
-    self.alfam = Dormitory(name='Alfam')
-    self.alfam.save()
+
+    category_public = create_category('public')
+    self.alfam = create_dorm('Alfam', category_public)
 
     self.options = [Option(name='Breakfast'),
                     Option(name='Dinner'),

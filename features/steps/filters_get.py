@@ -15,12 +15,8 @@ from features.steps.factory import *
 @given('we have 2 dormitory with 3 prices and 3 meal options')
 def prepare_dormitory(self):
 
-    DormitoryCategory(name='public').save()
-    category_public = DormitoryCategory.objects.filter(name='public').first()
-
-    self.alfam = Dormitory(name='Alfam')
-    self.alfam.category = category_public
-    self.alfam.save()
+    category_public = create_category('public')
+    self.alfam = create_dorm('Alfam', category_public)
 
     self.integral_filter = IntegralFilter(name='price')
     self.integral_filter.save()
