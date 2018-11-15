@@ -1,4 +1,3 @@
-from django.test import TestCase
 from behave import given, when, then
 
 from api.engine.models import *

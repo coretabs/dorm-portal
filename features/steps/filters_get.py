@@ -1,8 +1,13 @@
-from django.test import TestCase
+from django.urls import reverse
+
+from rest_framework.test import APIRequestFactory
+from rest_framework import status
+
 from behave import given, when, then
 
 from api.engine.models import *
 from api.engine.serializers import *
+from api.engine.views import *
 
 from features.steps.factory import *
 
@@ -131,3 +136,20 @@ def test_model_can_create_a_message(self):
     assert self.all_filters_string.count("('name', 'Reception')") == 1
     assert self.all_filters_string.count("('name', 'Luxury shower')") == 1
     assert self.all_filters_string.count("('name', 'Air Conditioner')") == 1
+
+
+@when('requesting GET /filters')
+def prepare_features(self):
+    request = APIRequestFactory().get(reverse('filters-list'))
+    view = FilterListAPIView.as_view(actions={'get': 'list'})
+    self.response = view(request)
+
+
+@then('get 200 OK and all filters in GET /filters')
+def test_model_can_create_a_message(self):
+    assert self.response.status_code == status.HTTP_200_OK
+
+    filters_keys = self.response.render().data.keys()
+    number_of_returned_json_filters = len(list(filters_keys))
+    print(self.response.render().data)
+    assert number_of_returned_json_filters == 4
