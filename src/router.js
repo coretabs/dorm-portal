@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import DormFilter from './components/DormsComponents/DormFilter/DormFilter.vue';
-import Login from './components/ReservationComponents/Login/Login.vue';
-import Reservation from './components/ReservationComponents/ReservationProcess/ReservationProcess.vue';
-import DormProfile from './components/SingleDormComponents/DormProfile/DormProfile.vue';
+import Login from './components/ReservationComponents/Login/Login.vue'
+import Reservation from './components/ReservationComponents/ReservationProcess/ReservationProcess.vue'
+import DormProfile from './components/SingleDormComponents/DormProfile/DormProfile.vue'
+import DormManager from './components/ManagerComponents/DormManager/DormManager.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,10 @@ export default new Router({
     {
       path: '/dorms/:id',
       component: DormProfile
+    },
+    {
+      path: '/manage',
+      component: DormManager
     },
   ],
   mode: 'history',

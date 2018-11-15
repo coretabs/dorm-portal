@@ -2,11 +2,6 @@ export default {
   name: "HeaderComponent",
   data: function() {
     return {
-      currencies: [{ symbol: "$", code: "USD" }, { symbol: "₺", code: "TL" }],
-      languages: [
-        { symbol: "English", code: "en" },
-        { symbol: "Turkish", code: "tr" }
-      ],
       activeBtn: 1,
       showNav: true
     };
@@ -23,6 +18,12 @@ export default {
   computed: {
     lang() {
       return this.$store.getters.lang;
+    },
+    languages(){
+      return this.$store.state.languages;
+    },
+    currencies(){
+      return this.$store.state.currencies;
     }
   }
 };

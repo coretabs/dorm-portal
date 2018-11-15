@@ -49,6 +49,32 @@
       "statusHeading": "Reservation Status",
       "commentHeading": "comment",
       "submittedHeading": "Submitted on"
+    },
+    "managerMenuItems": [
+      "Dashboard",
+      "Dormitory",
+      "Rooms",
+      "Payments",
+      "Students"
+    ],
+    "managerDormInfo": [
+      "General",
+      "Location",
+      "Features",
+      "Photos",
+      "Bank Accounts"
+    ],
+    "DormGeneralinfo": {
+      "DormName": "Dorm Name",
+      "DormDescription": "Write a short description for the selected language",
+      "DormAddress": "Dorm Address",
+      "DormLatitude": "Latitude (x)",
+      "DormLongitude" : "Longitude (y)",
+      "DormPhone": "Dorm Phone",
+      "DormMobile": "Dorm Mobile",
+      "DormFax": "Dorm Fax",
+      "DormEmail": "Dorm Email",
+      "button": "Update"
     }
   }
 }
