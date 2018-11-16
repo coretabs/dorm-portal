@@ -18,16 +18,16 @@ def prepare_dormitory(self):
     category_public = create_category('public')
     self.alfam = create_dorm('Alfam', category_public)
 
-    self.integral_filter = IntegralFilter(name='price')
-    self.integral_filter.save()
+    self.price_filter = IntegralFilter(name='price')
+    self.price_filter.save()
 
-    self.price_alfam1 = create_integral_choice(self.integral_filter, 1000)
-    self.price_alfam2 = create_integral_choice(self.integral_filter, 1200)
-    self.price_alfam3 = create_integral_choice(self.integral_filter, 1700)
+    self.price_alfam1 = create_integral_choice(self.price_filter, 1000)
+    self.price_alfam2 = create_integral_choice(self.price_filter, 1200)
+    self.price_alfam3 = create_integral_choice(self.price_filter, 1700)
 
-    self.options = [Option(name='Breakfast'),
-                    Option(name='Dinner'),
-                    Option(name='Both')]
+    self.options = [RadioOption(name='Breakfast'),
+                    RadioOption(name='Dinner'),
+                    RadioOption(name='Both')]
 
     self.meals = create_radio_filter(self.options, 'meals')
 
@@ -37,15 +37,15 @@ def prepare_dormitory(self):
 
 @when('adding main filters (academic year)')
 def prepare_dormitory(self):
-    self.options_academic_year = [Option(name='Spring'),
-                                  Option(name='Winter'),
-                                  Option(name='Summer'),
-                                  Option(name='Full year')]
+    self.options_academic_year = [RadioOption(name='Spring'),
+                                  RadioOption(name='Winter'),
+                                  RadioOption(name='Summer'),
+                                  RadioOption(name='Full year')]
     self.academic_year = create_radio_filter(self.options_academic_year, 'academic year')
     self.academic_year_choice = create_radio_choice(
         self.options_academic_year[0], self.academic_year)
 
-    self.all_filters = FiltersSerializer([])
+    self.all_filters = ClientReturnedFiltersSerializer([])
     self.all_filters_string = str(self.all_filters.data)
 
 
@@ -61,7 +61,7 @@ def test_model_can_create_a_message(self):
 
 @when('getting additional_filters: prices and meals')
 def filtering(self):
-    self.all_filters = FiltersSerializer([])
+    self.all_filters = ClientReturnedFiltersSerializer([])
     self.all_filters_string = str(self.all_filters.data)
 
 
@@ -82,7 +82,7 @@ def prepare_dormitory(self):
     self.bathrooms.save()
     self.bathrooms_alfam1 = create_integral_choice(self.bathrooms, 1)
     self.bathrooms_alfam2 = create_integral_choice(self.bathrooms, 2)
-    self.all_filters = FiltersSerializer([])
+    self.all_filters = ClientReturnedFiltersSerializer([])
     self.all_filters_string = str(self.all_filters.data)
 
 
@@ -114,7 +114,7 @@ def prepare_features(self):
     self.luxury_shower = create_room_feature('Luxury shower')
     self.air_conditioner = create_room_feature('Air Conditioner')
 
-    self.all_filters = FiltersSerializer([])
+    self.all_filters = ClientReturnedFiltersSerializer([])
     self.all_filters_string = str(self.all_filters.data)
 
 
@@ -133,7 +133,7 @@ def test_model_can_create_a_message(self):
 @when('requesting GET /filters')
 def prepare_features(self):
     request = APIRequestFactory().get(reverse('filters-list'))
-    view = FilterListAPIView.as_view(actions={'get': 'list'})
+    view = FiltersListViewSet.as_view(actions={'get': 'list'})
     self.response = view(request)
 
 

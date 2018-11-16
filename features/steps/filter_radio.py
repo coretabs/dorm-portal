@@ -11,9 +11,9 @@ def prepare_dormitory(self):
     category_public = create_category('public')
     self.alfam = create_dorm('Alfam', category_public)
 
-    self.options = [Option(name='Breakfast'),
-                    Option(name='Dinner'),
-                    Option(name='Both')]
+    self.options = [RadioOption(name='Breakfast'),
+                    RadioOption(name='Dinner'),
+                    RadioOption(name='Both')]
 
     self.meals = create_radio_filter(self.options, 'meals')
 

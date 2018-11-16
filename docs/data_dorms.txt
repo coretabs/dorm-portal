@@ -1,18 +1,4 @@
-POST /dorm/{id} accepts
-```
-currency=USD
-language=EN
-
-filters
-    id
-    {
-        choosen_options_ids
-        min_value max_value
-        // feature doesn't need an extra field
-    }
-```
-
-GET /dorms/{id} returns
+GET /dorms/{id}? currency=USD & language=EN returns
 ```
 name
 

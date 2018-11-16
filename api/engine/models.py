@@ -10,27 +10,74 @@ from polymorphic.query import PolymorphicQuerySet
 class DormitoryQuerySet(django_models.QuerySet):
     def apply_room_filters(self, filters):
 
-        filtered_rooms = RoomCharacteristics.objects.filter(filters[0])
-        for current_filter in filters:
-            filtered_rooms = filtered_rooms.filter(current_filter)
+        if filters:
+            filtered_rooms = RoomCharacteristics.objects.filter(filters[0])
+            for current_filter in filters:
+                filtered_rooms = filtered_rooms.filter(current_filter)
 
-        room_characteristics = django_models.Prefetch(
-            'room_characteristics', queryset=filtered_rooms)
+            room_characteristics = django_models.Prefetch(
+                'room_characteristics', queryset=filtered_rooms)
 
-        dorms = self.filter(room_characteristics__in=filtered_rooms)\
-                    .prefetch_related(room_characteristics).distinct()
+            dorms = self.filter(room_characteristics__in=filtered_rooms)\
+                        .prefetch_related(room_characteristics).distinct()
+
+        else:
+            dorms = self.prefetch_related('room_characteristics').distinct()
 
         return dorms
 
     def apply_dorm_filters(self, filters):
-        combined_filters = reduce(
-            lambda filter1, filter2: filter1 & filter2, filters)
-        dorms = self.filter(combined_filters)
+        if filters:
+            dorms = self.filter(filters[0])
+            for current_filter in filters:
+                dorms = dorms.filter(current_filter)
+
+        else:
+            dorms = self
 
         return dorms
 
     def available(self):
         return self.filter(room_characteristics__allowed_quota__gte=1)
+
+    def superfilter(self, category_id=None, academic_year_option_id=None,
+                    dorm_features_ids=None, radio_integeral_choices=None, room_features_ids=None):
+
+        result = self
+
+        if category_id:
+            result = result.filter(category__id=category_id)
+
+        result = result.available()
+
+        dorm_filters = []
+
+        if dorm_features_ids:
+            for current_feature in dorm_features_ids:
+                current_filter = Filter.objects.filter(id=current_feature['id']).first()
+                dorm_filters.append(current_filter.get_query())
+
+        room_filters = []
+
+        if academic_year_option_id:
+            academic_year_option = RadioOption.objects.filter(academic_year_option_id).first()
+            academic_year_filter = academic_year_option.related_filter.get_query(
+                academic_year_option_id)
+            room_filters.append(academic_year_filter)
+
+        if room_features_ids:
+            for current_feature in room_features_ids:
+                current_filter = Filter.objects.filter(id=current_feature['id']).first()
+                room_filters.append(current_filter.get_query())
+
+        if radio_integeral_choices:
+            for choice in radio_integeral_choices:
+                current_filter = Filter.objects.filter(id=choice['id']).first()
+                room_filters.append(current_filter.get_query_polymorphic(choice))
+
+        result = result.apply_dorm_filters(dorm_filters).apply_room_filters(room_filters)
+
+        return result
 
 
 class FilterQuerySet(PolymorphicQuerySet):
@@ -80,8 +127,12 @@ class RadioFilter(Filter):
     is_optional = django_models.BooleanField(default=True)
 
     def get_query(self, selected_options):
-        return (django_models.Q(radio_choices__radio_filter__id=self.id) &
+        return (django_models.Q(radio_choices__related_filter__id=self.id) &
                 django_models.Q(radio_choices__selected_option__id__in=selected_options))
+
+    def get_query_polymorphic(self, json_choice):
+        option_ids = json_choice['choosen_options_ids']
+        return self.get_query(option_ids)
 
     def __str__(self):
         return f'{self.name} radio filter'
@@ -91,9 +142,12 @@ class IntegralFilter(Filter):
     is_optional = django_models.BooleanField(default=True)
 
     def get_query(self, min, max):
-        return (django_models.Q(integral_choices__integral_filter__id=self.id) &
+        return (django_models.Q(integral_choices__related_filter__id=self.id) &
                 django_models.Q(integral_choices__selected_number__gte=min) &
                 django_models.Q(integral_choices__selected_number__lte=max))
+
+    def get_query_polymorphic(self, json_min_max):
+        return self.get_query(json_min_max['min_value'], json_min_max['max_value'])
 
     def __str__(self):
         return f'{self.name} intgeral filter'
@@ -110,14 +164,14 @@ class FeatureFilter(Filter):
         return f'{self.name} filter'
 
 
-class Option(django_models.Model):
+class RadioOption(django_models.Model):
     name = django_models.CharField(max_length=60)
 
-    radio_filter = django_models.ForeignKey(
+    related_filter = django_models.ForeignKey(
         RadioFilter, related_name='options', on_delete=django_models.CASCADE)
 
     def __str__(self):
-        return f'{self.name} option for the filter {self.radio_filter.name}'
+        return f'{self.name} option'
 
 
 class Choice(PolymorphicModel):
@@ -127,21 +181,21 @@ class Choice(PolymorphicModel):
 class IntegralChoice(Choice):
     selected_number = django_models.IntegerField(default=0)
 
-    integral_filter = django_models.ForeignKey(
+    related_filter = django_models.ForeignKey(
         IntegralFilter, related_name='integral_choices', on_delete=django_models.CASCADE)
 
     def __str__(self):
-        return f'{self.integral_filter.name} choice with number {self.selected_number}'
+        return f'{self.related_filter.name} choice with number {self.selected_number}'
 
 
 class RadioChoice(Choice):
     selected_option = django_models.ForeignKey(
-        Option, related_name='radio_choices', on_delete=django_models.CASCADE)
-    radio_filter = django_models.ForeignKey(
+        RadioOption, related_name='radio_choices', on_delete=django_models.CASCADE)
+    related_filter = django_models.ForeignKey(
         RadioFilter, related_name='radio_choices', on_delete=django_models.CASCADE)
 
     def __str__(self):
-        return f'{self.radio_filter.name} filter with options {self.options}'
+        return f'{self.related_filter.name} choice with {self.selected_option}'
 
 
 class DormitoryCategory(django_models.Model):
@@ -183,3 +237,9 @@ class RoomCharacteristics(django_models.Model):
 
     dormitory = django_models.ForeignKey(
         Dormitory, related_name='room_characteristics', on_delete=django_models.CASCADE)
+
+    def get_price(self):
+        return self.integral_choices.filter(related_filter__name='price').first().selected_number
+
+    def __str__(self):
+        return f'Room id {self.id} in {self.dormitory.name}'

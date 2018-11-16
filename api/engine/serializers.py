@@ -4,7 +4,8 @@ from rest_framework import serializers
 
 from rest_polymorphic.serializers import PolymorphicSerializer
 
-from .models import Filter, RadioFilter, IntegralFilter, FeatureFilter, Option, DormitoryCategory
+from .models import (Filter, RadioFilter, IntegralFilter, FeatureFilter, RadioOption,
+                     DormitoryCategory, Dormitory, RoomCharacteristics)
 
 
 class FeatureFilterSerializer(serializers.ModelSerializer):
@@ -14,7 +15,6 @@ class FeatureFilterSerializer(serializers.ModelSerializer):
 
 
 class IntegralFilterSerializer(serializers.ModelSerializer):
-
     is_checkbox = serializers.BooleanField(default=False)
     is_integral = serializers.BooleanField(default=True)
     value = serializers.SerializerMethodField()
@@ -28,17 +28,16 @@ class IntegralFilterSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'is_checkbox', 'is_integral', 'value')
 
 
-class OptionSerializer(serializers.ModelSerializer):
+class RadioOptionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Option
+        model = RadioOption
         fields = ('id', 'name')
 
 
 class RadioFilterSerializer(serializers.ModelSerializer):
-
     is_checkbox = serializers.BooleanField(default=True)
     is_integral = serializers.BooleanField(default=False)
-    options = OptionSerializer(many=True)
+    options = RadioOptionSerializer(many=True)
 
     class Meta:
         model = RadioFilter
@@ -46,17 +45,10 @@ class RadioFilterSerializer(serializers.ModelSerializer):
 
 
 class AddtionalFiltersSerializer(PolymorphicSerializer):
-
     model_serializer_mapping = {
         IntegralFilter: IntegralFilterSerializer,
         RadioFilter: RadioFilterSerializer,
     }
-
-
-class FeatureFiltersSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FeatureFilter
-        fields = ('id', 'name')
 
 
 class DormitoryCategorySerializer(serializers.ModelSerializer):
@@ -65,7 +57,7 @@ class DormitoryCategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
-class FiltersSerializer(serializers.Serializer):
+class ClientReturnedFiltersSerializer(serializers.Serializer):
     category_options = serializers.SerializerMethodField()
     academic_year_options = serializers.SerializerMethodField()
     additional_filters = serializers.SerializerMethodField()
@@ -74,11 +66,11 @@ class FiltersSerializer(serializers.Serializer):
 
     def get_category_options(self, obj):
         categories = DormitoryCategory.objects.all()
-        return OptionSerializer(categories, many=True).data
+        return RadioOptionSerializer(categories, many=True).data
 
     def get_academic_year_options(self, obj):
         academic_year_filter = Filter.objects.filter(name='academic year').first()
-        return OptionSerializer(academic_year_filter.options, many=True).data
+        return RadioOptionSerializer(academic_year_filter.options, many=True).data
 
     def get_additional_filters(self, obj):
         filters = Filter.objects.additional_filters()
@@ -91,3 +83,75 @@ class FiltersSerializer(serializers.Serializer):
     def get_room_features(self, obj):
         filters = Filter.objects.room_features()
         return FeatureFilterSerializer(filters, many=True).data
+
+
+# class ClientIntegralFilterSerializer(serializers.ModelSerializer):
+#    min_value = serializers.IntegerField()
+#    max_value = serializers.IntegerField()
+#
+#    class Meta:
+#        model = IntegralFilter
+#        fields = ('id', 'min_value', 'max_value')
+#
+#
+# class ClientRadioFilterSerializer(serializers.ModelSerializer):
+#    choosen_options_ids = serializers.ListField(child=serializers.IntegerField())
+#
+#    class Meta:
+#        model = RadioFilter
+#        fields = ('id', 'choosen_options_ids')
+
+
+class ClientAddtionalFiltersSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    choosen_options_ids = serializers.ListField(child=serializers.IntegerField(), required=False)
+    min_value = serializers.IntegerField(required=False)
+    max_value = serializers.IntegerField(required=False)
+
+    class Meta:
+        model = RadioFilter
+        fields = ('id', 'choosen_options_ids', 'min_value', 'max_value')
+
+
+# class ClientAddtionalFiltersSerializer(PolymorphicSerializer):
+#    model_serializer_mapping = {
+#        IntegralFilter: ClientIntegralFilterSerializer,
+#        RadioFilter: ClientRadioFilterSerializer,
+#    }
+
+
+class ClientFeaturesSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+
+    class Meta:
+        fields = ('id',)
+
+
+class ClientAcceptedFiltersSerializer(serializers.Serializer):
+    category_selected_option_id = serializers.IntegerField(required=False)
+    academic_year_option_id = serializers.IntegerField(required=False)
+    additional_filters = ClientAddtionalFiltersSerializer(many=True, required=False)
+    #dorm_features = serializers.ListField(child=serializers.IntegerField(), required=False)
+    #room_features = serializers.ListField(child=serializers.IntegerField(), required=False)
+    dorm_features = ClientFeaturesSerializer(many=True, required=False)
+    room_features = ClientFeaturesSerializer(many=True, required=False)
+
+
+class RoomSerializer(serializers.ModelSerializer):
+    price = serializers.SerializerMethodField()
+
+    def get_price(self, obj):
+        return obj.get_price()
+
+    class Meta:
+        model = RoomCharacteristics
+        fields = ('id', 'price')
+
+
+class DormSerializer(serializers.ModelSerializer):
+    features = FeatureFilterSerializer(many=True)
+    room_characteristics = RoomSerializer(many=True)
+
+    class Meta:
+        model = Dormitory
+        fields = ('id', 'name', 'features', 'room_characteristics')

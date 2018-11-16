@@ -2,7 +2,7 @@ from api.engine.models import *
 
 
 def create_category(name):
-    DormitoryCategory(name='public').save()
+    DormitoryCategory(name=name).save()
     result = DormitoryCategory.objects.filter(name=name).first()
 
     return result
@@ -18,7 +18,7 @@ def create_dorm(name, category):
 
 def create_integral_choice(integral_filter, number):
     result = IntegralChoice(selected_number=number)
-    result.integral_filter = integral_filter
+    result.related_filter = integral_filter
     result.save()
 
     result = IntegralChoice.objects.filter(selected_number=number).first()
@@ -31,9 +31,9 @@ def create_radio_filter(options, name):
     result.save()
 
     for option in options:
-        option.radio_filter = result
+        option.related_filter = result
         option.save()
-        option = Option.objects.filter(name=option.name)
+        option = RadioOption.objects.filter(name=option.name)
 
     result = RadioFilter.objects.filter(name=name).first()
 
@@ -59,7 +59,7 @@ def create_room_feature(name):
 def create_radio_choice(selected_option, radio_filter):
     result = RadioChoice()
     result.selected_option = selected_option
-    result.radio_filter = radio_filter
+    result.related_filter = radio_filter
     result.save()
 
     result = RadioChoice.objects.get(pk=result.id)
@@ -101,7 +101,7 @@ def create_room_with_features(dorm, features):
 
 
 def create_room_with_radio_integral_features(dorm, radio_choices, integral_choices, features):
-    result = RoomCharacteristics(dormitory=dorm)
+    result = RoomCharacteristics(dormitory=dorm, allowed_quota=1)
     result.save()
 
     for choice in radio_choices:
@@ -119,72 +119,77 @@ def create_room_with_radio_integral_features(dorm, radio_choices, integral_choic
     return result
 
 
-def create_alfam_dovec_with_4_rooms():
+def create_alfam_dovec_with_4_rooms(self):
 
-    category_public = create_category('public')
-    category_private = create_category('private')
+    self.category_public = create_category('public')
+    self.category_private = create_category('private')
 
-    alfam = create_dorm('Alfam', category_public)
-    dovec = create_dorm('Dovec', category_private)
+    self.alfam = create_dorm('Alfam', self.category_public)
+    self.dovec = create_dorm('Dovec', self.category_private)
 
-    swimming_pool = create_dorm_feature('Swimming pool')
-    free_wifi = create_dorm_feature('Free WiFi')
+    self.swimming_pool = create_dorm_feature('Swimming pool')
+    self.free_wifi = create_dorm_feature('Free WiFi')
 
-    alfam.features.add(swimming_pool)
-    alfam.save()
-    dovec.features.add(free_wifi)
-    dovec.save()
+    self.alfam.features.add(self.swimming_pool)
+    self.alfam.save()
+    self.dovec.features.add(self.free_wifi)
+    self.dovec.save()
 
-    luxury_shower = create_room_feature('Luxury shower')
-    air_conditioner = create_room_feature('Air Conditioner')
+    self.luxury_shower = create_room_feature('Luxury shower')
+    self.air_conditioner = create_room_feature('Air Conditioner')
 
-    integral_filter = IntegralFilter(name='price')
-    integral_filter.save()
-    price_1000 = create_integral_choice(integral_filter, 1000)
-    price_1200 = create_integral_choice(integral_filter, 1200)
-    price_1700 = create_integral_choice(integral_filter, 1700)
-    price_2000 = create_integral_choice(integral_filter, 2000)
+    self.price_filter = IntegralFilter(name='price')
+    self.price_filter.save()
+    self.price_1000 = create_integral_choice(self.price_filter, 1000)
+    self.price_1200 = create_integral_choice(self.price_filter, 1200)
+    self.price_1700 = create_integral_choice(self.price_filter, 1700)
+    self.price_2000 = create_integral_choice(self.price_filter, 2000)
 
-    bathrooms = IntegralFilter(name='bathroom')
-    bathrooms.save()
-    bathrooms1 = create_integral_choice(bathrooms, 1)
-    bathrooms2 = create_integral_choice(bathrooms, 2)
+    self.bathrooms = IntegralFilter(name='bathroom')
+    self.bathrooms.save()
+    self.bathrooms1 = create_integral_choice(self.bathrooms, 1)
+    self.bathrooms2 = create_integral_choice(self.bathrooms, 2)
 
-    meal_options = [Option(name='Breakfast'), Option(name='Dinner'), Option(name='Both')]
-    meals = create_radio_filter(meal_options, 'meals')
-    meals_choice_breakfast = create_radio_choice(meal_options[0], meals)
-    meals_choice_dinner = create_radio_choice(meal_options[1], meals)
+    self.meal_options = [RadioOption(name='Breakfast'),
+                         RadioOption(name='Dinner'),
+                         RadioOption(name='Both')]
+    self.meals = create_radio_filter(self.meal_options, 'meals')
+    self.meals_choice_breakfast = create_radio_choice(self.meal_options[0], self.meals)
+    self.meals_choice_dinner = create_radio_choice(self.meal_options[1], self.meals)
+    self.meals_choice_both = create_radio_choice(self.meal_options[2], self.meals)
 
-    options_academic_year = [Option(name='Spring'), Option(name='Winter'),
-                             Option(name='Summer'), Option(name='Full year')]
-    academic_year = create_radio_filter(options_academic_year, 'academic year')
-    academic_year_choice_spring = create_radio_choice(options_academic_year[0], academic_year)
-    academic_year_choice_winter = create_radio_choice(options_academic_year[1], academic_year)
-    academic_year_choice_summer = create_radio_choice(options_academic_year[2], academic_year)
-    academic_year_choice_full = create_radio_choice(options_academic_year[3], academic_year)
+    self.options_academic_year = [RadioOption(name='Spring'), RadioOption(name='Winter'),
+                                  RadioOption(name='Summer'), RadioOption(name='Full year')]
+    self.academic_year = create_radio_filter(self.options_academic_year, 'academic year')
+    self.academic_year_choice_spring = create_radio_choice(
+        self.options_academic_year[0], self.academic_year)
+    self.academic_year_choice_winter = create_radio_choice(
+        self.options_academic_year[1], self.academic_year)
+    self.academic_year_choice_summer = create_radio_choice(
+        self.options_academic_year[2], self.academic_year)
+    self.academic_year_choice_full = create_radio_choice(
+        self.options_academic_year[3], self.academic_year)
 
-    room1 = create_room_with_radio_integral_features(
-        alfam,
-        [academic_year_choice_spring, ],
-        [price_1000, ],
-        [air_conditioner, ])
+    self.room1 = create_room_with_radio_integral_features(
+        self.alfam,
+        [self.academic_year_choice_spring, ],
+        [self.price_1000, ],
+        [])
 
-    room2 = create_room_with_radio_integral_features(
-        alfam,
-        [academic_year_choice_spring, meals_choice_breakfast],
-        [price_2000, ],
-        [luxury_shower, air_conditioner])
+    self.room2 = create_room_with_radio_integral_features(
+        self.alfam,
+        [self.meals_choice_breakfast, self.academic_year_choice_spring],
+        [self.price_1200, self.bathrooms1],
+        [self.air_conditioner, ])
 
-    room3 = create_room_with_radio_integral_features(
-        dovec,
-        [academic_year_choice_spring, meals_choice_breakfast],
-        [price_2000, ],
-        [luxury_shower, air_conditioner])
+    self.room3 = create_room_with_radio_integral_features(
+        self.dovec,
+        [self.meals_choice_breakfast, self.academic_year_choice_spring],
+        [self.price_1700, ],
+        [self.luxury_shower, ])
 
-    room4 = create_room_with_radio_integral_features(
-        dovec,
-        [academic_year_choice_spring, meals_choice_breakfast],
-        [price_2000, ],
-        [luxury_shower, air_conditioner])
-
-    return alfam, dovec
+    self.room4 = create_room_with_radio_integral_features(
+        self.dovec,
+        [self.meals_choice_both, self.academic_year_choice_full],
+        [self.price_2000, self.bathrooms2],
+        [self.luxury_shower, self.air_conditioner])

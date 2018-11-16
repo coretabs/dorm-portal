@@ -10,12 +10,12 @@ def prepare_dormitory(self):
     category_public = create_category('public')
     self.alfam = create_dorm('Alfam', category_public)
 
-    self.integral_filter = IntegralFilter(name='price')
-    self.integral_filter.save()
+    self.price_filter = IntegralFilter(name='price')
+    self.price_filter.save()
 
-    self.price_alfam1 = create_integral_choice(self.integral_filter, 1000)
-    self.price_alfam2 = create_integral_choice(self.integral_filter, 1200)
-    self.price_alfam3 = create_integral_choice(self.integral_filter, 1700)
+    self.price_alfam1 = create_integral_choice(self.price_filter, 1000)
+    self.price_alfam2 = create_integral_choice(self.price_filter, 1200)
+    self.price_alfam3 = create_integral_choice(self.price_filter, 1700)
 
     self.room1 = create_room_with_integral_choices(self.alfam, [self.price_alfam1, ])
     self.room2 = create_room_with_integral_choices(self.alfam, [self.price_alfam2, ])
@@ -23,13 +23,13 @@ def prepare_dormitory(self):
 
     self.dovec = create_dorm('Dovec', category_public)
 
-    self.price_dovec1 = create_integral_choice(self.integral_filter, 2000)
+    self.price_dovec1 = create_integral_choice(self.price_filter, 2000)
     self.room4 = create_room_with_integral_choices(self.dovec, [self.price_dovec1, ])
 
 
 @when('filtering alfam prices between 500, 1500')
 def filtering(self):
-    filters = [self.integral_filter.get_query(500, 1500), ]
+    filters = [self.price_filter.get_query(500, 1500), ]
     self.filtered_dorm_alfam = Dormitory.objects.filter(
         name='Alfam').apply_room_filters(filters)
 
@@ -42,7 +42,7 @@ def test_model_can_create_a_message(self):
 
 @when('filtering dovec with wrong price range')
 def filtering(self):
-    filters = [self.integral_filter.get_query(500, 1500), ]
+    filters = [self.price_filter.get_query(500, 1500), ]
     self.filtered_dorm_dovec = Dormitory.objects.filter(
         name='Dovec').apply_room_filters(filters)
 

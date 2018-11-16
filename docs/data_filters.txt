@@ -1,4 +1,3 @@
-
 GET /locale returns
 ```
 currencies
@@ -10,13 +9,15 @@ languages
     code
 ```
 
-GET /filters returns
+GET /filters? currency=USD & language=EN returns
 ```
-main_filters
+category_options
+	id
+	name
+
+academic_year_options
     id
     name
-    (is_checkbox true) (is_integral false)
-        options {id, name}
 
 additional_filters
     id
@@ -40,12 +41,8 @@ POST /dorms accepts
 currency=USD
 language=EN
 
-main_filters
-    id
-    {
-        choosen_options_ids
-        min_value max_value
-    }
+category_selected_option_id
+academic_year_option_id
 
 additional_filters
     id
@@ -90,6 +87,7 @@ dorms
 GET /dorms/{id}/reviews
 ```
 reviews
+	date
     student_name
     stars
     description
