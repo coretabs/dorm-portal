@@ -4,6 +4,9 @@ export default {
   data: function () {
     return {
       showDetails: false,
+      showUpdateStatus: false,
+      date: null,
+      menu: false,
       search: '',
       headers: [
         { text: '', value: 'amount' },
@@ -22,8 +25,8 @@ export default {
           name: 'Mohammed Alhakem',
           passport: '05727780',
           email: 'Alhakeem.prof@gmail.com',
-          submittedOn: '2/2/2018',
-          deadline: '4/2/2018',
+          submittedOn: '2018-08-02',
+          deadline: '2018-06-02',
           status: 'pending',
           receipts: ['https://google.com'],
           room_type: 'Singel Room',
@@ -35,8 +38,8 @@ export default {
           name: 'Yasser Alnajjar',
           passport: '05727780',
           email: 'Alhakeem.prof@gmail.com',
-          submittedOn: '2/2/2018',
-          deadline: '4/2/2018',
+          submittedOn: '2018-08-02',
+          deadline: '2018-08-02',
           status: 'confirmed',
           receipts: ['https://google.com','https://youtube.com'],
           room_type: 'Double Room',
@@ -48,8 +51,8 @@ export default {
           name: 'Yasser Alnajjar',
           passport: '05727780',
           email: 'Alhakeem.pro@gmail.com',
-          submittedOn: '2/2/2018',
-          deadline: '4/2/2018',
+          submittedOn: '2018-08-02',
+          deadline: '2018-08-02',
           status: 'Unpaid',
           receipts: ['https://google.com','https://youtube.com'],
           room_type: 'Singel Room',
@@ -61,19 +64,25 @@ export default {
           name: 'Yasser Alnajjar',
           passport: '05727780',
           email: 'Alhakeem.prof@gmail.com',
-          submittedOn: '2/2/2018',
-          deadline: '4/2/2018',
+          submittedOn: '2018-08-02',
+          deadline: '2018-08-02',
           status: 'confirmed',
           receipts: ['https://google.com','https://youtube.com'],
           room_type: 'Dalux Room',
           duration: 'fall'
         }
       ],
+      status: [
+        'confirmed',
+        'pending',
+        'Rejected',
+        'Unpaid'
+      ],
+      currentStatus: '',
+      currentStatusId: null,
       details:{
-        name: '',
         roomType: '',
         duration:''
-
       }
     };
   },
@@ -95,6 +104,12 @@ export default {
       this.showDetails = true
       this.details.duration = item.duration
       this.details.roomType =  item.room_type
+    },
+    updateStatus(item){
+      this.showUpdateStatus = true
+      this.date = item.deadline
+      this.currentStatusId = item.id
+      this.currentStatus = item.status
     }
   },
   mounted(){

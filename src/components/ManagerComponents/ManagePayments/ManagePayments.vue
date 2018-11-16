@@ -83,8 +83,8 @@
                   <v-btn @click="showMoreDetails(props.item)" flat icon>
                     <v-icon color="#ccc">fa-info-circle</v-icon>
                   </v-btn>
-                  <v-btn v-if="props.item.status.toLowerCase() != lang.manageResrevations.confirmed.toLowerCase()" color="green" dark >{{lang.manageResrevations.updateStatus}}</v-btn>
-                  <v-btn v-else >{{lang.manageResrevations.askForReview}}</v-btn>
+                  <v-btn @click="updateStatus(props.item)" v-if="props.item.status.toLowerCase() != lang.manageResrevations.confirmed.toLowerCase()" color="green" dark>{{lang.manageResrevations.updateStatus}}</v-btn>
+                  <v-btn v-else>{{lang.manageResrevations.askForReview}}</v-btn>
                 </td>
               </template>
               <v-alert slot="no-results" :value="true" color="error" icon="warning">
@@ -98,26 +98,81 @@
     </v-card-text>
   </v-card>
 
-  <v-dialog v-model="showDetails" max-width="400">
-    <v-card>
-      <v-card-text>
-        <div class="details-model__info">
-          <h3>Room Type:</h3>
-          <span>{{details.roomType}}</span>
-        </div>
-        <div class="details-model__info">
-          <h3>Staying Duration:</h3>
-          <span>{{details.duration}}</span>
-        </div>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="green darken-1" flat="flat" @click="showDetails = false">
-          Close
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <v-layout>
+    <v-dialog v-model="showDetails" max-width="400">
+      <v-card>
+        <v-card-text>
+          <div class="details-model__info">
+            <h3>Room Type:</h3>
+            <span>{{details.roomType}}</span>
+          </div>
+          <div class="details-model__info">
+            <h3>Staying Duration:</h3>
+            <span>{{details.duration}}</span>
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" flat="flat" @click="showDetails = false">
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-layout>
+
+  <v-layout row justify-center>
+    <v-dialog v-model="showUpdateStatus" persistent max-width="600px">
+      <v-card lazy>
+       
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-select :items="status" v-model="currentStatus" label="Status"></v-select>
+              </v-flex>
+              <v-flex xs12>
+                   <v-menu
+                    ref="menu"
+                    :close-on-content-click="false"
+                    v-model="menu"
+                    :nudge-right="40"
+                    :return-value.sync="date"
+                    lazy
+                    transition="scale-transition"
+                    offset-y
+                    full-width
+                    min-width="290px"
+                    >
+                      <v-text-field
+                        slot="activator"
+                        v-model="date"
+                        label="Deadline"
+                        readonly
+                      ></v-text-field>
+                      <v-date-picker v-model="date" no-title scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                        <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                      </v-date-picker>
+                  </v-menu>
+              </v-flex>
+              <v-flex xs12>
+                <v-textarea
+                  label="Note"
+                ></v-textarea>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click="showUpdateStatus = false">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click="showUpdateStatus = false">Update</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-layout>
 
 </div>
 </template>
