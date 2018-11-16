@@ -61,7 +61,7 @@
                 <td class="text-xs-left">${{ props.item.amount }}</td>
                 <td class="text-xs-left">
 
-                  <v-menu v-if="props.item.receipts.length > 1" offset-y>
+                  <v-menu offset-y>
                     <v-btn class="receipts-btn" slot="activator" depressed flat>
                       {{lang.manageResrevations.download}} <v-icon color="#999" >expand_more</v-icon>
                     </v-btn>
@@ -71,7 +71,6 @@
                       </v-list-tile>
                     </v-list>
                   </v-menu>
-                  <a v-else v-for="(receipt,i) in props.item.receipts" :key="i"  :href="receipt" download>{{lang.manageResrevations.receipt}}</a>
 
                 </td>
                 <td class="text-xs-left">{{ props.item.status }}</td>
