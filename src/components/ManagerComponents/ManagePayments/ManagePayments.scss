@@ -33,13 +33,21 @@
       }
       &:nth-of-type(3){
         div{
+          background: #ebcc81;
+          h3{
+            color: #9c7e37;
+          }
+        }
+      }
+      &:nth-of-type(4){
+        div{
           background: #b5e698;
           h3{
             color: #60993e;
           }
         }
       }
-      &:nth-of-type(4){
+      &:nth-of-type(5){
         div{
           background: #d85b5b;
           h3{
@@ -47,7 +55,7 @@
           }
         }
       }
-      &:nth-of-type(5){
+      &:nth-of-type(6){
         div{
           background: #5b91d8;
           h3{
@@ -66,5 +74,15 @@
       font-weight: normal;
       text-transform: capitalize;
     }
+  }
+  
+}
+.details-model__info{
+  margin: 5px 5px 14px;
+  h3{
+    margin-bottom: 3px;
+  }
+  span{
+    font-size: 18px;
   }
 }

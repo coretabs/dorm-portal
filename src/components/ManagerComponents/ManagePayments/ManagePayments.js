@@ -3,6 +3,7 @@ export default {
   name: "ManagePayments",
   data: function () {
     return {
+      showDetails: false,
       search: '',
       headers: [
         { text: '', value: 'amount' },
@@ -24,7 +25,9 @@ export default {
           submittedOn: '2/2/2018',
           deadline: '4/2/2018',
           status: 'pending',
-          receipts: ['https://google.com']
+          receipts: ['https://google.com'],
+          room_type: 'Singel Room',
+          duration: 'summer'
         },
         {
           id: 2,
@@ -35,18 +38,22 @@ export default {
           submittedOn: '2/2/2018',
           deadline: '4/2/2018',
           status: 'confirmed',
-          receipts: ['https://google.com','https://youtube.com']
+          receipts: ['https://google.com','https://youtube.com'],
+          room_type: 'Double Room',
+          duration: 'full Academic Year'
         },
         {
           id: 3,
           amount: 3000,
           name: 'Yasser Alnajjar',
           passport: '05727780',
-          email: 'Alhakeem.prof@gmail.com',
+          email: 'Alhakeem.pro@gmail.com',
           submittedOn: '2/2/2018',
           deadline: '4/2/2018',
           status: 'Unpaid',
-          receipts: ['https://google.com','https://youtube.com']
+          receipts: ['https://google.com','https://youtube.com'],
+          room_type: 'Singel Room',
+          duration: 'summer'
         },
         {
           id: 4,
@@ -57,9 +64,17 @@ export default {
           submittedOn: '2/2/2018',
           deadline: '4/2/2018',
           status: 'confirmed',
-          receipts: ['https://google.com','https://youtube.com']
+          receipts: ['https://google.com','https://youtube.com'],
+          room_type: 'Dalux Room',
+          duration: 'fall'
         }
-      ]
+      ],
+      details:{
+        name: '',
+        roomType: '',
+        duration:''
+
+      }
     };
   },
   computed: {
@@ -75,6 +90,11 @@ export default {
     },
     filterStatus(keyWord){
       this.search = keyWord
+    },
+    showMoreDetails(item){
+      this.showDetails = true
+      this.details.duration = item.duration
+      this.details.roomType =  item.room_type
     }
   },
   mounted(){
