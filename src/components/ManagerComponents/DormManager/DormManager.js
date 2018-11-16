@@ -3,7 +3,6 @@ import ManagerDashboard from '../ManagerDashboard/ManagerDashboard.vue'
 import ManageDorm from '../ManageDorm/ManageDorm.vue'
 import ManageRooms from '../ManageRooms/ManageRooms.vue'
 import ManagePayments from '../ManagePayments/ManagePayments.vue'
-import ManageStudents from '../ManageStudents/ManageStudents.vue'
 
 export default {
   name: "DormManager",
@@ -11,7 +10,6 @@ export default {
     ManageDorm,
     ManageRooms,
     ManagePayments,
-    ManageStudents,
     ManagerDashboard
   },
   data: function () {
@@ -34,10 +32,6 @@ export default {
         {
           icon: 'fa-money-bill-wave',
           componentName : 'ManagePayments'
-        },
-        {
-          icon: 'fa-users',
-          componentName : 'ManageStudents'
         }
       ]
     };

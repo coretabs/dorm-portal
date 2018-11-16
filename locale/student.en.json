@@ -54,8 +54,7 @@
       "Dashboard",
       "Dormitory",
       "Rooms",
-      "Reservations",
-      "Students"
+      "Reservations"  
     ],
     "managerDormInfo": [
       "General",
@@ -75,6 +74,30 @@
       "DormFax": "Dorm Fax",
       "DormEmail": "Dorm Email",
       "button": "Update"
+    },
+    "manageResrevations":{
+      "heading": "Reservation records",
+      "all": "All",
+      "wating": "Wating",
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "rejected": "Rejected",
+      "unpaid": "Unpaid",
+      "searchResults": "No record found for ",
+      "updateStatus": "Update Status",
+      "askForReview": "Ask for review",
+      "receipt": "Receipt",
+      "download": "Download",
+      "tableHeaders": [
+        "Amount",
+        "Receipts",
+        "Status",
+        "Student Name",
+        "Student Email",
+        "Submitted On",
+        "Deadline",
+        "Actions"        
+      ]
     }
   }
 }

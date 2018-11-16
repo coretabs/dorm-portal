@@ -9,6 +9,7 @@
         background: #ccc;
         padding: 20px 40px;
         @include radius(5px);
+        cursor: pointer;
       }
       span{
         font-size: 32px;
@@ -54,6 +55,16 @@
           }
         }
       }
+    }
+  }
+  #receipts-records{
+    .v-btn{
+      margin-left:0;
+    }
+    .receipts-btn{
+      padding: 0;
+      font-weight: normal;
+      text-transform: capitalize;
     }
   }
 }

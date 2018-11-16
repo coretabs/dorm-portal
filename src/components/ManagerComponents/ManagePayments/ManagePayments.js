@@ -4,46 +4,80 @@ export default {
   data: function () {
     return {
       search: '',
-        headers: [
-          { text: 'Amount', value: 'amount' },
-          { text: 'Student Name', value: 'name' },
-          { text: 'Student Email', value: 'email' },
-          { text: 'Submitted On', value: 'submittedOn' },
-          { text: 'Deadline', value: 'deadline' },
-          { text: 'Status', value: 'status' },
-          { text: 'Receipts', value: 'receipts' },
-          { text: 'Actions', value: 'id', sortable: false }
-        ],
-        payments: [
-          {
-            id: 1,
-            amount: 1600,
-            name: 'Mohammed Alhakem',
-            email: 'Alhakeem.prof@gmail.com',
-            submittedOn: '2/2/2018',
-            deadline: '4/2/2018',
-            status: 'Pending',
-            receipts: ['https://google.com','https://youtube.com']
-          },
-          {
-            id: 2,
-            amount: 1600,
-            name: 'Yasser Alnajjar',
-            email: 'Alhakeem.prof@gmail.com',
-            submittedOn: '2/2/2018',
-            deadline: '4/2/2018',
-            status: 'Pending',
-            receipts: ['https://google.com','https://youtube.com']
-          }
-        ]
+      headers: [
+        { text: '', value: 'amount' },
+        { text: '', value: 'receipts', sortable: false  },
+        { text: '', value: 'status' },
+        { text: '', value: 'name' },
+        { text: '', value: 'email' },
+        { text: '', value: 'submittedOn' },
+        { text: '', value: 'deadline' },
+        { text: '', value: 'id', sortable: false }
+      ],
+      reservations: [
+        {
+          id: 1,
+          amount: 1600,
+          name: 'Mohammed Alhakem',
+          passport: '05727780',
+          email: 'Alhakeem.prof@gmail.com',
+          submittedOn: '2/2/2018',
+          deadline: '4/2/2018',
+          status: 'pending',
+          receipts: ['https://google.com']
+        },
+        {
+          id: 2,
+          amount: 1000,
+          name: 'Yasser Alnajjar',
+          passport: '05727780',
+          email: 'Alhakeem.prof@gmail.com',
+          submittedOn: '2/2/2018',
+          deadline: '4/2/2018',
+          status: 'confirmed',
+          receipts: ['https://google.com','https://youtube.com']
+        },
+        {
+          id: 3,
+          amount: 3000,
+          name: 'Yasser Alnajjar',
+          passport: '05727780',
+          email: 'Alhakeem.prof@gmail.com',
+          submittedOn: '2/2/2018',
+          deadline: '4/2/2018',
+          status: 'Unpaid',
+          receipts: ['https://google.com','https://youtube.com']
+        },
+        {
+          id: 4,
+          amount: 4000,
+          name: 'Yasser Alnajjar',
+          passport: '05727780',
+          email: 'Alhakeem.prof@gmail.com',
+          submittedOn: '2/2/2018',
+          deadline: '4/2/2018',
+          status: 'confirmed',
+          receipts: ['https://google.com','https://youtube.com']
+        }
+      ]
     };
   },
   computed: {
     lang() {
       return this.$store.getters.lang;
-    }    
+    }
   },
-  methods: {
-   
+  methods:{
+    setHeaderText(){
+      let arrLength = this.lang.manageResrevations.tableHeaders.length
+      for(var i=0 ; i <= arrLength ; i++)
+        this.headers[i].text = this.lang.manageResrevations.tableHeaders[i]
+    },
+    filterStatus(keyWord){
+      this.search = keyWord
+    }
+  },
+  mounted(){
+    this.setHeaderText()
   }
 };
