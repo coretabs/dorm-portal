@@ -177,6 +177,6 @@
 </div>
 </template>
 
-<script src="./ManagePayments.js"></script>
+<script src="./ManageReservations.js"></script>
 
-<style src="./ManagePayments.scss" lang="scss"></style>
+<style src="./ManageReservations.scss" lang="scss"></style>

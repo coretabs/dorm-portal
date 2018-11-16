@@ -51,10 +51,9 @@
       "submittedHeading": "Submitted on"
     },
     "managerMenuItems": [
-      "Dashboard",
-      "Dormitory",
+      "Reservations",
       "Rooms",
-      "Reservations"  
+      "Dormitory"
     ],
     "managerDormInfo": [
       "General",

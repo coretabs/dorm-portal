@@ -1,6 +1,6 @@
 
 export default {
-  name: "ManagePayments",
+  name: "ManageReservations",
   data: function () {
     return {
       showDetails: false,
