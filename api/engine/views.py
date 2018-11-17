@@ -14,6 +14,13 @@ from . import models
 index_view = never_cache(TemplateView.as_view(template_name='index.html'))
 
 
+class LocaleListViewSet(viewsets.ViewSet):
+    serializer_class = serializers.LocaleSerailizer
+
+    def list(self, request):
+        return Response(self.serializer_class([]).data)
+
+
 class FiltersListViewSet(viewsets.ViewSet):
     serializer_class = serializers.ClientReturnedFiltersSerializer
 

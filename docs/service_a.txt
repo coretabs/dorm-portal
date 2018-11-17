@@ -64,7 +64,6 @@ bank_account
 
 currency
     code
-    name
     symbol
 	
 dorm_photo

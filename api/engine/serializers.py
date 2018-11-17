@@ -4,13 +4,14 @@ from rest_framework import serializers
 
 from rest_polymorphic.serializers import PolymorphicSerializer
 
-from .models import (Filter, RadioFilter, IntegralFilter, FeatureFilter, RadioOption,
-                     DormitoryCategory, Dormitory, RoomCharacteristics)
+from api import settings
+
+from . import models
 
 
 class FeatureFilterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = FeatureFilter
+        model = models.FeatureFilter
         fields = ('id', 'name')
 
 
@@ -24,13 +25,13 @@ class IntegralFilterSerializer(serializers.ModelSerializer):
             django_models.Max('selected_number'), django_models.Min('selected_number'))
 
     class Meta:
-        model = IntegralFilter
+        model = models.IntegralFilter
         fields = ('id', 'name', 'is_checkbox', 'is_integral', 'value')
 
 
 class RadioOptionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RadioOption
+        model = models.RadioOption
         fields = ('id', 'name')
 
 
@@ -40,20 +41,20 @@ class RadioFilterSerializer(serializers.ModelSerializer):
     options = RadioOptionSerializer(many=True)
 
     class Meta:
-        model = RadioFilter
+        model = models.RadioFilter
         fields = ('id', 'name', 'is_checkbox', 'is_integral', 'options')
 
 
 class AddtionalFiltersSerializer(PolymorphicSerializer):
     model_serializer_mapping = {
-        IntegralFilter: IntegralFilterSerializer,
-        RadioFilter: RadioFilterSerializer,
+        models.IntegralFilter: IntegralFilterSerializer,
+        models.RadioFilter: RadioFilterSerializer,
     }
 
 
 class DormitoryCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = DormitoryCategory
+        model = models.DormitoryCategory
         fields = ('id', 'name')
 
 
@@ -65,23 +66,23 @@ class ClientReturnedFiltersSerializer(serializers.Serializer):
     room_features = serializers.SerializerMethodField()
 
     def get_category_options(self, obj):
-        categories = DormitoryCategory.objects.all()
+        categories = models.DormitoryCategory.objects.all()
         return RadioOptionSerializer(categories, many=True).data
 
     def get_academic_year_options(self, obj):
-        academic_year_filter = Filter.objects.filter(name='academic year').first()
+        academic_year_filter = models.Filter.objects.filter(name='academic year').first()
         return RadioOptionSerializer(academic_year_filter.options, many=True).data
 
     def get_additional_filters(self, obj):
-        filters = Filter.objects.additional_filters()
+        filters = models.Filter.objects.additional_filters()
         return AddtionalFiltersSerializer(filters, many=True).data
 
     def get_dorm_features(self, obj):
-        filters = Filter.objects.dorm_features()
+        filters = models.Filter.objects.dorm_features()
         return FeatureFilterSerializer(filters, many=True).data
 
     def get_room_features(self, obj):
-        filters = Filter.objects.room_features()
+        filters = models.Filter.objects.room_features()
         return FeatureFilterSerializer(filters, many=True).data
 
 
@@ -92,7 +93,7 @@ class ClientAddtionalFiltersSerializer(serializers.Serializer):
     max_value = serializers.IntegerField(required=False)
 
     class Meta:
-        model = RadioFilter
+        model = models.RadioFilter
         fields = ('id', 'choosen_options_ids', 'min_value', 'max_value')
 
 
@@ -118,7 +119,7 @@ class RoomSerializer(serializers.ModelSerializer):
         return obj.get_price()
 
     class Meta:
-        model = RoomCharacteristics
+        model = models.RoomCharacteristics
         fields = ('id', 'price')
 
 
@@ -127,5 +128,30 @@ class DormSerializer(serializers.ModelSerializer):
     room_characteristics = RoomSerializer(many=True)
 
     class Meta:
-        model = Dormitory
+        model = models.Dormitory
         fields = ('id', 'name', 'features', 'room_characteristics')
+
+
+class CurrencySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Currency
+        fields = ('symbol', 'code',)
+
+
+class LanguageSerailizer(serializers.Serializer):
+    code = serializers.CharField()
+    name = serializers.CharField()
+
+
+class LocaleSerailizer(serializers.Serializer):
+    currencies = serializers.SerializerMethodField()
+    languages = serializers.SerializerMethodField()
+
+    def get_currencies(self, obj):
+        currencies = models.Currency.objects.all()
+        return CurrencySerializer(currencies, many=True).data
+
+    def get_languages(self, obj):
+        languages = [{'code': code, 'name': name} for code, name in settings.LANGUAGES]
+
+        return LanguageSerailizer(languages, many=True).data

@@ -2,6 +2,8 @@ from functools import reduce
 
 from django.db import models as django_models
 
+from i18nfield.fields import I18nCharField
+
 from polymorphic.models import PolymorphicModel
 from polymorphic.managers import PolymorphicManager
 from polymorphic.query import PolymorphicQuerySet
@@ -108,7 +110,7 @@ class FilterQuerySet(PolymorphicQuerySet):
 
 
 class Filter(PolymorphicModel):
-    name = django_models.CharField(max_length=60)
+    name = I18nCharField(max_length=60)
 
     objects = PolymorphicManager.from_queryset(FilterQuerySet)()
 
@@ -158,7 +160,7 @@ class FeatureFilter(Filter):
 
 
 class RadioOption(django_models.Model):
-    name = django_models.CharField(max_length=60)
+    name = I18nCharField(max_length=60)
 
     related_filter = django_models.ForeignKey(
         RadioFilter, related_name='options', on_delete=django_models.CASCADE)
@@ -192,12 +194,12 @@ class RadioChoice(Choice):
 
 
 class DormitoryCategory(django_models.Model):
-    name = django_models.CharField(max_length=60)
+    name = I18nCharField(max_length=60)
 
 
 class Dormitory(django_models.Model):
-    name = django_models.CharField(max_length=60)
-    about = django_models.CharField(max_length=1000)
+    name = I18nCharField(max_length=60)
+    about = I18nCharField(max_length=1000)
 
     geo_longitude = django_models.CharField(max_length=20)
     geo_latitude = django_models.CharField(max_length=20)
@@ -236,3 +238,8 @@ class RoomCharacteristics(django_models.Model):
 
     def __str__(self):
         return f'Room id {self.id} in {self.dormitory.name}'
+
+
+class Currency(django_models.Model):
+    symbol = django_models.CharField(max_length=1)
+    code = django_models.CharField(max_length=9)
