@@ -177,38 +177,6 @@ reservations
     status
 ```
 
-GET /manager/dorms/{id}/reservations?
-studentName={studentName}&email={email}&passport_number={passport_number}&status={status}&price={price}
-returns
-```
-id
-
-confirmed_reservations
-pending_reservations
-rejected_reservations
-awaiting_reservations
-
-reservations
-    reservation_date
-    confirmation_deadline
-
-    price
-    currency_symbol
-    
-    duration
-    room_type
-
-    student_name
-    email
-    passport_number
-    
-    reciepts
-        reciept_url
-	    upload_reciept_date
-
-    status
-```
-
 PUT /manager/dorms/{id}/reservations/{id} accepts
 ```
 status
