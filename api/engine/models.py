@@ -88,19 +88,12 @@ class FilterQuerySet(PolymorphicQuerySet):
     def radio_filters(self):
 
         result = self.instance_of(RadioFilter).exclude(django_models.Q(name='academic year'))\
-            # .annotate(is_checkbox=django_models.Value(True, output_field=django_models.BooleanField()))\
-        # .annotate(is_integral=django_models.Value(False, output_field=django_models.BooleanField()))\
-        # .prefetch_related('options')
 
         return result
 
     def integral_filters(self):
 
         result = self.instance_of(IntegralFilter)
-        # .annotate(min_value=django_models.Min('integralfilter__integral_choices__selected_number'))\
-        # .annotate(max_value=django_models.Max('integralfilter__integral_choices__selected_number'))
-        # .annotate(is_checkbox=django_models.Value(False, output_field=django_models.BooleanField()))\
-        # .annotate(is_integral=django_models.Value(True, output_field=django_models.BooleanField()))\
 
         return result
 

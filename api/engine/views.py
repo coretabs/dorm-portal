@@ -29,8 +29,6 @@ class DormViewSet(viewsets.ViewSet):
         deserialized_filters = serializers.ClientAcceptedFiltersSerializer(data=request.data)
         deserialized_filters.is_valid()
 
-        print('qooq')
-
         filtered_dorms = models.Dormitory.objects\
             .superfilter(
                 category_id=deserialized_filters.data.get(

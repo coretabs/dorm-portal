@@ -85,23 +85,6 @@ class ClientReturnedFiltersSerializer(serializers.Serializer):
         return FeatureFilterSerializer(filters, many=True).data
 
 
-# class ClientIntegralFilterSerializer(serializers.ModelSerializer):
-#    min_value = serializers.IntegerField()
-#    max_value = serializers.IntegerField()
-#
-#    class Meta:
-#        model = IntegralFilter
-#        fields = ('id', 'min_value', 'max_value')
-#
-#
-# class ClientRadioFilterSerializer(serializers.ModelSerializer):
-#    choosen_options_ids = serializers.ListField(child=serializers.IntegerField())
-#
-#    class Meta:
-#        model = RadioFilter
-#        fields = ('id', 'choosen_options_ids')
-
-
 class ClientAddtionalFiltersSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     choosen_options_ids = serializers.ListField(child=serializers.IntegerField(), required=False)
@@ -111,13 +94,6 @@ class ClientAddtionalFiltersSerializer(serializers.Serializer):
     class Meta:
         model = RadioFilter
         fields = ('id', 'choosen_options_ids', 'min_value', 'max_value')
-
-
-# class ClientAddtionalFiltersSerializer(PolymorphicSerializer):
-#    model_serializer_mapping = {
-#        IntegralFilter: ClientIntegralFilterSerializer,
-#        RadioFilter: ClientRadioFilterSerializer,
-#    }
 
 
 class ClientFeaturesSerializer(serializers.Serializer):
@@ -131,8 +107,6 @@ class ClientAcceptedFiltersSerializer(serializers.Serializer):
     category_selected_option_id = serializers.IntegerField(required=False)
     academic_year_option_id = serializers.IntegerField(required=False)
     additional_filters = ClientAddtionalFiltersSerializer(many=True, required=False)
-    #dorm_features = serializers.ListField(child=serializers.IntegerField(), required=False)
-    #room_features = serializers.ListField(child=serializers.IntegerField(), required=False)
     dorm_features = ClientFeaturesSerializer(many=True, required=False)
     room_features = ClientFeaturesSerializer(many=True, required=False)
 
