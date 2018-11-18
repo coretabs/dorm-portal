@@ -255,25 +255,28 @@
     }
     .feature-block{
       margin: 10px 0;
-      @media (min-width:600px) {
-        max-height: 200px;
-        overflow-y: auto;
-        &::-webkit-scrollbar {
-          width: 0.5em;
-        }
-      
-        &::-webkit-scrollbar-track {
-          -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
-          @include radius(50px);
-
-        }
-      
-        &::-webkit-scrollbar-thumb {
-          background-color: $gold-color;
-          outline: 1px solid slategrey;
-          @include radius(50px);
+      .feature-block__scroll{
+        @media (min-width:600px) {
+          max-height: 190px;
+          overflow-y: auto;
+          &::-webkit-scrollbar {
+            width: 0.5em;
+          }
+        
+          &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+            @include radius(50px);
+  
+          }
+        
+          &::-webkit-scrollbar-thumb {
+            background-color: $gold-color;
+            outline: 1px solid slategrey;
+            @include radius(50px);
+          }
         }
       }
+      
       
       h3 {
         margin: 5px 0 10px;

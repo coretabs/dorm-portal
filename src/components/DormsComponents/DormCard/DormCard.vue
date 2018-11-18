@@ -123,9 +123,11 @@
 
                       <v-flex class="feature-block" xs12>
                         <h3>Room Features:</h3>
-                        <div class="room-feature" v-for="(feature,index) in room.features" :key="index">
-                          <v-icon>{{feature.icon}}</v-icon>
-                          <span>{{feature.name}}</span>
+                        <div class="feature-block__scroll">
+                          <div class="room-feature" v-for="(feature,index) in room.features" :key="index">
+                            <v-icon>{{feature.icon}}</v-icon>
+                            <span>{{feature.name}}</span>
+                          </div>
                         </div>
                       </v-flex>
                       
