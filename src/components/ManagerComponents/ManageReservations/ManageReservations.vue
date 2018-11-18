@@ -83,8 +83,8 @@
                   <v-btn @click="showMoreDetails(props.item)" flat icon>
                     <v-icon color="#ccc">fa-info-circle</v-icon>
                   </v-btn>
-                  <v-btn @click="updateStatus(props.item)" v-if="props.item.status.toLowerCase() != lang.manageResrevations.confirmed.toLowerCase()" color="green" dark>{{lang.manageResrevations.updateStatus}}</v-btn>
-                  <v-btn v-else>{{lang.manageResrevations.askForReview}}</v-btn>
+                  <v-btn depressed @click="updateStatus(props.item)" v-if="props.item.status.toLowerCase() != lang.manageResrevations.confirmed.toLowerCase()" color="green" dark>{{lang.manageResrevations.updateStatus}}</v-btn>
+                  <v-btn depressed v-else>{{lang.manageResrevations.askForReview}}</v-btn>
                 </td>
               </template>
               <v-alert slot="no-results" :value="true" color="error" icon="warning">
