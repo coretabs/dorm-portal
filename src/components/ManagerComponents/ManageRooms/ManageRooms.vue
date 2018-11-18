@@ -1,6 +1,14 @@
 <template>
 <div id="manage-rooms">
-  Manage rooms
+
+  <v-card>
+    <v-card-text>
+      <v-layout wrap>
+        aaaa
+      </v-layout>
+    </v-card-text>
+  </v-card>
+
 </div>
 </template>
 

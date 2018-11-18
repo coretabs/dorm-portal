@@ -1,6 +1,6 @@
 @import "../../../assets/styles/vars";
 @import "../../../assets/styles/mixins";
-#manage-rooms{
+#manage-reservations{
   #statistics-cards{
     > div{
       @include box-sizing();
@@ -75,7 +75,6 @@
       text-transform: capitalize;
     }
   }
-  
 }
 .details-model__info{
   margin: 5px 5px 14px;

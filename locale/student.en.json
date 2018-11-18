@@ -97,6 +97,10 @@
         "Deadline",
         "Actions"        
       ]
-    }
+    },
+    "manageRoom": [
+      "Quota",
+      "Room Card"
+    ]
   }
 }

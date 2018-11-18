@@ -131,6 +131,16 @@ features
     name
 ```
 
+
+TODO adapt those
+radio select box
+int input
+room confirmation days
+	input
+photos
+duration
+	select
+
 POST /manager/dorms/{id}/rooms accepts
 ```
 total_quota

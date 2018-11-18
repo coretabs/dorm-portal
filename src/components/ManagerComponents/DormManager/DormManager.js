@@ -1,5 +1,4 @@
 
-import ManagerDashboard from '../ManagerDashboard/ManagerDashboard.vue'
 import ManageDorm from '../ManageDorm/ManageDorm.vue'
 import ManageRooms from '../ManageRooms/ManageRooms.vue'
 import ManageReservations from '../ManageReservations/ManageReservations.vue'
@@ -10,7 +9,6 @@ export default {
     ManageDorm,
     ManageRooms,
     ManageReservations,
-    ManagerDashboard
   },
   data: function () {
     return {

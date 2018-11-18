@@ -1,5 +1,5 @@
 <template>
-<div id="manage-rooms">
+<div id="manage-reservations">
   <v-card>
     <v-card-text>
       <v-layout id="statistics-cards" wrap>

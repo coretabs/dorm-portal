@@ -1,7 +1,7 @@
 <template>
 <div id="manage-dorm">
-  <v-tabs v-model="active" color="#fdfdfd" slider-color="#ccc">
-    <v-tab v-for="n in 5" :key="n" ripple>
+  <v-tabs v-model="active" color="#fdfdfd" slider-color="#999">
+    <v-tab v-for="n in lang.managerDormInfo.length" :key="n" ripple>
       {{lang.managerDormInfo[n-1]}}
     </v-tab>
     <!-- General Tab -->
