@@ -167,6 +167,26 @@ def filtering(self):
     assert str(self.response.render().data).count("('choice', 'Kahvalti')") == 1
 
 
+@when('hitting POST /dorms endpoint in non registered language')
+def filtering(self):
+    request = APIRequestFactory().post(reverse('dorms-list'), {'language': 'dude'}, format='json')
+    view = DormViewSet.as_view(actions={'post': 'list'})
+    self.response = view(request)
+
+
+@then('get 200 OK with Default language (EN) rooms characteristics')
+def filtering(self):
+    assert self.response.status_code == status.HTTP_200_OK
+
+    returned_dorms = self.response.render().data[0]
+
+    number_of_returned_json_filters = len(list(returned_dorms))
+    assert number_of_returned_json_filters == 4
+
+    # print(self.response.render().data)
+    assert str(self.response.render().data).count("('choice', 'Breakfast')") == 1
+
+
 @when('querying dorms with TL')
 def test_model_can_create_a_message(self):
     pass

@@ -28,8 +28,8 @@ class FiltersListViewSet(viewsets.ViewSet):
 
     def list(self, request):
         language = request.query_params.get('language', 'en')
-        # if not language:
-        #    language = 'en'
+        if language not in settings.LANGUAGES_DICT:
+            language = 'en'
 
         translation.activate(language)
 
@@ -42,8 +42,8 @@ class DormViewSet(viewsets.ViewSet):
     def list(self, request):
 
         language = request.data.get('language', 'en')
-        # if not language:
-        #    language = 'en'
+        if language not in settings.LANGUAGES_DICT:
+            language = 'en'
 
         translation.activate(language)
 
