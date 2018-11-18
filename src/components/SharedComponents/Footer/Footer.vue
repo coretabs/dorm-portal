@@ -1,5 +1,5 @@
 <template>
-<v-footer class="pa-3">
+<v-footer :absolute="true" :inset="true" class="pa-3">
   <v-spacer></v-spacer>
   <div>&copy; copyrights</div>
 </v-footer>
