@@ -61,47 +61,95 @@
 
   <v-layout wrap>
 
-    <v-flex xs12 md12 v-for="n in 12" :key="n" pa-2>
+    <v-flex xs12 mb-4>
+      <v-layout>
+        <v-spacer></v-spacer>
+        <v-btn dark color="success">
+          <v-icon>fa-plus</v-icon>
+          Add new room
+        </v-btn>
+      </v-layout>
+    </v-flex>
 
-      <v-card id="room-card" color="" light>
+    <v-flex xs12 md12 v-for="n in 5" :key="n">
+
+      <v-card id="room-card">
+
+        <v-menu bottom left class="room-card__actions absolute-menu">
+          <v-btn slot="activator" icon>
+            <v-icon>more_vert</v-icon>
+          </v-btn>
+
+          <v-list>
+            <v-list-tile v-for="(item, i) in items" :key="i">
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+
         <v-card-title primary-title>
 
-          <v-flex class="room-card__title" xs12 md10>
-            <h2>Single room</h2>
-            <span>Full Acadimic Year</span>
+          <v-flex class="room-card__title" xs12 md4 px-3>
+            <v-layout wrap>
+              <v-flex class="room-card__title" xs12 sm6 md6>
+                <h3>Room Type:</h3>
+                <span>Single room</span>
+                <v-btn slot="activator" icon>
+                  <v-icon>fa-info</v-icon>
+                </v-btn>
+
+              </v-flex>
+
+              <v-flex class="room-card__title" xs12 sm6 md6>
+                <h3>Duration:</h3>
+                <span>Full Acadimic Year</span>
+              </v-flex>
+            </v-layout>
           </v-flex>
           <!-- <v-flex xs12 md2>
             <h2>$1500</h2>
           </v-flex> -->
 
-          <v-layout class="room-card__quantity" wrap>
+          <v-flex class="room-card__title" xs12 md8>
+            <v-layout class="room-card__quantity" wrap>
 
-            <v-flex xs3>
-              <h3>Total Rooms:</h3>
-              <span>1250</span>
-            </v-flex>
+              <v-flex xs12 sm6 md3>
+                <h3>Total Rooms:</h3>
+                <span>1250</span>
+              </v-flex>
 
-            <v-flex xs3>
-              <h3>Avaliable Rooms:</h3>
-              <span>20</span>
-            </v-flex>
+              <v-flex xs12 sm6 md3>
+                <h3>Avaliable Rooms:</h3>
+                <span>20</span>
+              </v-flex>
 
-            <v-flex xs3>
-              <h3>Reserved Rooms:</h3>
-              <span>8</span>
-            </v-flex>
+              <v-flex xs12 sm6 md3>
+                <h3>Reserved Rooms:</h3>
+                <span>8</span>
+              </v-flex>
 
-            <v-flex xs3>
-              <h3>Qouta:</h3>
-                <v-text-field v-model="name" :rules="nameRules" :counter="10" label="Name" required></v-text-field>
-            </v-flex>
+              <v-flex xs12 sm6 md3>
+                <h3>Quota:</h3>
+                <v-layout wrap>
+                  <v-flex sm8>
+                    <v-text-field v-model="quota" type="number" min="0" required></v-text-field>
+                  </v-flex>
+                  <v-flex sm4>
+                    <v-btn icon class="quota-update" dark>
+                      <v-icon>fa-check</v-icon>
+                    </v-btn>
+                  </v-flex>
 
-          </v-layout>
+                </v-layout>
+              </v-flex>
+
+            </v-layout>
+          </v-flex>
 
         </v-card-title>
-        <v-card-actions>
+        <!-- <v-card-actions>
           <v-btn flat dark>Listen now</v-btn>
-        </v-card-actions>
+        </v-card-actions> -->
       </v-card>
 
     </v-flex>
