@@ -3,16 +3,10 @@
 
   <v-layout wrap>
 
-    <v-flex xs12 mb-4>
-      <v-layout>
-        <v-spacer></v-spacer>
-        <v-btn  @click="loadComponent('AddNewRoom')" dark color="success">
-          <v-icon small left>fa-plus</v-icon>
-          Add new room
-        </v-btn>
-      </v-layout>
-    </v-flex>
-
+    <v-btn color="success" dark medium fixed bottom right fab @click="loadComponent('AddNewRoom')">
+      <v-icon>add</v-icon>
+    </v-btn>
+    
     <v-flex xs12 md12 v-for="n in 5" :key="n">
 
       <v-card id="room-card">
