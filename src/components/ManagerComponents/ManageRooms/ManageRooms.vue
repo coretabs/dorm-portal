@@ -6,8 +6,8 @@
     <v-flex xs12 mb-4>
       <v-layout>
         <v-spacer></v-spacer>
-        <v-btn @click="loadComponent('AddNewRoom')" dark color="success">
-          <v-icon>fa-plus</v-icon>
+        <v-btn  @click="loadComponent('AddNewRoom')" dark color="success">
+          <v-icon small left>fa-plus</v-icon>
           Add new room
         </v-btn>
       </v-layout>
@@ -31,9 +31,9 @@
 
         <v-card-title primary-title>
 
-          <v-flex class="room-card__title" xs12 md4 px-3>
+          <v-flex class="room-card__title" xs12 md3 px-3>
             <v-layout wrap>
-              <v-flex class="room-card__title" xs12 sm6 md6>
+              <v-flex class="room-card__title" xs12>
                 <h3>Room Type:</h3>
                 <span>Single room</span>
                 <v-btn slot="activator" icon>
@@ -42,10 +42,6 @@
 
               </v-flex>
 
-              <v-flex class="room-card__title" xs12 sm6 md6>
-                <h3>Duration:</h3>
-                <span>Full Acadimic Year</span>
-              </v-flex>
             </v-layout>
           </v-flex>
           <!-- <v-flex xs12 md2>

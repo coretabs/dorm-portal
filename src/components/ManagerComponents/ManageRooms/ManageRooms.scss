@@ -2,8 +2,8 @@
 @import "../../../assets/styles/mixins";
 #manage-rooms{
   #room-card{
+    border-right: 6px solid #feae25;
     position: relative;
-    border-left: 6px solid #feae25;
     h3{
       font-size: 16px;
     }
@@ -29,11 +29,6 @@
           font-size: 20px;
           border: none;
           color: #ccc;
-        }
-      }
-      &:first-of-type{
-        @media (max-width: 600px) {
-          margin-bottom: 20px; 
         }
       }
     }
@@ -78,6 +73,10 @@
     .absolute-menu{
       position: absolute;
       right: 0;
+    }
+    @media (max-width:600px) {
+      border-bottom: 6px solid #feae25;
+      border-right: none;
     }
   }
 }
