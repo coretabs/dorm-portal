@@ -5,6 +5,8 @@ __pycache__
 db.sqlite3
 /dist
 
+./activate.bat
+
 # local env files
 .env.local
 .env.*.local

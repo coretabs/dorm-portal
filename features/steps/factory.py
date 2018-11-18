@@ -138,7 +138,7 @@ def create_alfam_dovec_with_4_rooms(self):
     self.luxury_shower = create_room_feature('Luxury shower')
     self.air_conditioner = create_room_feature('Air Conditioner')
 
-    self.price_filter = IntegralFilter(name='price')
+    self.price_filter = IntegralFilter(name='Price')
     self.price_filter.save()
     self.price_1000 = create_integral_choice(self.price_filter, 1000)
     self.price_1200 = create_integral_choice(self.price_filter, 1200)
@@ -153,43 +153,43 @@ def create_alfam_dovec_with_4_rooms(self):
     self.meal_options = [RadioOption(name='Breakfast'),
                          RadioOption(name='Dinner'),
                          RadioOption(name='Both')]
-    self.meals = create_radio_filter(self.meal_options, 'meals')
+    self.meals = create_radio_filter(self.meal_options, 'Meals')
     self.meals_choice_breakfast = create_radio_choice(self.meal_options[0], self.meals)
     self.meals_choice_dinner = create_radio_choice(self.meal_options[1], self.meals)
     self.meals_choice_both = create_radio_choice(self.meal_options[2], self.meals)
 
-    self.options_academic_year = [RadioOption(name='Spring'), RadioOption(name='Winter'),
-                                  RadioOption(name='Summer'), RadioOption(name='Full year')]
-    self.academic_year = create_radio_filter(self.options_academic_year, 'academic year')
-    self.academic_year_choice_spring = create_radio_choice(
-        self.options_academic_year[0], self.academic_year)
-    self.academic_year_choice_winter = create_radio_choice(
-        self.options_academic_year[1], self.academic_year)
-    self.academic_year_choice_summer = create_radio_choice(
-        self.options_academic_year[2], self.academic_year)
-    self.academic_year_choice_full = create_radio_choice(
-        self.options_academic_year[3], self.academic_year)
+    self.options_duration = [RadioOption(name='Spring'), RadioOption(name='Winter'),
+                             RadioOption(name='Summer'), RadioOption(name='Full year')]
+    self.duration = create_radio_filter(self.options_duration, 'Duration')
+    self.duration_choice_spring = create_radio_choice(
+        self.options_duration[0], self.duration)
+    self.duration_choice_winter = create_radio_choice(
+        self.options_duration[1], self.duration)
+    self.duration_choice_summer = create_radio_choice(
+        self.options_duration[2], self.duration)
+    self.duration_choice_full = create_radio_choice(
+        self.options_duration[3], self.duration)
 
     self.room1 = create_room_with_radio_integral_features(
         self.alfam,
-        [self.academic_year_choice_spring, ],
+        [self.duration_choice_spring, ],
         [self.price_1000, ],
         [])
 
     self.room2 = create_room_with_radio_integral_features(
         self.alfam,
-        [self.meals_choice_breakfast, self.academic_year_choice_spring],
+        [self.meals_choice_breakfast, self.duration_choice_spring],
         [self.price_1200, self.bathrooms1],
         [self.air_conditioner, ])
 
     self.room3 = create_room_with_radio_integral_features(
         self.dovec,
-        [self.meals_choice_breakfast, self.academic_year_choice_spring],
+        [self.meals_choice_breakfast, self.duration_choice_spring],
         [self.price_1700, ],
         [self.luxury_shower, ])
 
     self.room4 = create_room_with_radio_integral_features(
         self.dovec,
-        [self.meals_choice_both, self.academic_year_choice_full],
+        [self.meals_choice_both, self.duration_choice_full],
         [self.price_2000, self.bathrooms2],
         [self.luxury_shower, self.air_conditioner])

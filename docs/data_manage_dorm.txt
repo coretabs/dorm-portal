@@ -105,7 +105,7 @@ currency_id
 
 confirmation_days
 
-academic_year_id
+duration_id
 ```
 
 DELETE /manager/dorms/{id}/rooms/{id} accepts
@@ -122,7 +122,7 @@ room_types
     id
     name
 
-academic_year
+duration
     id
     name
 
@@ -144,7 +144,7 @@ currency_id
 
 confirmation_days
 
-academic_year_id
+duration_id
 ```
 
 GET /manager/dorms/{id}/reservations returns

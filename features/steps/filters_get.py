@@ -18,7 +18,7 @@ def prepare_dormitory(self):
     category_public = create_category('public')
     self.alfam = create_dorm('Alfam', category_public)
 
-    self.price_filter = IntegralFilter(name='price')
+    self.price_filter = IntegralFilter(name='Price')
     self.price_filter.save()
 
     self.price_alfam1 = create_integral_choice(self.price_filter, 1000)
@@ -29,27 +29,27 @@ def prepare_dormitory(self):
                     RadioOption(name='Dinner'),
                     RadioOption(name='Both')]
 
-    self.meals = create_radio_filter(self.options, 'meals')
+    self.meals = create_radio_filter(self.options, 'Meals')
 
     self.meals_choice1 = create_radio_choice(self.options[0], self.meals)
     self.meals_choice2 = create_radio_choice(self.options[1], self.meals)
 
 
-@when('adding main filters (academic year)')
+@when('adding main filters (duration)')
 def prepare_dormitory(self):
-    self.options_academic_year = [RadioOption(name='Spring'),
-                                  RadioOption(name='Winter'),
-                                  RadioOption(name='Summer'),
-                                  RadioOption(name='Full year')]
-    self.academic_year = create_radio_filter(self.options_academic_year, 'academic year')
-    self.academic_year_choice = create_radio_choice(
-        self.options_academic_year[0], self.academic_year)
+    self.options_duration = [RadioOption(name='Spring'),
+                             RadioOption(name='Winter'),
+                             RadioOption(name='Summer'),
+                             RadioOption(name='Full year')]
+    self.duration = create_radio_filter(self.options_duration, 'Duration')
+    self.duration_choice = create_radio_choice(
+        self.options_duration[0], self.duration)
 
     self.all_filters = ClientReturnedFiltersSerializer([])
     self.all_filters_string = str(self.all_filters.data)
 
 
-@then('will get main filters (academic year and category)')
+@then('will get main filters (duration and category)')
 def test_model_can_create_a_message(self):
     assert Filter.objects.main_filters().count() == 1
 
@@ -70,10 +70,10 @@ def test_model_can_create_a_message(self):
     assert Filter.objects.additional_filters().count() == 2
 
     assert self.all_filters_string.count(
-        "('name', 'meals'), ('is_checkbox', True), ('is_integral', False),") == 1
+        "('name', 'Meals'), ('is_checkbox', True), ('is_integral', False),") == 1
 
     assert self.all_filters_string.count(
-        "('name', 'price'), ('is_checkbox', False), ('is_integral', True), ('value', {'selected_number__max': 1700, 'selected_number__min': 1000})") == 1
+        "('name', 'Price'), ('is_checkbox', False), ('is_integral', True), ('value', {'selected_number__max': 1700, 'selected_number__min': 1000})") == 1
 
 
 @when('having more than one integral filter (bathrooms)')
@@ -91,10 +91,10 @@ def test_model_can_create_a_message(self):
     assert Filter.objects.additional_filters().count() == 3
 
     assert self.all_filters_string.count(
-        "('name', 'meals'), ('is_checkbox', True), ('is_integral', False),") == 1
+        "('name', 'Meals'), ('is_checkbox', True), ('is_integral', False),") == 1
 
     assert self.all_filters_string.count(
-        "('name', 'price'), ('is_checkbox', False), ('is_integral', True), ('value', {'selected_number__max': 1700, 'selected_number__min': 1000})") == 1
+        "('name', 'Price'), ('is_checkbox', False), ('is_integral', True), ('value', {'selected_number__max': 1700, 'selected_number__min': 1000})") == 1
 
 
 @then('not get main filters with the additional filters')
@@ -102,7 +102,7 @@ def test_model_can_create_a_message(self):
     additional_filters = Filter.objects.additional_filters()
     assert additional_filters.count() == 3
 
-    assert additional_filters.filter(name='academic year').count() == 0
+    assert additional_filters.filter(name='Duration').count() == 0
 
 
 @when('adding features filters for dorms and rooms')

@@ -10,7 +10,7 @@ def prepare_dormitory(self):
     category_public = create_category('public')
     self.alfam = create_dorm('Alfam', category_public)
 
-    self.price_filter = IntegralFilter(name='price')
+    self.price_filter = IntegralFilter(name='Price')
     self.price_filter.save()
 
     self.price_alfam1 = create_integral_choice(self.price_filter, 1000)

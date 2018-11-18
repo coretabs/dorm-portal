@@ -15,7 +15,7 @@ category_options
 	id
 	name
 
-academic_year_options
+duration_options
     id
     name
 
@@ -42,7 +42,7 @@ currency=USD
 language=EN
 
 category_selected_option_id
-academic_year_option_id
+duration_option_id
 
 additional_filters
     id
@@ -82,6 +82,12 @@ dorms
         price
         room_type
         people_allowed_number
+		choices
+			filter_name
+			choice
+		features
+			name
+			icon
 ```
 
 GET /dorms/{id}/reviews

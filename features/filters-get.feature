@@ -5,8 +5,8 @@ Feature: Getting all filters
 
         Given we have 2 dormitory with 3 prices and 3 meal options
 
-        When adding main filters (academic year)
-        Then will get main filters (academic year and category)
+        When adding main filters (duration)
+        Then will get main filters (duration and category)
 
         When getting additional_filters: prices and meals
         Then get additional_filters: with price min_max and meals

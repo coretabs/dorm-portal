@@ -142,6 +142,7 @@ def test_model_can_create_a_message(self):
 
 @then('get deserialize data for (only dovec with one room only)')
 def test_model_can_create_a_message(self):
+    print(self.serialized_dorms_string)
     assert self.serialized_dorms_string.count("('name', 'Dovec')") == 1
 
 

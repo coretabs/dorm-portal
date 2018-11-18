@@ -15,7 +15,7 @@ def prepare_dormitory(self):
                     RadioOption(name='Dinner'),
                     RadioOption(name='Both')]
 
-    self.meals = create_radio_filter(self.options, 'meals')
+    self.meals = create_radio_filter(self.options, 'Meals')
 
     self.meals_choice1 = create_radio_choice(self.options[0], self.meals)
     self.room1 = create_room_with_radio_choices(self.alfam, [self.meals_choice1, ])

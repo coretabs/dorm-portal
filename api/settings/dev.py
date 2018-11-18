@@ -28,7 +28,7 @@ LANGUAGES = [
     ('tr', 'Türkçe'),
     ('ar', 'العربية'),
 ]
-#LANGUAGES_DICT = dict((code, name) for code, name in LANGUAGES)
+LANGUAGES_DICT = dict(LANGUAGES)
 
 
 # 5678 is the default attach port in the VS Code debug configurations

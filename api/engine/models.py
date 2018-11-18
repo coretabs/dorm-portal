@@ -13,7 +13,11 @@ class DormitoryQuerySet(django_models.QuerySet):
     def apply_room_filters(self, filters):
 
         if filters:
-            filtered_rooms = RoomCharacteristics.objects.filter(filters[0])
+            filtered_rooms = RoomCharacteristics.objects.filter(filters[0])\
+                .prefetch_related('radio_choices', 'integral_choices',
+                                  'radio_choices__related_filter', 'integral_choices__related_filter',
+                                  'features')
+
             for current_filter in filters:
                 filtered_rooms = filtered_rooms.filter(current_filter)
 
@@ -34,6 +38,7 @@ class DormitoryQuerySet(django_models.QuerySet):
             for current_filter in filters:
                 dorms = dorms.filter(current_filter)
 
+            dorms.prefetch_related('features')
         else:
             dorms = self
 
@@ -42,7 +47,7 @@ class DormitoryQuerySet(django_models.QuerySet):
     def available(self):
         return self.filter(room_characteristics__allowed_quota__gte=1)
 
-    def superfilter(self, category_id=None, academic_year_option_id=None,
+    def superfilter(self, category_id=None, duration_option_id=None,
                     dorm_features_ids=None, radio_integeral_choices=None, room_features_ids=None):
 
         result = self
@@ -61,11 +66,11 @@ class DormitoryQuerySet(django_models.QuerySet):
 
         room_filters = []
 
-        if academic_year_option_id:
-            academic_year_option = RadioOption.objects.filter(academic_year_option_id).first()
-            academic_year_filter = academic_year_option.related_filter.get_query(
-                academic_year_option_id)
-            room_filters.append(academic_year_filter)
+        if duration_option_id:
+            duration_option = RadioOption.objects.filter(duration_option_id).first()
+            duration_filter = duration_option.related_filter.get_query(
+                duration_option_id)
+            room_filters.append(duration_filter)
 
         if room_features_ids:
             for current_feature in room_features_ids:
@@ -85,11 +90,11 @@ class DormitoryQuerySet(django_models.QuerySet):
 class FilterQuerySet(PolymorphicQuerySet):
 
     def main_filters(self):
-        return self.filter(django_models.Q(name='academic year'))
+        return self.filter(django_models.Q(name='Duration'))
 
     def radio_filters(self):
 
-        result = self.instance_of(RadioFilter).exclude(django_models.Q(name='academic year'))\
+        result = self.instance_of(RadioFilter).exclude(django_models.Q(name='Duration'))\
 
         return result
 
@@ -198,7 +203,7 @@ class DormitoryCategory(django_models.Model):
 
 
 class Dormitory(django_models.Model):
-    name = I18nCharField(max_length=60)
+    name = django_models.CharField(max_length=60)
     about = I18nCharField(max_length=1000)
 
     geo_longitude = django_models.CharField(max_length=20)
@@ -234,7 +239,7 @@ class RoomCharacteristics(django_models.Model):
         Dormitory, related_name='room_characteristics', on_delete=django_models.CASCADE)
 
     def get_price(self):
-        return self.integral_choices.filter(related_filter__name='price').first().selected_number
+        return self.integral_choices.filter(related_filter__name__contains='Price').first().selected_number
 
     def __str__(self):
         return f'Room id {self.id} in {self.dormitory.name}'
