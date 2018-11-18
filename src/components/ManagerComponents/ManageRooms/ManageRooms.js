@@ -15,5 +15,10 @@ export default {
     lang() {
       return this.$store.getters.lang;
     }    
+  },
+  methods:{
+    loadComponent(componentName){
+      this.$root.$emit('currentTabComponent', componentName)
+    }
   }
 };

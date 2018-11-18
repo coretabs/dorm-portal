@@ -1,0 +1,18 @@
+@import "../../../assets/styles/vars";
+@import "../../../assets/styles/mixins";
+
+#manage-dorm{
+  .v-icon{
+    font-size: 18px;
+    color: $light-gray-color;
+  }
+  .info-tab{
+   
+  }
+  .heading{
+    margin-bottom: 15px;
+  }
+  .v-card{
+    border-top: 1px solid #ccc !important;
+  }
+}

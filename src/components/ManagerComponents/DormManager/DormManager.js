@@ -2,6 +2,7 @@
 import ManageDorm from '../ManageDorm/ManageDorm.vue'
 import ManageRooms from '../ManageRooms/ManageRooms.vue'
 import ManageReservations from '../ManageReservations/ManageReservations.vue'
+import AddNewRoom from '../AddNewRoom/AddNewRoom.vue'
 
 export default {
   name: "DormManager",
@@ -9,6 +10,7 @@ export default {
     ManageDorm,
     ManageRooms,
     ManageReservations,
+    AddNewRoom
   },
   data: function () {
     return {
@@ -39,5 +41,10 @@ export default {
     lang() {
       return this.$store.getters.lang;
     }    
+  },
+  created() {
+    this.$root.$on('currentTabComponent', (componentName) => {
+    	this.currentTabComponent = componentName;
+    })
   }
 };
