@@ -13,7 +13,7 @@ export default {
   data: function () {
     return {
       drawerControl: null,
-      currentTabComponent: ManageReservations,
+      currentTabComponent: ManageRooms,
       drawerMenu: [
         {
           icon: 'fa-money-bill-wave',

@@ -1,5 +1,38 @@
 @import "../../../assets/styles/vars";
 @import "../../../assets/styles/mixins";
 #manage-rooms{
-  
+  #room-card{
+    h3{
+    }
+    span{
+      font-size: 16px;
+    }
+    .room-card__title{
+      font-size: 16px;
+    }
+    .room-card__quantity{
+      margin: 20px 0;
+      background: #fafafa;
+      @include radius(5px);
+      > div{
+        padding: 15px 20px;
+        border-right: 1px solid #e9e9e9;
+        border-left: 1px solid #fff;
+        &:last-of-type{
+          border-right: none;
+        }
+        &:first-of-type{
+          border-left: none;
+        }
+      }
+      h3{
+        font-weight: 400;
+        margin-bottom: 5px;
+      }
+      span{
+        font-size: 22px;
+        font-weight: 600;
+      }
+    }
+  }
 }
