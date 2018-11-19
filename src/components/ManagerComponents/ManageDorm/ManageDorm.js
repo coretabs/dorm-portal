@@ -1,5 +1,10 @@
+import FileUpload from 'vue-upload-component/src'
+
 export default {
   name: "ManageDorm",
+  components: {
+    'file-upload': FileUpload
+  },
   data: function () {
     return {
       active: null,
@@ -13,7 +18,8 @@ export default {
         { name: 'Free parking', id: 2},
         { name: 'Hot water', id: 3},
         { name: 'Cold water', id: 4}
-      ]
+      ],
+      files: []
     };
   },
   computed: {
