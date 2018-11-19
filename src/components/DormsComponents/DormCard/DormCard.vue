@@ -6,7 +6,11 @@
 
         <v-flex class="dorm-img" xs12 sm4>
 
-          <v-img :src="dorm.cover" gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)" height="100%" width="100%"></v-img>
+          <v-img :src="dorm.cover" gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)" height="100%" width="100%">
+            <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+              <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+            </v-layout>
+          </v-img>
 
         </v-flex>
 
@@ -130,7 +134,7 @@
                           </div>
                         </div>
                       </v-flex>
-                      
+
                       <v-flex xs12>
                         <v-btn color="success" to="/reservation" class="reserve-btn elevation-0" large>Reserve Now</v-btn>
                       </v-flex>
