@@ -27,7 +27,7 @@
         box-sizing: border-box;
       }
       .quota-update{
-        margin-top: 18px;
+        margin-top: 12px;
         @media (max-width: 600px) {
          margin-top: 8px;
         }
@@ -67,7 +67,7 @@
         font-size: 22px;
         font-weight: 600;
         display: block;
-        margin-top: 20px;
+        margin-top: 12px;
         @media (max-width: 600px) {
           margin-top: 10px;
         }
@@ -75,6 +75,10 @@
       .room-card__actions{
         position: absolute;
         right: 0;
+      }
+      .room-card__progress{
+        margin-top: 18px;
+        @include radius(20px);
       }
     }
     .absolute-menu{

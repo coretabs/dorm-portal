@@ -30,14 +30,19 @@
           </v-flex>
           <v-flex class="room-card__title" xs12 md8>
             <v-layout class="room-card__quantity" wrap>
-              <v-flex xs12 sm6 md4>
-                <h3>Avaliable Rooms:</h3>
-                <span>0<sub>/50</sub></span>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12 sm6 md8>
                 <h3>Reserved Rooms:</h3>
-                <span>50</span>
+                <v-layout row wrap>
+                  <v-flex xs12 md2>
+                    <span>20<sub>/100</sub></span>
+                  </v-flex>
+                  <v-flex xs12 md10>
+                    <v-progress-linear class="room-card__progress" color="green" height="25" value="20"></v-progress-linear>
+                  </v-flex>
+                </v-layout>
+                <!-- <span>0<sub>/50</sub></span> -->
               </v-flex>
+
               <v-flex xs12 sm6 md4>
                 <h3>Quota:</h3>
                 <v-layout row>
