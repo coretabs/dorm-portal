@@ -4,7 +4,7 @@
     <v-btn color="success" dark medium fixed bottom right fab @click="loadComponent('AddNewRoom')">
       <v-icon>add</v-icon>
     </v-btn>
-    <v-flex xs12 md12 v-for="n in 5" :key="n">
+    <v-flex xs12 v-for="n in 5" :key="n">
       <v-card id="room-card">
         <v-menu bottom left class="room-card__actions absolute-menu">
           <v-btn slot="activator" icon>
@@ -30,22 +30,18 @@
           </v-flex>
           <v-flex class="room-card__title" xs12 md8>
             <v-layout class="room-card__quantity" wrap>
-              <v-flex xs12 sm6 md3>
-                <h3>Total Rooms:</h3>
-                <span>20</span>
-              </v-flex>
-              <v-flex xs12 sm6 md3>
+              <v-flex xs12 sm6 md4>
                 <h3>Avaliable Rooms:</h3>
-                <span>10</span>
+                <span>0<sub>/50</sub></span>
               </v-flex>
-              <v-flex xs12 sm6 md3>
+              <v-flex xs12 sm6 md4>
                 <h3>Reserved Rooms:</h3>
-                <span>5</span>
+                <span>50</span>
               </v-flex>
-              <v-flex xs12 sm6 md3>
+              <v-flex xs12 sm6 md4>
                 <h3>Quota:</h3>
                 <v-layout row>
-                  <span>5</span>
+                  <span>0</span>
                   <v-btn icon class="quota-update" dark @click="showQuotaUpdate = true">
                     <v-icon small>fa-pencil-alt</v-icon>
                   </v-btn>
@@ -58,10 +54,12 @@
     </v-flex>
   </v-layout>
   <v-layout row justify-center>
-    <v-dialog v-model="showQuotaUpdate" persistent max-width="290">
+    <v-dialog v-model="showQuotaUpdate" persistent max-width="350">
       <v-card>
-        <v-card-title class="headline">Update Quota:</v-card-title>
         <v-card-text>
+          <h2>Update Quota:</h2>
+          <p class="avaliable-quota__info">You can add upto <strong>45</strong> room</p>
+          <p class="avaliable-quota__warning">You have <strong>0</strong> room to add</p>
           <v-text-field v-model="quota" type="number" min="0" required></v-text-field>
         </v-card-text>
         <v-card-actions>

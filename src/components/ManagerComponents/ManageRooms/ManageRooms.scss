@@ -9,6 +9,9 @@
     }
     span{
       font-size: 20px;
+      sub{
+        color: #999;
+      }
     }
     .room-card__title{
       font-size: 16px;
@@ -83,4 +86,21 @@
       border-right: none;
     }
   }
+
+}
+
+.avaliable-quota__info,
+.avaliable-quota__warning{
+  margin-top: 15px;
+  padding: 10px;
+  @include radius(5px);
+}
+.avaliable-quota__info{
+  background: #fff0d1;
+  border: 1px solid #edc777;
+}
+.avaliable-quota__warning{
+  
+  background: #f4bdcd;
+  border: 1px solid #b34a68;
 }
