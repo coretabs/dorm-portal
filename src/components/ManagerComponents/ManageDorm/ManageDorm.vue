@@ -135,11 +135,13 @@
 
             <v-flex xs12 md6 pa-3>
               <h3 class="heading">Cover Photo:</h3>
+               
+
 
             </v-flex>
 
             <v-flex xs12 md6 pa-3>
-              <h3 class="heading">Dorm Photo:</h3>
+              <h3 class="heading">Dorm Photos:</h3>
               <div class="drag-drop">
                 <div class="upload">
                   <ul v-if="files.length">
@@ -168,12 +170,12 @@
 
                 <v-flex class="action-btn">
                   <file-upload class="select-btn" post-action="/upload/post" :multiple="true" :drop="true" :drop-directory="true" v-model="files" ref="upload">
-                    <v-icon left>fa-plus</v-icon>
+                    <v-icon color="#5472a6"  small>fa-plus</v-icon>
                     {{lang.confirmPayment.selectFile}}
                   </file-upload>
 
-                  <v-btn color="#1c3a70" dark class="elevation-0" v-if="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true">
-                    <v-icon left>fa-arrow-up</v-icon>
+                  <v-btn color="#58b44e" dark class="elevation-0" v-if="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true">
+                    <v-icon color="#0e7426" left small>fa-arrow-up</v-icon>
                     {{lang.confirmPayment.startUpload}}
                   </v-btn>
 

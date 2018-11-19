@@ -56,9 +56,8 @@
       left: 0;
       position: fixed;
       z-index: 9999;
-      opacity: 0.6;
       text-align: center;
-      background: #000;
+      background: rgba(0,0,0,0.6);
     }
 
     .drop-active h3 {
@@ -77,18 +76,25 @@
 
     .action-btn {
       .select-btn {
-        top: 15px;
-        padding: 6px 20px;
-        background: #feae25;
+        top: 14px;
+        padding: 7px 20px 7px 15px;
+        color: $white-color;
+        text-transform: uppercase;
+        font-weight: 500;
+        background: #1c3a70;
         @include radius(2px);
-
         @media (max-width: 600px) {
           width: 100%;
           margin-bottom: 20px;
         }
+        label{
+          cursor: pointer;
+        }
+        .v-icon{
+          padding-right: 10px;
+        }
       }
     }
-
   }
   
 }
