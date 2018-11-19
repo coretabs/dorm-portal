@@ -24,11 +24,15 @@
         box-sizing: border-box;
       }
       .quota-update{
+        margin-top: 18px;
+        @media (max-width: 600px) {
+         margin-top: 8px;
+        }
         .v-icon{
           background: none;
           font-size: 20px;
           border: none;
-          color: #ccc;
+          color: #999;
         }
       }
     }

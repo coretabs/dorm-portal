@@ -4,7 +4,7 @@ export default {
   data: function () {
     return {
       quota: 5,
-      disableUpdateBtn: true,
+      showQuotaUpdate: false,
       items: [
         { title: 'Edit' },
         { title: 'Delete' }
