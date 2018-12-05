@@ -16,9 +16,18 @@
           <v-flex class="detail-block" xs6>
             <h3>Number of People:</h3>
             <span>
-                <v-icon>fa-user</v-icon>
-                X 2
-              </span>
+              <v-icon>fa-user</v-icon>
+              <v-icon>fa-user</v-icon>
+            </span>
+
+              <!-- <span v-if="room.people_number < 4">
+                <v-icon v-for="n in room.people_number" :key="n">fa-user</v-icon>
+            </span>
+            <span v-else>
+                 <v-icon>fa-user</v-icon>
+                 X {{room.people_number}}
+            </span>
+             -->
           </v-flex>
           <v-flex class="detail-block" xs12>
             <div class="room-warning">
