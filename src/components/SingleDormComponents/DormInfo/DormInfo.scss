@@ -119,13 +119,14 @@
         height: 30px;
         margin: 10px 0;
       }
-      a{
-        display: block;
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        color:  $gray-color;
-      }
+      
+    }
+    a{
+      display: block;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      color:  $gray-color;
     }
   }
 }

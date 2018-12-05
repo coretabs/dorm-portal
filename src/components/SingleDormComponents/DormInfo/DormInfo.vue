@@ -45,17 +45,24 @@
       <v-flex class="dorm-reviews" xs12 sm4>
         <div>
           <div class="reviews-avarage">{{reviews_average}}</div>
-          <div class="review-details">
-            <v-icon>fa-user-circle</v-icon>
-            <span>Mohammed Alhakem</span>
-            <v-rating v-model="reviews_average" length="5" readonly background-color="rgba(0,0,0,0.2)" color="yellow accent-4" empty-icon="$vuetify.icons.ratingFull" half-increments dense>
-            </v-rating>
-            <p>
-              The place is good especially when it comes to its location and cleanliness. Staff are amazing and very friendly. It is very good compared to the price.
-            </p>
-            <div class="dots"></div>
-            <a href="#">126 reviews</a>
-          </div>
+
+          <swiper :options="swiperOption">
+            <swiper-slide v-for="(n,i) in 5" :key="i">
+              <div class="review-details">
+                <v-icon>fa-user-circle</v-icon>
+                <span>Mohammed Alhakem</span>
+                <v-rating v-model="reviews_average" length="5" readonly background-color="rgba(0,0,0,0.2)" color="yellow accent-4" empty-icon="$vuetify.icons.ratingFull" half-increments dense>
+                </v-rating>
+                <p>
+                  The place is good especially when it comes to its location and cleanliness. Staff are amazing and very friendly. It is very good compared to the price.
+                </p>
+                <div class="dots"></div>
+              </div>
+            </swiper-slide>
+          </swiper>
+          <a href="#">126 reviews</a>
+
+          
         </div>
       </v-flex>
     </v-layout>
