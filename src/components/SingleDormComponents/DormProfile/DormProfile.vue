@@ -33,7 +33,10 @@
             <v-card>
               <v-card-text>
                 <template v-if="iframe">
-                  <iframe height="450px" width="100%" allowfullscreen="true" :src="lightboxPhotoUrl" frameBorder="0"></iframe>
+                  <div class="iframe-loader">
+                    <v-progress-circular :size="50" color="grey" indeterminate></v-progress-circular>
+                  </div>
+                  <iframe class="iframe-holder" height="450px" width="100%" allowfullscreen="true" :src="lightboxPhotoUrl" frameBorder="0"></iframe>
                 </template>
                 <template v-else>
                   <v-img :src="lightboxPhotoUrl" height="100%" width="100%">
