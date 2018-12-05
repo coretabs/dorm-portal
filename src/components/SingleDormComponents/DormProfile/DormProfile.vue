@@ -49,7 +49,7 @@
       </v-layout>
     </v-parallax>
 
-    <v-layout justify-center row wrap>
+    <v-layout justify-center row wrap mb-5>
 
       <dorm-info></dorm-info>
 
