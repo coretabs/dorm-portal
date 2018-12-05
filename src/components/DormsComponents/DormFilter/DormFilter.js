@@ -8,6 +8,7 @@ export default {
   },
   data: function () {
     return {
+      showAlert: true,
       dorms: [{
         id: "1",
         name: "Alfam Dorm",

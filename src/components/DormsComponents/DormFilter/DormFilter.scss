@@ -114,6 +114,34 @@
       margin-top: 0 !important;
     }
   }
+
+  .search-success,
+  .search-noresult{
+    padding: 10px 20px;
+    margin-bottom: 35px;
+    position: relative;
+    .close-alert{
+      position: absolute;
+      top: 8px;
+      right: 5px;
+    }
+  }
+  .search-noresult{
+    background: #fecfda;
+    border-left: 5px solid #da3235;
+    .v-icon{
+      margin-right: 8px;
+      color: #da3235;
+    }
+  }
+  .search-success{
+    background: #e4fadd;
+    border-left: 5px solid #6ab251;
+    .v-icon{
+      margin-right: 8px;
+      color: #6ab251;
+    }
+  }
 }
 aside {
   margin-top: 60px !important;

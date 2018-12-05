@@ -41,12 +41,24 @@
   <v-content>
     <v-container id="rightside" fluid>
       <v-layout row wrap>
-        <!-- search form -->
+
         <v-flex xs12>
           <dorm-search></dorm-search>
         </v-flex>
+        
+        <v-flex xs12>
+          <!-- <div v-if="showAlert" class="search-noresult">
+            <v-icon small>fa-exclamation-circle</v-icon>
+            Sorry we didn't find any results matching this search
+            <div class="close-alert"><v-icon small @click="showAlert = false">fa-times</v-icon></div>
+          </div> -->
+          <div v-if="showAlert" class="search-success">
+            <v-icon small>fa-check-circle</v-icon>
+            25 results matches your search
+            <div class="close-alert"><v-icon small @click="showAlert = false">fa-times</v-icon></div>
+          </div>
+        </v-flex>
 
-        <!-- dorms card -->
         <v-flex xs12>
           <dorm-card :dorm="dorm" v-for="(dorm,index) in dorms" :key="index"></dorm-card>
         </v-flex>
