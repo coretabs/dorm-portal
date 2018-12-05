@@ -37,7 +37,7 @@ export default {
       currentCenter: L.latLng(this.longitude, this.latitude),
       showParagraph: false,
       mapStyle: {
-        height: '400px'
+        height: '500px'
       }
     }
   },
