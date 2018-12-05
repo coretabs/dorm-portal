@@ -131,7 +131,7 @@
               <v-flex xs12>
                 <v-select :items="status" v-model="currentStatus" label="Status"></v-select>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 v-if="currentStatus == 'pending' ">
                    <v-menu
                     ref="menu"
                     :close-on-content-click="false"
