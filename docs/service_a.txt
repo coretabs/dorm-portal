@@ -83,13 +83,10 @@ review
 room characteristics
 	total_quota
 	allowed_quota // allowed_quota -= 1
-	available_rooms_number //  available_rooms_number += 1
 	price_currency
-    people_allowed_number
 	
 	room_confirmation_days
 	
-    room_cover
 	room_photos
 	
 	radio_choices
@@ -97,7 +94,7 @@ room characteristics
 	feature_filters
 	
 room_photo
-	url
+	photo_path
 	is_3d
 	
 	room characteristics

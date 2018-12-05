@@ -76,16 +76,23 @@ dorms
         icon (optional field)
 
     rooms_left_in_dorm
+	
     rooms
         id
-        cover
+		rooms_left=allowed_quota
+		
+		photos
+			url
+			is_3d
+		
         price
         room_type
         people_allowed_number
+		
 		choices
 			filter_name
 			choice
 		features
 			name
-			icon
+			icon (default=fa-check)
 ```

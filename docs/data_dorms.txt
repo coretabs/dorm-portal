@@ -32,15 +32,22 @@ reviews
 
 rooms
     id
-    rooms_left
-    photos [cover, rest photos] // just images src
-    room_type
+    rooms_left=allowed_quota
+	
+	photos
+		url
+		is_3d
+	
     price
+    room_type
     people_allowed_number
-
-    features
-        name
-        icon (optional field)
+	
+	choices
+		filter_name
+		choice
+	features
+		name
+		icon (default=fa-check)
 ```
 
 
