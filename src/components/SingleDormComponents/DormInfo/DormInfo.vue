@@ -45,9 +45,6 @@
       <v-flex class="dorm-reviews" xs12 sm4>
         <div>
           <div class="reviews-avarage">{{reviews_average}}</div>
-
-          <swiper :options="swiperOption">
-            <swiper-slide v-for="(n,i) in 5" :key="i">
               <div class="review-details">
                 <v-icon>fa-user-circle</v-icon>
                 <span>Mohammed Alhakem</span>
@@ -56,15 +53,8 @@
                 <p>
                   The place is good especially when it comes to its location and cleanliness. Staff are amazing and very friendly. It is very good compared to the price.
                 </p>
-               
               </div>
-            </swiper-slide>
-
-            <div class="swiper-pagination" slot="pagination"></div>
-
-          </swiper>
           <a href="#">126 reviews</a>
-
         </div>
       </v-flex>
     </v-layout>
