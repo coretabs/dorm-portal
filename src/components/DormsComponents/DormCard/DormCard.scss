@@ -150,10 +150,10 @@
   }
   .reviews-avarage{
     position: absolute;
-    width: 60px;
+    width: 75px;
     text-align: center;
-    line-height: 50px;
-    background: $gold-color;
+    line-height: 55px;
+    background: $orange-color;
     right: 0;
     top: 0;
     @include border-radius(0, 0, 0, 10px);
@@ -161,6 +161,9 @@
     font-weight: 500;
     @media (max-width: 600px) {
       display: none;
+    }
+    sub{
+      color: rgba(0,0,0,0.4);
     }
     }
     
@@ -253,12 +256,15 @@
     }
     .detail-block{
       margin: 10px 0;
+      .v-icon{
+        margin-right: 6px; 
+      }
     }
     .feature-block{
       margin: 10px 0;
       .feature-block__scroll{
         @media (min-width:600px) {
-          max-height: 190px;
+          max-height: 145px;
           overflow-y: auto;
           &::-webkit-scrollbar {
             width: 0.5em;

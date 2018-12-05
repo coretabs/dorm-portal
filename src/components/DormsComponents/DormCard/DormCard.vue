@@ -61,7 +61,10 @@
           </v-layout>
 
         </v-flex>
-        <div class="reviews-avarage">{{dorm.stars}}</div>
+        <div class="reviews-avarage">
+          {{dorm.stars}}
+          <sub>/5</sub>
+          </div>
       </v-layout>
 
       <v-divider light></v-divider>
@@ -107,10 +110,13 @@
 
                       <v-flex class="detail-block" xs6 md4>
                         <h3>Number of People:</h3>
-                        <span>
-                              <v-icon>fa-user</v-icon>
-                              X {{room.people_number}}
-                            </span>
+                        <span v-if="room.people_number < 4">
+                          <v-icon v-for="n in room.people_number" :key="n">fa-user</v-icon>
+                        </span>
+                        <span v-else>
+                          <v-icon>fa-user</v-icon>
+                          X {{room.people_number}}
+                        </span>
                       </v-flex>
 
                       <v-flex class="detail-block" xs12 md4>
@@ -138,7 +144,9 @@
                       <v-flex xs12>
                         <v-btn color="success" to="/reservation" class="reserve-btn elevation-0" large>Reserve Now</v-btn>
                       </v-flex>
-
+                      <v-flex xs12>
+                        <a href="" class="grey--text text--darken-2">Do you want to read more about the dorm?</a>
+                      </v-flex>
                     </v-layout>
                   </v-flex>
 

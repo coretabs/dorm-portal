@@ -43,8 +43,8 @@ export default {
     }    
   },
   created() {
-    this.$root.$on('currentTabComponent', (componentName) => {
-    	this.currentTabComponent = componentName;
+    this.$root.$on('currentTabComponent',(componentName) => {
+      this.currentTabComponent = componentName;
     })
   }
 };

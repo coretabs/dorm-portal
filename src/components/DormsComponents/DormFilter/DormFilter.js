@@ -79,7 +79,7 @@ export default {
             ],
             "rooms_left": 5,
             "price": 500,
-            "people_number": 2,
+            "people_number": 3,
             "features": [
               {
                 name: "free Wifi",
@@ -251,7 +251,7 @@ export default {
             ],
             "rooms_left": 5,
             "price": 600,
-            "people_number": 2,
+            "people_number": 5,
             "features": [
               {
                 name: "free Wifi",
@@ -296,7 +296,7 @@ export default {
             ],
             "rooms_left": 5,
             "price": 1500,
-            "people_number": 6,
+            "people_number": 1,
             "features": [
               {
                 name: "free Wifi",
