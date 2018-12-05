@@ -9,16 +9,15 @@ export default {
     return {
       swiperOption: {
         grabCursor: true,
-        slidesPerView: 'auto',
-        centeredSlides: true,
-        spaceBetween: 10,
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+          delay: 5000,
+        },
         pagination: {
           el: '.swiper-pagination',
           clickable: true
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
         }
       },
       history:'We believe that staying in a dormitory where all types of technological, cultural and sportive facilities are offered under campus safety, will be a best start for your academic life. \n\n  In an ideal world this website wouldn’t exist, a client would acknowledge the importance of having web copy before the design starts. Needless to say it’s very important, content is king and people are beginning to understand that.',

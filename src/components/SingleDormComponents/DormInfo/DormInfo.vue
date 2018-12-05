@@ -56,13 +56,15 @@
                 <p>
                   The place is good especially when it comes to its location and cleanliness. Staff are amazing and very friendly. It is very good compared to the price.
                 </p>
-                <div class="dots"></div>
+               
               </div>
             </swiper-slide>
+
+            <div class="swiper-pagination" slot="pagination"></div>
+
           </swiper>
           <a href="#">126 reviews</a>
 
-          
         </div>
       </v-flex>
     </v-layout>

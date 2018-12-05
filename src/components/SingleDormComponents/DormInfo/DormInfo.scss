@@ -1,6 +1,6 @@
 @import "../../../assets/styles/vars";
 @import "../../../assets/styles/mixins";
-
+@import '~swiper/dist/css/swiper.css';
 #dorm-info {
   margin: -50px 0 30px;
   @media (max-width: 600px) {
@@ -93,7 +93,7 @@
     }
     .review-details{
       text-align: center;
-      padding: 35px 0;
+      padding: 35px 0 80px;
       .v-icon{
         font-size: 52px;
         color: $light-gray-color;
@@ -127,6 +127,13 @@
       bottom: 20px;
       right: 20px;
       color:  $gray-color;
+      z-index: 1;
+    }
+    .swiper-pagination-bullets{
+      bottom: 20px;
+    }
+    .swiper-pagination-bullet-active{
+      background: $primary-btn-color;
     }
   }
 }
