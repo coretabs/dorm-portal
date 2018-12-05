@@ -222,9 +222,19 @@ class Dormitory(django_models.Model):
         return f'{self.name}'
 
 
+class Currency(django_models.Model):
+    symbol = django_models.CharField(max_length=1)
+    code = django_models.CharField(max_length=9)
+
+
 class RoomCharacteristics(django_models.Model):
     total_quota = django_models.IntegerField(default=0)
     allowed_quota = django_models.IntegerField(default=0)
+
+    price_currency = django_models.ForeignKey(
+        Currency, related_name='room_characteristics', on_delete=django_models.CASCADE)
+
+    room_confirmation_days = django_models.IntegerField(default=2)
 
     radio_choices = django_models.ManyToManyField(
         RadioChoice, related_name='radio_choices')
@@ -239,12 +249,25 @@ class RoomCharacteristics(django_models.Model):
         Dormitory, related_name='room_characteristics', on_delete=django_models.CASCADE)
 
     def get_price(self):
-        return self.integral_choices.filter(related_filter__name__contains='Price').first().selected_number
+        # we use contains as we have multiple langs names
+        return self.integral_choices.filter(related_filter__name__contains='Price')\
+                                    .first().selected_number
+
+    def get_room_type(self):
+        return self.integral_choices.filter(related_filter__name__contains='Room Type')\
+                                    .first().selected_option
+
+    def get_people_allowed_number(self):
+        return self.integral_choices.filter(related_filter__name__contains='People Allowed Number')\
+                                    .first().selected_number
 
     def __str__(self):
         return f'Room id {self.id} in {self.dormitory.name}'
 
 
-class Currency(django_models.Model):
-    symbol = django_models.CharField(max_length=1)
-    code = django_models.CharField(max_length=9)
+class RoomPhoto(django_models.Model):
+    photo_path = django_models.ImageField()
+    is_3d = django_models.BooleanField(default=False)
+
+    room_characteristics = django_models.ForeignKey(
+        RoomCharacteristics, related_name='photos', on_delete=django_models.CASCADE)

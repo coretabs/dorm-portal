@@ -1,6 +1,13 @@
 from api.engine.models import *
 
 
+def create_currency(symbol, code):
+    Currency(symbol=symbol, code=code).save()
+    result = Currency.objects.filter(symbol=symbol).first()
+
+    return result
+
+
 def create_category(name):
     DormitoryCategory(name=name).save()
     result = DormitoryCategory.objects.filter(name=name).first()
@@ -21,7 +28,8 @@ def create_integral_choice(integral_filter, number):
     result.related_filter = integral_filter
     result.save()
 
-    result = IntegralChoice.objects.filter(selected_number=number).first()
+    result = IntegralChoice.objects.filter(related_filter__name=integral_filter.name,
+                                           selected_number=number).first()
 
     return result
 
@@ -67,8 +75,19 @@ def create_radio_choice(selected_option, radio_filter):
     return result
 
 
+def create_room(dorm):
+    dollar_currency = create_currency('$', 'USD')
+
+    result = RoomCharacteristics(dormitory=dorm, price_currency=dollar_currency)
+    result.save()
+
+    return result
+
+
 def create_room_with_radio_choices(dorm, choices):
-    result = RoomCharacteristics(dormitory=dorm)
+    dollar_currency = create_currency('$', 'USD')
+
+    result = RoomCharacteristics(dormitory=dorm, price_currency=dollar_currency)
     result.save()
 
     for choice in choices:
@@ -79,7 +98,9 @@ def create_room_with_radio_choices(dorm, choices):
 
 
 def create_room_with_integral_choices(dorm, choices):
-    result = RoomCharacteristics(dormitory=dorm)
+    dollar_currency = create_currency('$', 'USD')
+
+    result = RoomCharacteristics(dormitory=dorm, price_currency=dollar_currency)
     result.save()
 
     for choice in choices:
@@ -90,7 +111,9 @@ def create_room_with_integral_choices(dorm, choices):
 
 
 def create_room_with_features(dorm, features):
-    result = RoomCharacteristics(dormitory=dorm)
+    dollar_currency = create_currency('$', 'USD')
+
+    result = RoomCharacteristics(dormitory=dorm, price_currency=dollar_currency)
     result.save()
 
     for feature in features:
@@ -101,7 +124,9 @@ def create_room_with_features(dorm, features):
 
 
 def create_room_with_radio_integral_features(dorm, radio_choices, integral_choices, features):
-    result = RoomCharacteristics(dormitory=dorm, allowed_quota=1)
+    dollar_currency = create_currency('$', 'USD')
+
+    result = RoomCharacteristics(dormitory=dorm, allowed_quota=1, price_currency=dollar_currency)
     result.save()
 
     for choice in radio_choices:
@@ -145,6 +170,13 @@ def create_alfam_dovec_with_4_rooms(self):
     self.price_1700 = create_integral_choice(self.price_filter, 1700)
     self.price_2000 = create_integral_choice(self.price_filter, 2000)
 
+    self.people_allowed_number_filter = IntegralFilter(name='People Allowed Number')
+    self.people_allowed_number_filter.save()
+    self.one_person = create_integral_choice(self.people_allowed_number_filter, 1)
+    self.two_persons = create_integral_choice(self.people_allowed_number_filter, 2)
+    self.three_persons = create_integral_choice(self.people_allowed_number_filter, 3)
+    self.four_persons = create_integral_choice(self.people_allowed_number_filter, 4)
+
     self.bathrooms = IntegralFilter(name='bathroom')
     self.bathrooms.save()
     self.bathrooms1 = create_integral_choice(self.bathrooms, 1)
@@ -157,6 +189,14 @@ def create_alfam_dovec_with_4_rooms(self):
     self.meals_choice_breakfast = create_radio_choice(self.meal_options[0], self.meals)
     self.meals_choice_dinner = create_radio_choice(self.meal_options[1], self.meals)
     self.meals_choice_both = create_radio_choice(self.meal_options[2], self.meals)
+
+    self.room_type_options = [RadioOption(name='Single'),
+                              RadioOption(name='Double'),
+                              RadioOption(name='Studio')]
+    self.room_types = create_radio_filter(self.room_type_options, 'Room Type')
+    self.room_type_single_choice = create_radio_choice(self.room_type_options[0], self.room_types)
+    self.room_type_double_choice = create_radio_choice(self.room_type_options[1], self.room_types)
+    self.room_type_studio_choice = create_radio_choice(self.room_type_options[2], self.room_types)
 
     self.options_duration = [RadioOption(name='Spring'), RadioOption(name='Winter'),
                              RadioOption(name='Summer'), RadioOption(name='Full year')]
@@ -172,24 +212,24 @@ def create_alfam_dovec_with_4_rooms(self):
 
     self.room1 = create_room_with_radio_integral_features(
         self.alfam,
-        [self.duration_choice_spring, ],
-        [self.price_1000, ],
+        [self.duration_choice_spring, self.room_type_studio_choice],
+        [self.price_1000, self.one_person],
         [])
 
     self.room2 = create_room_with_radio_integral_features(
         self.alfam,
-        [self.meals_choice_breakfast, self.duration_choice_spring],
-        [self.price_1200, self.bathrooms1],
+        [self.meals_choice_breakfast, self.duration_choice_spring, self.room_type_single_choice],
+        [self.price_1200, self.bathrooms1, self.one_person],
         [self.air_conditioner, ])
 
     self.room3 = create_room_with_radio_integral_features(
         self.dovec,
-        [self.meals_choice_breakfast, self.duration_choice_spring],
-        [self.price_1700, ],
+        [self.meals_choice_breakfast, self.duration_choice_spring, self.room_type_double_choice],
+        [self.price_1700, self.two_persons],
         [self.luxury_shower, ])
 
     self.room4 = create_room_with_radio_integral_features(
         self.dovec,
-        [self.meals_choice_both, self.duration_choice_full],
-        [self.price_2000, self.bathrooms2],
+        [self.meals_choice_both, self.duration_choice_full, self.room_type_double_choice],
+        [self.price_2000, self.bathrooms2, self.two_persons],
         [self.luxury_shower, self.air_conditioner])

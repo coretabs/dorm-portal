@@ -92,6 +92,8 @@ STATIC_URL = '/static/'
 # Serve `dist` as is, built by webpack
 STATIC_ROOT = os.path.join(BASE_DIR, 'dist', 'static')
 STATICFILES_DIRS = []
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 ##########

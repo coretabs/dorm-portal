@@ -24,8 +24,7 @@ def prepare_dormitory(self):
     self.room2 = create_room_with_radio_choices(self.alfam, [self.meals_choice2, ])
     self.room3 = create_room_with_radio_choices(self.alfam, [self.meals_choice2, ])
 
-    self.room4 = RoomCharacteristics(dormitory=self.alfam)
-    self.room4.save()
+    self.room4 = create_room(self.alfam)
 
 
 @when('filtering alfam rooms by meal Breakfast')

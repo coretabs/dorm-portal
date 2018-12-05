@@ -11,12 +11,14 @@ def prepare_dormitory(self):
     category_public = create_category('public')
     self.alfam = create_dorm('Alfam', category_public)
 
-    self.room1 = RoomCharacteristics(dormitory=self.alfam, allowed_quota=5)
+    self.room1 = create_room(self.alfam)
+    self.room1.allowed_quota = 5
     self.room1.save()
 
     self.dovec = create_dorm('Dovec', category_public)
 
-    self.room2 = RoomCharacteristics(dormitory=self.dovec, allowed_quota=0)
+    self.room2 = create_room(self.dovec)
+    self.room1.allowed_quota = 0
     self.room2.save()
 
 

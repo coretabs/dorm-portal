@@ -44,8 +44,7 @@ def prepare_dormitory(self):
     self.room1 = create_room_with_features(self.alfam, [self.luxury_shower, self.air_conditioner])
     self.room2 = create_room_with_features(self.alfam, [self.air_conditioner, ])
 
-    self.room3 = RoomCharacteristics(dormitory=self.dovec)
-    self.room3.save()
+    self.room3 = create_room(self.dovec)
 
 
 @when('filtering dorms by having one room with luxury shower')

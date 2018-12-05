@@ -12,7 +12,6 @@ SECRET_KEY = 'z-+$tyr)mif-dsjx)vd#pkay86u_((ut^8(_0)283#bus5k&he'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 

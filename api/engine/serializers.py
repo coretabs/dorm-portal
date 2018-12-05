@@ -188,12 +188,33 @@ class ChoiceSerializer(PolymorphicSerializer):
     }
 
 
+class PhotoSerializer(serializers.Serializer):
+    url = serializers.ImageField()
+    url = serializers.BooleanField(default=False)
+
+    class Meta:
+        fields = ('url', 'is_3d')
+
+
 class RoomSerializer(serializers.ModelSerializer):
+    rooms_left = serializers.IntegerField(source='allowed_quota')
+
+    photos = PhotoSerializer(many=True)
+
     price = serializers.SerializerMethodField()
+    room_type = serializers.SerializerMethodField()
+    people_allowed_number = serializers.SerializerMethodField()
+
     choices = serializers.SerializerMethodField()
     features = RoomFeaturesSerializer(many=True)
 
     def get_price(self, obj):
+        return obj.get_price()
+
+    def get_room_type(self, obj):
+        return obj.get_price()
+
+    def get_people_allowed_number(self, obj):
         return obj.get_price()
 
     def get_choices(self, obj):
@@ -204,7 +225,10 @@ class RoomSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.RoomCharacteristics
-        fields = ('price', 'choices', 'features')
+        fields = ('id', 'rooms_left',
+                  'photos',
+                  'price', 'room_type', 'people_allowed_number',
+                  'choices', 'features')
 
 
 class DormSerializer(serializers.ModelSerializer):
