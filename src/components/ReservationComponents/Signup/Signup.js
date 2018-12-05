@@ -2,7 +2,8 @@ export default {
   name: 'Signup',
   data: function(){
     return{
-      show: false
+      show: false,
+      showSignup: false
     }
   },
   methods:{

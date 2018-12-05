@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     language: localStorage.getItem("lang") || 'en',
     drawer: null,
-    reservationStep: 0,
+    reservationStep: 1,
     currencies: [
       { symbol: "$", code: "USD" }, 
       { symbol: "₺", code: "TL" }

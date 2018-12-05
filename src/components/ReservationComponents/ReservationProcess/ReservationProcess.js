@@ -6,7 +6,8 @@ export default {
   name: "ReservationProcess",
   data: function () {
     return {
-    
+      progress: 0,
+      complated: false
     };
   },
   components: {
@@ -19,7 +20,9 @@ export default {
       return this.$store.getters.lang;
     },
     reservationStep(){
+      this.progress = this.$store.state.reservationStep;
       return this.$store.state.reservationStep;
+      
     }
   }
 };

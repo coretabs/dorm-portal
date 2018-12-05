@@ -7,13 +7,36 @@
       <v-icon>fa-money-bill-alt</v-icon>
     </div>
     <div id="bank-accounts">
-      <h3>Dormitory Bank Accounts:</h3>
-      <v-expansion-panel popout>
+      <h3>Our Bank Accounts:</h3>
+      <v-expansion-panel >
         <v-expansion-panel-content v-for="(item,i) in 3" :key="i">
-          <div slot="header">is Bank</div>
+          <div slot="header"><v-icon class="v-icon__bank" small>fa-university</v-icon> is Bank</div>
           <v-card>
             <v-card-text>
-              bank information
+
+              <table>
+                <tr>
+                  <td><strong>Account name:</strong></td>
+                  <td>Alfam Dorm</td>
+                </tr>
+                <tr>
+                  <td><strong>Currency:</strong></td>
+                  <td>Dollar</td>
+                </tr>
+                <tr>
+                  <td><strong>Account No:</strong></td>
+                  <td>254548</td>
+                </tr>
+                <tr>
+                  <td><strong>swift:</strong></td>
+                  <td>22555</td>
+                </tr>
+                <tr>
+                  <td><strong>IBAN:</strong></td>
+                  <td>TR123525888220004</td>
+                </tr>
+              </table>
+
             </v-card-text>
           </v-card>
         </v-expansion-panel-content>
@@ -24,7 +47,7 @@
     <div>
       <v-card class="elevation-0">
         <v-card-text>
-          <p>{{lang.confirmPayment.instruction}}</p>
+          <p class="payment-instruction"><v-icon small>fa-exclamation-triangle</v-icon> {{lang.confirmPayment.instruction}}</p>
           <div class="drag-drop">
             <div class="upload">
               <ul v-if="files.length">
@@ -53,12 +76,11 @@
 
             <v-flex class="action-btn">
               <file-upload class="select-btn" post-action="/upload/post" :multiple="true" :drop="true" :drop-directory="true" v-model="files" ref="upload">
-                <v-icon left>fa-plus</v-icon>
                 {{lang.confirmPayment.selectFile}}
               </file-upload>
 
               <v-btn color="#1c3a70" dark class="elevation-0" v-if="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true">
-                <v-icon left>fa-arrow-up</v-icon>
+                <v-icon small left>fa-cloud-upload-alt</v-icon>
                 {{lang.confirmPayment.startUpload}}
               </v-btn>
 

@@ -8,7 +8,9 @@
       "heading": "Reservation Status",
       "password": "Password",
       "email": "Email",
-      "button": "Check"
+      "button": "Check",
+      "button2": "Login",
+      "newAccount": "Don't Have an Account?"
     },
     "dormSearch": {
       "heading": "Find Dormitories in EMU",
@@ -45,7 +47,7 @@
     },
     "reservationStatus":{
       "uploadedDocuments": "Uploaded Documents",
-      "newUpload": "Upload New",
+      "newUpload": "New receipt",
       "statusHeading": "Reservation Status",
       "commentHeading": "comment",
       "submittedHeading": "Submitted on"

@@ -40,6 +40,26 @@
     .v-expansion-panel__container {
       @include radius(4px);
     }
+
+    table{
+      border-collapse: collapse;
+      width: 100%;
+      td{
+        padding: 4px;
+      }
+      tr:nth-child(even){
+        background:#f4f4f4;
+      }
+    }
+
+    .v-icon__bank{
+      color: $light-gray-color;
+      margin-right: 5px;
+    }
+    .v-expansion-panel__header{
+      padding: 12px 15px;
+    }
+
   }
 
   .drag-drop {
@@ -48,7 +68,7 @@
       @include radius(4px);
       border: 2px dashed $light-gray-color;
       text-align: center;
-      margin: 20px 0;
+      margin: 30px 0 20px;
 
       .v-icon {
         font-size: 60px;
@@ -103,18 +123,30 @@
 
     .action-btn {
       .select-btn {
-        top: 15px;
-        padding: 6px 20px;
-        background: #feae25;
+        top: 14px;
+        padding: 7px 20px;
+        margin-right: 5px;
+        background: #ddd;
+        font-weight: 500;
         @include radius(2px);
-
         @media (max-width: 600px) {
           width: 100%;
           margin-bottom: 20px;
+        }
+        label{
+          cursor: pointer;
         }
       }
     }
 
   }
 
-  
+  .payment-instruction{
+    background: #fefccf;
+    padding: 10px 15px;
+    border-left: 5px solid #feae25;
+    .v-icon{
+      color: #fc9e38 !important;
+      margin-right: 10px;
+    }
+  }

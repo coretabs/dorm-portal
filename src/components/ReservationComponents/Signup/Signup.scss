@@ -3,7 +3,13 @@
 
 #signup{
   .v-card{
-    max-width: 400px;
+    max-width: 450px;
     margin: 0 auto 30px;
   }
+  .signup-link{
+    padding-left: 7px;
+  }
+}
+.card-padding{
+  padding: 20px !important;
 }
