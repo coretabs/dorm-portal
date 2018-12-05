@@ -42,3 +42,13 @@ rooms
         name
         icon (optional field)
 ```
+
+
+GET /dorms/{id}/reviews
+```
+reviews
+	date
+    student_name
+    stars
+    description
+```
