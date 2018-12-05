@@ -1,7 +1,7 @@
 <template>
 <v-content id="login">
   <v-container fluid fill-height>
-    <v-layout align-center justify-center>
+    <v-layout mt-5 justify-center>
       <v-flex xs12 sm8 md4>
         <v-card class="elevation-3">
           <v-toolbar color="#fff" class="elevation-0">
