@@ -35,7 +35,6 @@ dorm
 	geo_latitude
 	address
 	
-	
 	contact_name
 	contact_email
 	contact_number

@@ -62,6 +62,7 @@ POST /dorms returns
 ```
 dorms
     id
+	name
     cover
 
     stars
@@ -71,17 +72,13 @@ dorms
     geo_latitude
     address
 
+	rooms_left_in_dorm
+	
     features
         name
         icon (optional field)
-
-    rooms_left_in_dorm
-	
-    photos
-		url
-		is_3d
     
-    rooms
+    room_characteristics
         id
 		rooms_left=allowed_quota
 		

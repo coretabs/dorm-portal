@@ -1,16 +1,42 @@
 GET /dorms/{id}? currency=USD & language=EN returns
 ```
-name
+main_info
+	name
 
-cover
+	cover
+
+	geo_longitude
+	geo_latitude
+	address
+	
+	rooms_left_in_dorm
+	
+	features
+		name
+		icon (optional field)
+		
+	room_characteristics
+		id
+		rooms_left=allowed_quota
+		
+		photos
+			url
+			is_3d
+		
+		price
+		room_type
+		people_allowed_number
+		
+		choices
+			filter_name
+			choice
+		features
+			name
+			icon (default=fa-check)
 
 photos
     url
     is_3d
-
-geo_longitude
-geo_latitude
-address
 
 about
 
@@ -19,35 +45,12 @@ contact_email
 contact_number
 contact_fax
 
-dorm_features
-    name
-    icon (optional field)
-
 number_of_reviews
 reviews_average
 reviews
     student_name
     stars
     description
-
-rooms
-    id
-    rooms_left=allowed_quota
-	
-	photos
-		url
-		is_3d
-	
-    price
-    room_type
-    people_allowed_number
-	
-	choices
-		filter_name
-		choice
-	features
-		name
-		icon (default=fa-check)
 ```
 
 
