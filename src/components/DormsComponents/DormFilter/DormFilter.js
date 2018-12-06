@@ -446,11 +446,11 @@ export default {
     };
   },
   methods: {
-    fetchFilters() {
-      this.$backend.$fetchFilters().then(responseDate => {
-        this.filters = responseDate
-      });
-    }
+    // fetchFilters() {
+    //   this.$backend.$fetchFilters().then(responseDate => {
+    //     this.filters = responseDate
+    //   });
+    // }
   },
   computed: {
     lang() {
