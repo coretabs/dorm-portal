@@ -79,7 +79,36 @@ contact_number
 contact_fax
 ```
 
+GET /manager/filters returns
+```
+room_types
+    id
+    name
 
+currencies
+    id
+    symbol
+    code
+
+durations
+    id
+    name
+
+room_features
+    id
+    name
+    icon
+
+radio_filters
+    name
+    choices
+        id
+        name
+
+integral_filters
+    id
+    name
+```
 
 GET /manager/dorms/{id}/rooms returns
 ```
@@ -90,6 +119,22 @@ rooms
     reserved_rooms_number
     available_rooms_number
     allowed_quota
+
+    photos
+        id
+		url
+		
+	
+    price
+    room_type
+    people_allowed_number
+	
+	choices
+		filter_name
+		choice
+	features
+		name
+		icon (default=fa-check)
 ```
 
 PUT /manager/dorms/{id}/rooms/{id} accepts
@@ -106,29 +151,26 @@ currency_id
 confirmation_days
 
 duration_id
+
+room_features
+    id
+
+radio_choices
+    id
+
+integral_choices
+    id
+    number
+
+photos
+```
+
+DELETE /manager/dorms/{id}/rooms/{id}/photos/{id} accepts
+```
 ```
 
 DELETE /manager/dorms/{id}/rooms/{id} accepts
 ```
-```
-
-GET /manager/dorms/{id}/rooms/filters returns
-```
-currencies
-    id
-    name
-
-room_types 
-    id
-    name
-
-duration
-    id
-    name
-
-features
-    id
-    name
 ```
 
 
@@ -155,6 +197,18 @@ currency_id
 confirmation_days
 
 duration_id
+
+room_features
+    id
+
+radio_choices
+    id
+
+integral_choices
+    id
+    number
+
+photos
 ```
 
 GET /manager/dorms/{id}/reservations returns

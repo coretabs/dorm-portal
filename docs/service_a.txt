@@ -95,7 +95,6 @@ room characteristics
 	
 room_photo
 	photo_path
-	is_3d
 	
 	room characteristics
 	

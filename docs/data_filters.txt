@@ -77,13 +77,16 @@ dorms
 
     rooms_left_in_dorm
 	
+    photos
+		url
+		is_3d
+    
     rooms
         id
 		rooms_left=allowed_quota
 		
 		photos
 			url
-			is_3d
 		
         price
         room_type
