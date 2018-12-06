@@ -7,14 +7,14 @@
         <v-flex xs12 sm6 md4 pa-3>
           <h3 class="heading">General Spec:</h3>
 
-          <v-select class="shift-left" :items="rooms_data.room_types" item-text="name" item-value="id" label="Room Type" solo color="success" append-icon="expand_more" :menu-props="{
+          <v-select class="shift-left" :items="rooms_data.room_types" item-text="name" item-value="id" label="Room Type"   append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
           }"></v-select>
 
           
-          <v-select class="shift-left" :items="rooms_data.durations" item-text="name" item-value="id" label="Duration" solo color="success" append-icon="expand_more" :menu-props="{
+          <v-select class="shift-left" :items="rooms_data.durations" item-text="name" item-value="id" label="Duration"   append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
@@ -27,7 +27,7 @@
               <v-text-field label="price" type="number"></v-text-field>
             </v-flex>
             <v-flex xs12 sm4 pl-2>
-              <v-select class="shift-left" :items="rooms_data.currencies" item-text="code" item-value="id" label="Currency" solo color="success" append-icon="expand_more" :menu-props="{
+              <v-select class="shift-left" :items="rooms_data.currencies" item-text="code" item-value="id" label="Currency"  color="success" append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
@@ -59,7 +59,7 @@
           </v-autocomplete>
 
           <div v-for="(feature,i) in rooms_data.radio_filters" :key="i">
-            <v-select class="shift-left" :items="feature.choices" item-text="name" item-value="id" :label="feature.name" solo color="success" append-icon="expand_more" :menu-props="{
+            <v-select class="shift-left" :items="feature.choices" item-text="name" item-value="id" :label="feature.name"   append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
