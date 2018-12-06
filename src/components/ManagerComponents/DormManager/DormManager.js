@@ -15,7 +15,7 @@ export default {
   data: function () {
     return {
       drawerControl: null,
-      currentTabComponent: ManageDorm,
+      currentTabComponent: ManageRooms,
       drawerMenu: [
         {
           icon: 'fa-money-bill-wave',

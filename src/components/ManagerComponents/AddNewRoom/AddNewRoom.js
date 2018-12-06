@@ -1,7 +1,15 @@
+import FileUpload from 'vue-upload-component/src'
+
 export default {
   name: "ManageDorm",
+  components: {
+    'file-upload': FileUpload
+  },
   data: function () {
     return {
+      selectedFeatures:[],
+      files: [],
+      isUpdating: false,
       rooms_data :{
 	
         room_types :[
@@ -45,13 +53,11 @@ export default {
         room_features :[
           {
             id: 1,
-            name: "feature1",
-            icon: "fa-wifi"
+            name: "feature1"
           },
           {
-            id: 1,
-            name: "feature2",
-            icon: "fa-check"
+            id: 2,
+            name: "feature2"
           }
         ],
         radio_filters :[
@@ -67,17 +73,30 @@ export default {
                 name: "two meals"
               }
             ]
+          },
+          {
+            name: "Parking",
+            choices: [
+              {
+                id: 1,
+                name: "Yes"
+              },
+              {
+                id: 2,
+                name: "no"
+              }
+            ]
           }
         
         ],
         integral_filters :[
           {
             id: 1,
-            name: "price"
+            name: "Number of Condition"
           },
           {
             id: 2,
-            name: "bathrooms"
+            name: "Number Bathrooms"
           }
         ]
       }
@@ -86,6 +105,19 @@ export default {
   computed: {
     lang() {
       return this.$store.getters.lang;
+    }
+  },
+  methods: {
+    remove (item) {
+      const index = this.selectedFeatures.indexOf(item.id)
+      if (index >= 0) this.selectedFeatures.splice(index, 1)
+    }
+  },
+  watch: {
+    isUpdating (val) {
+      if (val) {
+        setTimeout(() => (this.isUpdating = false), 3000)
+      }
     }
   }
 };

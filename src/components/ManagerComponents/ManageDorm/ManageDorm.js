@@ -45,5 +45,5 @@ export default {
         setTimeout(() => (this.isUpdating = false), 3000)
       }
     }
-  },
+  }
 };

@@ -15,4 +15,88 @@
   .v-card{
     border-top: 1px solid #ccc !important;
   }
+
+  
+  .drag-drop {
+    .upload {
+      padding: 40px 20px;
+      @include radius(4px);
+      border: 2px dashed $light-gray-color;
+      text-align: center;
+      margin: 20px 0;
+
+      .v-icon {
+        font-size: 60px;
+        color: $light-gray-color;
+        margin-bottom: 20px;
+      }
+
+      label {
+        margin-top: 5px;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          padding: 5px 0;
+          margin: 4px 0;
+          background: $gray-background;
+        }
+      }
+    }
+
+    .drop-active {
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      position: fixed;
+      z-index: 9999;
+      text-align: center;
+      background: rgba(0,0,0,0.6);
+    }
+
+    .drop-active h3 {
+      margin: -0.5em 0 0;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      font-size: 40px;
+      color: #fff;
+      padding: 0;
+    }
+
+    .action-btn {
+      .select-btn {
+        top: 14px;
+        padding: 7px 20px 7px 15px;
+        color: $white-color;
+        text-transform: uppercase;
+        font-weight: 500;
+        background: #1c3a70;
+        @include radius(2px);
+        @media (max-width: 600px) {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+        label{
+          cursor: pointer;
+        }
+        .v-icon{
+          padding-right: 10px;
+        }
+      }
+    }
+  }
+
+  
 }
