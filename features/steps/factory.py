@@ -126,7 +126,7 @@ def create_room_with_features(dorm, features):
 def create_room_with_radio_integral_features(dorm, radio_choices, integral_choices, features):
     dollar_currency = create_currency('$', 'USD')
 
-    result = RoomCharacteristics(dormitory=dorm, allowed_quota=1, price_currency=dollar_currency)
+    result = RoomCharacteristics(dormitory=dorm, allowed_quota=5, price_currency=dollar_currency)
     result.save()
 
     for choice in radio_choices:

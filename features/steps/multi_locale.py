@@ -141,7 +141,7 @@ def filtering(self):
     returned_dorms = self.response.render().data[0]
 
     number_of_returned_json_filters = len(list(returned_dorms))
-    assert number_of_returned_json_filters == 4
+    assert number_of_returned_json_filters == 9
 
     # print(self.response.render().data)
     assert str(self.response.render().data).count("('choice', 'Breakfast')") == 1
@@ -161,7 +161,7 @@ def filtering(self):
     returned_dorms = self.response.render().data[0]
 
     number_of_returned_json_filters = len(list(returned_dorms))
-    assert number_of_returned_json_filters == 4
+    assert number_of_returned_json_filters == 9
 
     # print(self.response.render().data)
     assert str(self.response.render().data).count("('choice', 'Kahvalti')") == 1
@@ -181,7 +181,7 @@ def filtering(self):
     returned_dorms = self.response.render().data[0]
 
     number_of_returned_json_filters = len(list(returned_dorms))
-    assert number_of_returned_json_filters == 4
+    assert number_of_returned_json_filters == 9
 
     # print(self.response.render().data)
     assert str(self.response.render().data).count("('choice', 'Breakfast')") == 1

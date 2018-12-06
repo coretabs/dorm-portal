@@ -234,10 +234,38 @@ class RoomSerializer(serializers.ModelSerializer):
 class DormSerializer(serializers.ModelSerializer):
     features = FeatureFilterSerializer(many=True)
     room_characteristics = RoomSerializer(many=True)
+    rooms_left_in_dorm = serializers.IntegerField()
 
     class Meta:
         model = models.Dormitory
-        fields = ('id', 'name', 'features', 'room_characteristics')
+        fields = ('id', 'name', 'cover',
+                  #'stars', 'number_of_reviews',
+                  'geo_longitude', 'geo_latitude', 'address',
+                  'rooms_left_in_dorm',
+                  'features', 'room_characteristics')
+
+
+class DormDetailsSerializer(serializers.ModelSerializer):
+    main_info = serializers.SerializerMethodField()
+    photos = PhotoSerializer(many=True)
+    features = serializers.SerializerMethodField()
+    room_characteristics = RoomSerializer(many=True)
+
+    def get_main_info(self, obj):
+        return DormSerializer(obj).data
+
+    def get_features(self, obj):
+        filters = models.Filter.objects.dorm_features()
+        return FeatureFilterSerializer(filters, many=True).data
+
+    class Meta:
+        model = models.Dormitory
+        fields = ('main_info',
+                  'photos',
+                  'about', 'contact_name', 'contact_email', 'contact_number', 'contact_fax',
+                  'features',
+                  #'number_of_reviews', 'reviews_average', 'reviews',
+                  'room_characteristics')
 
 
 class CurrencySerializer(serializers.ModelSerializer):

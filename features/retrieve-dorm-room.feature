@@ -6,7 +6,7 @@ Feature: Retrieving dormitory data
 
         Given we have 2 dormitories with 2 rooms each
 
-        When serializing alfam
+        When serializing alfam to get its all data
         Then get valid serialized alfam data with 2 rooms
 
         When hitting GET /dorms/{alfam-id} endpoint

@@ -29,6 +29,13 @@ def test_model_can_create_a_message(self):
     assert self.filtered_dorms.all()[1].room_characteristics.count() == 2
 
 
+@then('get the rooms left equals the sum quota')
+def test_model_can_create_a_message(self):
+    assert self.filtered_dorms.count() == 2
+    assert self.filtered_dorms.all()[0].rooms_left_in_dorm == 10
+    assert self.filtered_dorms.all()[1].rooms_left_in_dorm == 10
+
+
 @when('filter free wifi')
 def filtering(self):
     free_wifi = {'id': self.free_wifi.id, }
@@ -160,7 +167,7 @@ def test_model_can_create_a_message(self):
     returned_dorms = self.response.render().data[0]
 
     number_of_returned_json_filters = len(list(returned_dorms))
-    assert number_of_returned_json_filters == 4
+    assert number_of_returned_json_filters == 9
 
     print(self.response.render().data)
     assert str(self.response.render().data).count("('name', 'Dovec')") == 1

@@ -39,13 +39,15 @@ class FiltersListViewSet(viewsets.ViewSet):
 class DormViewSet(viewsets.ViewSet):
     serializer_class = serializers.DormSerializer
 
-    def list(self, request):
-
+    def activate_language(self, request):
         language = request.data.get('language', 'en')
         if language not in settings.LANGUAGES_DICT:
             language = 'en'
 
         translation.activate(language)
+
+    def list(self, request):
+        self.activate_language(request)
 
         deserialized_filters = serializers.ClientAcceptedFiltersSerializer(data=request.data)
         deserialized_filters.is_valid()
@@ -66,3 +68,10 @@ class DormViewSet(viewsets.ViewSet):
         # print(filtered_dorms)
 
         return Response(self.serializer_class(filtered_dorms, many=True).data)
+
+    def retrieve(self, request, pk=None):
+        self.activate_language(request)
+
+        dorm = models.Dormitory.objects.filter(id=pk).superfilter().first()
+
+        return Response(serializers.DormDetailsSerializer(dorm).data)

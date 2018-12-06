@@ -82,7 +82,10 @@ class DormitoryQuerySet(django_models.QuerySet):
                 current_filter = Filter.objects.filter(id=choice['id']).first()
                 room_filters.append(current_filter.get_query_polymorphic(choice))
 
-        result = result.apply_dorm_filters(dorm_filters).apply_room_filters(room_filters)
+        result = result.apply_dorm_filters(dorm_filters)\
+                       .apply_room_filters(room_filters)\
+                       .annotate(rooms_left_in_dorm=django_models.Sum(
+                           'room_characteristics__allowed_quota'))
 
         return result
 
@@ -94,7 +97,7 @@ class FilterQuerySet(PolymorphicQuerySet):
 
     def radio_filters(self):
 
-        result = self.instance_of(RadioFilter).exclude(django_models.Q(name='Duration'))\
+        result = self.instance_of(RadioFilter).exclude(django_models.Q(name='Duration'))
 
         return result
 
@@ -198,6 +201,11 @@ class RadioChoice(Choice):
         return f'{self.related_filter.name} choice with {self.selected_option}'
 
 
+class Currency(django_models.Model):
+    symbol = django_models.CharField(max_length=1)
+    code = django_models.CharField(max_length=9)
+
+
 class DormitoryCategory(django_models.Model):
     name = I18nCharField(max_length=60)
 
@@ -209,6 +217,13 @@ class Dormitory(django_models.Model):
     geo_longitude = django_models.CharField(max_length=20)
     geo_latitude = django_models.CharField(max_length=20)
     address = django_models.CharField(max_length=150)
+
+    contact_name = django_models.CharField(max_length=60)
+    contact_email = django_models.CharField(max_length=60)
+    contact_number = django_models.CharField(max_length=60)
+    contact_fax = django_models.CharField(max_length=60)
+
+    cover = django_models.ImageField()
 
     category = django_models.ForeignKey(
         DormitoryCategory, related_name='dormitories', on_delete=django_models.CASCADE)
@@ -222,9 +237,28 @@ class Dormitory(django_models.Model):
         return f'{self.name}'
 
 
-class Currency(django_models.Model):
-    symbol = django_models.CharField(max_length=1)
-    code = django_models.CharField(max_length=9)
+class BankAccount(django_models.Model):
+    bank_name = django_models.CharField(max_length=60)
+
+    account_name = I18nCharField(max_length=60)
+    account_num = I18nCharField(max_length=60)
+
+    iban = I18nCharField(max_length=60)
+    swift = I18nCharField(max_length=60)
+
+    currency = django_models.ForeignKey(
+        Currency, related_name='bank_accounts', on_delete=django_models.CASCADE)
+
+    dormitory = django_models.ForeignKey(
+        Dormitory, related_name='bank_accounts', on_delete=django_models.CASCADE)
+
+
+class DormitoryPhoto(django_models.Model):
+    photo_path = django_models.ImageField()
+    is_3d = django_models.BooleanField(default=False)
+
+    dormitory = django_models.ForeignKey(
+        Dormitory, related_name='photos', on_delete=django_models.CASCADE)
 
 
 class RoomCharacteristics(django_models.Model):
