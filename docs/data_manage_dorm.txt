@@ -97,7 +97,6 @@ durations
 room_features
     id
     name
-    icon
 
 radio_filters
     name
