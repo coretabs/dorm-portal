@@ -24,6 +24,7 @@ export default {
           allowed_quota: 10,
           price: 1500,
           people: 2,
+          currency: "USD",
           features1: [
             {
               name: "free wifi",
@@ -63,6 +64,7 @@ export default {
           allowed_quota: 15,
           price: 1500,
           people: 2,
+          currency: "USD",
           features1: [
             {
               name: "free wifi",
@@ -101,6 +103,7 @@ export default {
           reserved_rooms: 59,
           allowed_quota: 1,
           price: 1500,
+          currency: "USD",
           people: 2,
           features1: [
             {
@@ -141,6 +144,7 @@ export default {
           allowed_quota: 5,
           price: 1500,
           people: 2,
+          currency: "USD",
           features1: [
             {
               name: "free wifi",
@@ -180,24 +184,83 @@ export default {
           allowed_quota: 0,
           price: 1500,
           people: 2,
+          currency: "USD",
           features1: [
             {
-              name: "free wifi",
+              name: "free Wifi",
               icon: "fa-wifi"
             },
             {
-              name: "Parking",
+                name: "Restaurant",
+                icon: "fa-utensils"
+            },
+            {
+                name: "Laundry",
+                icon: "local_laundry_service"
+            },
+            {
+              name: "Market",
+              icon: "fa-shopping-cart"
+            },
+            {
+              name: "Elevator",
               icon: "fa-check"
+            },
+            {
+              name: "Air condition",
+              icon: "fa-wind"
+            },
+            {
+              name: "Fire alarm",
+              icon: "fa-fire"
+            },
+            {
+              name: "Barber",
+              icon: "fa-cut"
+            },
+            {
+              name: "free Wifi",
+              icon: "fa-wifi"
+            },
+            {
+                name: "Restaurant",
+                icon: "fa-utensils"
+            },
+            {
+                name: "Laundry",
+                icon: "local_laundry_service"
+            },
+            {
+              name: "Market",
+              icon: "fa-shopping-cart"
+            },
+            {
+              name: "Elevator",
+              icon: "fa-check"
+            },
+            {
+              name: "Air condition",
+              icon: "fa-wind"
+            },
+            {
+              name: "Fire alarm",
+              icon: "fa-fire"
+            },
+            {
+              name: "Barber",
+              icon: "fa-cut"
             }
           ],
           features2:[
             {
-              name: "meals",
-              choice: "One meal"
-            },
-            {
-              name: "another feature",
-              choice: "24/7 reception"
+              name: "Campus",
+              choice: "Northern campus"
+            },{
+              name: "Meals",
+              choice: "Breakfast & Dinner"
+            },{
+              name: "Dorm Activities",
+              choice: "Free sport/fitness"
             }
           ],
           photos:[
@@ -216,12 +279,12 @@ export default {
   },
   computed: {
     lang() {
-      return this.$store.getters.lang;
+      return this.USDstore.getters.lang;
     }    
   },
   methods:{
     loadComponent(componentName){
-      this.$root.$emit('currentTabComponent', componentName)
+      this.USDroot.USDemit('currentTabComponent', componentName)
     },
     showRoomDetails(room){
       this.roomDetails = room;
