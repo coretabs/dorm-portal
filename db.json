@@ -136,6 +136,117 @@
         }
       
       ]
+    },
+    {
+      "lang": "tr",
+      "currency": "USD",
+      "category":[
+        {
+          "id": 1,
+          "name": "All Dormitories"
+        },
+        {
+          "id": 2,
+          "name": "EMU Dormitories"
+        },
+        {
+          "id": 3,
+          "name": "Private Dormitories"
+        }
+      ],
+      "duration":[
+        {
+          "id": 1,
+          "name": "Academic Year"
+        },
+        {
+          "id": 2,
+          "name": "Fall"
+        },
+        {
+          "id": 3,
+          "name": "Spring"
+        },
+        {
+          "id": 4,
+          "name": "Summer"
+        }
+      ],
+      "dorm_feature":[
+        {
+          "id": 1,
+          "name": "asxda number 1"
+        },
+        {
+          "id": 2,
+          "name": "asda number 2"
+        }
+      ],
+      "room_features":[
+        {
+          "id": 1,
+          "name": "room feature 1"
+        },
+        {
+          "id": 2,
+          "name": "room feature 2"
+        }
+      ],
+      "additional_filters":[
+        {
+          "id": 1,
+          "name": "meals",
+          "is_checkbox": true,
+          "is_integral": false,
+          "options":[
+            {
+              "id": 1,
+              "name": "1 meal"
+            },
+            {
+              "id": 2,
+              "name": "2 meal"
+            }
+          ]
+          
+        },
+        {
+          "id": 2,
+          "name": "campus",
+          "is_checkbox": true,
+          "is_integral": false,
+          "options":[
+            {
+              "id": 1,
+              "name": "northern campus"
+            },
+            {
+              "id": 2,
+              "name": "southern campus"
+            }
+          ]
+          
+        },
+        {
+          "id": 3,
+          "name": "price",
+          "is_checkbox": false,
+          "is_integral": true,
+          "min_value": 100,
+          "max_value": 1500,
+          "value":[100,1500]
+        },
+        {
+          "id": 4,
+          "name": "Bathrooms",
+          "is_checkbox": false,
+          "is_integral": true,
+          "min_value": 1,
+          "max_value": 3,
+          "value":[1,3]
+        }
+      
+      ]
     }
   ]
 }

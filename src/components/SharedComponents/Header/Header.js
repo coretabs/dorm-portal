@@ -10,6 +10,11 @@ export default {
     changeLang(lang) {
       this.$store.state.language = lang;
       localStorage.setItem("lang", lang);
+      
+      this.$backend.$fetchFilters().then(responseDate => {
+        this.$store.state.filters = responseDate;
+      });
+      
     },
     changeCurrency(currency){
       this.$store.state.currency = currency;

@@ -11,6 +11,7 @@ export default new Vuex.Store({
     reservationStep: 1,
     currencies: [],
     languages: [],
+    filters: []
   },
   getters:{
     lang: state => {

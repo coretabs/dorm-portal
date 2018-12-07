@@ -360,14 +360,13 @@ export default {
         }
         ]
       }
-      ],
-      filters: [],
+      ]
     };
   },
   methods: {
     fetchFilters() {
       this.$backend.$fetchFilters().then(responseDate => {
-        this.filters = responseDate;
+        this.$store.state.filters = responseDate;
       });
     }
   },
@@ -377,6 +376,9 @@ export default {
     },
     drawerControl(){
       return this.$store.state.drawer;
+    },
+    filters(){
+      return this.$store.state.filters;
     }
   },
   mounted() {
