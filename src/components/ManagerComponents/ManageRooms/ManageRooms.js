@@ -247,6 +247,9 @@ export default {
 
       return (avg > 90) ? "#cf5151" : (avg > 50) ? "#ec7811" : "#39c463";
       
+    },
+    quotaTextColor(quota){
+      return quota == 0 ? "red--text" : "black--text";
     }
   }
 };

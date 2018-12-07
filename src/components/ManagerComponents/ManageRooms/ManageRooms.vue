@@ -24,12 +24,12 @@
                 <h3>Room Type:</h3>
                 <span>{{ room.room_type }}</span>
                 <v-btn slot="activator" @click="showRoomDetails(room)" icon>
-                  <v-icon >fa-info</v-icon>
+                  <v-icon>fa-info</v-icon>
                 </v-btn>
               </v-flex>
             </v-layout>
           </v-flex>
-          
+
           <v-flex class="room-card__title" xs12 md8>
             <v-layout class="room-card__quantity" wrap>
               <v-flex xs12 sm6 md10>
@@ -48,20 +48,20 @@
               <v-flex xs12 sm6 md2>
                 <h3>Quota:</h3>
                 <v-layout row>
-                  <span>{{ room.allowed_quota }}</span>
+                  <span :class="quotaTextColor(room.allowed_quota)">{{ room.allowed_quota }}</span>
                   <v-btn icon class="quota-update" dark @click="showQuotaUpdate(room.reserved_rooms, room.total_rooms, room.allowed_quota, room.id)">
-                    <v-icon small >fa-pencil-alt</v-icon>
+                    <v-icon small>fa-pencil-alt</v-icon>
                   </v-btn>
                 </v-layout>
               </v-flex>
-              
+
             </v-layout>
           </v-flex>
         </v-card-title>
       </v-card>
     </v-flex>
 
-    <v-dialog v-model="showQuotaUpdatedialog" persistent max-width="350">
+    <v-dialog v-model="showQuotaUpdatedialog" persistent max-width="350" :lazy="true">
       <v-card>
         <v-card-text>
           <h2>Update Quota:</h2>
@@ -71,30 +71,40 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn  flat @click="showQuotaUpdatedialog = false">Cancel</v-btn>
+          <v-btn flat @click="showQuotaUpdatedialog = false">Cancel</v-btn>
           <v-btn v-if="availableRoomsNumber > 0" color="green darken-1" flat @click="showQuotaUpdatedialog = false">Confirm</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="showRoomDetailsdialog"  max-width="900">
+    <v-dialog v-model="showRoomDetailsdialog" max-width="900" :lazy="true">
       <v-card>
         <v-card-text>
           <h2>{{ roomDetails.room_type }}</h2>
-          
+          <v-layout row>
+            <v-flex xs12 md6>
+              
+              <!-- <v-carousel>
+                <v-carousel-item v-for="(image,index) in roomDetails.photos" :key="index" :src="image.url"></v-carousel-item>
+              </v-carousel> -->
+            </v-flex>
+            <v-flex xs12 md6>
+
+            </v-flex>
+          </v-layout>
+
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red darken-1" flat @click="showQuotaUpdate = false">Cancel</v-btn>
-          <v-btn color="green darken-1" flat @click="showQuotaUpdate = false">Confirm</v-btn>
+          <v-btn color="red darken-1" flat @click="showRoomDetailsdialog = false">Delete</v-btn>
+          <v-btn color="green darken-1" flat @click="showRoomDetailsdialog = false">Edit</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-
   </v-layout>
   <v-layout row justify-center>
-    
+
   </v-layout>
 </div>
 </template>
