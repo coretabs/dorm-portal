@@ -24,7 +24,8 @@
       this.$backend.$fetchLocale().then(responseDate => {
         this.$store.state.currencies = responseDate[0].currencies;
         this.$store.state.languages = responseDate[1].languages;
-        console.log(this.$store.state.currencies);
+        localStorage.setItem("lang", responseDate[1].languages[0].code);
+        localStorage.setItem("currency", responseDate[0].currencies[0].code);
       });
     }
   },

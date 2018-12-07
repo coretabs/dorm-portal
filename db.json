@@ -27,9 +27,9 @@
   ],
   "filter":[
     {
-      "lang": "en",
+      "language": "en",
       "currency": "USD",
-      "category":[
+      "category_options":[
         {
           "id": 1,
           "name": "All Dormitories"
@@ -43,7 +43,7 @@
           "name": "Private Dormitories"
         }
       ],
-      "duration":[
+      "duration_options":[
         {
           "id": 1,
           "name": "Academic Year"
@@ -138,9 +138,9 @@
       ]
     },
     {
-      "lang": "tr",
-      "currency": "USD",
-      "category":[
+      "language": "tr",
+      "currency": "TL",
+      "category_options":[
         {
           "id": 1,
           "name": "All Dormitories"
@@ -154,7 +154,7 @@
           "name": "Private Dormitories"
         }
       ],
-      "duration":[
+      "duration_options":[
         {
           "id": 1,
           "name": "Academic Year"
@@ -232,9 +232,9 @@
           "name": "price",
           "is_checkbox": false,
           "is_integral": true,
-          "min_value": 100,
-          "max_value": 1500,
-          "value":[100,1500]
+          "min_value": 1000,
+          "max_value": 15000,
+          "value":[1000,15000]
         },
         {
           "id": 4,

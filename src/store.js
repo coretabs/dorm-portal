@@ -5,8 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    language: localStorage.getItem("lang") || 'en',
-    currency: localStorage.getItem("currency") || 'usd',
+    language: localStorage.getItem("lang"),
+    currency: localStorage.getItem("currency"),
     drawer: null,
     reservationStep: 1,
     currencies: [],

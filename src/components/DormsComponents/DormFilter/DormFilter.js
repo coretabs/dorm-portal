@@ -379,6 +379,12 @@ export default {
     },
     filters(){
       return this.$store.state.filters;
+    },
+    setDuration(){
+      return this.$store.state.filters[0].duration_options
+    },
+    setCategory(){
+      return this.$store.state.filters[0].category_options
     }
   },
   mounted() {

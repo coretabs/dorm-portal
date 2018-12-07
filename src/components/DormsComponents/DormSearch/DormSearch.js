@@ -1,8 +1,8 @@
 export default {
   name: "DormSearch",
   props:{
-    'dutarion': Object,
-    'category': Object
+    'dutarion': Array,
+    'category': Array
   },
   data: function () {
     return {
