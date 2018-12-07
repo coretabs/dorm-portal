@@ -17,9 +17,9 @@ export default {
       localStorage.setItem("lang", lang);
       this.fetchFiltersData();
     },
-    changeCurrency(currency){
-      this.$store.state.currency = currency;
-      localStorage.setItem("currency", currency);
+    changeCurrency(code,symbol){
+      this.$store.state.currency = code;
+      localStorage.setItem("currency", code);
       this.fetchFiltersData();
     },
     toggleDrawer(){

@@ -17,7 +17,7 @@
           {{this.$store.state.currency}}<v-icon color="#ccc" right>expand_more</v-icon>
         </v-btn>
         <v-list>
-          <v-list-tile v-for="(currency, index) in currencies" :key="index" @click="changeCurrency(currency.code)">
+          <v-list-tile v-for="(currency, index) in currencies" :key="index" @click="changeCurrency(currency.code, currency.symbol)">
             <v-list-tile-title>{{ currency.code }}</v-list-tile-title>
           </v-list-tile>
         </v-list>

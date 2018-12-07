@@ -18,7 +18,10 @@ export default new Vuex.Store({
       const currentLang = state.language
       const lang = require(`../locale/student.${currentLang}.json`);
       return lang[currentLang]
-    }
+    },
+    activeCurrency: state => {
+      return state.currency
+    },
   },
   mutations: {
   },
