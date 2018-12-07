@@ -93,7 +93,7 @@
               <v-icon>more_vert</v-icon>
             </v-btn>
             <v-list>
-              <v-list-tile v-for="(item, i) in items" :key="i" @click="">
+              <v-list-tile v-for="(item, i) in items" :key="i">
                 <v-list-tile-title>{{ item.title }}</v-list-tile-title>
               </v-list-tile>
             </v-list>
@@ -104,7 +104,7 @@
 
             <v-flex xs12 md4>
               <v-layout row wrap class="pa-4">
-
+                
                 <v-flex xs12 class="mb-4">
                   <span class="display-1">{{ roomDetails.room_type }}</span>
                 </v-flex>
@@ -206,7 +206,7 @@
             </v-toolbar-items>
         </v-toolbar>
         <v-card-text>
-
+          <edit-room :roomData="roomDetails"></edit-room>
         </v-card-text>
       </v-card>
     </v-dialog>

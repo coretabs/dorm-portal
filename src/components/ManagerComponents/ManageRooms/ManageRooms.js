@@ -1,6 +1,10 @@
 
+import EditRoom from "../EditRoom/EditRoom.vue" 
 export default {
   name: "ManageRooms",
+  components:{
+    EditRoom
+  },
   data: function () {
     return {
       showQuotaUpdatedialog: false,
@@ -139,7 +143,7 @@ export default {
         },
         {
           id:4,
-          room_type: "Delux room",
+          room_type: "Double room",
           total_rooms: 60,
           reserved_rooms: 45,
           allowed_quota: 5,
@@ -179,7 +183,7 @@ export default {
         },
         {
           id:4,
-          room_type: "Delux room",
+          room_type: "Double room",
           total_rooms: 20,
           reserved_rooms: 20,
           allowed_quota: 0,

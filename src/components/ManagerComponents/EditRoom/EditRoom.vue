@@ -6,14 +6,12 @@
 
         <v-flex xs12 sm6 md4 pa-3>
           <h3 class="heading">General Spec:</h3>
-
           <v-select class="shift-left" :items="rooms_data.room_types" item-text="name" item-value="id" label="Room Type"   append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
-          }"></v-select>
+          }" value="roomData.room_type"></v-select>
 
-          
           <v-select class="shift-left" :items="rooms_data.durations" item-text="name" item-value="id" label="Duration"   append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
@@ -139,6 +137,6 @@
 </div>
 </template>
 
-<script src="./AddNewRoom.js"></script>
+<script src="./EditRoom.js"></script>
 
-<style src="./AddNewRoom.scss" lang="scss"></style>
+<style src="./EditRoom.scss" lang="scss"></style>

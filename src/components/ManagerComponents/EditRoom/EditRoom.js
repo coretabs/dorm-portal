@@ -5,21 +5,23 @@ export default {
   components: {
     'file-upload': FileUpload
   },
+  props:{
+    'roomData': Object
+  },
   data: function () {
     return {
       selectedFeatures:[],
       files: [],
       isUpdating: false,
       rooms_data :{
-	
         room_types :[
           {
             id: 1,
-            name: "Single"
+            name: "Single room"
           },
           {
             id: 2,
-            name: "Double"
+            name: "Double room"
           }
         ],
         currencies :[
