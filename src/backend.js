@@ -25,7 +25,12 @@ $backend.$fetchFilters = () => {
       .then(response => response.data)
 }
 
-$backend.$fetchDorms = (dormId) => {
+$backend.$fetchDorms = () => {
+  return $backend.get(`/dorms`)
+      .then(response => response.data)
+}
+
+$backend.$fetchDorm = (dormId) => {
   return $backend.get(`/dorms/${dormId}`)
       .then(response => response.data)
 }

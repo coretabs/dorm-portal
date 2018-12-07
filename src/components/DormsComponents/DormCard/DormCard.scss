@@ -285,6 +285,13 @@
         margin: 5px 0 10px;
         color: #7f7f7f;
       }
+      &:nth-of-type(even){
+        padding-left: 20px;
+        @media (max-width:600px) {
+        padding-left: 0;
+        }
+      }
+      
     }
     .reservation-block{
       border-top: 1px dashed $light-gray-color;

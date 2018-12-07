@@ -34,10 +34,10 @@
             <a href="#" @click.stop.prevent="showMap"> {{lang.dormCard.openMap}}</a>
           </v-layout>
 
-          <template v-if=" roomsLeft <= 10 ">
+          <template v-if=" dorm.rooms_left_in_dorm <= 10 ">
             <v-layout class="dorm-warning">
               <v-icon>warning</v-icon>
-              <span>{{roomsLeft}} {{lang.dormCard.roomsLeft}}</span>
+              <span>{{dorm.rooms_left_in_dorm}} {{lang.dormCard.roomsLeft}}</span>
             </v-layout>
           </template>
 
@@ -46,7 +46,7 @@
             <v-flex>
               <h3>{{lang.dormCard.dormFeatures}}:</h3>
 
-              <v-tooltip top v-for="(feature, index) in popularFeatures" :key="index">
+              <v-tooltip top v-for="(feature, index) in dorm.features" :key="index">
                 <v-icon class="facility-icon" slot="activator">{{feature.icon}}</v-icon>
                 <span>{{feature.name}}</span>
               </v-tooltip>
@@ -62,8 +62,8 @@
 
         </v-flex>
         <div class="reviews-avarage">
-          {{dorm.stars}}
-          <sub>/5</sub>
+          {{dorm.stars / 5 * 10}}
+          <sub>/10</sub>
           </div>
       </v-layout>
 
@@ -73,7 +73,7 @@
         <v-card-actions justify-center align-center>
           <div class="rooms-price-bar">
 
-            <div class="room-price" v-for="(room,index) in dorm.rooms" :key="index">
+            <div class="room-price" v-for="(room,index) in dorm.room_characteristics" :key="index">
               <v-tooltip top>
                 <div @click="showRooms(room)" class="bar" slot="activator"></div>
                 <span @click="showRooms(room)" class="price" slot="activator">${{room.price}}</span>
@@ -110,12 +110,12 @@
 
                       <v-flex class="detail-block" xs6 md4>
                         <h3>Number of People:</h3>
-                        <span v-if="room.people_number < 4">
-                          <v-icon v-for="n in room.people_number" :key="n">fa-user</v-icon>
+                        <span v-if="room.people_allowed_number < 4">
+                          <v-icon v-for="n in room.people_allowed_number" :key="n">fa-user</v-icon>
                         </span>
                         <span v-else>
                           <v-icon>fa-user</v-icon>
-                          X {{room.people_number}}
+                          X {{room.people_allowed_number}}
                         </span>
                       </v-flex>
 
@@ -127,16 +127,27 @@
                       <v-flex class="detail-block" xs12>
                         <div class="room-warning">
                           <v-icon>warning</v-icon>
-                          <span>5 {{lang.dormCard.roomsLeft}}</span>
+                          <span>{{room.rooms_left}} {{lang.dormCard.roomsLeft}}</span>
                         </div>
                       </v-flex>
 
-                      <v-flex class="feature-block" xs12>
-                        <h3>Room Features:</h3>
+                      <v-flex class="feature-block" xs12 md6>
+                        <h3>Room characteristics:</h3>
                         <div class="feature-block__scroll">
                           <div class="room-feature" v-for="(feature,index) in room.features" :key="index">
                             <v-icon>{{feature.icon}}</v-icon>
                             <span>{{feature.name}}</span>
+                          </div>
+                        </div>
+                      </v-flex>
+                      
+                      <v-flex class="feature-block" xs12 md6>
+                        <h3>Room Features:</h3>
+                        <div class="feature-block__scroll">
+                          <div class="room-feature" v-for="(choice,index) in room.choices" :key="index">
+                            <v-icon>fa-check</v-icon>
+                            <span class="font-weight-bold">{{choice.filter_name}}: </span>
+                            <span>{{choice.choice}}</span>
                           </div>
                         </div>
                       </v-flex>

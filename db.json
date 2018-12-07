@@ -2,7 +2,7 @@
   "locale": [
     {
       "currencies": [
-        { 
+        {
           "symbol": "$",
           "code": "USD"
         },
@@ -25,11 +25,11 @@
       ]
     }
   ],
-  "filter":[
+  "filter": [
     {
       "language": "en",
       "currency": "USD",
-      "category_options":[
+      "category_options": [
         {
           "id": 1,
           "name": "All Dormitories"
@@ -43,7 +43,7 @@
           "name": "Private Dormitories"
         }
       ],
-      "duration_options":[
+      "duration_options": [
         {
           "id": 1,
           "name": "Academic Year"
@@ -61,7 +61,7 @@
           "name": "Summer"
         }
       ],
-      "dorm_feature":[
+      "dorm_feature": [
         {
           "id": 1,
           "name": "feature number 1"
@@ -71,7 +71,7 @@
           "name": "feature number 2"
         }
       ],
-      "room_features":[
+      "room_features": [
         {
           "id": 1,
           "name": "room feature 1"
@@ -81,13 +81,13 @@
           "name": "room feature 2"
         }
       ],
-      "additional_filters":[
+      "additional_filters": [
         {
           "id": 1,
           "name": "meals",
           "is_checkbox": true,
           "is_integral": false,
-          "options":[
+          "options": [
             {
               "id": 1,
               "name": "1 meal"
@@ -97,14 +97,13 @@
               "name": "2 meal"
             }
           ]
-          
         },
         {
           "id": 2,
           "name": "campus",
           "is_checkbox": true,
           "is_integral": false,
-          "options":[
+          "options": [
             {
               "id": 1,
               "name": "northern campus"
@@ -114,33 +113,37 @@
               "name": "southern campus"
             }
           ]
-          
         },
         {
           "id": 3,
-          "name": "price",
+          "name": "Price",
           "is_checkbox": false,
           "is_integral": true,
           "min_value": 100,
           "max_value": 1500,
-          "value":[100,1500]
+          "value": [
+            100,
+            1500
+          ]
         },
         {
           "id": 4,
-          "name": "Bathrooms",
+          "name": "People Allowed",
           "is_checkbox": false,
           "is_integral": true,
           "min_value": 1,
           "max_value": 3,
-          "value":[1,3]
+          "value": [
+            1,
+            3
+          ]
         }
-      
       ]
     },
     {
       "language": "tr",
       "currency": "TL",
-      "category_options":[
+      "category_options": [
         {
           "id": 1,
           "name": "All Dormitories"
@@ -154,7 +157,7 @@
           "name": "Private Dormitories"
         }
       ],
-      "duration_options":[
+      "duration_options": [
         {
           "id": 1,
           "name": "Academic Year"
@@ -172,7 +175,7 @@
           "name": "Summer"
         }
       ],
-      "dorm_feature":[
+      "dorm_feature": [
         {
           "id": 1,
           "name": "asxda number 1"
@@ -182,7 +185,7 @@
           "name": "asda number 2"
         }
       ],
-      "room_features":[
+      "room_features": [
         {
           "id": 1,
           "name": "room feature 1"
@@ -192,13 +195,13 @@
           "name": "room feature 2"
         }
       ],
-      "additional_filters":[
+      "additional_filters": [
         {
           "id": 1,
           "name": "meals",
           "is_checkbox": true,
           "is_integral": false,
-          "options":[
+          "options": [
             {
               "id": 1,
               "name": "1 meal"
@@ -208,14 +211,13 @@
               "name": "2 meal"
             }
           ]
-          
         },
         {
           "id": 2,
           "name": "campus",
           "is_checkbox": true,
           "is_integral": false,
-          "options":[
+          "options": [
             {
               "id": 1,
               "name": "northern campus"
@@ -225,7 +227,6 @@
               "name": "southern campus"
             }
           ]
-          
         },
         {
           "id": 3,
@@ -234,7 +235,10 @@
           "is_integral": true,
           "min_value": 1000,
           "max_value": 15000,
-          "value":[1000,15000]
+          "value": [
+            1000,
+            15000
+          ]
         },
         {
           "id": 4,
@@ -243,9 +247,127 @@
           "is_integral": true,
           "min_value": 1,
           "max_value": 3,
-          "value":[1,3]
+          "value": [
+            1,
+            3
+          ]
         }
-      
+      ]
+    }
+  ],
+  "dorms": [
+    {
+      "id": 1,
+      "name": "Alfam Dorm",
+      "cover": "https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "stars": 4.5,
+      "number_of_reviews": 123,
+      "geo_longitude": 35.15010,
+      "geo_latitude": 33.90111,
+      "address": "Next to Computer Department",
+      "rooms_left_in_dorm": 5,
+      "features": [
+        {
+          "name": "free Wifi",
+          "icon": "fa-wifi"
+        },
+        {
+          "name": "Restaurant",
+          "icon": "fa-utensils"
+        },
+        {
+          "name": "Laundry",
+          "icon": "local_laundry_service"
+        },
+        {
+          "name": "Market",
+          "icon": "fa-shopping-cart"
+        },
+        {
+          "name": "Elevator",
+          "icon": "fa-check"
+        },
+        {
+          "name": "Air condition",
+          "icon": "fa-wind"
+        },
+        {
+          "name": "Fire alarm",
+          "icon": "fa-fire"
+        },
+        {
+          "name": "Barber",
+          "icon": "fa-cut"
+        }
+      ],
+      "room_characteristics": [
+        {
+          "id": 1,
+          "rooms_left": 5,
+          "photos": [
+            "https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          ],
+          "price": 1500,
+          "room_type": "Single Room",
+          "people_allowed_number": 3,
+          "choices": [
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            },
+            {
+              "filter_name": "Reception",
+              "choice": "24/7 Hours"
+            },
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            },
+            {
+              "filter_name": "Reception",
+              "choice": "24/7 Hours"
+            },
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            }
+          ],
+          "features": [
+            {
+              "name": "free Wifi",
+              "icon": "fa-wifi"
+            },
+            {
+              "name": "Restaurant",
+              "icon": "fa-utensils"
+            },
+            {
+              "name": "Laundry",
+              "icon": "local_laundry_service"
+            },
+            {
+              "name": "Market",
+              "icon": "fa-shopping-cart"
+            },
+            {
+              "name": "Elevator",
+              "icon": "fa-check"
+            },
+            {
+              "name": "Air condition",
+              "icon": "fa-wind"
+            },
+            {
+              "name": "Fire alarm",
+              "icon": "fa-fire"
+            },
+            {
+              "name": "Barber",
+              "icon": "fa-cut"
+            } 
+          ]
+        }
       ]
     }
   ]
