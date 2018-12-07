@@ -69,7 +69,7 @@
       <v-layout row wrap>
 
         <v-flex xs12>
-          <dorm-search></dorm-search>
+          <dorm-search :dutarion="filters[0].duration" :category="filters[0].category"></dorm-search>
         </v-flex>
         
         <v-flex xs12>

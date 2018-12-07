@@ -1,11 +1,15 @@
 export default {
   name: "DormSearch",
+  props:{
+    'dutarion': Object,
+    'category': Object
+  },
   data: function () {
     return {
       number: 5,
-      DormsType: ["All Dorms", "EMU Dorms", "Private Dorms"],
-      AcademicYear: ["Academic year", "Spring", "Fall", "Summer"],
-      defaultDormType: "All Dorms",
+      DormsType: this.category,
+      AcademicYear: this.dutarion,
+      defaultDormType: "EMU Dorms",
       defaultAcademicYear: "Academic year"
     };
   },

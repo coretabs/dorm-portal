@@ -32,21 +32,33 @@
       "category":[
         {
           "id": 1,
-          "name": "EMU Dorms"
+          "name": "All Dormitories"
         },
         {
           "id": 2,
-          "name": "Private Dorms"
+          "name": "EMU Dormitories"
+        },
+        {
+          "id": 3,
+          "name": "Private Dormitories"
         }
       ],
-      "Duration":[
+      "duration":[
         {
           "id": 1,
-          "name": "Academic year"
+          "name": "Academic Year"
         },
         {
           "id": 2,
           "name": "Fall"
+        },
+        {
+          "id": 3,
+          "name": "Spring"
+        },
+        {
+          "id": 4,
+          "name": "Summer"
         }
       ],
       "dorm_feature":[
@@ -112,6 +124,15 @@
           "min_value": 100,
           "max_value": 1500,
           "value":[100,1500]
+        },
+        {
+          "id": 4,
+          "name": "Bathrooms",
+          "is_checkbox": false,
+          "is_integral": true,
+          "min_value": 1,
+          "max_value": 3,
+          "value":[1,3]
         }
       
       ]
