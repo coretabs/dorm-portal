@@ -1,9 +1,7 @@
 
-import EditRoom from "../EditRoom/EditRoom.vue" 
 export default {
   name: "ManageRooms",
   components:{
-    EditRoom
   },
   data: function () {
     return {
