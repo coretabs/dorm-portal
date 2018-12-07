@@ -101,6 +101,11 @@
   @include radius(5px);
   border: 1px solid #e8e2ab;
 }
+.room-data{
+  background: #fafafa;
+  @include radius(5px);
+  border: 1px solid #ccc;
+}
 .room-feature{
   display: inline-block;
   margin: 6px 10px 5px 0;

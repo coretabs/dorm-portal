@@ -106,7 +106,6 @@
               <v-layout row wrap class="pa-4">
 
                 <v-flex xs12 class="mb-4">
-                  <h3 class="grey--text text--darken-2 mb-2">Room Type:</h3>
                   <span class="display-1">{{ roomDetails.room_type }}</span>
                 </v-flex>
 
@@ -124,25 +123,32 @@
                   </v-layout>
                 </v-flex>
 
-                <v-flex xs6 sm6class="mb-4">
-                  <h3 class="grey--text text--darken-2 mb-2">Room Price:</h3>
-                  <span class="title">{{ roomDetails.price }} {{roomDetails.currency}}</span>
+                <v-flex xs12 class="mb-4">
+                  <v-layout wrap class="room-data pa-4">
+
+                    <v-flex xs6 class="mb-4">
+                      <h3 class="grey--text text--darken-2 mb-2">Room Price:</h3>
+                      <span class="title">{{ roomDetails.price }} {{roomDetails.currency}}</span>
+                    </v-flex>
+
+                    <v-flex xs6 class="mb-4">
+                      <h3 class="grey--text text--darken-2 mb-2">People Allowed:</h3>
+                      <span class="title">{{ roomDetails.people }}</span>
+                    </v-flex>
+
+                    <v-flex xs6>
+                      <h3 class="grey--text text--darken-2 mb-2">Total Rooms:</h3>
+                      <span class="title">{{ roomDetails.total_rooms }}</span>
+                    </v-flex>
+
+                    <v-flex xs6>
+                      <h3 class="grey--text text--darken-2 mb-2">Reserved Rooms:</h3>
+                      <span class="title">{{ roomDetails.reserved_rooms }}</span>
+                    </v-flex>
+
+                  </v-layout>
                 </v-flex>
 
-                <v-flex xs6 class="mb-4">
-                  <h3 class="grey--text text--darken-2 mb-2">People Allowed:</h3>
-                  <span class="title">{{ roomDetails.people }}</span>
-                </v-flex>
-
-                <v-flex xs6 class="mb-4">
-                  <h3 class="grey--text text--darken-2 mb-2">Total Rooms:</h3>
-                  <span class="title">{{ roomDetails.total_rooms }}</span>
-                </v-flex>
-
-                <v-flex xs6 class="mb-4">
-                  <h3 class="grey--text text--darken-2 mb-2">Reserved Rooms:</h3>
-                  <span class="title">{{ roomDetails.reserved_rooms }}</span>
-                </v-flex>
 
               </v-layout>
             </v-flex>
@@ -151,7 +157,7 @@
               <v-layout row wrap class="pa-4">
 
                 <v-flex xs12 md12 class="mb-3">
-                  <h3 class="grey--text text--darken-2 mb-2">Room Features:</h3>
+                  <h2 class="mb-3">Room Features:</h2>
                   <div class="room-feature" v-for="(feature,i) in roomDetails.features1" :key="i">
                     <v-icon>{{feature.icon}}</v-icon>
                     <span>{{feature.name}}</span>
@@ -171,7 +177,7 @@
 
             <v-flex xs12 md4>
               <v-layout row wrap class="pa-4">
-                <h3 class="grey--text text--darken-2 mb-2">Room Photos:</h3>
+                <h2 class="mb-3">Room Photos:</h2>
                 <v-carousel height="300">
                   <v-carousel-item v-for="(image,index) in roomDetails.photos" :key="index" :src="image.url" touch></v-carousel-item>
                 </v-carousel>
