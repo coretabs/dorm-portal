@@ -12,8 +12,8 @@
             <v-icon>more_vert</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile v-for="(item, i) in items" :key="i">
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile @click="editRoom(room)">
+              <v-list-tile-title>Edit</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -189,6 +189,28 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+
+
+    <v-dialog v-model="showEditRoomDialog" fullscreen hide-overlay transition="dialog-bottom-transition" scrollable lazy>
+
+      <v-card>
+        <v-toolbar card dark color="#1c3a70">
+          <v-btn icon dark @click="showEditRoomDialog = false">
+            <v-icon>close</v-icon>
+          </v-btn>
+
+          <v-toolbar-title>Edit Room</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+              <v-btn dark flat @click="showEditRoomDialog = false">Save</v-btn>
+            </v-toolbar-items>
+        </v-toolbar>
+        <v-card-text>
+
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
 
   </v-layout>
   <v-layout row justify-center>

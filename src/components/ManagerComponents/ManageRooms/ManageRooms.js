@@ -5,6 +5,7 @@ export default {
     return {
       showQuotaUpdatedialog: false,
       showRoomDetailsdialog: false,
+      showEditRoomDialog: false,
       reservedRoomsNumber: null,
       totalRoomsNumber: null,
       allowedQuotaNumber: null,
@@ -312,6 +313,10 @@ export default {
     },
     quotaTextColor(quota, totalRooms, reservedRooms){
       return (quota < 5 && totalRooms-reservedRooms > quota ) ? "red--text" : "black--text";
+    },
+    editRoom(room){
+      this.roomDetails = room;
+      this.showEditRoomDialog = true;
     }
   }
 };
