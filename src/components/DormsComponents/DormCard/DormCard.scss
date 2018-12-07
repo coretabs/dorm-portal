@@ -241,15 +241,27 @@
       }
     }
     .room-warning {
-      background-color: #fafafa;
+      background-color: #ffe9e8;
       padding: 8px 15px;
       border-left: 5px solid #e33333;
-      
       span{
         font-size: 16px;
       }
       .v-icon {
         color: #e33333;
+        line-height: 20px;
+        padding-right: 5px;
+      }
+    }
+    .room-info {
+      background-color: #fefccf;
+      padding: 8px 15px;
+      border-left: 5px solid #f2c559;
+      span{
+        font-size: 16px;
+      }
+      .v-icon {
+        color: #f5ad51;
         font-size: 20px;
         margin-right: 10px;
       }

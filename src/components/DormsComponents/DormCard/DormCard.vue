@@ -64,7 +64,7 @@
         <div class="reviews-avarage">
           {{dorm.stars / 5 * 10}}
           <sub>/10</sub>
-          </div>
+        </div>
       </v-layout>
 
       <v-divider light></v-divider>
@@ -76,7 +76,7 @@
             <div class="room-price" v-for="(room,index) in dorm.room_characteristics" :key="index">
               <v-tooltip top>
                 <div @click="showRooms(room)" class="bar" slot="activator"></div>
-                <span @click="showRooms(room)" class="price" slot="activator">${{room.price}}</span>
+                <span @click="showRooms(room)" class="price" slot="activator">{{$store.getters.activeCurrency}} {{room.price}}</span>
                 <span>Click To show room details</span>
               </v-tooltip>
 
@@ -125,10 +125,18 @@
                       </v-flex>
 
                       <v-flex class="detail-block" xs12>
-                        <div class="room-warning">
-                          <v-icon>warning</v-icon>
-                          <span>{{room.rooms_left}} {{lang.dormCard.roomsLeft}}</span>
-                        </div>
+                        <template v-if=" room.rooms_left <= 5 ">
+                          <div class="room-warning">
+                            <v-icon small>fa-exclamation-triangle</v-icon>
+                            <span>{{room.rooms_left}} {{lang.dormCard.roomsLeft}}</span>
+                          </div>
+                        </template>
+                         <template v-else-if=" room.rooms_left <= 10 ">
+                          <div class="room-info">
+                            <v-icon>fa-exclamation-circle</v-icon>
+                            <span>{{room.rooms_left}} {{lang.dormCard.roomsLeft}}</span>
+                          </div>
+                        </template>
                       </v-flex>
 
                       <v-flex class="feature-block" xs12 md6>
@@ -140,7 +148,7 @@
                           </div>
                         </div>
                       </v-flex>
-                      
+
                       <v-flex class="feature-block" xs12 md6>
                         <h3>Room Features:</h3>
                         <div class="feature-block__scroll">
