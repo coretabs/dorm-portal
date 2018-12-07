@@ -362,95 +362,14 @@ export default {
       }
       ],
       filters: [],
-      filter:{
-        "filters": [
-            {
-              "id": "3",
-              "name": "Dorms Activities",
-              "checkbox": true,
-              "integral": false,
-              "options": [
-                  {
-                      "option_id": 1,
-                      "name": "Free sport/Fitness"
-                  },
-                  {
-                      "option_id": 2,
-                      "name": "Paid sport/Fitness"
-                  },
-                  {
-                      "option_id": 3,
-                      "name": "Other activities"
-                  }
-              ]
-          },
-          {
-            "id": "3",
-            "name": "Dorms Activities",
-            "checkbox": true,
-            "integral": false,
-            "options": [
-                {
-                    "option_id": 1,
-                    "name": "Free sport/Fitness"
-                },
-                {
-                    "option_id": 2,
-                    "name": "Paid sport/Fitness"
-                },
-                {
-                    "option_id": 3,
-                    "name": "Other activities"
-                }
-            ]
-        },
-        {
-          "id": "3",
-          "name": "Dorms Activities",
-          "checkbox": true,
-          "integral": false,
-          "options": [
-              {
-                  "option_id": 1,
-                  "name": "Free sport/Fitness"
-              },
-              {
-                "option_id": 2,
-                "name": "Paid sport/Fitness"
-            },
-            {
-                "option_id": 3,
-                "name": "Other activities"
-            },
-            {
-              "option_id": 2,
-              "name": "Paid sport/Fitness"
-            },
-            {
-              "option_id": 3,
-              "name": "Other activities"
-            }
-          ]
-      },
-            {
-              "id": 5,
-              "name": "Price Range",
-              "integral": true,
-              "checkbox": false,
-              "min_value": 0,
-              "max_value": 2000,
-              "value": [0, 2000]
-            }
-        ]
-    }
     };
   },
   methods: {
-    // fetchFilters() {
-    //   this.$backend.$fetchFilters().then(responseDate => {
-    //     this.filters = responseDate
-    //   });
-    // }
+    fetchFilters() {
+      this.$backend.$fetchFilters().then(responseDate => {
+        this.filters = responseDate;
+      });
+    }
   },
   computed: {
     lang() {
@@ -461,6 +380,6 @@ export default {
     }
   },
   mounted() {
-    //this.fetchFilters();
+    this.fetchFilters();
   }
 };

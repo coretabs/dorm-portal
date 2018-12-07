@@ -8,32 +8,58 @@
       </div>
       <div id="filters-body">
 
-        <div class="filter" v-for="(filter,index) in filter.filters" :key="index">
-          <div class="filter-title">{{filter.name}}</div>
-          <template v-if="filter.checkbox">
+        <div class="filter" v-for="(filter,index) in filters" :key="index">
+          
+          <div class="filter-title">Dorm Features:</div>
+          <template>
             <ul>
-              <li v-for="(option, index) in filter.options" :key="index">
-                <v-checkbox :value="option.option_id" :label="option.name" color="success"></v-checkbox>
+              <li v-for="(dormFeature, index) in filter.dorm_feature" :key="index">
+                <v-checkbox :value="dormFeature.id" :label="dormFeature.name" color="success"></v-checkbox>
               </li>
             </ul>
           </template>
-          <template v-if="filter.integral">
+
+          <div class="filter-title">Room Features:</div>
+          <template>
+            <ul>
+              <li v-for="(roomFeatures, index) in filter.room_features" :key="index">
+                <v-checkbox :value="roomFeatures.id" :label="roomFeatures.name" color="success"></v-checkbox>
+              </li>
+            </ul>
+          </template>
+
+
+          <div v-for="(additionalFilters, index) in filter.additional_filters" :key="index">
+            <div class="filter-title">{{additionalFilters.name}}</div>
+            
+            <template v-if="additionalFilters.is_checkbox">
+            <ul>
+              <li v-for="(option, index) in additionalFilters.options" :key="index">
+                <v-checkbox :value="option.id" :label="option.name" color="success"></v-checkbox>
+              </li>
+            </ul>
+          </template>
+
+          <template v-if="additionalFilters.is_integral">
             <div>
               <v-layout class="integral-filter" row>
                 <v-flex class="px-3">
-                  <v-range-slider thumb-label="always" thumb-color="#3ab86c" v-model="filter.value" :max="filter.max_value" :min="filter.min_value" :step="1" color="success"></v-range-slider>
+                  <v-range-slider thumb-label="always" thumb-color="#3ab86c" v-model="additionalFilters.value" :max="additionalFilters.max_value" :min="additionalFilters.min_value" :step="1" color="success"></v-range-slider>
                 </v-flex>
               </v-layout>
               <v-layout class="integral-filter" v-show="false" row>
                 <v-flex class="integral-input">
-                  <v-text-field label="From" v-model="filter.value[0]" class="mt-0" hide-details type="text" disabled></v-text-field>
+                  <v-text-field label="From" v-model="additionalFilters.value[0]" class="mt-0" hide-details type="text" disabled></v-text-field>
                 </v-flex>
                 <v-flex class="integral-input">
-                  <v-text-field label="To" v-model="filter.value[1]" class="mt-0" hide-details type="text" disabled></v-text-field>
+                  <v-text-field label="To" v-model="additionalFilters.value[1]" class="mt-0" hide-details type="text" disabled></v-text-field>
                 </v-flex>
               </v-layout>
             </div>
           </template>
+
+          </div>
+
         </div>
       </div>
     </template>

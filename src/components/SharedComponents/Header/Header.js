@@ -11,6 +11,10 @@ export default {
       this.$store.state.language = lang;
       localStorage.setItem("lang", lang);
     },
+    changeCurrency(currency){
+      this.$store.state.currency = currency;
+      localStorage.setItem("currency", currency);
+    },
     toggleDrawer(){
       this.$store.state.drawer = !this.$store.state.drawer
     }

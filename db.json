@@ -2,7 +2,7 @@
   "locale": [
     {
       "currencies": [
-        {
+        { 
           "symbol": "$",
           "code": "USD"
         },
@@ -25,7 +25,96 @@
       ]
     }
   ],
-  "filters":[
-    
+  "filter":[
+    {
+      "lang": "en",
+      "currency": "USD",
+      "category":[
+        {
+          "id": 1,
+          "name": "EMU Dorms"
+        },
+        {
+          "id": 2,
+          "name": "Private Dorms"
+        }
+      ],
+      "Duration":[
+        {
+          "id": 1,
+          "name": "Academic year"
+        },
+        {
+          "id": 2,
+          "name": "Fall"
+        }
+      ],
+      "dorm_feature":[
+        {
+          "id": 1,
+          "name": "feature number 1"
+        },
+        {
+          "id": 2,
+          "name": "feature number 2"
+        }
+      ],
+      "room_features":[
+        {
+          "id": 1,
+          "name": "room feature 1"
+        },
+        {
+          "id": 2,
+          "name": "room feature 2"
+        }
+      ],
+      "additional_filters":[
+        {
+          "id": 1,
+          "name": "meals",
+          "is_checkbox": true,
+          "is_integral": false,
+          "options":[
+            {
+              "id": 1,
+              "name": "1 meal"
+            },
+            {
+              "id": 2,
+              "name": "2 meal"
+            }
+          ]
+          
+        },
+        {
+          "id": 2,
+          "name": "campus",
+          "is_checkbox": true,
+          "is_integral": false,
+          "options":[
+            {
+              "id": 1,
+              "name": "northern campus"
+            },
+            {
+              "id": 2,
+              "name": "southern campus"
+            }
+          ]
+          
+        },
+        {
+          "id": 3,
+          "name": "price",
+          "is_checkbox": false,
+          "is_integral": true,
+          "min_value": 100,
+          "max_value": 1500,
+          "value":[100,1500]
+        }
+      
+      ]
+    }
   ]
 }

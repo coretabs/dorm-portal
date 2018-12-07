@@ -21,7 +21,7 @@ $backend.$fetchLocale = () => {
 }
 
 $backend.$fetchFilters = () => {
-  return $backend.get(`/filtersa`)
+  return $backend.get(`/filter`)
       .then(response => response.data)
 }
 
