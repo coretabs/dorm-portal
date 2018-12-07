@@ -100,7 +100,7 @@ export default {
           id:3,
           room_type: "Double room",
           total_rooms: 60,
-          reserved_rooms: 59,
+          reserved_rooms: 55,
           allowed_quota: 1,
           price: 1500,
           currency: "$",
@@ -307,11 +307,11 @@ export default {
     countAvailableRooms(reservedRooms,totalRooms){
       return totalRooms - reservedRooms;
     },
-    progressColor(quota){
-      return (quota > 5) ? "#39c463" : "#cf5151";
+    progressColor(allowedQuota, totalRooms, reservedRooms){
+      return (allowedQuota >= 5) ? "#39c463" : ( totalRooms-reservedRooms == 0) ? "#39c463" : "#cf5151";
     },
-    quotaTextColor(quota){
-      return quota <= 5 ? "red--text" : "black--text";
+    quotaTextColor(quota, totalRooms, reservedRooms){
+      return (quota < 5 && totalRooms-reservedRooms > quota ) ? "red--text" : "black--text";
     }
   }
 };

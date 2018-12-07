@@ -39,7 +39,7 @@
                     <span>{{ room.reserved_rooms }}<sub>/{{ room.total_rooms }}</sub></span>
                   </v-flex>
                   <v-flex xs12 md10>
-                    <v-progress-linear class="room-card__progress" :color="progressColor(room.allowed_quota)" height="25" :value="progressValue(room.reserved_rooms, room.total_rooms)"></v-progress-linear>
+                    <v-progress-linear class="room-card__progress" :color="progressColor(room.allowed_quota, room.total_rooms,  room.reserved_rooms)" height="25" :value="progressValue(room.reserved_rooms, room.total_rooms)"></v-progress-linear>
                   </v-flex>
                 </v-layout>
                 <!-- <span>0<sub>/50</sub></span> -->
@@ -48,7 +48,7 @@
               <v-flex xs12 sm6 md2>
                 <h3>Quota:</h3>
                 <v-layout row>
-                  <span :class="quotaTextColor(room.allowed_quota)">{{ room.allowed_quota }}</span>
+                  <span :class="quotaTextColor(room.allowed_quota, room.total_rooms, room.reserved_rooms)">{{ room.allowed_quota }}</span>
                   <v-btn icon class="quota-update" dark @click="showQuotaUpdate(room.reserved_rooms, room.total_rooms, room.allowed_quota, room.id)">
                     <v-icon small>fa-pencil-alt</v-icon>
                   </v-btn>
