@@ -24,7 +24,7 @@ export default {
           allowed_quota: 10,
           price: 1500,
           people: 2,
-          currency: "USD",
+          currency: "$",
           features1: [
             {
               name: "free wifi",
@@ -64,7 +64,7 @@ export default {
           allowed_quota: 15,
           price: 1500,
           people: 2,
-          currency: "USD",
+          currency: "$",
           features1: [
             {
               name: "free wifi",
@@ -103,7 +103,7 @@ export default {
           reserved_rooms: 59,
           allowed_quota: 1,
           price: 1500,
-          currency: "USD",
+          currency: "$",
           people: 2,
           features1: [
             {
@@ -144,7 +144,7 @@ export default {
           allowed_quota: 5,
           price: 1500,
           people: 2,
-          currency: "USD",
+          currency: "$",
           features1: [
             {
               name: "free wifi",
@@ -184,7 +184,7 @@ export default {
           allowed_quota: 0,
           price: 1500,
           people: 2,
-          currency: "USD",
+          currency: "$",
           features1: [
             {
               name: "free Wifi",
@@ -279,12 +279,12 @@ export default {
   },
   computed: {
     lang() {
-      return this.USDstore.getters.lang;
+      return this.$store.getters.lang;
     }    
   },
   methods:{
     loadComponent(componentName){
-      this.USDroot.USDemit('currentTabComponent', componentName)
+      this.$root.$emit('currentTabComponent', componentName)
     },
     showRoomDetails(room){
       this.roomDetails = room;
@@ -300,19 +300,18 @@ export default {
     progressValue(reserved_rooms,total_rooms){
       return reserved_rooms / total_rooms * 100;
     },
-    availableRooms(reserved_rooms, total_rooms){
-      this.availableRoomsNumber = total_rooms - reserved_rooms;
+    availableRooms(reservedRooms, totalRooms){
+      this.availableRoomsNumber = totalRooms - reservedRooms;
       return this.availableRoomsNumber;
     },
-    progressColor(reservedRooms, totalRooms){
-
-      var avg = reservedRooms/totalRooms*100;
-
-      return (avg > 90) ? "#cf5151" : (avg > 50) ? "#ec7811" : "#39c463";
-      
+    countAvailableRooms(reservedRooms,totalRooms){
+      return totalRooms - reservedRooms;
+    },
+    progressColor(quota){
+      return (quota > 5) ? "#39c463" : "#cf5151";
     },
     quotaTextColor(quota){
-      return quota == 0 ? "red--text" : "black--text";
+      return quota <= 5 ? "red--text" : "black--text";
     }
   }
 };

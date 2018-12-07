@@ -39,7 +39,7 @@
                     <span>{{ room.reserved_rooms }}<sub>/{{ room.total_rooms }}</sub></span>
                   </v-flex>
                   <v-flex xs12 md10>
-                    <v-progress-linear class="room-card__progress" :color="progressColor(room.reserved_rooms, room.total_rooms)" height="25" :value="progressValue(room.reserved_rooms, room.total_rooms)"></v-progress-linear>
+                    <v-progress-linear class="room-card__progress" :color="progressColor(room.allowed_quota)" height="25" :value="progressValue(room.reserved_rooms, room.total_rooms)"></v-progress-linear>
                   </v-flex>
                 </v-layout>
                 <!-- <span>0<sub>/50</sub></span> -->
@@ -61,7 +61,7 @@
       </v-card>
     </v-flex>
 
-    <v-dialog v-model="showQuotaUpdatedialog" persistent max-width="350" :lazy="true">
+    <v-dialog v-model="showQuotaUpdatedialog" persistent max-width="350" lazy>
       <v-card>
         <v-card-text>
           <h2>Update Quota:</h2>
@@ -77,39 +77,28 @@
       </v-card>
     </v-dialog>
 
-
-
-     <v-dialog
-        v-model="showRoomDetailsdialog"
-        fullscreen
-        hide-overlay
-        transition="dialog-bottom-transition"
-        scrollable
-        :lazy="true"
-      >
-       
-
+    <v-dialog v-model="showRoomDetailsdialog" fullscreen hide-overlay transition="dialog-bottom-transition" scrollable lazy>
 
       <v-card>
         <v-toolbar card dark color="#1c3a70">
-            <v-btn icon dark @click="showRoomDetailsdialog = false">
-              <v-icon>close</v-icon>
-            </v-btn>
+          <v-btn icon dark @click="showRoomDetailsdialog = false">
+            <v-icon>close</v-icon>
+          </v-btn>
 
-            <v-toolbar-title>Room Details</v-toolbar-title>
-            <v-spacer></v-spacer>
-          
-            <v-menu bottom right offset-y>
-              <v-btn slot="activator" dark icon>
-                <v-icon>more_vert</v-icon>
-              </v-btn>
-              <v-list>
-                <v-list-tile v-for="(item, i) in items" :key="i" @click="">
-                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
-          </v-toolbar>
+          <v-toolbar-title>Room Details</v-toolbar-title>
+          <v-spacer></v-spacer>
+
+          <v-menu bottom right offset-y>
+            <v-btn slot="activator" dark icon>
+              <v-icon>more_vert</v-icon>
+            </v-btn>
+            <v-list>
+              <v-list-tile v-for="(item, i) in items" :key="i" @click="">
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
+        </v-toolbar>
         <v-card-text>
           <v-layout row wrap>
 
@@ -119,6 +108,20 @@
                 <v-flex xs12 class="mb-4">
                   <h3 class="grey--text text--darken-2 mb-2">Room Type:</h3>
                   <span class="display-1">{{ roomDetails.room_type }}</span>
+                </v-flex>
+
+                <v-flex xs12 class="mb-4">
+                  <v-layout class="room-availability pa-4">
+                    <v-flex xs6>
+                      <h3 class="grey--text text--darken-2 mb-2">Available Rooms</h3>
+                      <span class="headline">{{ countAvailableRooms(roomDetails.reserved_rooms, roomDetails.total_rooms) }}</span>
+                    </v-flex>
+
+                    <v-flex xs6>
+                      <h3 class="grey--text text--darken-2 mb-2">Allowed Quota</h3>
+                      <span class="headline">{{ roomDetails.allowed_quota  }}</span>
+                    </v-flex>
+                  </v-layout>
                 </v-flex>
 
                 <v-flex xs6 sm6class="mb-4">
@@ -154,7 +157,7 @@
                     <span>{{feature.name}}</span>
                   </div>
                 </v-flex>
-                
+
                 <v-flex xs12 md12 class="mb-3">
                   <div class="mb-2 mt-1 room-feature__radio" v-for="(feature,i) in roomDetails.features2" :key="i">
                     <v-icon small>fa-check</v-icon>
@@ -163,24 +166,8 @@
                   </div>
                 </v-flex>
 
-
               </v-layout>
             </v-flex>
-
-            <!-- <v-flex xs12 md4>
-              <v-layout row wrap class="pa-4">
-
-                <v-flex xs12 md12 class="mb-3">
-                  <h3 class="grey--text text--darken-2 mb-2">Other Features:</h3>
-                  <div class="mb-2 room-feature__radio" v-for="(feature,i) in roomDetails.features2" :key="i">
-                    <v-icon small>fa-check</v-icon>
-                    <span>{{feature.name}}: </span>
-                    <span>{{feature.choice}}</span>
-                  </div>
-                </v-flex>
-
-              </v-layout>
-            </v-flex> -->
 
             <v-flex xs12 md4>
               <v-layout row wrap class="pa-4">
