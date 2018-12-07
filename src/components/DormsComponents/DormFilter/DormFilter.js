@@ -461,6 +461,6 @@ export default {
     }
   },
   mounted() {
-    this.fetchFilters();
+    //this.fetchFilters();
   }
 };

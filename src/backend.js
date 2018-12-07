@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let $backend = axios.create({
-  baseURL: 'https://afc78029-3724-48da-950b-6af0c707d785.mock.pstmn.io',
+  baseURL: 'http://localhost:3000',
   timeout: 5000,
   headers: {'Content-Type': 'application/json'}
 })
@@ -14,6 +14,11 @@ $backend.interceptors.response.use(function (response) {
   console.log(error)
   return Promise.reject(error)
 })
+
+$backend.$fetchLocale = () => {
+  return $backend.get(`/locale`)
+      .then(response => response.data)
+}
 
 $backend.$fetchFilters = () => {
   return $backend.get(`/filtersa`)

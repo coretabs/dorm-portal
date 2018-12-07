@@ -1,0 +1,31 @@
+{
+  "locale": [
+    {
+      "currencies": [
+        {
+          "symbol": "$",
+          "code": "USD"
+        },
+        {
+          "symbol": "₺",
+          "code": "TL"
+        }
+      ]
+    },
+    {
+      "languages": [
+        {
+          "symbol": "English",
+          "code": "en"
+        },
+        {
+          "symbol": "Turkish",
+          "code": "tr"
+        }
+      ]
+    }
+  ],
+  "filters":[
+    
+  ]
+}

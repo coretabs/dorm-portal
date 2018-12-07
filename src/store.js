@@ -8,14 +8,8 @@ export default new Vuex.Store({
     language: localStorage.getItem("lang") || 'en',
     drawer: null,
     reservationStep: 1,
-    currencies: [
-      { symbol: "$", code: "USD" }, 
-      { symbol: "₺", code: "TL" }
-    ],
-    languages: [
-      { symbol: "English", code: "en" },
-      { symbol: "Turkish", code: "tr" }
-    ],
+    currencies: [],
+    languages: [],
   },
   getters:{
     lang: state => {
