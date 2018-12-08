@@ -13,6 +13,8 @@ export default {
   },
   data: function () {
     return {
+      savedRoom: null,
+      showSavedRoomNav: false,
       lightboxPhotoUrl: '',
       iframe: false,
       lightbox: false,
@@ -170,9 +172,22 @@ export default {
       this.$backend.$fetchDorm(this.$route.params.id).then(responseDate => {
         this.dorm = responseDate;
       });
+    },
+    savedRoomFetch(){
+      if(localStorage.getItem("room") != null){
+        this.savedRoom = JSON.parse(localStorage.getItem("room"));
+        this.showSavedRoomNav = true;
+      }
+    },
+    deleteSavedRoom(){
+      localStorage.removeItem("room");
+      this.showSavedRoomNav = false;
     }
   },
   created(){
     this.fetchDorm();
+  },
+  mounted(){
+    this.savedRoomFetch();
   }
 };
