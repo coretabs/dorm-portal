@@ -39,6 +39,10 @@ export default {
     },
     closeRoomModel(){
       this.roomMode = !this.roomMode;
+    },
+    saveRoom(room,id){
+      localStorage.setItem("room", JSON.stringify({room}));
+      this.$router.push('/dorms/'+id)
     }
   },
   computed: {
