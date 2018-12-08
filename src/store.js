@@ -14,7 +14,8 @@ export default new Vuex.Store({
     currencies: [],
     languages: [],
     filters: [],
-    dorms:[]
+    dorms:[],
+    user:{}
   },
   getters:{
     lang: state => {
@@ -44,6 +45,13 @@ export default new Vuex.Store({
       $backend.$fetchDorms().then(responseDate => {
         state.dorms = responseDate;
       });
+    },
+    login(state){
+      $backend.$login().then(responseDate => {
+        if(responseDate.status == 200){
+          //localStorage.setItem("user", JSON.stringify({responseDate}));
+        }
+      });
     }
     
   },
@@ -56,6 +64,9 @@ export default new Vuex.Store({
     },
     fetchDorms(context) {
       context.commit('fetchDorms');
+    },
+    login(context) {
+      context.commit('login');
     }
   }
 });

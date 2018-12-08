@@ -2,17 +2,19 @@
 <div id="signup">
 
   <v-card class="elevation-0">
-    <v-card-text>
-      <v-form>
+    <v-form action="#" @submit.prevent="login">
+      <v-card-text>
+
         <v-text-field :label="lang.signup.email" type="email"></v-text-field>
         <v-text-field :label="lang.signup.password" :append-icon="show ? 'visibility_off' : 'visibility'" @click:append="show = !show" :type="show ? 'text' : 'password'"></v-text-field>
-      </v-form>
-    </v-card-text>
-    <v-card-actions>
-      <a href="#" @click.stop="showSignup = !showSignup" class="grey--text text--darken-2 signup-link">{{lang.login.newAccount}}</a>
-      <v-spacer></v-spacer>
-      <v-btn color="#feae25" class="elevation-0" @click="submit">{{lang.login.button2}}</v-btn>
-    </v-card-actions>
+
+      </v-card-text>
+      <v-card-actions>
+        <a href="#" @click.stop="showSignup = !showSignup" class="grey--text text--darken-2 signup-link">{{lang.login.newAccount}}</a>
+        <v-spacer></v-spacer>
+        <v-btn type="submit" color="#feae25" class="elevation-0">{{lang.login.button2}}</v-btn>
+      </v-card-actions>
+    </v-form>
   </v-card>
 
   <v-dialog v-model="showSignup" width="500">

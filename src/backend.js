@@ -35,6 +35,11 @@ $backend.$fetchDorm = (dormId) => {
       .then(response => response.data)
 }
 
+$backend.$login = () => {
+  return $backend.get(`/login`)
+      .then(response => response.data)
+}
+
 
 $backend.$postMessage = (payload) => {
     return $backend.post(`messages/`, payload)

@@ -9,6 +9,9 @@ export default {
   methods:{
     submit(){
       this.$store.state.reservationStep++;
+    },
+    login(){
+      this.$store.dispatch('login');
     }
   },
   computed: {
