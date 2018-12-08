@@ -2,6 +2,7 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import DormMap from '../../SharedComponents/DormMap/DormMap.vue';
 import RoomCard from '../RoomCard/RoomCard.vue'
 import DormInfo from '../DormInfo/DormInfo.vue'
+import SingleRoomCard from '../SingleRoomCard/SingleRoomCard.vue'
 export default {
   name: "DormProfile",
   components: {
@@ -9,12 +10,11 @@ export default {
     swiperSlide,
     DormMap,
     RoomCard,
-    DormInfo
+    DormInfo,
+    SingleRoomCard
   },
   data: function () {
     return {
-      savedRoom: null,
-      showSavedRoomNav: false,
       lightboxPhotoUrl: '',
       iframe: false,
       lightbox: false,
@@ -157,6 +157,9 @@ export default {
   computed: {
     lang() {
       return this.$store.getters.lang;
+    },
+    checkSavedRoom(){
+      return localStorage.getItem("room") != null;
     }
   },
   methods:{
@@ -172,22 +175,9 @@ export default {
       this.$backend.$fetchDorm(this.$route.params.id).then(responseDate => {
         this.dorm = responseDate;
       });
-    },
-    savedRoomFetch(){
-      if(localStorage.getItem("room") != null){
-        this.savedRoom = JSON.parse(localStorage.getItem("room"));
-        this.showSavedRoomNav = true;
-      }
-    },
-    deleteSavedRoom(){
-      localStorage.removeItem("room");
-      this.showSavedRoomNav = false;
     }
   },
   created(){
     this.fetchDorm();
-  },
-  mounted(){
-    this.savedRoomFetch();
   }
 };

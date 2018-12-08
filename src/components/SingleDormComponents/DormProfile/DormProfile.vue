@@ -66,11 +66,9 @@
     <dorm-map :longitude="geo_longitude" :latitude="geo_latitude"></dorm-map>
   </v-dialog>
 
-  <div v-if="showSavedRoomNav" id="show-savedroom">
-    <span>The room you have choosen is saved</span>
-    <v-btn depressed color="#ea7e15" class="font-weight-bold">Check it again</v-btn>
-    <v-btn color="#c61a1a" class="font-weight-bold" @click="deleteSavedRoom"><v-icon  small  left>fa-trash-alt</v-icon> Delete it</v-btn>
-  </div>
+  <template v-if="checkSavedRoom">
+    <single-room-card></single-room-card>
+  </template>
 
 </div>
 </template>

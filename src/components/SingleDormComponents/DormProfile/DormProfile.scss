@@ -88,18 +88,3 @@
   position: relative;
   z-index: 2;
  }
-
-#show-savedroom{
-  position: fixed;
-  bottom: 0;
-  background: #172f59;
-  width: 100%;
-  z-index: 5;
-  text-align: center;
-  color:#fff;
-  font-size: 16px;
-  padding: 5px 0;
-  span{
-    padding-right: 10px;
-  }
-}
