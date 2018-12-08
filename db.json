@@ -259,7 +259,7 @@
     {
       "id": 1,
       "name": "Alfam Dorm",
-      "cover": "https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "cover": "https://images.pexels.com/photos/1082326/pexels-photo-1082326.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
       "stars": 4.5,
       "number_of_reviews": 123,
       "geo_longitude": 35.15010,
@@ -439,7 +439,7 @@
     },
     {
       "id": 2,
-      "name": "DAU Dorm",
+      "name": "DAU2 Dorm",
       "cover": "https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
       "stars": 4.5,
       "number_of_reviews": 123,

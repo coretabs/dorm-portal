@@ -27,6 +27,14 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    fetchLocale(state){
+      $backend.$fetchLocale().then(responseDate => {
+        state.currencies = responseDate[0].currencies;
+        state.languages = responseDate[1].languages;
+        localStorage.setItem("lang", responseDate[1].languages[0].code);
+        localStorage.setItem("currency", responseDate[0].currencies[0].code);
+      });
+    },
     fetchFilters(state){
       $backend.$fetchFilters().then(responseDate => {
         state.filters = responseDate;
@@ -36,25 +44,18 @@ export default new Vuex.Store({
       $backend.$fetchDorms().then(responseDate => {
         state.dorms = responseDate;
       });
-    },
-    fetchLocale(state){
-      $backend.$fetchLocale().then(responseDate => {
-        state.currencies = responseDate[0].currencies;
-        state.languages = responseDate[1].languages;
-        localStorage.setItem("lang", responseDate[1].languages[0].code);
-        localStorage.setItem("currency", responseDate[0].currencies[0].code);
-      });
     }
+    
   },
   actions: {
+    fetchLocale(context){
+      context.commit('fetchLocale');
+    },
     fetchFilters(context){
       context.commit('fetchFilters');
     },
     fetchDorms(context) {
       context.commit('fetchDorms');
-    },
-    fetchLocale(context){
-      context.commit('fetchLocale');
     }
   }
 });

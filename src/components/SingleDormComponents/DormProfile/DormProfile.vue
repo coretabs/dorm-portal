@@ -2,11 +2,11 @@
 <div id="dorm-profile">
   <v-content>
 
-    <v-parallax height="450" dark :src="cover">
+    <v-parallax height="450" dark :src="dorm.cover">
       <v-layout justify-center>
         <v-flex md8 xs10>
           <section id="dorm-banner">
-            <h1>{{name}}</h1>
+            <h1>{{dorm.name}}</h1>
             <div>
               <v-icon>place</v-icon>
               <span>{{address}}</span> -

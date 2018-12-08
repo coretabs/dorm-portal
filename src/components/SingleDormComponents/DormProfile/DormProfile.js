@@ -29,6 +29,7 @@ export default {
           el: '.swiper-pagination',
           clickable: true
         }},
+        dorm:[],
       "name": "Alfam dorm",
       "cover": "https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
       "photos": [
@@ -165,5 +166,13 @@ export default {
     showMap() {
       this.mapModel = !this.mapModel;
     },
+    fetchDorm() {
+      this.$backend.$fetchDorm(this.$route.params.id).then(responseDate => {
+        this.dorm = responseDate;
+      });
+    }
+  },
+  created(){
+    this.fetchDorm();
   }
 };

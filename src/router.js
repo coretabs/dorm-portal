@@ -24,7 +24,7 @@ export default new Router({
     },
     {
       path: '/dorms/:id',
-      component: DormProfile
+      component: DormProfile,
     },
     {
       path: '/manage',
