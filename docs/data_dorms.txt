@@ -21,7 +21,6 @@ main_info
 		
 		photos
 			url
-			is_3d
 		
 		price
 		room_type
@@ -37,6 +36,7 @@ main_info
 photos
     url
     is_3d
+
 
 about
 
