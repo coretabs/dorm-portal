@@ -2,6 +2,7 @@ POST /user/register accepts
 ```
 first_name
 last_name
+passport_number
 email
 password
 ```
@@ -19,6 +20,7 @@ email
 
 POST /user/resend-confirmation/ returns 200 OK
 ```
+role (manager || student)
 ```
 
 POST /user/resend-confirmation/ returns 400 Bad request
