@@ -23,7 +23,7 @@ export default new Vuex.Store({
       return lang[currentLang]
     },
     activeCurrency: state => {
-      return state.currency
+      return state.currency;
     },
   },
   mutations: {
@@ -36,6 +36,14 @@ export default new Vuex.Store({
       $backend.$fetchDorms().then(responseDate => {
         state.dorms = responseDate;
       });
+    },
+    fetchLocale(state){
+      $backend.$fetchLocale().then(responseDate => {
+        state.currencies = responseDate[0].currencies;
+        state.languages = responseDate[1].languages;
+        localStorage.setItem("lang", responseDate[1].languages[0].code);
+        localStorage.setItem("currency", responseDate[0].currencies[0].code);
+      });
     }
   },
   actions: {
@@ -44,6 +52,9 @@ export default new Vuex.Store({
     },
     fetchDorms(context) {
       context.commit('fetchDorms');
+    },
+    fetchLocale(context){
+      context.commit('fetchLocale');
     }
   }
 });

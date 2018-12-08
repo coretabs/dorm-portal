@@ -16,6 +16,7 @@ export default {
       this.$store.state.currency = code;
       localStorage.setItem("currency", code);
       this.$store.dispatch('fetchFilters');
+      console.log(symbol)
     },
     toggleDrawer(){
       this.$store.state.drawer = !this.$store.state.drawer
