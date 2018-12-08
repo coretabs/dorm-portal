@@ -14,7 +14,7 @@
       <!-- Currency -->
       <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y>
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
-          {{this.$store.state.currency}}<v-icon color="#ccc" right>expand_more</v-icon>
+          {{this.$store.state.currencyCode}}<v-icon color="#ccc" right>expand_more</v-icon>
         </v-btn>
         <v-list>
           <v-list-tile v-for="(currency, index) in currencies" :key="index" @click="changeCurrency(currency.code, currency.symbol)">

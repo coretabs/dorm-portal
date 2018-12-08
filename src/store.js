@@ -8,7 +8,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     language: localStorage.getItem("lang"),
-    currency: localStorage.getItem("currency"),
+    currencyCode: JSON.parse(localStorage.getItem("currency")).code,
+    currencySymbol: JSON.parse(localStorage.getItem("currency")).symbol,
     drawer: null,
     reservationStep: 1,
     currencies: [],
@@ -24,7 +25,7 @@ export default new Vuex.Store({
       return lang[currentLang]
     },
     activeCurrency: state => {
-      return state.currency;
+      return state.currencySymbol;
     },
   },
   mutations: {
@@ -33,7 +34,12 @@ export default new Vuex.Store({
         state.currencies = responseDate[0].currencies;
         state.languages = responseDate[1].languages;
         localStorage.setItem("lang", responseDate[1].languages[0].code);
-        localStorage.setItem("currency", responseDate[0].currencies[0].code);
+        localStorage.setItem("currency", 
+          JSON.stringify({ 
+            code : responseDate[0].currencies[0].code,
+            symbol: responseDate[0].currencies[0].symbol
+          })
+        );
       });
     },
     fetchFilters(state){

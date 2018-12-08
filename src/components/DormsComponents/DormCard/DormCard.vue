@@ -76,7 +76,7 @@
             <div class="room-price" v-for="(room,index) in dorm.room_characteristics" :key="index">
               <v-tooltip top>
                 <div @click="showRooms(room)" class="bar" slot="activator"></div>
-                <span @click="showRooms(room)" class="price" slot="activator">{{$store.getters.activeCurrency}} {{room.price}}</span>
+                <span @click="showRooms(room)" class="price" slot="activator">{{$store.getters.activeCurrency}}{{room.price}}</span>
                 <span>Click To show room details</span>
               </v-tooltip>
 
@@ -121,7 +121,7 @@
 
                       <v-flex class="detail-block" xs12 md4>
                         <h3>Price:</h3>
-                        <span>${{room.price}}</span>
+                        <span>{{$store.getters.activeCurrency}}{{room.price}}</span>
                       </v-flex>
 
                       <v-flex class="detail-block" xs12>

@@ -13,10 +13,15 @@ export default {
       this.$store.dispatch('fetchFilters');
     },
     changeCurrency(code,symbol){
-      this.$store.state.currency = code;
-      localStorage.setItem("currency", code);
+      this.$store.state.currencyCode = code;
+      this.$store.state.currencySymbol = symbol;
+      localStorage.setItem("currency", 
+        JSON.stringify({ 
+          code : code,
+          symbol: symbol
+        })  
+      );
       this.$store.dispatch('fetchFilters');
-      console.log(symbol)
     },
     toggleDrawer(){
       this.$store.state.drawer = !this.$store.state.drawer

@@ -21,7 +21,7 @@ $backend.$fetchLocale = () => {
 }
 
 $backend.$fetchFilters = () => {
-  return $backend.get(`/filter?language=${localStorage.getItem("lang")}&currency=${localStorage.getItem("currency")}`)
+  return $backend.get(`/filter?language=${localStorage.getItem("lang")}&currency=${JSON.parse(localStorage.getItem("currency")).code}`)
       .then(response => response.data)
 }
 
