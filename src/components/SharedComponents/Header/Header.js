@@ -7,20 +7,15 @@ export default {
     };
   },
   methods: {
-    fetchFiltersData(){
-      this.$backend.$fetchFilters().then(responseDate => {
-        this.$store.state.filters = responseDate;
-      });
-    },
     changeLang(lang) {
       this.$store.state.language = lang;
       localStorage.setItem("lang", lang);
-      this.fetchFiltersData();
+      this.$store.dispatch('fetchFilters');
     },
     changeCurrency(code,symbol){
       this.$store.state.currency = code;
       localStorage.setItem("currency", code);
-      this.fetchFiltersData();
+      this.$store.dispatch('fetchFilters');
     },
     toggleDrawer(){
       this.$store.state.drawer = !this.$store.state.drawer

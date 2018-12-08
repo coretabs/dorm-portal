@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import $backend from '@/backend';
+Vue.prototype.$backend = $backend;
 
 Vue.use(Vuex);
 
@@ -24,7 +26,16 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    fetchFilters(state){
+      $backend.$fetchFilters().then(responseDate => {
+        state.filters = responseDate;
+      });
+    }
   },
-  actions: {}
+  actions: {
+    fetchFilters(context){
+      context.commit('fetchFilters');
+    }
+  }
 });
 

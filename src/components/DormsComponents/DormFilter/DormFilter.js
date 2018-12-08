@@ -367,10 +367,9 @@ export default {
     };
   },
   methods: {
+
     fetchFilters() {
-      this.$backend.$fetchFilters().then(responseDate => {
-        this.$store.state.filters = responseDate;
-      });
+      this.$store.dispatch('fetchFilters');
     },
 
     fetchDorms() {

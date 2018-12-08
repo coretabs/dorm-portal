@@ -370,7 +370,7 @@
         },
         {
           "id": 2,
-          "rooms_left": 1,
+          "rooms_left": 10,
           "photos": [
             "https://images.pexels.com/photos/271734/pexels-photo-271734.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
             "https://images.pexels.com/photos/260553/pexels-photo-260553.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
