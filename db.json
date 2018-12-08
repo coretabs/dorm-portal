@@ -436,6 +436,187 @@
           ]
         }
       ]
+    },
+    {
+      "id": 2,
+      "name": "DAU Dorm",
+      "cover": "https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "stars": 4.5,
+      "number_of_reviews": 123,
+      "geo_longitude": 35.15010,
+      "geo_latitude": 33.90111,
+      "address": "Next to Computer Department",
+      "rooms_left_in_dorm": 5,
+      "features": [
+        {
+          "name": "free Wifi",
+          "icon": "fa-wifi"
+        },
+        {
+          "name": "Restaurant",
+          "icon": "fa-utensils"
+        },
+        {
+          "name": "Laundry",
+          "icon": "local_laundry_service"
+        },
+        {
+          "name": "Market",
+          "icon": "fa-shopping-cart"
+        },
+        {
+          "name": "Elevator",
+          "icon": "fa-check"
+        },
+        {
+          "name": "Air condition",
+          "icon": "fa-wind"
+        },
+        {
+          "name": "Fire alarm",
+          "icon": "fa-fire"
+        },
+        {
+          "name": "Barber",
+          "icon": "fa-cut"
+        }
+      ],
+      "room_characteristics": [
+        {
+          "id": 1,
+          "rooms_left": 5,
+          "photos": [
+            "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            "https://images.pexels.com/photos/210265/pexels-photo-210265.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          ],
+          "price": 1500,
+          "room_type": "Single Room",
+          "people_allowed_number": 3,
+          "choices": [
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            },
+            {
+              "filter_name": "Reception",
+              "choice": "24/7 Hours"
+            },
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            },
+            {
+              "filter_name": "Reception",
+              "choice": "24/7 Hours"
+            },
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            }
+          ],
+          "features": [
+            {
+              "name": "free Wifi",
+              "icon": "fa-wifi"
+            },
+            {
+              "name": "Restaurant",
+              "icon": "fa-utensils"
+            },
+            {
+              "name": "Laundry",
+              "icon": "local_laundry_service"
+            },
+            {
+              "name": "Market",
+              "icon": "fa-shopping-cart"
+            },
+            {
+              "name": "Elevator",
+              "icon": "fa-check"
+            },
+            {
+              "name": "Air condition",
+              "icon": "fa-wind"
+            },
+            {
+              "name": "Fire alarm",
+              "icon": "fa-fire"
+            },
+            {
+              "name": "Barber",
+              "icon": "fa-cut"
+            } 
+          ]
+        },
+        {
+          "id": 2,
+          "rooms_left": 10,
+          "photos": [
+            "https://images.pexels.com/photos/271734/pexels-photo-271734.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            "https://images.pexels.com/photos/260553/pexels-photo-260553.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          ],
+          "price": 3000,
+          "room_type": "Double Room",
+          "people_allowed_number": 5,
+          "choices": [
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            },
+            {
+              "filter_name": "Reception",
+              "choice": "24/7 Hours"
+            },
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            },
+            {
+              "filter_name": "Reception",
+              "choice": "24/7 Hours"
+            },
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            }
+          ],
+          "features": [
+            {
+              "name": "free Wifi",
+              "icon": "fa-wifi"
+            },
+            {
+              "name": "Restaurant",
+              "icon": "fa-utensils"
+            },
+            {
+              "name": "Laundry",
+              "icon": "local_laundry_service"
+            },
+            {
+              "name": "Market",
+              "icon": "fa-shopping-cart"
+            },
+            {
+              "name": "Elevator",
+              "icon": "fa-check"
+            },
+            {
+              "name": "Air condition",
+              "icon": "fa-wind"
+            },
+            {
+              "name": "Fire alarm",
+              "icon": "fa-fire"
+            },
+            {
+              "name": "Barber",
+              "icon": "fa-cut"
+            } 
+          ]
+        }
+      ]
     }
   ]
 }
