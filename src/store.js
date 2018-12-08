@@ -13,7 +13,8 @@ export default new Vuex.Store({
     reservationStep: 1,
     currencies: [],
     languages: [],
-    filters: []
+    filters: [],
+    dorms:[]
   },
   getters:{
     lang: state => {
@@ -30,11 +31,19 @@ export default new Vuex.Store({
       $backend.$fetchFilters().then(responseDate => {
         state.filters = responseDate;
       });
+    },
+    fetchDorms(state) {
+      $backend.$fetchDorms().then(responseDate => {
+        state.dorms = responseDate;
+      });
     }
   },
   actions: {
     fetchFilters(context){
       context.commit('fetchFilters');
+    },
+    fetchDorms(context) {
+      context.commit('fetchDorms');
     }
   }
 });
