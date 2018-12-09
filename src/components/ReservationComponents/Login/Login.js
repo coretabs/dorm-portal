@@ -10,5 +10,10 @@ export default {
     lang() {
       return this.$store.getters.lang;
     }
+  },
+  methods: {
+    submit(){
+      this.$store.dispatch("login")
+    }
   }
 };
