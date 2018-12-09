@@ -640,8 +640,9 @@
   "login":{
     "status": 200,
     "name": "Mohammed Alhakem",
-    "step": 2,
-    "role": "user" 
+    "current_step": 2,
+    "is_manager": false,
+    "reservation_id": null
   }
   
   
