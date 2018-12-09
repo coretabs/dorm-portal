@@ -20,8 +20,8 @@ $backend.$fetchLocale = () => {
       .then(response => response.data)
 }
 
-$backend.$fetchFilters = () => {
-  return $backend.get(`/filter?language=${localStorage.getItem("lang")}&currency=${localStorage.getItem("currencyCode")}`)
+$backend.$fetchFilters = (lang,currencyCode) => {
+  return $backend.get(`/filter?language=${lang}&currency=${currencyCode}`)
       .then(response => response.data)
 }
 

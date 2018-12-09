@@ -8,8 +8,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     language: localStorage.getItem("lang") || "en",
-    currencyCode: localStorage.getItem("currencyCode") || "USD",
-    currencySymbol: localStorage.getItem("currencySymbol") || "$",
+    currencyCode: localStorage.getItem("currency-code") || "USD",
+    currencySymbol: localStorage.getItem("currency-symbol") || "$",
     drawer: null,
     reservationStep: 1,
     currencies: [],
@@ -34,13 +34,14 @@ export default new Vuex.Store({
         state.currencies = responseDate[0].currencies;
         state.languages = responseDate[1].languages;
         localStorage.setItem("lang", responseDate[1].languages[0].code);
-        localStorage.setItem("currencyCode", responseDate[0].currencies[0].code);
-        localStorage.setItem("currencySymbol", responseDate[0].currencies[0].symbol);
+        localStorage.setItem("currency-code", responseDate[0].currencies[0].code);
+        localStorage.setItem("currency-symbol", responseDate[0].currencies[0].symbol);
       });
     },
     fetchFilters(state){
-      $backend.$fetchFilters().then(responseDate => {
+      $backend.$fetchFilters(state.language, state.currencyCode).then(responseDate => {
         state.filters = responseDate;
+        console.log(responseDate)
       });
     },
     fetchDorms(state) {
