@@ -15,12 +15,8 @@ export default {
     changeCurrency(code,symbol){
       this.$store.state.currencyCode = code;
       this.$store.state.currencySymbol = symbol;
-      localStorage.setItem("currency", 
-        JSON.stringify({ 
-          code : code,
-          symbol: symbol
-        })  
-      );
+      localStorage.setItem("currencyCode", code);
+      localStorage.setItem("currencySymbol", symbol);
       this.$store.dispatch('fetchFilters');
     },
     toggleDrawer(){

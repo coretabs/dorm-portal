@@ -2,7 +2,7 @@ import DormCard from "../DormCard/DormCard.vue";
 import DormSearch from "../DormSearch/DormSearch.vue";
 export default {
   name: "DormFilter",
-  components: {
+    components: {
     "dorm-card": DormCard,
     "dorm-search": DormSearch
   },
