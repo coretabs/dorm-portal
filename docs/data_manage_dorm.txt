@@ -13,14 +13,14 @@ abouts
     lang_code
     about
 
-banks
+bank_accounts
     id
     bank_name
     account_name
     account_number
     swift
     iban
-    currency_name
+    currency_code
 
 features
     id
@@ -78,6 +78,13 @@ contact_email
 contact_number
 contact_fax
 ```
+
+DELETE /manager/dorms/{id}/photos/{id} accepts
+```
+```
+
+
+
 
 GET /manager/filters returns
 ```
@@ -231,7 +238,6 @@ reservations
 
     student_name
     email
-    passport_number
     
     reciepts
         reciept_url

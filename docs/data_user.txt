@@ -1,16 +1,8 @@
 POST /user/register accepts
 ```
-first_name
-last_name
-passport_number
+name
 email
 password
-```
-
-PUT /user accepts
-```
-name
-passport_number
 ```
 
 POST /user/resend-confirmation/ accepts
@@ -36,10 +28,17 @@ password
 
 POST /user/login returns 200 OK
 ```
-current_step (confirm_email, confirm_payment, awaiting)
+current_step (email_confirmed=2, payment_uploaded=3)
+reservation_id (null = doesnt have a reservation yet)
+is_manager
 ```
 
-POST /user/login returns 400  Bad request
+POST /user/login returns 403 Forbidden
+```
+please confirm your email
+```
+
+POST /user/login returns 400 Bad request
 ```
 you entered wrong email or password
 ```

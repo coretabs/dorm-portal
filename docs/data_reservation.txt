@@ -3,11 +3,10 @@ POST /reservations accepts
 room_id
 ```
 
-POST /rooms/{id} returns 200 OK
+POST /reservations returns 200 OK
 ```
 reservation_id
 student_name
-passport_number
 
 room_type
 reservation_duration
@@ -39,21 +38,20 @@ last_update
 follow_up_message
 ```
 
-POST /rooms/{id} returns 400 Bad request
+POST /reservations returns 400 Bad request
 ```
 quota is full, try another room
 ```
 
-POST /rooms/{id} returns 401 Unauthorized
+POST /reservations returns 401 Unauthorized
 ```
 please login before making a reservation
 ```
 
 
-GET /user/reservation/{id} returns
+GET /reservations/{id} returns
 ```
 student_name
-passport_number
 
 room_type
 reservation_duration
@@ -85,7 +83,7 @@ last_update
 follow_up_message
 ```
 
-POST /user/reservation/{id} accepts
+POST /reservation/{id} accepts
 ```
 reciepts
 ```
