@@ -1,10 +1,21 @@
 from api.engine.models import *
 
+from faker import Faker
+fake = Faker()
+
 
 def create_currency(symbol, code):
     Currency(symbol=symbol, code=code).save()
     result = Currency.objects.filter(symbol=symbol).first()
 
+    return result
+
+
+def create_bank_account(bank_name, account_number, currency, dormitory):
+    result = BankAccount(bank_name=bank_name, account_number=account_number,
+                         currency=currency, dormitory=dormitory)
+
+    result.save()
     return result
 
 
@@ -15,9 +26,18 @@ def create_category(name):
     return result
 
 
-def create_dorm(name, category):
+def create_dorm(name, category, manager=None):
     result = Dormitory(name=name)
     result.category = category
+
+    if manager:
+        result.manager = manager
+    else:
+        manager = User(first_name=fake.name(), username=fake.name())
+        manager.is_manager = True
+        manager.save()
+        result.manager = manager
+
     result.save()
 
     return result
@@ -139,6 +159,15 @@ def create_room_with_radio_integral_features(dorm, radio_choices, integral_choic
 
     for feature in features:
         result.features.add(feature)
+    result.save()
+
+    return result
+
+
+def create_manager(self, name):
+    result = User(first_name=name, username=name)
+    result.is_manager = True
+
     result.save()
 
     return result

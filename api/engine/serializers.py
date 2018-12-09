@@ -212,10 +212,10 @@ class RoomSerializer(serializers.ModelSerializer):
         return obj.get_price()
 
     def get_room_type(self, obj):
-        return obj.get_price()
+        return obj.get_room_type()
 
     def get_people_allowed_number(self, obj):
-        return obj.get_price()
+        return obj.get_people_allowed_number()
 
     def get_choices(self, obj):
         #choices = obj.radio_choices.all() | obj.integral_choices.all()
@@ -229,6 +229,41 @@ class RoomSerializer(serializers.ModelSerializer):
                   'photos',
                   'price', 'room_type', 'people_allowed_number',
                   'choices', 'features')
+
+
+class DormManagementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Dormitory
+        fields = ('id', 'name', 'cover')
+
+
+class BankAccountSerializer(serializers.ModelSerializer):
+    currency_code = serializers.SerializerMethodField()
+
+    def get_currency_code(self, obj):
+        return obj.currency.code
+
+    class Meta:
+        model = models.BankAccount
+        fields = ('id', 'bank_name', 'account_name',
+                  'account_number', 'swift', 'iban', 'currency_code')
+
+
+class DormManagementDetailsSerializer(serializers.ModelSerializer):
+    bank_accounts = BankAccountSerializer(many=True)
+    features = FeatureFilterSerializer(many=True)
+    photos = PhotoSerializer(many=True)
+    abouts = serializers.SerializerMethodField()
+
+    def get_abouts(self, obj):
+        return obj.about.data
+
+    class Meta:
+        model = models.Dormitory
+        fields = ('name', 'abouts', 'bank_accounts', 'features',
+                  'cover', 'photos',
+                  'geo_longitude', 'geo_latitude', 'address',
+                  'contact_name', 'contact_email', 'contact_number', 'contact_fax')
 
 
 class DormSerializer(serializers.ModelSerializer):

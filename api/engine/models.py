@@ -1,5 +1,6 @@
 from functools import reduce
 
+from django.contrib.auth.models import AbstractUser
 from django.db import models as django_models
 
 from i18nfield.fields import I18nCharField
@@ -210,6 +211,10 @@ class DormitoryCategory(django_models.Model):
     name = I18nCharField(max_length=60)
 
 
+class User(AbstractUser):
+    is_manager = django_models.BooleanField(default=False)
+
+
 class Dormitory(django_models.Model):
     name = django_models.CharField(max_length=60)
     about = I18nCharField(max_length=1000)
@@ -231,6 +236,9 @@ class Dormitory(django_models.Model):
     features = django_models.ManyToManyField(
         FeatureFilter, related_name='features')
 
+    manager = django_models.ForeignKey(
+        User, related_name='dormitories', on_delete=django_models.CASCADE)
+
     objects = DormitoryQuerySet.as_manager()
 
     def __str__(self):
@@ -240,11 +248,11 @@ class Dormitory(django_models.Model):
 class BankAccount(django_models.Model):
     bank_name = django_models.CharField(max_length=60)
 
-    account_name = I18nCharField(max_length=60)
-    account_num = I18nCharField(max_length=60)
+    account_name = django_models.CharField(max_length=60)
+    account_number = django_models.CharField(max_length=60)
 
-    iban = I18nCharField(max_length=60)
-    swift = I18nCharField(max_length=60)
+    iban = django_models.CharField(max_length=60)
+    swift = django_models.CharField(max_length=60)
 
     currency = django_models.ForeignKey(
         Currency, related_name='bank_accounts', on_delete=django_models.CASCADE)

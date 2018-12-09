@@ -2,8 +2,8 @@ from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
 from django.utils import translation
 
-from rest_framework import viewsets
-from rest_framework import generics
+from rest_framework.permissions import BasePermission, IsAuthenticated
+from rest_framework import viewsets, generics
 from rest_framework.response import Response
 
 from api import settings
@@ -37,8 +37,6 @@ class FiltersListViewSet(viewsets.ViewSet):
 
 
 class DormViewSet(viewsets.ViewSet):
-    serializer_class = serializers.DormSerializer
-
     def activate_language(self, request):
         language = request.data.get('language', 'en')
         if language not in settings.LANGUAGES_DICT:
@@ -67,7 +65,7 @@ class DormViewSet(viewsets.ViewSet):
 
         # print(filtered_dorms)
 
-        return Response(self.serializer_class(filtered_dorms, many=True).data)
+        return Response(serializers.DormSerializer(filtered_dorms, many=True).data)
 
     def retrieve(self, request, pk=None):
         self.activate_language(request)
@@ -75,3 +73,31 @@ class DormViewSet(viewsets.ViewSet):
         dorm = models.Dormitory.objects.filter(id=pk).superfilter().first()
 
         return Response(serializers.DormDetailsSerializer(dorm).data)
+
+
+class HisOwnDormitory(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.manager == request.user
+
+
+class DormManagementViewSet(viewsets.ViewSet):
+
+    permission_classes = (IsAuthenticated, )
+
+    def get_permissions(self):
+        if self.action == 'list':
+            self.permission_classes = (IsAuthenticated, )
+        else:
+            self.permission_classes = (IsAuthenticated, HisOwnDormitory, )
+
+        return super().get_permissions()
+
+    def list(self, request):
+        dorms = request.user.dormitories
+        return Response(serializers.DormManagementSerializer(dorms, many=True).data)
+
+    def retrieve(self, request, pk=None):
+        dorm = models.Dormitory.objects.filter(id=pk).first()
+        self.check_object_permissions(request, dorm)
+
+        return Response(serializers.DormManagementDetailsSerializer(dorm).data)
