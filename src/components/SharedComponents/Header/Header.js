@@ -27,6 +27,14 @@ export default {
       .then(() => {
         this.$router.push('/login')
       })
+    },
+    userRedirect(){
+      if(localStorage.getItem('admin')){
+        this.$router.push('/manage')
+      }
+      else{
+        this.$router.push('/reservation')
+      }
     }
   },
   computed: {
@@ -41,6 +49,9 @@ export default {
     },
     isLogin(){
       return this.$store.getters.isLoggedIn;
+    },
+    isAdmin(){
+      return this.$store.getters.isAdmin;
     }
   }
 };

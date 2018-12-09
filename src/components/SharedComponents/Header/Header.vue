@@ -36,7 +36,31 @@
       </v-menu>
       <!-- check status -->
       <v-btn v-if="!isLogin" flat dark class="status-btn" to="/login">{{lang.header.button}}</v-btn>
-      <v-btn v-if="isLogin" flat dark class="status-btn" @click="logout">Logout</v-btn>
+      <v-menu v-if="isLogin" id="language-menu"  class="status-btn"  transition="slide-y-transition" bottom offset-y>
+        <v-btn dark slot="activator" class="lang-btn" flat append-icon="expand_more">
+          <v-icon dark >person</v-icon>
+          <v-icon color="#ccc">expand_more</v-icon>
+        </v-btn>
+        <v-list>
+          <v-list-tile @click="userRedirect">
+            <v-list-tile-title >
+              <span v-if="isAdmin">
+                Dashboard
+              </span>
+              <span v-else>
+                Status
+              </span>
+            </v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile @click="logout">
+            <v-list-tile-title>
+              Logout
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+
+      <!-- <v-btn  flat dark class="status-btn" @click="logout">Logout</v-btn> -->
     </v-toolbar-items>
 
   </v-toolbar>
