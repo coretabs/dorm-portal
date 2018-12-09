@@ -1,77 +1,84 @@
-POST /user/register accepts
+POST /auth/register accepts
 ```
 name
 email
 password
 ```
 
-POST /user/resend-confirmation/ accepts
+POST /auth/resend-confirmation/ accepts
 ```
 email
 ```
 
-POST /user/resend-confirmation/ returns 200 OK
+POST /auth/resend-confirmation/ returns 200 OK
 ```
-role (manager || student)
 ```
 
-POST /user/resend-confirmation/ returns 400 Bad request
+POST /auth/resend-confirmation/ returns 400 Bad request
 ```
 user not registered
 ```
 
-POST /user/login accepts
+POST /auth/login accepts
 ```
 email
 password
 ```
 
-POST /user/login returns 200 OK
+POST /auth/login returns 200 OK
 ```
+name
+is_manager
 current_step (email_confirmed=2, payment_uploaded=3)
 reservation_id (null = doesnt have a reservation yet)
-is_manager
 ```
 
-POST /user/login returns 403 Forbidden
+POST /auth/login returns 403 Forbidden
 ```
 please confirm your email
 ```
 
-POST /user/login returns 400 Bad request
+POST /auth/login returns 400 Bad request
 ```
 you entered wrong email or password
 ```
 
-POST /user/confirm-email/{token} returns 200 OK
+POST /auth/confirm-email returns 200 OK
 ```
+token
 ```
 
-POST /user/confirm-email/{token} returns 400 Bad request
+POST /auth/confirm-email returns 400 Bad request
 ```
 token expired, try sending another email
 ```
 
 
-POST /user/reset-password accepts
+POST /auth/reset-password accepts
 ```
 email
 ```
 
-POST /user/reset-password returns 200 OK
+POST /auth/reset-password returns 200 OK
 ```
 ```
 
-POST /user/reset-password returns 400 Bad request
+POST /auth/reset-password returns 400 Bad request
 ```
 you entered a wrong email address
 ```
 
-GET /user/reset-password/{token} returns 200 OK
+POST /auth/reset-password accepts
+```
+new_password
+token
+```
+
+POST /auth/reset-password returns 200 OK
 ```
 ```
 
-GET /user/reset-password/{token} returns 400 Bad request
+POST /auth/reset-password returns 400 Bad request
 ```
 token expired
 ```
