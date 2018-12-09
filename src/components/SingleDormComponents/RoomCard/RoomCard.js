@@ -49,7 +49,10 @@ export default {
     };
   },
   methods: {
-    
+    reserveRoom(roomID){
+      localStorage.setItem("room_id", roomID);
+      this.$router.push('/reservation');
+    }
   },
   computed: {
     lang() {

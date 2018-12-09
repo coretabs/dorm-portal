@@ -42,7 +42,11 @@ export default {
     },
     saveRoom(room,id){
       localStorage.setItem("room", JSON.stringify({room}));
-      this.$router.push('/dorms/'+id)
+      this.$router.push('/dorms/'+id);
+    },
+    reserveRoom(roomID){
+      localStorage.setItem("room_id", roomID);
+      this.$router.push('/reservation');
     }
   },
   computed: {

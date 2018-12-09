@@ -83,7 +83,7 @@
             </v-flex>
 
             <v-flex xs12>
-              <v-btn color="success" to="/reservation" class="reserve-btn elevation-0" large>Reserve Now</v-btn>
+              <v-btn color="success" @click="reserveRoom(savedRoom.room.id)" class="reserve-btn elevation-0" large>Reserve Now</v-btn>
             </v-flex>
           </v-layout>
         </v-flex>

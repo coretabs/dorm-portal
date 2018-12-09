@@ -161,7 +161,7 @@
                       </v-flex>
 
                       <v-flex xs12>
-                        <v-btn color="success" to="/reservation" class="reserve-btn elevation-0" large>Reserve Now</v-btn>
+                        <v-btn color="success" @click="reserveRoom(room.id)" class="reserve-btn elevation-0" large>Reserve Now</v-btn>
                       </v-flex>
                       <v-flex xs12>
                         <a href="#" @click.prevent="saveRoom(room,dorm.id)" class="grey--text text--darken-2" >Do you want to read more about the dorm?</a>
