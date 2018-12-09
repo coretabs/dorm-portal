@@ -5,10 +5,11 @@ import Login from './components/ReservationComponents/Login/Login.vue'
 import Reservation from './components/ReservationComponents/ReservationProcess/ReservationProcess.vue'
 import DormProfile from './components/SingleDormComponents/DormProfile/DormProfile.vue'
 import DormManager from './components/ManagerComponents/DormManager/DormManager.vue'
+import store from './store'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
@@ -16,7 +17,8 @@ export default new Router({
     },
     {
       path: '/login',
-      component: Login
+      component: Login,
+      beforeEnter: (to, from, next) => { (store.getters.isLoggedIn) ? next('/') : next() }
     },
     {
       path: '/reservation',
@@ -28,7 +30,8 @@ export default new Router({
     },
     {
       path: '/manage',
-      component: DormManager
+      component: DormManager,
+      beforeEnter: (to, from, next) => { (store.getters.isAdmin) ? next() : next('/login') }
     },
   ],
   mode: 'history',
@@ -36,3 +39,5 @@ export default new Router({
     return { x: 0, y: 0 }
   }
 })
+
+export default router

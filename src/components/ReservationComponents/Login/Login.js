@@ -13,7 +13,17 @@ export default {
   },
   methods: {
     submit(){
-      this.$store.dispatch("login")
+      this.$store.dispatch("login").then(response => {
+        if(response.is_manager == true){
+          this.$router.push('/manage')
+        }
+        else{
+          this.$router.push('/reservation')
+        }
+      })
+      .catch(function (error) {
+        
+      });
     }
   }
 };

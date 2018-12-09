@@ -20,8 +20,8 @@ export default {
       return this.$store.getters.lang;
     },
     reservationStep(){
-      this.progress = this.$store.state.reservationStep;
-      return this.$store.state.reservationStep;
+      this.progress =  localStorage.getItem('current_step') || 1;
+      return this.progress;
       
     }
   }

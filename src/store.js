@@ -7,16 +7,17 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    language: localStorage.getItem("lang") || "en",
-    currencyCode: localStorage.getItem("currency-code") || "USD",
-    currencySymbol: localStorage.getItem("currency-symbol") || "$",
+    language: localStorage.getItem('lang') || "en",
+    currencyCode: localStorage.getItem('currency-code') || "USD",
+    currencySymbol: localStorage.getItem('currency-symbol') || "$",
     drawer: null,
-    reservationStep: 1,
     currencies: [],
     languages: [],
     filters: [],
     dorms:[],
-    user:{}
+    authStatus: '',
+    isAuth: localStorage.getItem('auth'),
+    isAdmin: localStorage.getItem('admin')
   },
   getters:{
     lang: state => {
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     activeCurrency: state => {
       return state.currencySymbol;
     },
+    isLoggedIn: state => !!state.isAuth,
+    isAdmin: state => !!state.isAdmin,
+    authStatus: state => state.authStatus
   },
   mutations: {
     fetchLocale(state){
@@ -41,7 +45,6 @@ export default new Vuex.Store({
     fetchFilters(state){
       $backend.$fetchFilters(state.language, state.currencyCode).then(responseDate => {
         state.filters = responseDate;
-        console.log(responseDate)
       });
     },
     fetchDorms(state) {
@@ -49,14 +52,19 @@ export default new Vuex.Store({
         state.dorms = responseDate;
       });
     },
-    login(state){
-      $backend.$login().then(responseDate => {
-        if(responseDate.status == 200){
-          //localStorage.setItem("user", JSON.stringify({responseDate}));
-        }
-      });
-    }
-    
+    auth_success(state, user){
+      state.authStatus = 'Success'
+      state.isAuth = localStorage.getItem('auth')
+      state.isAdmin = localStorage.getItem('admin')
+      localStorage.setItem("current_step", user.current_step);
+    },
+    auth_error(state){
+      state.authStatus = 'An error occur'
+    },
+    logout(state){
+      state.isAuth = null
+      state.isAdmin = null
+    },
   },
   actions: {
     fetchLocale(context){
@@ -68,8 +76,39 @@ export default new Vuex.Store({
     fetchDorms(context) {
       context.commit('fetchDorms');
     },
-    login(context) {
-      context.commit('login');
+    login({commit}){
+
+      return new Promise((resolve, reject) => {
+
+        $backend.$login().then(responseDate => {
+
+          if(responseDate.is_manager){
+            localStorage.setItem('admin', true)
+          }
+          localStorage.setItem('auth', true)
+          commit('auth_success', responseDate)
+          resolve(responseDate)
+
+        })
+        .catch(err => {
+          localStorage.removeItem('admin')
+          localStorage.removeItem('auth')
+          commit('auth_error')
+          reject(err)
+        })
+
+
+      });
+
+    },
+    logout({commit}){
+      return new Promise((resolve, reject) => {
+        commit('logout')
+        localStorage.removeItem('auth')
+        localStorage.removeItem('admin')
+        localStorage.removeItem('current_step')
+        resolve()
+      });
     }
   }
 });

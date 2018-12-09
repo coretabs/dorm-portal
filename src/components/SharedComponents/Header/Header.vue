@@ -35,7 +35,8 @@
         </v-list>
       </v-menu>
       <!-- check status -->
-      <v-btn flat dark class="status-btn" to="/login">{{lang.header.button}}</v-btn>
+      <v-btn v-if="!isLogin" flat dark class="status-btn" to="/login">{{lang.header.button}}</v-btn>
+      <v-btn v-if="isLogin" flat dark class="status-btn" @click="logout">Logout</v-btn>
     </v-toolbar-items>
 
   </v-toolbar>

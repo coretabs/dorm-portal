@@ -21,6 +21,12 @@ export default {
     },
     toggleDrawer(){
       this.$store.state.drawer = !this.$store.state.drawer
+    },
+    logout(){
+      this.$store.dispatch('logout')
+      .then(() => {
+        this.$router.push('/login')
+      })
     }
   },
   computed: {
@@ -32,6 +38,9 @@ export default {
     },
     currencies(){
       return this.$store.state.currencies;
+    },
+    isLogin(){
+      return this.$store.getters.isLoggedIn;
     }
   }
 };
