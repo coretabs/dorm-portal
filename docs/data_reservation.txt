@@ -6,6 +6,8 @@ room_id
 POST /reservations returns 200 OK
 ```
 reservation_id
+room_id
+
 student_name
 
 room_type
@@ -14,8 +16,6 @@ people_allowed_number
 
 price
 currency
-
-room
 
 banks
     bank_name
@@ -51,6 +51,8 @@ please login before making a reservation
 
 GET /reservations/{id} returns
 ```
+room_id
+
 student_name
 
 room_type
@@ -59,8 +61,6 @@ people_allowed_number
 
 price
 currency
-
-room
 
 banks
     bank_name
@@ -83,7 +83,7 @@ last_update
 follow_up_message
 ```
 
-POST /reservation/{id} accepts
+POST /reservations/{id} accepts
 ```
 reciepts
 ```
