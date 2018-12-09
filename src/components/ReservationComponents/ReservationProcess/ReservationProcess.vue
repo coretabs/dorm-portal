@@ -23,8 +23,16 @@
             </v-stepper-content>
 
             <v-stepper-content step="2">
-              <confirm-payment></confirm-payment>
-
+              <div v-if="isRoomSaved" >
+                <div class="noroom-alert mt-4">
+                  <v-icon left>fa-info-circle</v-icon>
+                  <span>Ops! it seems that you haven't choosen any room yet.</span>
+                </div>
+                <v-layout justify-center class="my-4">
+                  <v-btn large dark color="#1c3a70" to="/">Find your Room Now</v-btn>
+                </v-layout>
+              </div>
+              <confirm-payment v-else></confirm-payment>
             </v-stepper-content>
 
             <v-stepper-content step="3">

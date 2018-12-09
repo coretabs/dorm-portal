@@ -15,4 +15,17 @@
       background-color: #42b46d  !important;
     }
   }
+  .noroom-alert{
+      background-color: #fefccf;
+      padding: 8px 15px;
+      border-left: 5px solid #f2c559;
+      span{
+        font-size: 16px;
+      }
+      .v-icon {
+        color: #f5ad51;
+        font-size: 22px;
+        margin-right: 10px;
+      }
+  }
 }

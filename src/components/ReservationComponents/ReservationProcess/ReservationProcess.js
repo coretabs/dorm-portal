@@ -22,7 +22,12 @@ export default {
     reservationStep(){
       this.progress =  localStorage.getItem('current_step') || 1;
       return this.progress;
-      
+    },
+    isRoomSaved(){
+      return (localStorage.getItem('room_id') == null);
     }
+  },
+  methods:{
+    
   }
 };
