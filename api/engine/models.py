@@ -206,6 +206,9 @@ class Currency(django_models.Model):
     symbol = django_models.CharField(max_length=1)
     code = django_models.CharField(max_length=9)
 
+    def __str__(self):
+        return f'{self.code} Currency with Symbol {self.symbol}'
+
 
 class DormitoryCategory(django_models.Model):
     name = I18nCharField(max_length=60)
@@ -241,6 +244,9 @@ class Dormitory(django_models.Model):
 
     objects = DormitoryQuerySet.as_manager()
 
+    def is_owner(self, manager):
+        return self.manager == manager
+
     def __str__(self):
         return f'{self.name}'
 
@@ -260,13 +266,22 @@ class BankAccount(django_models.Model):
     dormitory = django_models.ForeignKey(
         Dormitory, related_name='bank_accounts', on_delete=django_models.CASCADE)
 
+    def is_owner(self, manager):
+        return self.dormitory.manager == manager
+
+    def __str__(self):
+        return f'BankAccount id {self.id} name {self.bank_name} in {self.dormitory.name}'
+
 
 class DormitoryPhoto(django_models.Model):
-    photo_path = django_models.ImageField()
+    photo = django_models.ImageField(upload_to='')
     is_3d = django_models.BooleanField(default=False)
 
     dormitory = django_models.ForeignKey(
         Dormitory, related_name='photos', on_delete=django_models.CASCADE)
+
+    def is_owner(self, manager):
+        return self.dormitory.manager == manager
 
 
 class RoomCharacteristics(django_models.Model):
@@ -308,7 +323,7 @@ class RoomCharacteristics(django_models.Model):
 
 
 class RoomPhoto(django_models.Model):
-    photo_path = django_models.ImageField()
+    photo = django_models.ImageField()
     is_3d = django_models.BooleanField(default=False)
 
     room_characteristics = django_models.ForeignKey(

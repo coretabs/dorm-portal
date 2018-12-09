@@ -14,14 +14,14 @@ abouts
     about
 
 bank_accounts
-    id
-    bank_name
-    account_name
-    account_number
-    swift
-    iban
-    currency_code
-
+	id
+	bank_name
+	account_name
+	account_number
+	swift
+	iban
+	currency_code
+	
 features
     id
     name
@@ -49,25 +49,16 @@ abouts
     lang_code
     about
 
-banks
-    id
-    bank_name
-    account_name
-    account_number
-    swift
-    iban
-    currency_name
-
 features
     id
 
 cover
 
-photos
-    photo
-
-    is_3d
-    url
+//photos
+//    photo
+//
+//    is_3d
+//    url
 
 geo_longitude
 geo_latitude
@@ -79,7 +70,43 @@ contact_number
 contact_fax
 ```
 
+// Consider the need for this before adding it
+DELETE /manager/dorms/{id}/features/{id} accepts
+```
+```
+
+POST /manager/dorms/{id}/photos accepts
+```
+uploaded_photo
+is_3d
+url
+```
+
 DELETE /manager/dorms/{id}/photos/{id} accepts
+```
+```
+
+PUT /manager/dorms/{id}/bank-accounts/{id} accepts
+```
+bank_name
+account_name
+account_number
+swift
+iban
+currency_code
+```
+
+POST /manager/dorms/{id}/bank-accounts accepts
+```
+bank_name
+account_name
+account_number
+swift
+iban
+currency_code
+```
+
+DELETE /manager/dorms/{id}/bank-accounts/{id} accepts
 ```
 ```
 

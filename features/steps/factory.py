@@ -5,8 +5,11 @@ fake = Faker()
 
 
 def create_currency(symbol, code):
-    Currency(symbol=symbol, code=code).save()
-    result = Currency.objects.filter(symbol=symbol).first()
+    result = Currency.objects.filter(code=code).first()
+
+    if not result:
+        Currency(symbol=symbol, code=code).save()
+        result = Currency.objects.filter(symbol=symbol).first()
 
     return result
 

@@ -77,7 +77,23 @@ class DormViewSet(viewsets.ViewSet):
 
 class HisOwnDormitory(BasePermission):
     def has_object_permission(self, request, view, obj):
-        return obj.manager == request.user
+        return obj.is_owner(request.user)
+
+
+class BankAccountManagementViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated, HisOwnDormitory)
+    serializer_class = serializers.ClientBankAccountSerializer
+
+    def get_queryset(self):
+        return models.BankAccount.objects.filter(dormitory=self.kwargs['dorm_pk'])
+
+
+class PhotoDormManagementViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated, HisOwnDormitory)
+    serializer_class = serializers.ClientPhotoDormSerializer
+
+    def get_queryset(self):
+        return models.DormitoryPhoto.objects.filter(dormitory=self.kwargs['dorm_pk'])
 
 
 class DormManagementViewSet(viewsets.ViewSet):

@@ -189,11 +189,40 @@ class ChoiceSerializer(PolymorphicSerializer):
 
 
 class PhotoSerializer(serializers.Serializer):
-    url = serializers.ImageField()
-    url = serializers.BooleanField(default=False)
+    url = serializers.SerializerMethodField()
+    is_3d = serializers.BooleanField(default=False)
+
+    def get_url(self, obj):
+        return generate_url(obj)
 
     class Meta:
         fields = ('url', 'is_3d')
+
+
+class ClientPhotoDormSerializer(serializers.Serializer):
+    uploaded_photo = serializers.ImageField(required=False)
+    url = serializers.CharField(required=False)
+    is_3d = serializers.BooleanField(default=False)
+
+    def create(self, validated_data):
+        dormitory = models.Dormitory.objects.get(pk=self.context.get('view').kwargs.get('dorm_pk'))
+        uploaded_photo = validated_data.get('uploaded_photo', None)
+        url = validated_data.get('url', None)
+
+        if url:
+            if not validated_data['is_3d']:
+                raise serializers.ValidationError('url only for is_3d')
+            instance = models.DormitoryPhoto(photo=url, is_3d=True, dormitory=dormitory)
+
+        else:
+            instance = models.DormitoryPhoto(photo=uploaded_photo, dormitory=dormitory)
+
+        instance.save()
+
+        return instance
+
+    class Meta:
+        fields = ('uploaded_photo', 'url', 'is_3d')
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -229,6 +258,60 @@ class RoomSerializer(serializers.ModelSerializer):
                   'photos',
                   'price', 'room_type', 'people_allowed_number',
                   'choices', 'features')
+
+
+class ClientBankAccountSerializer(serializers.Serializer):
+    bank_name = serializers.CharField(required=False)
+    account_name = serializers.CharField(required=False)
+    account_number = serializers.CharField(required=False)
+    swift = serializers.CharField(required=False)
+    iban = serializers.CharField(required=False)
+    currency_code = serializers.CharField(required=False)
+
+    def create(self, validated_data):
+        dormitory = models.Dormitory.objects.get(pk=self.context.get('view').kwargs.get('dorm_pk'))
+        currency = models.Currency.objects.get(code=validated_data['currency_code'])
+
+        validated_data.pop('currency_code', None)
+        validated_data['dormitory'] = dormitory
+        validated_data['currency'] = currency
+
+        instance = models.BankAccount(**validated_data)
+        instance.save()
+
+        return instance
+
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
+
+    class Meta:
+        fields = ('bank_name', 'account_name',
+                  'account_number', 'swift', 'iban', 'currency_code')
+
+
+class ClientDormManagementSerializer(serializers.Serializer):
+    name = serializers.CharField(required=False)
+    abouts = I18nField(required=False)
+    features = ClientFeaturesSerializer(many=True, required=False)
+    cover = serializers.ImageField(required=False)
+    geo_longitude = serializers.CharField(required=False)
+    geo_latitude = serializers.CharField(required=False)
+    address = serializers.CharField(required=False)
+    contact_name = serializers.CharField(required=False)
+    contact_email = serializers.CharField(required=False)
+    contact_number = serializers.CharField(required=False)
+    contact_fax = serializers.CharField(required=False)
+
+    class Meta:
+        model = models.Dormitory
+        fields = ('name', 'abouts', 'features',
+                  'cover', 'photos',
+                  'geo_longitude', 'geo_latitude', 'address',
+                  'contact_name', 'contact_email', 'contact_number', 'contact_fax')
 
 
 class DormManagementSerializer(serializers.ModelSerializer):
