@@ -9,8 +9,7 @@
       "password": "Password",
       "email": "Email",
       "button": "Check",
-      "button2": "Login",
-      "newAccount": "Don't Have an Account?"
+      "button2": "Login"
     },
     "dormSearch": {
       "heading": "Find Dormitories in EMU",
@@ -34,7 +33,8 @@
       "firstName": "First Name",
       "passport": "Passport Number",
       "lastName": "Last Name",
-      "button": "Signup"
+      "button": "Signup",
+      "haveAccount": "Do You Have an Account?"
     },
     "confirmPayment":{
       "instruction": "Please make a transiction to one of our bank accounts, then upload the receipt below.",

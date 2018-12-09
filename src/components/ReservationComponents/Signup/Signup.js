@@ -2,16 +2,15 @@ export default {
   name: 'Signup',
   data: function(){
     return{
-      show: false,
-      showSignup: false
+      show: false
     }
   },
   methods:{
     submit(){
       this.$store.state.reservationStep++;
     },
-    login(){
-      this.$store.dispatch('login');
+    redirectToLogin(){
+      this.$router.push('login')
     }
   },
   computed: {

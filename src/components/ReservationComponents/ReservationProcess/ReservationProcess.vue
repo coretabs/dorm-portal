@@ -5,7 +5,7 @@
       <v-flex xs12 sm8 md8>
         <v-stepper v-model="reservationStep">
           <v-stepper-header class="elevation-3">
-            <v-stepper-step :complete="progress > 1" step="1" color="#1c3a70">Login</v-stepper-step>
+            <v-stepper-step :complete="progress > 1" step="1" color="#1c3a70">Register</v-stepper-step>
 
             <v-divider></v-divider>
 
