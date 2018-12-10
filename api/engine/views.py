@@ -113,7 +113,17 @@ class DormManagementViewSet(viewsets.ViewSet):
         return Response(serializers.DormManagementSerializer(dorms, many=True).data)
 
     def retrieve(self, request, pk=None):
-        dorm = models.Dormitory.objects.filter(id=pk).first()
+        dorm = models.Dormitory.objects.get(pk=pk)
         self.check_object_permissions(request, dorm)
 
         return Response(serializers.DormManagementDetailsSerializer(dorm).data)
+
+    def update(self, request, pk=None):
+        dorm = models.Dormitory.objects.get(pk=pk)
+        self.check_object_permissions(request, dorm)
+
+        serializer = serializers.ClientDormManagementSerializer(
+            dorm, data=request.data, partial=True)
+        serializer.is_valid()
+        serializer.save()
+        return Response(serializer.data)

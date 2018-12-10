@@ -1,7 +1,28 @@
+import os
+
+from django.core.files import File
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.conf import settings
+
+
 from api.engine.models import *
 
 from faker import Faker
 fake = Faker()
+
+
+def create_uploaded_file(self, file_name):
+    self.expected_file_path = os.path.join(settings.MEDIA_ROOT, 'alfam-photo.jpeg')
+    if os.path.exists(self.expected_file_path):
+        os.remove(self.expected_file_path)
+
+    photo_file = File(open(os.path.join(os.path.dirname(
+        os.path.realpath(__file__)), 'alfam-photo.jpeg'), 'rb'))
+
+    result = SimpleUploadedFile('alfam-photo.jpeg', photo_file.read(),
+                                content_type='multipart/form-data')
+
+    return result
 
 
 def create_currency(symbol, code):

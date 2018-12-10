@@ -298,7 +298,7 @@ class ClientBankAccountSerializer(serializers.Serializer):
 
 class ClientDormManagementSerializer(serializers.Serializer):
     name = serializers.CharField(required=False)
-    abouts = I18nField(required=False)
+    abouts = serializers.ListField(child=I18nField(), required=False)
     features = ClientFeaturesSerializer(many=True, required=False)
     cover = serializers.ImageField(required=False)
     geo_longitude = serializers.CharField(required=False)
@@ -308,6 +308,27 @@ class ClientDormManagementSerializer(serializers.Serializer):
     contact_email = serializers.CharField(required=False)
     contact_number = serializers.CharField(required=False)
     contact_fax = serializers.CharField(required=False)
+
+    def update(self, instance, validated_data):
+
+        cover = validated_data.get('cover', None)
+        if cover:
+            pass
+            validated_data.pop('cover', None)
+
+        features = validated_data.get('features', None)
+        if features:
+            instance.features.clear()
+            for serialized_feature in features:
+                feature = models.FeatureFilter.objects.get(pk=serialized_feature['id'])
+                instance.features.add(feature)
+            validated_data.pop('features', None)
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
 
     class Meta:
         model = models.Dormitory

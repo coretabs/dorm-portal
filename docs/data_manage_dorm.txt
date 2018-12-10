@@ -54,12 +54,6 @@ features
 
 cover
 
-//photos
-//    photo
-//
-//    is_3d
-//    url
-
 geo_longitude
 geo_latitude
 address

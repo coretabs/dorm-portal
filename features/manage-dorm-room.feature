@@ -65,4 +65,7 @@ Feature: Managing dormitory and room data
         When hitting PUT /manager/dorms/{alfam-id}
         Then get 200 OK for updating alfam
 
+        When hitting PUT /manager/dorms/{alfam-id}/cover with new image
+        Then get 201 CREATED for adding alfam cover
+
         

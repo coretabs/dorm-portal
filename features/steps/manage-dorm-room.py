@@ -1,8 +1,6 @@
 import os
 
 from django.urls import reverse
-from django.core.files import File
-from django.core.files.uploadedfile import SimpleUploadedFile
 
 from rest_framework.test import APIRequestFactory, force_authenticate, APIClient
 from rest_framework import status
@@ -234,22 +232,13 @@ def test_model_can_create_a_message(self):
 
 @when('hitting POST /manager/dorms/{alfam-id}/photos for non-3d-image')
 def filtering(self):
-    self.expected_file_path = os.path.join(settings.MEDIA_ROOT, 'alfam-photo.jpeg')
-    if os.path.exists(self.expected_file_path):
-        os.remove(self.expected_file_path)
-
-    photo_file = File(open(os.path.join(os.path.dirname(
-        os.path.realpath(__file__)), 'alfam-photo.jpeg'), 'rb'))
-
-    uploaded_file = SimpleUploadedFile('alfam-photo.jpeg', photo_file.read(),
-                                       content_type='multipart/form-data')
+    uploaded_file = create_uploaded_file(self, 'alfam-photo.jpeg')
     photo_json = {'uploaded_photo': uploaded_file}
 
     client = APIClient()
     client.force_authenticate(self.john)
 
-    url = reverse('engine.dorms:photos-list',
-                  kwargs={'dorm_pk': self.alfam.id})
+    url = reverse('engine.dorms:photos-list', kwargs={'dorm_pk': self.alfam.id})
     self.response = client.post(url, photo_json, format='multipart')
 
 
@@ -314,26 +303,58 @@ def test_model_can_create_a_message(self):
 
 @when('deserializing data for updating alfam dorm')
 def filtering(self):
-    about_en = {'lang_code': 'en', 'about': 'Luxury Alfam'}
-    about_ar = {'lang_code': 'ar', 'about': 'الفام الفخيم'}
-    about_tr = {'lang_code': 'tr', 'about': 'Super Alfam'}
+    about_en = {'en': 'Luxury Alfam'}
+    about_ar = {'ar': 'الفام الفخيم'}
+    about_tr = {'tr': 'Super Alfam'}
 
     feature_swimming_pool = {'id': self.swimming_pool.id, }
     feature_free_wifi = {'id': self.free_wifi.id, }
 
-    # photo1 =
+    self.updating_alfam_json = {'name': 'Alfama',
+                                'abouts': [about_en, about_ar, about_tr],
+                                'features': [feature_free_wifi, feature_swimming_pool],
+                                # 'cover': 'https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+                                'geo_longitude': '35.15010', 'geo_latitude': '33.90111',
+                                'address': 'Next to Computer Department',
+                                'contact_name': 'Yaser', 'contact_email': 'yaser@gmail.com',
+                                'contact_number': '+908501531', 'contact_fax': '+801561561'}
 
-    self.updating_json_data = {'name': 'Alfama',
-                               'about': [about_en, about_ar, about_tr],
-                               'features': [feature_free_wifi, feature_swimming_pool],
-                               'cover': 'https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-                               # 'photos': [photo1, photo2],
-                               'geo_longitude': '35.15010', 'geo_latitude': '33.90111', 'address': 'Next to Computer Department',
-                               'contact_name': 'Yaser', 'contact_email': 'yaser@gmail.com', 'contact_number': '+908501531', 'contact_fax': '+801561561'}
-
-    self.deserialized_data = ClientAcceptedFiltersSerializer(data=self.updating_json_data)
+    self.deserialized_data = ClientDormManagementSerializer(data=self.updating_alfam_json)
 
 
 @then('validate the deserialized data for updating alfam')
 def test_model_can_create_a_message(self):
     assert self.deserialized_data.is_valid() == True
+
+
+@when('hitting PUT /manager/dorms/{alfam-id}')
+def filtering(self):
+    request = APIRequestFactory().put('', self.updating_alfam_json, format='json')
+    force_authenticate(request, self.john)
+    view = DormManagementViewSet.as_view(actions={'put': 'update'})
+    self.response = view(request, pk=self.alfam.id)
+
+
+@then('get 200 OK for updating alfam')
+def test_model_can_create_a_message(self):
+    # print(self.response.data)
+    assert self.response.status_code == status.HTTP_200_OK
+
+
+@when('hitting PUT /manager/dorms/{alfam-id}/cover with new image')
+def filtering(self):
+    uploaded_file = create_uploaded_file(self, 'alfam-photo.jpeg')
+    cover_json = {'cover': uploaded_file}
+
+    client = APIClient()
+    client.force_authenticate(self.john)
+
+    url = reverse('engine:dorms-cover', kwargs={'pk': self.alfam.id})
+    self.response = client.put(url, self.cover_json, format='multipart')
+
+
+@then('get 201 CREATED for adding alfam cover')
+def test_model_can_create_a_message(self):
+    assert self.response.status_code == status.HTTP_201_CREATED
+    assert Dormitory.objects.filter(name='Alfam').first().cover != None
+    assert os.path.exists(self.expected_file_path) == True
