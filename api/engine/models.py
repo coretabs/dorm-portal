@@ -1,13 +1,18 @@
 from functools import reduce
 
 from django.contrib.auth.models import AbstractUser
+
 from django.db import models as django_models
+from django.db.models.signals import post_delete
+
 
 from i18nfield.fields import I18nCharField
 
 from polymorphic.models import PolymorphicModel
 from polymorphic.managers import PolymorphicManager
 from polymorphic.query import PolymorphicQuerySet
+
+from .utils import file_cleanup
 
 
 class DormitoryQuerySet(django_models.QuerySet):
@@ -282,6 +287,9 @@ class DormitoryPhoto(django_models.Model):
 
     def is_owner(self, manager):
         return self.dormitory.manager == manager
+
+
+post_delete.connect(file_cleanup, sender=DormitoryPhoto, dispatch_uid="gallery.image.file_cleanup")
 
 
 class RoomCharacteristics(django_models.Model):

@@ -171,7 +171,7 @@ def filtering(self):
     self.response = view(request, dorm_pk=self.alfam.id, pk=self.isbank_alfam_account.id)
 
 
-@then('get 200 OK and for updating alfam isbank data')
+@then('get 200 OK for updating alfam isbank data')
 def test_model_can_create_a_message(self):
     assert self.response.status_code == status.HTTP_200_OK
     assert BankAccount.objects.filter(bank_name='isbank').first().iban == 'TR123456'
@@ -187,7 +187,7 @@ def filtering(self):
     self.response = view(request, dorm_pk=self.alfam.id, pk=self.isbank_alfam_account.id)
 
 
-@then('get 200 OK and for partially updating alfam isbank data')
+@then('get 200 OK for partially updating alfam isbank data')
 def test_model_can_create_a_message(self):
     assert self.response.status_code == status.HTTP_200_OK
     isbank_instance = BankAccount.objects.filter(bank_name='isbank').first()
@@ -209,14 +209,14 @@ def filtering(self):
     self.response = view(request, dorm_pk=self.alfam.id)
 
 
-@then('get 201 CREATED and for adding alfam ziraat data')
+@then('get 201 CREATED for adding alfam ziraat data')
 def test_model_can_create_a_message(self):
     # print(self.response.status_code)
     assert self.response.status_code == status.HTTP_201_CREATED
     assert BankAccount.objects.filter(bank_name='ziraat').first().iban == 'TR000000'
 
 
-@when('hitting POST DELETE /manager/dorms/{alfam-id}/bank-accounts/{ziraat-id}')
+@when('hitting DELETE /manager/dorms/{alfam-id}/bank-accounts/{ziraat-id}')
 def filtering(self):
     ziraat = BankAccount.objects.filter(bank_name='ziraat').first()
 
@@ -226,13 +226,13 @@ def filtering(self):
     self.response = view(request, dorm_pk=self.alfam.id, pk=ziraat.id)
 
 
-@then('get 204 NO CONTENT and for deleting alfam ziraat bank')
+@then('get 204 NO CONTENT for deleting alfam ziraat bank')
 def test_model_can_create_a_message(self):
     assert self.response.status_code == status.HTTP_204_NO_CONTENT
     assert BankAccount.objects.filter(bank_name='ziraat').first() == None
 
 
-@when('hitting POST /manager/dorms/{alfam-id}/photos')
+@when('hitting POST /manager/dorms/{alfam-id}/photos for non-3d-image')
 def filtering(self):
     self.expected_file_path = os.path.join(settings.MEDIA_ROOT, 'alfam-photo.jpeg')
     if os.path.exists(self.expected_file_path):
@@ -248,21 +248,68 @@ def filtering(self):
     client = APIClient()
     client.force_authenticate(self.john)
 
-    url = reverse('photos-list',
+    url = reverse('engine.dorms:photos-list',
                   kwargs={'dorm_pk': self.alfam.id})
     self.response = client.post(url, photo_json, format='multipart')
-    # view = PhotoDormManagementViewSet.as_view(actions={'post': 'create'})
-
-    # = view(request, dorm_pk=self.alfam.id)
 
 
-@then('get 201 CREATED and for adding alfam photo')
+@then('get 201 CREATED for adding alfam photo')
 def test_model_can_create_a_message(self):
     assert self.response.status_code == status.HTTP_201_CREATED
     assert Dormitory.objects.filter(name='Alfam').first().photos.count() == 1
 
     assert os.path.exists(self.expected_file_path) == True
-    os.remove(self.expected_file_path)
+    # os.remove(self.expected_file_path)
+
+
+@when('hitting DELETE /manager/dorms/{alfam-id}/photos/{alfam-photo-id}')
+def filtering(self):
+    alfam_photo = Dormitory.objects.filter(name='Alfam').first().photos.first()
+
+    request = APIRequestFactory().delete('')
+    force_authenticate(request, self.john)
+    view = PhotoDormManagementViewSet.as_view(actions={'delete': 'destroy'})
+    self.response = view(request, dorm_pk=self.alfam.id, pk=alfam_photo.id)
+
+
+@then('delete that photo from alfam')
+def test_model_can_create_a_message(self):
+    assert self.response.status_code == status.HTTP_204_NO_CONTENT
+    assert Dormitory.objects.filter(name='Alfam').first().photos.count() == 0
+    assert os.path.exists(self.expected_file_path) == False
+
+
+@when('hitting POST /manager/dorms/{alfam-id}/photos for 3d-image')
+def filtering(self):
+    photo_json = {'url': 'https://momento360.com/e/u/a9b53aa8f8b0403ba7a4e18243aabc66', 'is_3d': True}
+
+    client = APIClient()
+    client.force_authenticate(self.john)
+
+    url = reverse('engine.dorms:photos-list',
+                  kwargs={'dorm_pk': self.alfam.id})
+    self.response = client.post(url, photo_json, format='multipart')
+
+
+@then('get 201 CREATED for adding 3d alfam photo')
+def test_model_can_create_a_message(self):
+    assert self.response.status_code == status.HTTP_201_CREATED
+    assert Dormitory.objects.filter(name='Alfam').first().photos.count() == 1
+
+
+@when('hitting DELETE /manager/dorms/{alfam-id}/photos/{alfam-3d-photo-id}')
+def filtering(self):
+    alfam_photo = Dormitory.objects.filter(name='Alfam').first().photos.first()
+
+    request = APIRequestFactory().delete('')
+    force_authenticate(request, self.john)
+    view = PhotoDormManagementViewSet.as_view(actions={'delete': 'destroy'})
+    self.response = view(request, dorm_pk=self.alfam.id, pk=alfam_photo.id)
+
+
+@then('delete that 3d photo from alfam')
+def test_model_can_create_a_message(self):
+    assert self.response.status_code == status.HTTP_204_NO_CONTENT
 
 
 @when('deserializing data for updating alfam dorm')

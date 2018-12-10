@@ -209,6 +209,9 @@ class ClientPhotoDormSerializer(serializers.Serializer):
         uploaded_photo = validated_data.get('uploaded_photo', None)
         url = validated_data.get('url', None)
 
+        if not url and not uploaded_photo:
+            raise serializers.ValidationError('please add either url or uploaded_photo')
+
         if url:
             if not validated_data['is_3d']:
                 raise serializers.ValidationError('url only for is_3d')

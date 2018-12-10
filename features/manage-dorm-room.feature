@@ -30,25 +30,31 @@ Feature: Managing dormitory and room data
         Then validate the deserialized bank data for alfam
 
         When hitting PUT /manager/dorms/{alfam-id}/bank-accounts/{isbank-id}
-        Then get 200 OK and for updating alfam isbank data
+        Then get 200 OK for updating alfam isbank data
 
         when hitting same endpoint above to partially update isbank
-        Then get 200 OK and for partially updating alfam isbank data
+        Then get 200 OK for partially updating alfam isbank data
         
         When hitting POST /manager/dorms/{alfam-id}/bank-accounts
-        Then get 201 CREATED and for adding alfam ziraat data
+        Then get 201 CREATED for adding alfam ziraat data
 
-        When hitting POST DELETE /manager/dorms/{alfam-id}/bank-accounts/{ziraat-id}
-        Then get 204 NO CONTENT and for deleting alfam ziraat bank
-
-
+        When hitting DELETE /manager/dorms/{alfam-id}/bank-accounts/{ziraat-id}
+        Then get 204 NO CONTENT for deleting alfam ziraat bank
 
 
-        When hitting POST /manager/dorms/{alfam-id}/photos
-        Then get 201 CREATED and for adding alfam photo
+
+
+        When hitting POST /manager/dorms/{alfam-id}/photos for non-3d-image
+        Then get 201 CREATED for adding alfam photo
 
         When hitting DELETE /manager/dorms/{alfam-id}/photos/{alfam-photo-id}
         Then delete that photo from alfam
+
+        When hitting POST /manager/dorms/{alfam-id}/photos for 3d-image
+        Then get 201 CREATED for adding 3d alfam photo
+
+        When hitting DELETE /manager/dorms/{alfam-id}/photos/{alfam-3d-photo-id}
+        Then delete that 3d photo from alfam
 
 
 

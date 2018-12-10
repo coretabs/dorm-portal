@@ -24,8 +24,8 @@ urlpatterns = [
     path('', engine_views.index_view, name='index'),
 
     # http://localhost:8000/api/<router-viewsets>
-    path('api/', include(router.urls)),
-    path('api/dorms', include(dorms_router.urls)),
+    path('api/', include((router.urls, 'engine'), namespace='engine')),
+    path('api/dorms', include((dorms_router.urls, 'engine'), namespace='engine.dorms')),
 
     # http://localhost:8000/api/admin/
     path('api/admin/', admin.site.urls),
