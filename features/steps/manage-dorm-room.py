@@ -310,7 +310,7 @@ def filtering(self):
     feature_swimming_pool = {'id': self.swimming_pool.id, }
     feature_free_wifi = {'id': self.free_wifi.id, }
 
-    self.updating_alfam_json = {'name': 'Alfama',
+    self.updating_alfam_json = {'name': 'Alfam',
                                 'abouts': [about_en, about_ar, about_tr],
                                 'features': [feature_free_wifi, feature_swimming_pool],
                                 # 'cover': 'https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
@@ -348,13 +348,24 @@ def filtering(self):
 
     client = APIClient()
     client.force_authenticate(self.john)
+    #view = DormManagementViewSet.reverse_action(self, url_name='cover')
+    #x = view.reverse_action('update-cover', args=['1'])
 
-    url = reverse('engine:dorms-cover', kwargs={'pk': self.alfam.id})
-    self.response = client.put(url, self.cover_json, format='multipart')
+    #view = DormManagementViewSet()
+    #view.basename = 'engine:dorms'
+    #view.request = None
+
+    #url = view.reverse_action('detail-cover', args=['1'])
+    url = reverse('engine:manager-dorms-update-cover', kwargs={'pk': self.alfam.id})
+    #url = reverse(action, kwargs={'pk': self.alfam.id})
+
+    self.response = client.put(url, cover_json, format='multipart')
 
 
 @then('get 201 CREATED for adding alfam cover')
 def test_model_can_create_a_message(self):
-    assert self.response.status_code == status.HTTP_201_CREATED
+    print(self.response.data)
+    assert self.response.status_code == status.HTTP_200_OK
     assert Dormitory.objects.filter(name='Alfam').first().cover != None
     assert os.path.exists(self.expected_file_path) == True
+    os.remove(self.expected_file_path)

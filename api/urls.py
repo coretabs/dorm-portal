@@ -11,8 +11,13 @@ router = routers.DefaultRouter()
 router.register('locale', engine_views.LocaleListViewSet, base_name='locale')
 router.register('filters', engine_views.FiltersListViewSet, base_name='filters')
 router.register('dorms', engine_views.DormViewSet, base_name='dorms')
+router.register('manager-dorms', engine_views.DormManagementViewSet, base_name='manager-dorms')
 
-dorms_router = routers.NestedSimpleRouter(router, 'dorms', lookup='dorm')
+# for url in router.urls:
+#    print(url.__dict__)
+
+
+dorms_router = routers.NestedSimpleRouter(router, 'manager-dorms', lookup='dorm')
 dorms_router.register('bank_accounts', engine_views.BankAccountManagementViewSet,
                       base_name='bank-accounts')
 dorms_router.register('photos', engine_views.PhotoDormManagementViewSet,
@@ -25,6 +30,7 @@ urlpatterns = [
 
     # http://localhost:8000/api/<router-viewsets>
     path('api/', include((router.urls, 'engine'), namespace='engine')),
+    #path('api/manager', include((manager_router.urls, 'engine'), namespace='engine')),
     path('api/dorms', include((dorms_router.urls, 'engine'), namespace='engine.dorms')),
 
     # http://localhost:8000/api/admin/

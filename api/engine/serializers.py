@@ -313,7 +313,7 @@ class ClientDormManagementSerializer(serializers.Serializer):
 
         cover = validated_data.get('cover', None)
         if cover:
-            pass
+            instance.cover = cover
             validated_data.pop('cover', None)
 
         features = validated_data.get('features', None)
@@ -322,10 +322,11 @@ class ClientDormManagementSerializer(serializers.Serializer):
             for serialized_feature in features:
                 feature = models.FeatureFilter.objects.get(pk=serialized_feature['id'])
                 instance.features.add(feature)
-            validated_data.pop('features', None)
+        validated_data.pop('features', None)
 
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
+
         instance.save()
 
         return instance

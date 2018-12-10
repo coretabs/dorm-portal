@@ -2,9 +2,11 @@ from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
 from django.utils import translation
 
-from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework import viewsets, generics
+from rest_framework.decorators import action
+from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework.response import Response
+
 
 from api import settings
 
@@ -127,3 +129,7 @@ class DormManagementViewSet(viewsets.ViewSet):
         serializer.is_valid()
         serializer.save()
         return Response(serializer.data)
+
+    @action(detail=True, methods=['put'])
+    def update_cover(self, request, pk=None):
+        return self.update(request, pk)
