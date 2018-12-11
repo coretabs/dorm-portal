@@ -319,8 +319,8 @@ class RoomCharacteristics(django_models.Model):
                                     .first().selected_number
 
     def get_room_type(self):
-        return self.integral_choices.filter(related_filter__name__contains='Room Type')\
-                                    .first().selected_option
+        return self.radio_choices.filter(related_filter__name__contains='Room Type')\
+            .first().selected_option.name
 
     def get_people_allowed_number(self):
         return self.integral_choices.filter(related_filter__name__contains='People Allowed Number')\

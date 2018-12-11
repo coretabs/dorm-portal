@@ -155,7 +155,8 @@ def test_model_can_create_a_message(self):
 
 @when('hitting POST /dorms endpoint with filter above')
 def filtering(self):
-    request = APIRequestFactory().post(reverse('dorms-list'), self.same_filter_above_json, format='json')
+    request = APIRequestFactory().post(reverse('engine:dorms-list'),
+                                       self.same_filter_above_json, format='json')
     view = DormViewSet.as_view(actions={'post': 'list'})
     self.response = view(request)
 

@@ -44,7 +44,7 @@ def test_model_can_create_a_message(self):
 
 @when('hitting GET /locale endpoint')
 def filtering(self):
-    request = APIRequestFactory().get(reverse('locale-list'))
+    request = APIRequestFactory().get(reverse('engine:locale-list'))
     view = LocaleListViewSet.as_view(actions={'get': 'list'})
     self.response = view(request)
 
@@ -68,6 +68,20 @@ def filtering(self):
     self.luxury_shower = create_room_feature(LazyI18nString(
         {'ar': 'شاور فاخر', 'tr': 'lüks duş', 'en': 'Luxury Shower'}))
 
+    self.room_type_options = [RadioOption(name=LazyI18nString(
+        {'ar': 'غرفة سنجل', 'tr': 'tek oda', 'en': 'Single'})),
+        RadioOption(name=LazyI18nString(
+            {'ar': 'غرفة دبل', 'tr': 'double oda', 'en': 'Double'}))]
+    self.room_types = create_radio_filter(self.room_type_options, LazyI18nString(
+        {'ar': 'نوع الغرفة', 'tr': 'oda tip', 'en': 'Room Type'}))
+    self.room_type_single_choice = create_radio_choice(self.room_type_options[0], self.room_types)
+    self.room_type_double_choice = create_radio_choice(self.room_type_options[1], self.room_types)
+
+    self.people_allowed_number_filter = IntegralFilter(name='People Allowed Number')
+    self.people_allowed_number_filter.save()
+    self.one_person = create_integral_choice(self.people_allowed_number_filter, 1)
+    self.two_persons = create_integral_choice(self.people_allowed_number_filter, 2)
+
     self.meal_options = [
         RadioOption(name=LazyI18nString({'ar': 'افطار', 'tr': 'Kahvalti', 'en': 'Breakfast'})),
         RadioOption(name=LazyI18nString({'ar': 'عشاء', 'tr': 'Akşam Yemeği', 'en': 'Dinner'}))]
@@ -89,20 +103,20 @@ def filtering(self):
 
     self.room1 = create_room_with_radio_integral_features(
         self.alfam,
-        [self.meals_choice_dinner, ],
-        [self.price_1000, ],
+        [self.meals_choice_dinner, self.room_type_single_choice],
+        [self.price_1000, self.one_person],
         [])
 
     self.room2 = create_room_with_radio_integral_features(
         self.alfam,
-        [self.meals_choice_breakfast, ],
-        [self.price_1000, ],
+        [self.meals_choice_breakfast, self.room_type_double_choice],
+        [self.price_1000, self.two_persons],
         [self.luxury_shower, ])
 
 
 @when('hitting GET /filters endpoint in English')
 def test_model_can_create_a_message(self):
-    request = APIRequestFactory().get(reverse('filters-list'), {'language': 'en'})
+    request = APIRequestFactory().get(reverse('engine:filters-list'), {'language': 'en'})
     view = FiltersListViewSet.as_view(actions={'get': 'list'})
     self.response = view(request)
 
@@ -116,7 +130,7 @@ def filtering(self):
 
 @when('hitting GET /filters endpoint in Turkish')
 def test_model_can_create_a_message(self):
-    request = APIRequestFactory().get(reverse('filters-list'), {'language': 'tr'})
+    request = APIRequestFactory().get(reverse('engine:filters-list'), {'language': 'tr'})
     view = FiltersListViewSet.as_view(actions={'get': 'list'})
     self.response = view(request)
 
@@ -129,7 +143,8 @@ def filtering(self):
 
 @when('hitting POST /dorms endpoint in English')
 def filtering(self):
-    request = APIRequestFactory().post(reverse('dorms-list'), {'language': 'en'}, format='json')
+    request = APIRequestFactory().post(reverse('engine:dorms-list'),
+                                       {'language': 'en'}, format='json')
     view = DormViewSet.as_view(actions={'post': 'list'})
     self.response = view(request)
 
@@ -149,7 +164,8 @@ def filtering(self):
 
 @when('hitting POST /dorms endpoint in Turkish')
 def filtering(self):
-    request = APIRequestFactory().post(reverse('dorms-list'), {'language': 'tr'}, format='json')
+    request = APIRequestFactory().post(reverse('engine:dorms-list'),
+                                       {'language': 'tr'}, format='json')
     view = DormViewSet.as_view(actions={'post': 'list'})
     self.response = view(request)
 
@@ -169,7 +185,8 @@ def filtering(self):
 
 @when('hitting POST /dorms endpoint in non registered language')
 def filtering(self):
-    request = APIRequestFactory().post(reverse('dorms-list'), {'language': 'dude'}, format='json')
+    request = APIRequestFactory().post(reverse('engine:dorms-list'),
+                                       {'language': 'dude'}, format='json')
     view = DormViewSet.as_view(actions={'post': 'list'})
     self.response = view(request)
 

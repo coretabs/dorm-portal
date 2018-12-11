@@ -244,7 +244,7 @@ class RoomSerializer(serializers.ModelSerializer):
         return obj.get_price()
 
     def get_room_type(self, obj):
-        return obj.get_room_type()
+        return str(obj.get_room_type())
 
     def get_people_allowed_number(self, obj):
         return obj.get_people_allowed_number()

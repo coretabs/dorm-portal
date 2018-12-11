@@ -132,7 +132,7 @@ def test_model_can_create_a_message(self):
 
 @when('requesting GET /filters')
 def prepare_features(self):
-    request = APIRequestFactory().get(reverse('filters-list'))
+    request = APIRequestFactory().get(reverse('engine:filters-list'))
     view = FiltersListViewSet.as_view(actions={'get': 'list'})
     self.response = view(request)
 
