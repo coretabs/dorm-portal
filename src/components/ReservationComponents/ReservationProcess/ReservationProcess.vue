@@ -23,7 +23,7 @@
               <sign-up></sign-up>
             </v-stepper-content>
 
-            <v-stepper-content step="2">
+            <v-stepper-content class="pt-0" step="2">
               <div v-if="isRoomNotSaved" >
                 <div class="noroom-alert mt-4">
                   <v-icon left>fa-info-circle</v-icon>
