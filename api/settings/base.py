@@ -140,7 +140,7 @@ AUTHENTICATION_BACKENDS = (
 
 REST_AUTH_SERIALIZERS = {
     'PASSWORD_RESET_SERIALIZER': 'api.engine.serializers.PasswordResetSerializer',
-    'PASSWORD_RESET_CONFIRM_SERIALIZER':'api.engine.serializers.PasswordResetConfirmSerializer',
+    'PASSWORD_RESET_CONFIRM_SERIALIZER': 'api.engine.serializers.PasswordResetConfirmSerializer',
     'USER_DETAILS_SERIALIZER': 'api.engine.serializers.UserSerializer'
 }
 
