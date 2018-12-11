@@ -23,7 +23,7 @@
             </v-stepper-content>
 
             <v-stepper-content step="2">
-              <div v-if="isRoomSaved" >
+              <div v-if="isRoomNotSaved" >
                 <div class="noroom-alert mt-4">
                   <v-icon left>fa-info-circle</v-icon>
                   <span>Ops! it seems that you haven't choosen any room yet.</span>

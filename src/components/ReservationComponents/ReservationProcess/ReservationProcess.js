@@ -28,7 +28,7 @@ export default {
       }
       return this.progress;
     },
-    isRoomSaved(){
+    isRoomNotSaved(){
       return (localStorage.getItem('room') == null);
     }
   },
