@@ -3,37 +3,37 @@
   <v-flex xs12 md4 px-3>
     <div id="amount">
       <h3>Amount to pay:</h3>
-      <span>$1500</span>
+      <span>{{reservation.currency}}{{reservation.price}}</span>
       <v-icon>fa-money-bill-alt</v-icon>
     </div>
     <div id="bank-accounts">
       <h3>Our Bank Accounts:</h3>
       <v-expansion-panel >
-        <v-expansion-panel-content v-for="(item,i) in 3" :key="i">
-          <div slot="header"><v-icon class="v-icon__bank" small>fa-university</v-icon> is Bank</div>
+        <v-expansion-panel-content v-for="(account,i) in reservation.banks" :key="i">
+          <div slot="header"><v-icon class="v-icon__bank" small>fa-university</v-icon> {{account.bank_name}}</div>
           <v-card>
             <v-card-text>
 
               <table>
                 <tr>
                   <td><strong>Account name:</strong></td>
-                  <td>Alfam Dorm</td>
+                  <td>{{account.account_name}}</td>
                 </tr>
                 <tr>
                   <td><strong>Currency:</strong></td>
-                  <td>Dollar</td>
+                  <td>{{account.currency}}</td>
                 </tr>
                 <tr>
                   <td><strong>Account No:</strong></td>
-                  <td>254548</td>
+                  <td>{{account.account_num}}</td>
                 </tr>
                 <tr>
                   <td><strong>swift:</strong></td>
-                  <td>22555</td>
+                  <td>{{account.swift}}</td>
                 </tr>
                 <tr>
                   <td><strong>IBAN:</strong></td>
-                  <td>TR123525888220004</td>
+                  <td>{{account.iban}}</td>
                 </tr>
               </table>
 

@@ -15,6 +15,7 @@ export default new Vuex.Store({
     languages: [],
     filters: [],
     dorms:[],
+    reservation: {},
     authStatus: '',
     isAuth: localStorage.getItem('auth'),
     isAdmin: localStorage.getItem('admin')
@@ -64,9 +65,13 @@ export default new Vuex.Store({
       state.isAuth = null
       state.isAdmin = null
     },
-    reserveRoom(state, payload){
-      $backend.$reserveRoom(payload).then(responseDate => {
-        state.dorms = responseDate;
+    // reserveRoom(state, payload){
+    //   $backend.$reserveRoom(payload).then(responseDate => {
+    //   });
+    // }
+    fetchReservation(state){
+      $backend.$fetchReservation().then(responseDate => {
+        state.reservation = responseDate;
       });
     }
   },
@@ -118,8 +123,22 @@ export default new Vuex.Store({
       });
     },
     reserveRoom(context,payload){
-      context.commit('reserveRoom',payload)
+
+      return new Promise((resolve, reject) => {
+        $backend.$reserveRoom(payload).then(responseDate => {
+          //context.commit('reserveRoom')
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      });
+      
+    },
+    fetchReservation(context){
+      context.commit('fetchReservation')
     }
+
   }
 });
 

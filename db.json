@@ -654,7 +654,7 @@
     "reservation_duration": "Summer",
     "people_allowed_number": 5,
     "price": 1500,
-    "currency": "USD",
+    "currency": "$",
     "status": 1,
     "confirmation_deadline": "4-2-2019",
     "last_update": "3-2-2019",
@@ -667,6 +667,14 @@
         "iban": "TR0022555555",
         "swift": "swift855",
         "currency": "USD"
+      },
+      {
+        "bank_name": "Zeraat Bank",
+        "account_name": "Alfam dorm",
+        "account_num": "00225555",
+        "iban": "TR0022555555",
+        "swift": "swift855",
+        "currency": "tl"
       }
     ],
     "reciepts": [

@@ -18,6 +18,9 @@ export default {
   computed: {
     lang() {
       return this.$store.getters.lang;
+    },
+    reservation(){
+      return this.$store.state.reservation;
     }
   }
 };
