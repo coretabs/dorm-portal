@@ -40,6 +40,12 @@ $backend.$login = () => {
       .then(response => response.data)
 }
 
+$backend.$reserveRoom = (roomId) => {
+  return $backend.post(`/reservations`,{
+    room_id : roomId
+  })
+  .then(response => response.data)
+}
 
 $backend.$postMessage = (payload) => {
     return $backend.post(`messages/`, payload)

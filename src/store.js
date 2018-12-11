@@ -64,6 +64,11 @@ export default new Vuex.Store({
       state.isAuth = null
       state.isAdmin = null
     },
+    reserveRoom(state, payload){
+      $backend.$reserveRoom(payload).then(responseDate => {
+        state.dorms = responseDate;
+      });
+    }
   },
   actions: {
     fetchLocale(context){
@@ -111,6 +116,9 @@ export default new Vuex.Store({
         localStorage.removeItem('admin')
         resolve()
       });
+    },
+    reserveRoom(context,payload){
+      context.commit('reserveRoom',payload)
     }
   }
 });

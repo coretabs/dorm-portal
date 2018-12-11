@@ -34,8 +34,18 @@ export default {
   },
   methods:{
     loadroom(){
-      const savedRoom = JSON.parse(localStorage.getItem('room'))
-      console.log(savedRoom.room.id)
+      if(this.$store.getters.isLoggedIn){
+        const user = JSON.parse(localStorage.getItem('auth'))
+        const isReserved = user.reservarion_id
+        if(isReserved == null){
+          const savedRoom = JSON.parse(localStorage.getItem('room'))
+          this.$store.dispatch('reserveRoom', savedRoom.room.id);
+          this.$store.dispatch('fetchReservation');
+        }
+        else{
+          this.$store.dispatch('fetchReservation');
+        }
+      }
     }
   },
   mounted(){
