@@ -8,11 +8,18 @@
       indeterminate
       size="18"
       color="#ccc"
-    ></v-progress-circular> Pending</span>
+      v-if="reservation.status == 4"
+    ></v-progress-circular>
+      <v-icon v-if="reservation.status != 4">{{statusIcon}}</v-icon>
+     {{status}}</span>
+    </div>
+    <div class="status-row">
+      <h3>Last Updated on:</h3>
+      <span>{{reservation.last_update}}</span>
     </div>
     <div class="status-row">
       <h3>{{lang.reservationStatus.commentHeading}}:</h3>
-      <span>Your payment is being reviewed.</span>
+      <span>{{reservation.follow_up_message}}</span>
     </div>
     <div class="status-button">
       <v-btn dark color="#1c3a70" class="elevation-0" @click="$store.state.reservationStep = 2">
@@ -25,12 +32,12 @@
     <div class="uploaded-file">
       <v-list two-line subheader>
         <v-subheader inset>{{lang.reservationStatus.uploadedDocuments}}</v-subheader>
-        <v-list-tile v-for="item in items" :key="item.title" avata>
+        <v-list-tile v-for="(file,i) in reservation.reciepts" :key="i" avata>
           <v-list-tile-content>
             <v-list-tile-title>
-              <a href="#" class="grey--text text--darken-2">{{ item.title }}</a>
+              <a :href="file.reciept_url" target="_blank" download class="grey--text text--darken-2">Reciept {{i}}</a>
             </v-list-tile-title>
-            <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+            <v-list-tile-sub-title>{{ file.upload_reciept_date }}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>

@@ -3,7 +3,7 @@
   <v-container fluid fill-height mb-4>
     <v-layout justify-center>
       <v-flex xs12 sm8 md8>
-        <v-stepper v-model="reservationStep">
+        <v-stepper v-model="reservationStep" class="pb-4">
           <v-stepper-header class="elevation-3">
             <v-stepper-step :complete="progress > 1" step="1" color="#1c3a70">Register</v-stepper-step>
 

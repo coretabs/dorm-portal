@@ -640,12 +640,12 @@
   "login": {
     "status": 200,
     "name": "Mohammed Alhakem",
-    "current_step": 2,
+    "current_step": 3,
     "is_manager": false,
     "reservation_id": null
   },
   "reservations": {
-    "room_id": 1
+    "room_id": 2
   },
   "reservation": {
     "reservation_id": 1,
@@ -656,7 +656,7 @@
     "price": 1500,
     "currency": "$",
     "status": 1,
-    "confirmation_deadline": "2018-12-18",
+    "confirmation_deadline": "2018-12-13",
     "last_update": "3-2-2019",
     "follow_up_message": "Your reservation is confirmed",
     "banks": [
@@ -679,8 +679,12 @@
     ],
     "reciepts": [
       {
-        "reciept_url": "https://google.com",
+        "reciept_url": "https://as2.ftcdn.net/jpg/00/60/61/35/500_F_60613512_F3Z9KH9CrUfd99fDqyLAUTyECoYD5YgB.jpg",
         "upload_reciept_date": "2/2/2019"
+      },
+      {
+        "reciept_url": "https://as2.ftcdn.net/jpg/00/60/61/35/500_F_60613512_F3Z9KH9CrUfd99fDqyLAUTyECoYD5YgB.jpg",
+        "upload_reciept_date": "4/2/2019"
       }
     ]
   }
