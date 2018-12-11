@@ -52,11 +52,10 @@ export default new Vuex.Store({
         state.dorms = responseDate;
       });
     },
-    auth_success(state, user){
+    auth_success(state){
       state.authStatus = 'Success'
-      state.isAuth = localStorage.getItem('auth')
+      state.isAuth = !!localStorage.getItem('auth')
       state.isAdmin = localStorage.getItem('admin')
-      localStorage.setItem("current_step", user.current_step);
     },
     auth_error(state){
       state.authStatus = 'An error occur'
@@ -85,8 +84,12 @@ export default new Vuex.Store({
           if(responseDate.is_manager){
             localStorage.setItem('admin', true)
           }
-          localStorage.setItem('auth', true)
-          commit('auth_success', responseDate)
+          localStorage.setItem('auth', JSON.stringify({
+            user_name: responseDate.name,
+            reservarion_id : responseDate.reservation_id,
+            current_step: responseDate.current_step
+          }))
+          commit('auth_success')
           resolve(responseDate)
 
         })
@@ -106,7 +109,6 @@ export default new Vuex.Store({
         commit('logout')
         localStorage.removeItem('auth')
         localStorage.removeItem('admin')
-        localStorage.removeItem('current_step')
         resolve()
       });
     }

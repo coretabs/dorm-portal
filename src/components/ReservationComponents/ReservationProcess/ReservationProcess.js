@@ -20,7 +20,12 @@ export default {
       return this.$store.getters.lang;
     },
     reservationStep(){
-      this.progress =  localStorage.getItem('current_step') || 1;
+      if(this.$store.getters.isLoggedIn){
+        const step = JSON.parse(localStorage.getItem('auth'));
+        this.progress = step.current_step || 1;
+      }else{
+        this.progress = 1;
+      }
       return this.progress;
     },
     isRoomSaved(){
@@ -28,6 +33,12 @@ export default {
     }
   },
   methods:{
-    
+    loadroom(){
+      const savedRoom = JSON.parse(localStorage.getItem('room'))
+      console.log(savedRoom.room.id)
+    }
+  },
+  mounted(){
+    this.loadroom();
   }
 };
