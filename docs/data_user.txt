@@ -1,8 +1,9 @@
-POST /auth/register accepts
+POST /auth/registration/ accepts
 ```
 name
 email
-password
+password1
+password2
 ```
 
 POST /auth/resend-confirmation/ accepts
@@ -16,16 +17,30 @@ POST /auth/resend-confirmation/ returns 200 OK
 
 POST /auth/resend-confirmation/ returns 400 Bad request
 ```
-user not registered
+The e-mail address is not assigned to any user account
 ```
 
-POST /auth/login accepts
+POST /auth/login/ accepts
 ```
 email
 password
 ```
 
-POST /auth/login returns 200 OK
+POST /auth/login/ returns 200 OK
+```
+```
+
+POST /auth/login/ returns 400 Bad request
+```
+E-mail is not verified
+```
+
+POST /auth/login/ returns 400 Bad request
+```
+Unable to log in with provided credentials
+```
+
+GET /auth/user/ returns 200 OK
 ```
 name
 is_manager
@@ -33,52 +48,49 @@ current_step (email_confirmed=2, payment_uploaded=3)
 reservation_id (null = doesnt have a reservation yet)
 ```
 
-POST /auth/login returns 403 Forbidden
+GET /auth/user/ returns 403 Forbidden
 ```
-please confirm your email
-```
-
-POST /auth/login returns 400 Bad request
-```
-you entered wrong email or password
+Authentication credentials were not provided
 ```
 
-POST /auth/confirm-email returns 200 OK
+POST /auth/registration/verify-email/ returns 200 OK.
 ```
-token
+key
 ```
 
-POST /auth/confirm-email returns 400 Bad request
+POST /auth/registration/verify-email/ returns 404 Not found
 ```
-token expired, try sending another email
+Not found.
 ```
 
 
-POST /auth/reset-password accepts
+POST /auth/password/reset/ accepts
 ```
 email
 ```
 
-POST /auth/reset-password returns 200 OK
+POST /auth/password/reset/ returns 200 OK
 ```
 ```
 
-POST /auth/reset-password returns 400 Bad request
+POST /auth/password/reset/ returns 400 Bad request
 ```
-you entered a wrong email address
-```
-
-POST /auth/reset-password accepts
-```
-new_password
-token
+The e-mail address is not assigned to any user account
 ```
 
-POST /auth/reset-password returns 200 OK
+POST /auth/password/reset/confirm/ accepts
+```
+uid
+key
+new_password1
+new_password2
+```
+
+POST /auth/password/reset/confirm/ returns 200 OK
 ```
 ```
 
-POST /auth/reset-password returns 400 Bad request
+POST /auth/password/reset/confirm/ returns 400 Bad request
 ```
-token expired
+Invalid value
 ```
