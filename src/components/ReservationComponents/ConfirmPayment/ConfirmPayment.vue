@@ -1,5 +1,9 @@
 <template>
 <v-layout row wrap>
+   <v-flex v-if="date" xs12 class="mb-5 confirmation-countdown">
+     <h1>Confirmation Deadline</h1>
+    <flip-countdown :deadline="date"></flip-countdown>
+  </v-flex>
   <v-flex xs12 md4 px-3>
     <div id="amount">
       <h3>Amount to pay:</h3>
@@ -46,7 +50,7 @@
   <v-flex xs12 md8 px-3>
     <div>
       <v-card class="elevation-0">
-        <v-card-text>
+        <v-card-text class="pa-0">
           <p class="payment-instruction"><v-icon small>fa-exclamation-triangle</v-icon> {{lang.confirmPayment.instruction}}</p>
           <div class="drag-drop">
             <div class="upload">
@@ -99,6 +103,7 @@
       </v-card>
     </div>
   </v-flex>
+ 
 </v-layout>
 </template>
 

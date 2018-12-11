@@ -145,8 +145,26 @@
     background: #fefccf;
     padding: 10px 15px;
     border-left: 5px solid #feae25;
+    font-size: 16px;
     .v-icon{
       color: #fc9e38 !important;
       margin-right: 10px;
     }
+  }
+
+  .confirmation-countdown .container{
+    background: transparent !important;
+  }
+  .confirmation-countdown{
+    text-align: center;
+    background: #fafafa;
+    padding: 25px 0 5px;
+    @include radius(5px);
+    h1{
+      color: #555;
+    }
+  }
+  .flip-card__top[data-v-534dd9a6], .flip-card__bottom[data-v-534dd9a6], .flip-card__back-bottom[data-v-534dd9a6], .flip-card__back[data-v-534dd9a6]::before, .flip-card__back[data-v-534dd9a6]::after{
+    background: #1c3a70 !important;
+    color: #feae25 !important;
   }

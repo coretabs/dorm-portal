@@ -7406,6 +7406,12 @@ vue-upload-component@^2.8.15:
   version "2.8.15"
   resolved "https://registry.yarnpkg.com/vue-upload-component/-/vue-upload-component-2.8.15.tgz#0187c6afcf4cf2d59abe89d8ea38feea42e41025"
 
+vue2-flip-countdown@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/vue2-flip-countdown/-/vue2-flip-countdown-0.5.1.tgz#182c6f586c5a88917e72d50749519b3f3ac6ba07"
+  dependencies:
+    uuid "^3.3.2"
+
 vue2-leaflet@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/vue2-leaflet/-/vue2-leaflet-1.1.1.tgz#a812985f2acdd76b3217558fad1224a9edfc1861"

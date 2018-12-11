@@ -1,4 +1,5 @@
 import FileUpload from 'vue-upload-component/src'
+import FlipCountdown from 'vue2-flip-countdown'
 
 export default {
   name: "ConfirmPayment",
@@ -8,7 +9,8 @@ export default {
     };
   },
   components: {
-    'file-upload': FileUpload
+    'file-upload': FileUpload,
+    'flip-countdown': FlipCountdown 
   },
   methods:{
     submit(){
@@ -21,6 +23,9 @@ export default {
     },
     reservation(){
       return this.$store.state.reservation;
+    },
+    date(){
+      return this.$store.state.reservation.confirmation_deadline;
     }
   }
 };
