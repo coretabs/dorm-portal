@@ -18,12 +18,6 @@
       </v-card-actions>
     </v-card>
 
-
-
-  <v-dialog v-model="showSignup" width="500">
-    
-  </v-dialog>
-
 </div>
 </template>
 
