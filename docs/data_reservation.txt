@@ -74,12 +74,11 @@ reciepts
     reciept_url
 	upload_reciept_date (ordered by recent date)
 
-is_confirmed
-confirmation_deadline
+status (pending=1, rejected=2, confirmed=3, updated=4)
 
-is_rejected
+confirmation_deadline_date
 
-last_update
+last_update_date
 follow_up_message
 ```
 

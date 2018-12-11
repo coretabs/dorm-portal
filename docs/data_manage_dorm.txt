@@ -264,11 +264,11 @@ reservations
         reciept_url
 	    upload_reciept_date
 
-    status
+    status (pending=1, rejected=2, confirmed=3, updated=4)
 ```
 
 PUT /manager/dorms/{id}/reservations/{id} accepts
 ```
-status
+status (pending=1, rejected=2, confirmed=3, updated=4)
 confirmation_deadline
 ```
