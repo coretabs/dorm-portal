@@ -36,9 +36,9 @@
       </v-menu>
       <!-- check status -->
       <v-btn v-if="!isLogin" flat dark class="status-btn" to="/login">{{lang.header.button}}</v-btn>
-      <v-menu v-if="isLogin" id="language-menu"  class="status-btn"  transition="slide-y-transition" bottom offset-y>
-        <v-btn dark slot="activator" class="lang-btn" flat append-icon="expand_more">
-          <v-icon dark >person</v-icon>
+      <v-menu v-else id="language-menu"  class="status-btn"  transition="slide-y-transition" bottom offset-y>
+        <v-btn dark slot="activator" class="lang-btn pl-3" flat append-icon="expand_more">
+          <span>{{userName}}</span>
           <v-icon color="#ccc">expand_more</v-icon>
         </v-btn>
         <v-list>

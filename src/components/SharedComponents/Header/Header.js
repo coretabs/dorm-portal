@@ -52,6 +52,11 @@ export default {
     },
     isAdmin(){
       return this.$store.getters.isAdmin;
+    },
+    userName(){
+      const user = JSON.parse(localStorage.getItem('auth'));
+      const fullName = user.user_name.split(' ');
+      return fullName[fullName.length - 1];
     }
   }
 };
