@@ -14,6 +14,7 @@
             <v-divider></v-divider>
 
             <v-stepper-step :complete="complated"  step="3" color="#1c3a70">Await Approval</v-stepper-step>
+            
           </v-stepper-header>
 
           <v-stepper-items>

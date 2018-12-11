@@ -645,5 +645,35 @@
     "reservation_id": null
   },
   "reservations": {
+    "room_id": 1
+  },
+  "reservation": {
+    "reservation_id": 1,
+    "student_name": "Yasser ALnajjar",
+    "room_type": "Single Room",
+    "reservation_duration": "Summer",
+    "people_allowed_number": 5,
+    "price": 1500,
+    "currency": "USD",
+    "status": 1,
+    "confirmation_deadline": "4-2-2019",
+    "last_update": "3-2-2019",
+    "follow_up_message": "Your reservation is confirmed",
+    "banks": [
+      {
+        "bank_name": "is Bank",
+        "account_name": "Alfam",
+        "account_num": "1555552225",
+        "iban": "TR0022555555",
+        "swift": "swift855",
+        "currency": "USD"
+      }
+    ],
+    "reciepts": [
+      {
+        "reciept_url": "https://google.com",
+        "upload_reciept_date": "2/2/2019"
+      }
+    ]
   }
 }

@@ -37,12 +37,14 @@ export default {
       if(this.$store.getters.isLoggedIn){
         const user = JSON.parse(localStorage.getItem('auth'))
         const isReserved = user.reservarion_id
-        if(isReserved == null){
+        if(isReserved == null && !!localStorage.getItem('room')){
           const savedRoom = JSON.parse(localStorage.getItem('room'))
-          this.$store.dispatch('reserveRoom', savedRoom.room.id);
-          this.$store.dispatch('fetchReservation');
-        }
-        else{
+          this.$store.dispatch('reserveRoom', savedRoom.room.id)
+          .then(response => {
+            //check response is ok
+            this.$store.dispatch('fetchReservation');
+          })
+        }else{
           this.$store.dispatch('fetchReservation');
         }
       }

@@ -47,6 +47,19 @@ $backend.$reserveRoom = (roomId) => {
   .then(response => response.data)
 }
 
+// $backend.$fetchReservation = (reservationID) => {
+//   return $backend.post(`/reservation`,{
+//     reservation_id : reservationID
+//   })
+//   .then(response => response.data)
+// }
+
+$backend.$fetchReservation = () => {
+  return $backend.get(`/reservation`)
+      .then(response => response.data)
+}
+
+
 $backend.$postMessage = (payload) => {
     return $backend.post(`messages/`, payload)
         .then(response => response.data)
