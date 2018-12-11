@@ -18,6 +18,18 @@ from . import models
 index_view = never_cache(TemplateView.as_view(template_name='index.html'))
 
 
+class ResendConfirmView(generics.GenericAPIView):
+
+    serializer_class = serializers.ResendConfirmSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        serializer.save()
+        return Response({'detail': "Email confirmation sent"})
+
+
 class LocaleListViewSet(viewsets.ViewSet):
     serializer_class = serializers.LocaleSerailizer
 

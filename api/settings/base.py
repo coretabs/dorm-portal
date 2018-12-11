@@ -15,6 +15,14 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',  # < Per Whitenoise, to disable built in
     'django.contrib.staticfiles',
     'rest_framework',
+
+    'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+
     'behave_django',
     'polymorphic',
     'api.engine',
@@ -108,4 +116,46 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Custom user
+
 AUTH_USER_MODEL = 'engine.User'
+
+# Account Settings
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+#ACCOUNT_USERNAME_MIN_LENGTH = 3
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'
+ACCOUNT_ADAPTER = 'api.engine.adapters.MyAccountAdapter'
+#ACCOUNT_USERNAME_BLACKLIST = ['system', ]
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+REST_AUTH_SERIALIZERS = {
+    'PASSWORD_RESET_SERIALIZER': 'api.engine.serializers.PasswordResetSerializer',
+    'USER_DETAILS_SERIALIZER': 'api.engine.serializers.UserSerializer'
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'api.engine.serializers.RegisterSerializer',
+}
+
+
+# REST_FRAMEWORK = {
+#    'DEFAULT_AUTHENTICATION_CLASSES': (
+#        'rest_framework.authentication.SessionAuthentication',
+#    )
+# }
+
+
+# Email Settings
+
+EMAIL_SUBJECT_PREFIX = ''
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''

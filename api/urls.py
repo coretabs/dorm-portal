@@ -1,6 +1,9 @@
+from django.contrib import admin
+from django.contrib.auth.views import PasswordResetConfirmView
+
 from django.conf.urls.static import static
 from django.conf import settings
-from django.contrib import admin
+
 from django.urls import path, include
 
 from rest_framework_nested import routers
@@ -32,6 +35,13 @@ urlpatterns = [
     path('api/', include((router.urls, 'engine'), namespace='engine')),
     #path('api/manager', include((manager_router.urls, 'engine'), namespace='engine')),
     path('api/dorms', include((dorms_router.urls, 'engine'), namespace='engine.dorms')),
+
+    path('api/auth/', include('rest_auth.urls')),
+    #path(r'^', include('django.contrib.auth.urls')),
+    path('password-reset/<uidb64>/<token>/', PasswordResetConfirmView, name='password_reset_confirm'),
+    path('api/auth/registration/', include('rest_auth.registration.urls')),
+    path('api/auth/resend-confirmation/',
+         engine_views.ResendConfirmView.as_view(), name='resend_confirm_view'),
 
     # http://localhost:8000/api/admin/
     path('api/admin/', admin.site.urls),

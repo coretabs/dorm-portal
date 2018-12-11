@@ -11,6 +11,7 @@ SECRET_KEY = 'z-+$tyr)mif-dsjx)vd#pkay86u_((ut^8(_0)283#bus5k&he'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = ['*']
+BASE_URL = 'http://127.0.0.1:8000'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -28,6 +29,12 @@ LANGUAGES = [
     ('ar', 'العربية'),
 ]
 LANGUAGES_DICT = dict(LANGUAGES)
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# run "python -m smtpd -n -c DebuggingServer localhost:1025"
+EMAIL_HOST = 'localhost'
 
 
 # 5678 is the default attach port in the VS Code debug configurations

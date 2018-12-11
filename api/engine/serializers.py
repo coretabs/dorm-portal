@@ -1,6 +1,14 @@
 from django.db import models as django_models
+from django.contrib.sites.shortcuts import get_current_site
 
 from rest_framework import serializers
+
+from allauth.account.forms import ResetPasswordForm, default_token_generator
+from allauth.account.adapter import get_adapter
+from allauth.account.utils import send_email_confirmation, user_pk_to_url_str, setup_user_email
+from allauth.account import app_settings as allauth_settings
+
+from allauth.utils import email_address_exists
 
 from i18nfield.rest_framework import I18nField
 
@@ -9,6 +17,113 @@ from rest_polymorphic.serializers import PolymorphicSerializer
 from api import settings
 
 from . import models
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    name = serializers.CharField(source='first_name')
+    is_manager = serializers.BooleanField(read_only=True)
+    class Meta:
+        model = models.User
+        fields = ('name', 'is_manager',)
+                  #'current_step', 'reservation_id')
+
+
+class RegisterSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
+    name = serializers.CharField(required=True, write_only=True)
+    password1 = serializers.CharField(required=True, write_only=True)
+    password2 = serializers.CharField(required=True, write_only=True)
+
+    def validate_email(self, email):
+        email = get_adapter().clean_email(email)
+        if allauth_settings.UNIQUE_EMAIL:
+            if email and email_address_exists(email):
+                raise serializers.ValidationError(
+                    "A user is already registered with this e-mail address.")
+        return email
+
+    def validate_password1(self, password):
+        return get_adapter().clean_password(password)
+
+    def validate(self, data):
+        if data['password1'] != data['password2']:
+            raise serializers.ValidationError("The two password fields didn't match.")
+        return data
+
+    def get_cleaned_data(self):
+        return {
+            'first_name': self.validated_data.get('name', ''),
+            'password1': self.validated_data.get('password1', ''),
+            'email': self.validated_data.get('email', ''),
+        }
+
+    def save(self, request):
+        adapter = get_adapter()
+        user = adapter.new_user(request)
+        self.cleaned_data = self.get_cleaned_data()
+        adapter.save_user(request, user, self)
+        setup_user_email(request, user, [])
+        return user
+
+
+class PasswordResetSerializer(serializers.Serializer):
+
+    email = serializers.EmailField()
+
+    def validate_email(self, email):
+        email = get_adapter().clean_email(email)
+        if not email_address_exists(email):
+            raise serializers.ValidationError('The e-mail address is not assigned '
+                                              'to any user account')
+        return email
+
+    def save(self, *args, **kwargs):
+        request = self.context.get('request')
+
+        current_site = get_current_site(request)
+        email = self.validated_data['email']
+
+        user = models.User.objects.get(email__iexact=email)
+
+        token_generator = kwargs.get(
+            'token_generator', default_token_generator)
+        temp_key = token_generator.make_token(user)
+
+        path = f'/reset-password/{user_pk_to_url_str(user)}/{temp_key}'
+        url = settings.BASE_URL + path
+        context = {'current_site': current_site,
+                   'user': user,
+                   'password_reset_url': url,
+                   'request': request}
+
+        get_adapter().send_mail(
+            'account/email/password_reset_key',
+            email,
+            context)
+
+        return email
+
+
+class ResendConfirmSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+    password_reset_form_class = ResetPasswordForm
+
+    def validate(self, attrs):
+        self.reset_form = self.password_reset_form_class(
+            data=self.initial_data)
+        if not self.reset_form.is_valid():
+            raise serializers.ValidationError(self.reset_form.errors)
+
+        return attrs
+
+    def save(self):
+        request = self.context.get('request')
+        email = self.reset_form.cleaned_data['email']
+        user = models.User.objects.get(email__iexact=email)
+        send_email_confirmation(request, user, True)
+        return email
 
 
 class FeatureFilterSerializer(serializers.ModelSerializer):
