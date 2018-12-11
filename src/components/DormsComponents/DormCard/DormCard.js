@@ -44,8 +44,8 @@ export default {
       localStorage.setItem("room", JSON.stringify({room}));
       this.$router.push('/dorms/'+id);
     },
-    reserveRoom(roomID){
-      localStorage.setItem("room_id", roomID);
+    reserveRoom(room){
+      localStorage.setItem("room", JSON.stringify({room}));
       this.$router.push('/reservation');
     }
   },

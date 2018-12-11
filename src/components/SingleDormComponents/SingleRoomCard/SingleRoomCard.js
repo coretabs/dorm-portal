@@ -28,8 +28,7 @@ export default {
     closeRoomModel(){
       this.showSavedRoomModel = false;
     },
-    reserveRoom(roomID){
-      localStorage.setItem("room_id", roomID);
+    reserveRoom(){
       this.$router.push('/reservation');
     }
   },

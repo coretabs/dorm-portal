@@ -49,7 +49,7 @@
             <span>$1555</span>
           </v-flex>
           <v-flex class="reserve-btn" xs6>
-            <v-btn color="success"  @click="reserveRoom(1)" class="elevation-0">Reserve Now</v-btn>
+            <v-btn color="success" class="elevation-0">Reserve Now</v-btn>
           </v-flex>
         </v-layout>
       </v-flex>
