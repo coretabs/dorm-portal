@@ -193,7 +193,10 @@ class PhotoSerializer(serializers.Serializer):
     is_3d = serializers.BooleanField(default=False)
 
     def get_url(self, obj):
-        return generate_url(obj)
+        if self.is_3d:
+            return obj.photo.url.replace('/media/', '')
+        else:
+            return obj.photo.path
 
     class Meta:
         fields = ('url', 'is_3d')
