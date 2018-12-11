@@ -3,10 +3,11 @@ from django.contrib.sites.shortcuts import get_current_site
 
 from rest_framework import serializers
 
-from allauth.account.forms import ResetPasswordForm, default_token_generator
+from allauth.account.forms import ResetPasswordForm, default_token_generator, UserTokenForm
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import send_email_confirmation, user_pk_to_url_str, setup_user_email
 from allauth.account import app_settings as allauth_settings
+
 
 from allauth.utils import email_address_exists
 
@@ -103,6 +104,36 @@ class PasswordResetSerializer(serializers.Serializer):
             context)
 
         return email
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    new_password1 = serializers.CharField(max_length=128)
+    new_password2 = serializers.CharField(max_length=128)
+    uid = serializers.CharField()
+    key = serializers.CharField()
+
+    def validate_new_password1(self, password):
+        return get_adapter().clean_password(password)
+
+    def validate(self, attrs):
+        self.user_token_form = UserTokenForm(
+            data={'uidb36': attrs['uid'], 'key': attrs['key']})
+
+        if not self.user_token_form.is_valid():
+            raise serializers.ValidationError('Invalid token')
+
+        if attrs['new_password1'] != attrs['new_password2']:
+            raise serializers.ValidationError(
+                'The two password fields did not match.')
+
+        self.password = attrs['new_password1']
+
+        return attrs
+
+    def save(self):
+        user = self.user_token_form.reset_user
+        get_adapter().set_password(user, self.password)
+        return user
+
 
 
 class ResendConfirmSerializer(serializers.Serializer):
