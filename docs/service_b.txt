@@ -25,10 +25,10 @@ reservation
     
 	is_reviewed
 	
-	status {pending, rejected, confirmed, updated}
-	confirmation_deadline
+	status {pending=1, rejected=2, confirmed=3, waiting_manager_action=4 (student uploaded reciept), manager_updated=5}
+	confirmation_deadline_date
 	
-	last_update
+	last_update_date
 	follow_up_message
 	
 	reciepts
@@ -41,6 +41,7 @@ reciept
 	upload_reciept_date
 	
 user
+	is_manager
 	name
     
 	reservations

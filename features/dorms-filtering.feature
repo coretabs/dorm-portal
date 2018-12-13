@@ -1,6 +1,8 @@
 Feature: filtering dorms
 
-    Scenario: The user wants to filter dorms based on the choosen filters
+    Scenario: As a student
+              I want to filter dorms based on the choosen filters
+              So that I get exactly what Im looking for
 
         Given we have 2 dormitory with 4 rooms with couple of choices
 

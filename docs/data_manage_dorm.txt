@@ -242,14 +242,16 @@ GET /manager/dorms/{id}/reservations returns
 ```
 id
 
-confirmed_reservations
 pending_reservations
 rejected_reservations
-awaiting_reservations
+confirmed_reservations
+waiting_manager_action_reservations (same as updated)
+manager_updated_reservations
+expired_reservations
 
 reservations
     reservation_date
-    confirmation_deadline
+    confirmation_deadline_date
 
     price
     currency_symbol
@@ -264,11 +266,12 @@ reservations
         reciept_url
 	    upload_reciept_date
 
-    status (pending=1, rejected=2, confirmed=3, updated=4)
+    status (pending=1, rejected=2, confirmed=3, waiting_manager_action=4 (student uploaded reciept), manager_updated=5, expired=6)
 ```
 
 PUT /manager/dorms/{id}/reservations/{id} accepts
 ```
-status (pending=1, rejected=2, confirmed=3, updated=4)
-confirmation_deadline
+status (pending=1, rejected=2, confirmed=3, waiting_manager_action=4 (student uploaded reciept), manager_updated=5)
+confirmation_deadline_date
+follow_up_message
 ```
