@@ -8,12 +8,7 @@ export default {
       lastName: '',
       email: '',
       valid: false,
-      vs: {
-        v1: false,
-        v2: false,
-        v3: false,
-        v4: false
-      },
+      errors: [],
       password: '',
       nameRules: [
         v => !!v || 'Name is required',
@@ -41,10 +36,7 @@ export default {
          .then(() => {
             this.showRegisterForm = false
          })
-         .catch(err => console.log(err.response.data.email))
-      }
-      else{
-        alert("not valid")
+         .catch(err => this.errors = err.response.data)
       }
     },
     redirectToLogin(){

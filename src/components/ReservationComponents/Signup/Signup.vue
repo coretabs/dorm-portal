@@ -3,7 +3,14 @@
 
   <v-card class="elevation-0 card-padding" v-if="showRegisterForm">
     <v-card-text>
-      <h2>{{lang.signup.heading}}</h2>
+      <h2 class="mb-2">{{lang.signup.heading}}</h2>
+
+      <div v-for="(error,i) in errors" :key="i">
+        <p class="error-message" v-for="(err,i) in error" :key="i">
+          {{err}}
+        </p>
+      </div>
+
       <v-form ref="form" :value="valid" lazy-validation>
         <v-text-field :label="lang.signup.firstName" autocomplete="on" :rules="nameRules" required type="text" v-model.trim="firstName"></v-text-field>
         <v-text-field :label="lang.signup.lastName" autocomplete="on" :rules="nameRules" required type="text" v-model.trim="lastName"></v-text-field>
