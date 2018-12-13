@@ -308,7 +308,7 @@
             "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
             "https://images.pexels.com/photos/210265/pexels-photo-210265.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
           ],
-          "price": 1500,
+          "price": 1000,
           "room_type": "Single Room",
           "people_allowed_number": 3,
           "choices": [
@@ -375,7 +375,141 @@
             "https://images.pexels.com/photos/271734/pexels-photo-271734.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
             "https://images.pexels.com/photos/260553/pexels-photo-260553.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
           ],
+          "price": 2000,
+          "room_type": "Double Room",
+          "people_allowed_number": 5,
+          "choices": [
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            },
+            {
+              "filter_name": "Reception",
+              "choice": "24/7 Hours"
+            },
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            },
+            {
+              "filter_name": "Reception",
+              "choice": "24/7 Hours"
+            },
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            }
+          ],
+          "features": [
+            {
+              "name": "free Wifi",
+              "icon": "fa-wifi"
+            },
+            {
+              "name": "Restaurant",
+              "icon": "fa-utensils"
+            },
+            {
+              "name": "Laundry",
+              "icon": "local_laundry_service"
+            },
+            {
+              "name": "Market",
+              "icon": "fa-shopping-cart"
+            },
+            {
+              "name": "Elevator",
+              "icon": "fa-check"
+            },
+            {
+              "name": "Air condition",
+              "icon": "fa-wind"
+            },
+            {
+              "name": "Fire alarm",
+              "icon": "fa-fire"
+            },
+            {
+              "name": "Barber",
+              "icon": "fa-cut"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "rooms_left": 10,
+          "photos": [
+            "https://images.pexels.com/photos/271734/pexels-photo-271734.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            "https://images.pexels.com/photos/260553/pexels-photo-260553.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          ],
           "price": 3000,
+          "room_type": "Double Room",
+          "people_allowed_number": 5,
+          "choices": [
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            },
+            {
+              "filter_name": "Reception",
+              "choice": "24/7 Hours"
+            },
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            },
+            {
+              "filter_name": "Reception",
+              "choice": "24/7 Hours"
+            },
+            {
+              "filter_name": "Meals",
+              "choice": "Breakfast/Dinner"
+            }
+          ],
+          "features": [
+            {
+              "name": "free Wifi",
+              "icon": "fa-wifi"
+            },
+            {
+              "name": "Restaurant",
+              "icon": "fa-utensils"
+            },
+            {
+              "name": "Laundry",
+              "icon": "local_laundry_service"
+            },
+            {
+              "name": "Market",
+              "icon": "fa-shopping-cart"
+            },
+            {
+              "name": "Elevator",
+              "icon": "fa-check"
+            },
+            {
+              "name": "Air condition",
+              "icon": "fa-wind"
+            },
+            {
+              "name": "Fire alarm",
+              "icon": "fa-fire"
+            },
+            {
+              "name": "Barber",
+              "icon": "fa-cut"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "rooms_left": 10,
+          "photos": [
+            "https://images.pexels.com/photos/271734/pexels-photo-271734.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            "https://images.pexels.com/photos/260553/pexels-photo-260553.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          ],
+          "price": 4000,
           "room_type": "Double Room",
           "people_allowed_number": 5,
           "choices": [
@@ -640,8 +774,8 @@
   "login": {
     "status": 200,
     "name": "Mohammed Alhakem",
-    "current_step": 2,
-    "is_manager": false,
+    "current_step": 3,
+    "is_manager": true,
     "reservation_id": null
   },
   "reservations": {
@@ -656,7 +790,7 @@
     "price": 1500,
     "currency": "$",
     "status": 1,
-    "confirmation_deadline": "2018-12-13",
+    "confirmation_deadline": "2018-12-16",
     "last_update": "3-2-2019",
     "follow_up_message": "Your reservation is confirmed",
     "banks": [
