@@ -5,6 +5,8 @@ import Login from './components/ReservationComponents/Login/Login.vue'
 import Reservation from './components/ReservationComponents/ReservationProcess/ReservationProcess.vue'
 import DormProfile from './components/SingleDormComponents/DormProfile/DormProfile.vue'
 import DormManager from './components/ManagerComponents/DormManager/DormManager.vue'
+import ConfirmAccount from './components/ReservationComponents/ConfirmAccount/ConfirmAccount.vue'
+
 import store from './store'
 
 Vue.use(Router)
@@ -26,7 +28,11 @@ let router = new Router({
     },
     {
       path: '/dorms/:id',
-      component: DormProfile,
+      component: DormProfile
+    },
+    {
+      path: '/confirm-account/:token',
+      component: ConfirmAccount
     },
     {
       path: '/manage',
