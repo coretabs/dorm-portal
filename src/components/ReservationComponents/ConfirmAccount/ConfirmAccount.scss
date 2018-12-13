@@ -14,4 +14,42 @@
       font-size: 20px;
     }
   }
+  .success-icon{
+    background: #fafafa;
+    width: 80px;
+    height: 80px;
+    color: #339d30;
+    @include radius(50px);
+    margin: 0 auto;
+    font-size: 40px !important;
+  }
+  .success-text{
+    font-size: 18px;
+    line-height: 28px; 
+    margin: 0;
+    &:first-of-type{
+      font-weight: 700;
+      font-size: 20px;
+    }
+  }
+  .alert-warning {
+    background-color: #ffe9e8;
+    padding: 8px 15px;
+    border-left: 5px solid #e33333;
+    
+    span{
+      font-size: 16px;
+    }
+    .v-icon {
+      color: #e33333;
+      font-size: 20px;
+      margin-right: 10px;
+    }
+  }
+  .v-alert.v-alert{
+    border-top: none !important;
+    border-left: 4px solid #e33333;
+  }
+  .error{
+  }
 }

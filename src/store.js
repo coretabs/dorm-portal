@@ -143,18 +143,23 @@ export default new Vuex.Store({
     },
     register({commit}, user){
       return new Promise((resolve, reject) => {
-        
         $backend.$register(user).then(responseDate => {
-
           commit('registerSuccess')
           resolve(responseDate)
-
         })
         .catch(err => {
           reject(err)
         })
-
-
+      })
+    },
+    verifyEmail({commit}, key){
+      return new Promise((resolve, reject) => {
+        $backend.$verifyEmail(key).then(responseDate => {
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
       })
     }
 

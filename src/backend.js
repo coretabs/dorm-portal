@@ -70,6 +70,13 @@ $backend.$fetchReservation = () => {
       .then(response => response.data)
 }
 
+$backend.$verifyEmail = (key) => {
+  return $backend.post(`/auth/registration/verify-email/`,{
+    key : key
+  })
+  .then(response => response.data)
+}
+
 
 $backend.$postMessage = (payload) => {
     return $backend.post(`messages/`, payload)

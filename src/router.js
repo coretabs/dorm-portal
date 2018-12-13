@@ -31,7 +31,7 @@ let router = new Router({
       component: DormProfile
     },
     {
-      path: '/confirm-account/:token',
+      path: '/confirm-account/:key',
       component: ConfirmAccount
     },
     {
