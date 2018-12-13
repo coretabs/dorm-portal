@@ -774,8 +774,8 @@
   "login": {
     "status": 200,
     "name": "Mohammed Alhakem",
-    "current_step": 3,
-    "is_manager": true,
+    "current_step": 2,
+    "is_manager": false,
     "reservation_id": null
   },
   "reservations": {

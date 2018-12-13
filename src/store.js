@@ -65,6 +65,9 @@ export default new Vuex.Store({
       state.isAuth = null
       state.isAdmin = null
     },
+    registerSuccess(state){
+      state.authStatus = 'Registeration Faild'
+    },
     // reserveRoom(state, payload){
     //   $backend.$reserveRoom(payload).then(responseDate => {
     //   });
@@ -137,6 +140,22 @@ export default new Vuex.Store({
     },
     fetchReservation(context){
       context.commit('fetchReservation')
+    },
+    register({commit}, user){
+      return new Promise((resolve, reject) => {
+        
+        $backend.$register(user).then(responseDate => {
+
+          commit('registerSuccess')
+          resolve(responseDate)
+
+        })
+        .catch(err => {
+          reject(err)
+        })
+
+
+      })
     }
 
   }

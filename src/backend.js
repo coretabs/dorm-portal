@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 let $backend = axios.create({
-  baseURL: 'http://localhost:3000',
+  //baseURL: 'http://localhost:3000',
+  baseURL: 'http://127.0.0.1:8000/api',
   timeout: 5000,
   headers: {'Content-Type': 'application/json'}
 })
@@ -38,6 +39,16 @@ $backend.$fetchDorm = (dormId) => {
 $backend.$login = () => {
   return $backend.get(`/login`)
       .then(response => response.data)
+}
+
+$backend.$register = (user) => {
+  return $backend.post(`/auth/registration/`,{
+    name: user.name,
+    email: user.email,
+    password1: user.password,
+    password2: user.password
+  })
+  .then(response => response.data)
 }
 
 $backend.$reserveRoom = (roomId) => {

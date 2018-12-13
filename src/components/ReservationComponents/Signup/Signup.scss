@@ -9,6 +9,23 @@
   .signup-link{
     padding-left: 7px;
   }
+  .success-icon{
+    background: #59bb57;
+    width: 60px;
+    height: 60px;
+    @include radius(50px);
+    margin: 0 auto;
+    font-size: 24px;
+  }
+  .success-text{
+    font-size: 18px;
+    line-height: 28px; 
+    margin: 0;
+    &:first-of-type{
+      font-weight: 700;
+      font-size: 20px;
+    }
+  }
 }
 .card-padding{
   padding: 20px !important;
