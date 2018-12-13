@@ -24,14 +24,15 @@
       <v-btn color="#feae25" :disabled="!valid" large class="elevation-0" @click="submit">{{lang.signup.button}}</v-btn>
     </v-card-actions>
   </v-card>
-  <div v-else class="mb-4 mt-5">
+
+  <div v-else class="mb-5 mt-5">
     <v-layout row wrap justify-center align-center>
-      <v-flex xs12 md1>
+      <v-flex xs12 class="text-xs-center mb-4">
         <v-icon class="success-icon">fa-check</v-icon>
       </v-flex>
-      <v-flex xs12 md6>
-        <p class="success-text mb-1">Your account has been successfully created.</p>
-        <p class="success-text">An email has been sent to you with detailed instructions on how to activate it.</p>
+      <v-flex xs12>
+        <p class="success-text mb-1 text-xs-center">Your account has been successfully created.</p>
+        <p class="success-text text-xs-center">An email has been sent to you with detailed instructions on how to activate it.</p>
       </v-flex>
       </v-layout>
   </div>

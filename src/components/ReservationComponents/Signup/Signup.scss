@@ -11,11 +11,11 @@
   }
   .success-icon{
     background: #59bb57;
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     @include radius(50px);
     margin: 0 auto;
-    font-size: 24px;
+    font-size: 40px !important;
   }
   .success-text{
     font-size: 18px;
