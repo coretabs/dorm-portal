@@ -17,6 +17,7 @@
         <v-text-field :label="lang.signup.email" autocomplete="on" :rules="emailRules" required type="email" v-model.trim="email"></v-text-field>
         <v-text-field :label="lang.signup.password" v-model="password" :rules="passwordRules" required :append-icon="show ? 'visibility_off' : 'visibility'" @click:append="show = !show" :type="show ? 'text' : 'password'"></v-text-field>
       </v-form>
+      
     </v-card-text>
     <v-card-actions>
       <a href="#" @click.stop="redirectToLogin" class="grey--text text--darken-2 signup-link">{{lang.signup.haveAccount}}</a>

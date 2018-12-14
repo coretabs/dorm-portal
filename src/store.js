@@ -88,34 +88,45 @@ export default new Vuex.Store({
     fetchDorms(context) {
       context.commit('fetchDorms');
     },
-    login({commit}){
+    // login({commit}){
 
+    //   return new Promise((resolve, reject) => {
+
+    //     $backend.$login().then(responseDate => {
+
+    //       if(responseDate.is_manager){
+    //         localStorage.setItem('admin', true)
+    //       }
+    //       localStorage.setItem('auth', JSON.stringify({
+    //         user_name: responseDate.name,
+    //         reservarion_id : responseDate.reservation_id,
+    //         current_step: responseDate.current_step
+    //       }))
+    //       commit('auth_success')
+    //       resolve(responseDate)
+
+    //     })
+    //     .catch(err => {
+    //       localStorage.removeItem('admin')
+    //       localStorage.removeItem('auth')
+    //       commit('auth_error')
+    //       reject(err)
+    //     })
+
+
+    //   });
+
+    // },
+    login({commit},user){
       return new Promise((resolve, reject) => {
-
-        $backend.$login().then(responseDate => {
-
-          if(responseDate.is_manager){
-            localStorage.setItem('admin', true)
-          }
-          localStorage.setItem('auth', JSON.stringify({
-            user_name: responseDate.name,
-            reservarion_id : responseDate.reservation_id,
-            current_step: responseDate.current_step
-          }))
-          commit('auth_success')
+        $backend.$login(user).then(responseDate => {
           resolve(responseDate)
-
         })
         .catch(err => {
-          localStorage.removeItem('admin')
-          localStorage.removeItem('auth')
-          commit('auth_error')
           reject(err)
         })
-
-
       });
-
+      
     },
     logout({commit}){
       return new Promise((resolve, reject) => {

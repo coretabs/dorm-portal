@@ -4,11 +4,12 @@ export default {
     return {
       show: false,
       forgotPassword: false,
-      password: "Password",
+      email: '',
+      password: '',
       valid: false,
       emailSent: false,
       isEmailNotExist: false,
-      email: '',
+      errors: [],
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v.trim()) || 'E-mail must be valid'
@@ -22,19 +23,32 @@ export default {
   },
   methods: {
     submit(){
+      // if(this.$refs.form.validate()){
+      //   this.$store.dispatch("login").then(response => {
+      //     if(response.is_manager == true){
+      //       this.$router.push('/manage')
+      //     }
+      //     else{
+      //       this.$router.push('/reservation')
+      //     }
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error)
+      //   });
+      // }
+
       if(this.$refs.form.validate()){
-        this.$store.dispatch("login").then(response => {
-          if(response.is_manager == true){
-            this.$router.push('/manage')
-          }
-          else{
-            this.$router.push('/reservation')
-          }
+        let user = {
+          email: this.email,
+          password: this.password
+        }
+        this.$store.dispatch('login', user).then(response => {
+          //this.$store.dispatch('auth')
+          console.log('ok')
         })
-        .catch(function (error) {
-          console.log(error)
-        });
+        .catch(err => this.errors = err.response.data)
       }
+
     },
     isForgotPassword(){
       this.forgotPassword = true

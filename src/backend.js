@@ -36,9 +36,17 @@ $backend.$fetchDorm = (dormId) => {
       .then(response => response.data)
 }
 
-$backend.$login = () => {
-  return $backend.get(`/login`)
-      .then(response => response.data)
+// $backend.$login = () => {
+//   return $backend.get(`/login`)
+//       .then(response => response.data)
+// }
+
+$backend.$login = (user) => {
+  return $backend.post(`/auth/login/`,{
+    email: user.email,
+    password: user.password
+  })
+  .then(response => response.data)
 }
 
 $backend.$register = (user) => {

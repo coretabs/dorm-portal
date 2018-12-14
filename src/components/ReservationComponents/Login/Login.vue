@@ -4,18 +4,23 @@
     <v-layout mt-5 justify-center>
       <v-flex xs12 sm8 md4>
         <v-card class="elevation-3">
-          <v-form action="#" @submit.prevent="submit">
+          <v-form ref="form" lazy-validation>
             <v-toolbar color="#fff" class="elevation-0">
               <v-toolbar-title>{{lang.login.heading}}</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-text-field prepend-icon="fa-envelope" :label="lang.login.email" type="email" autofocus></v-text-field>
-              <v-text-field prepend-icon="fa-key" :label="lang.login.password" :append-icon="show ? 'visibility_off' : 'visibility'" @click:append="show = !show" :type="show ? 'text' : 'password'"></v-text-field>
+              <div v-for="(error,i) in errors" :key="i" class="mb-1">
+                <p class="error-message" v-for="(err,i) in error" :key="i">
+                  {{err}}
+                </p>
+              </div>
+              <v-text-field prepend-icon="fa-envelope" :label="lang.login.email" v-model="email" :rules="emailRules" type="email" autofocus></v-text-field>
+              <v-text-field prepend-icon="fa-key" :label="lang.login.password" v-model="password" :append-icon="show ? 'visibility_off' : 'visibility'" @click:append="show = !show" :type="show ? 'text' : 'password'"></v-text-field>
             </v-card-text>
             <v-card-actions>
               <a href="#" @click.stop="isForgotPassword" class="grey--text text--darken-2 forgot-link">Forgot your password?</a>
               <v-spacer></v-spacer>
-              <v-btn type="submit" color="#feae25" large class="elevation-0">{{lang.login.button}}</v-btn>
+              <v-btn color="#feae25" large class="elevation-0" @click.prevent="submit">{{lang.login.button}}</v-btn>
             </v-card-actions>
           </v-form>
         </v-card>
@@ -59,7 +64,7 @@
           cancel
         </v-btn>
 
-        <v-btn color="#feae25" :disabled="!valid"  class="elevation-0" large @click="resetPassword">
+        <v-btn color="#feae25" :disabled="!valid" class="elevation-0" large @click="resetPassword">
           Reset
         </v-btn>
       </v-card-actions>
