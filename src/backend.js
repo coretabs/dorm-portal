@@ -84,6 +84,13 @@ $backend.$resendVerifyEmail = (email) => {
   .then(response => response.data)
 }
 
+$backend.$resetPassword = (email) => {
+  return $backend.post(`/auth/password/reset/`,{
+    email : email
+  })
+  .then(response => response.data)
+}
+
 
 $backend.$postMessage = (payload) => {
     return $backend.post(`messages/`, payload)
