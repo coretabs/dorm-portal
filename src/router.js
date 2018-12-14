@@ -6,6 +6,7 @@ import Reservation from './components/ReservationComponents/ReservationProcess/R
 import DormProfile from './components/SingleDormComponents/DormProfile/DormProfile.vue'
 import DormManager from './components/ManagerComponents/DormManager/DormManager.vue'
 import ConfirmAccount from './components/ReservationComponents/ConfirmAccount/ConfirmAccount.vue'
+import ResetPassword from './components/ReservationComponents/ResetPassword/ResetPassword.vue'
 
 import store from './store'
 
@@ -39,6 +40,10 @@ let router = new Router({
       component: DormManager,
       beforeEnter: (to, from, next) => { (store.getters.isAdmin) ? next() : next('/login') }
     },
+    {
+      path: '/reset-password/:id/:key',
+      component: ResetPassword
+    }
   ],
   mode: 'history',
   scrollBehavior() {

@@ -1,25 +1,3 @@
-POST /auth/registration/ accepts
-```
-name
-email
-password1
-password2
-```
-
-POST /auth/resend-confirmation/ accepts
-```
-email
-```
-
-POST /auth/resend-confirmation/ returns 200 OK
-```
-```
-
-POST /auth/resend-confirmation/ returns 400 Bad request
-```
-The e-mail address is not assigned to any user account
-```
-
 POST /auth/login/ accepts
 ```
 email
@@ -53,44 +31,4 @@ GET /auth/user/ returns 403 Forbidden
 Authentication credentials were not provided
 ```
 
-POST /auth/registration/verify-email/ returns 200 OK.
-```
-key
-```
-
-POST /auth/registration/verify-email/ returns 404 Not found
-```
-Not found.
-```
-
-
-POST /auth/password/reset/ accepts
-```
-email
-```
-
-POST /auth/password/reset/ returns 200 OK
-```
-```
-
-POST /auth/password/reset/ returns 400 Bad request
-```
-The e-mail address is not assigned to any user account
-```
-
-POST /auth/password/reset/confirm/ accepts
-```
-uid
-key
-new_password1
-new_password2
-```
-
-POST /auth/password/reset/confirm/ returns 200 OK
-```
-```
-
-POST /auth/password/reset/confirm/ returns 400 Bad request
-```
-Invalid value
-```
+ 

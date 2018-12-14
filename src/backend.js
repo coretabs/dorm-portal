@@ -91,6 +91,16 @@ $backend.$resetPassword = (email) => {
   .then(response => response.data)
 }
 
+$backend.$resetPasswordConfirm = (data) => {
+  return $backend.post(`/auth/password/reset/confirm/`,{
+    uid : data.userID,
+    key: data.key,
+    new_password1: data.password,
+    new_password2: data.password
+  })
+  .then(response => response.data)
+}
+
 
 $backend.$postMessage = (payload) => {
     return $backend.post(`messages/`, payload)

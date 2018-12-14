@@ -22,7 +22,7 @@
       </v-flex>
     </v-layout>
   </v-container>
-  <v-dialog v-model="forgotPassword" max-width="600">
+  <v-dialog v-model="forgotPassword" max-width="600" lazy>
     <v-card>
 
       <v-card-text class="px-4 py-5" v-if="!emailSent">
@@ -31,7 +31,7 @@
         </v-alert>
         <h2 class="mb-3">Enter your email to reset password</h2>
         <v-form ref="form" lazy-validation>
-          <v-text-field :label="lang.signup.email" autofocus autocomplete="on" :rules="emailRules" required type="email" v-model.trim="email" :disabled="emailSent"></v-text-field>
+          <v-text-field :label="lang.signup.email" autocomplete="on" :rules="emailRules" required type="email" v-model.trim="email" :disabled="emailSent"></v-text-field>
         </v-form>
       </v-card-text>
 

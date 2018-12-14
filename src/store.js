@@ -181,6 +181,16 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    resetPasswordConfirm({commit}, data){
+      return new Promise((resolve, reject) => {
+        $backend.$resetPasswordConfirm(data).then(responseDate => {
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
     }
 
   }
