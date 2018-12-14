@@ -214,9 +214,15 @@ class Currency(django_models.Model):
     def __str__(self):
         return f'{self.code} Currency with Symbol {self.symbol}'
 
+    class Meta:
+        verbose_name_plural = 'Currencies'
+
 
 class DormitoryCategory(django_models.Model):
     name = I18nCharField(max_length=60)
+
+    class Meta:
+        verbose_name_plural = 'Dormitory Categories'
 
 
 class User(AbstractUser):
@@ -254,6 +260,9 @@ class Dormitory(django_models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+    class Meta:
+        verbose_name_plural = 'Dormitories'
 
 
 class BankAccount(django_models.Model):
@@ -328,6 +337,9 @@ class RoomCharacteristics(django_models.Model):
 
     def __str__(self):
         return f'Room id {self.id} in {self.dormitory.name}'
+
+    class Meta:
+        verbose_name_plural = 'Rooms'
 
 
 class RoomPhoto(django_models.Model):
