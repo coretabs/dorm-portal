@@ -161,6 +161,16 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    resendVerifyEmail({commit}, email){
+      return new Promise((resolve, reject) => {
+        $backend.$resendVerifyEmail(email).then(responseDate => {
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
     }
 
   }

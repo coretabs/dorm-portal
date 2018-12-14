@@ -2,8 +2,12 @@ export default {
   name: "ConfirmAccount",
   data: function() {
     return {
-      isConfirmed: null,
-      alert: false,
+      isConfirmed: false,
+      isNotConfirmed: false,
+      isExpiredLink: false,
+      isEmailNotExist: false,
+      valid: false,
+      emailSent: false,
       email: '',
       emailRules: [
         v => !!v || 'E-mail is required',
@@ -23,13 +27,35 @@ export default {
         this.isConfirmed = true
       })
       .catch(() => {
-        this.isConfirmed = false
-        this.alert = true
+        this.isNotConfirmed = true
+        this.isExpiredLink = true
       })
-    
+    },
+    formValidate(){
+      let isValid = true
+      this.emailRules.forEach((rules) => { if (rules(this.email) !== true) { isValid = false } })
+      this.valid = isValid
+    },
+    submit(){
+      if(this.$refs.form.validate()){
+        let email= this.email
+        this.$store.dispatch('resendVerifyEmail', email)
+         .then(() => {
+            this.emailSent = true
+            this.isExpiredLink = false
+            this.isEmailNotExist = false
+         })
+         .catch(() => {
+            this.isEmailNotExist = true
+            this.isExpiredLink = false
+         })
+      }
     }
   },
   mounted(){
     this.verifyEmail();
+  },
+  updated(){
+    this.formValidate();
   }
 };

@@ -44,7 +44,6 @@ export default {
     },
     formValidate(){
       let isValid = true
-
       this.nameRules.forEach((rules) => { if (rules(this.firstName) !== true) { isValid = false } })
       this.nameRules.forEach((rules) => { if (rules(this.lastName) !== true) { isValid = false } })
       this.emailRules.forEach((rules) => { if (rules(this.email) !== true) { isValid = false } })

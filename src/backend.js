@@ -77,6 +77,13 @@ $backend.$verifyEmail = (key) => {
   .then(response => response.data)
 }
 
+$backend.$resendVerifyEmail = (email) => {
+  return $backend.post(`/auth/resend-confirmation/`,{
+    email : email
+  })
+  .then(response => response.data)
+}
+
 
 $backend.$postMessage = (payload) => {
     return $backend.post(`messages/`, payload)

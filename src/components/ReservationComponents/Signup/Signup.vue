@@ -11,7 +11,7 @@
         </p>
       </div>
 
-      <v-form ref="form" :value="valid" lazy-validation>
+      <v-form ref="form" lazy-validation>
         <v-text-field :label="lang.signup.firstName" autocomplete="on" :rules="nameRules" required type="text" v-model.trim="firstName"></v-text-field>
         <v-text-field :label="lang.signup.lastName" autocomplete="on" :rules="nameRules" required type="text" v-model.trim="lastName"></v-text-field>
         <v-text-field :label="lang.signup.email" autocomplete="on" :rules="emailRules" required type="email" v-model.trim="email"></v-text-field>
