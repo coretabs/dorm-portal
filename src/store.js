@@ -126,7 +126,16 @@ export default new Vuex.Store({
           reject(err)
         })
       });
-      
+    },
+    auth(){
+      return new Promise((resolve, reject) => {
+        $backend.$auth().then(responseDate => {
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
     },
     logout({commit}){
       return new Promise((resolve, reject) => {

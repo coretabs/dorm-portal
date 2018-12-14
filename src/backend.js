@@ -49,6 +49,11 @@ $backend.$login = (user) => {
   .then(response => response.data)
 }
 
+$backend.$auth = () => {
+  return $backend.get(`/auth/user/`)
+  .then(response => response.data)
+}
+
 $backend.$register = (user) => {
   return $backend.post(`/auth/registration/`,{
     name: user.name,
