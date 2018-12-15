@@ -172,7 +172,7 @@ export default {
       this.mapModel = !this.mapModel;
     },
     fetchDorm() {
-      this.$backend.$fetchDorm(this.$route.params.id).then(responseDate => {
+      this.$backend.$fetchDorm(this.$route.params.id, this.$store.state.language, this.$store.state.currencyCode).then(responseDate => {
         this.dorm = responseDate;
       });
     }

@@ -6,16 +6,17 @@
       <v-layout justify-center>
         <v-flex md8 xs10>
           <section id="dorm-banner">
-            <h1>{{dorm.name}}</h1>
+            <h1>{{dorm.main_info.name}}</h1>
             <div>
               <v-icon>place</v-icon>
-              <span>{{address}}</span> -
+              <span>{{dorm.main_info.address}}</span> -
               <a href="#" @click.stop.prevent="showMap"> show map</a>
             </div>
           </section>
           <section id="dorm-photos">
             <swiper :options="swiperOption">
-              <swiper-slide v-for="(photo,i) in photos" :key="i">
+              <!-- TODO: Update photos -->
+              <swiper-slide v-for="(photo,i) in dorm.photos" :key="i">
                 <template v-if="photo.is_3d">
                   <img src="../../../assets/images/dormprofile/360.png" @click="sendPhotoUrl(photo.src, photo.is_3d)">
                   </template>
@@ -54,16 +55,16 @@
 
     <v-layout justify-center row wrap mb-5>
 
-      <dorm-info></dorm-info>
+      <dorm-info :dorm="dorm"></dorm-info>
 
-      <room-card v-for="n in 2" :key="n"></room-card>
+      <room-card  v-for="(room,i) in dorm.room_characteristics" :room="room" :key="i"></room-card>
 
     </v-layout>
 
   </v-content>
   <!-- Map Model -->
   <v-dialog v-model="mapModel" lazy width="800px">
-    <dorm-map :longitude="geo_longitude" :latitude="geo_latitude"></dorm-map>
+    <dorm-map :longitude="dorm.main_info.geo_longitude" :latitude="dorm.main_info.geo_latitude"></dorm-map>
   </v-dialog>
 
   <template v-if="checkSavedRoom">

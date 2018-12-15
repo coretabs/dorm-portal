@@ -3,6 +3,7 @@ export default {
   components: {
   },
   props: {
+    'room' : Object
   },
   data: function () {
     return {
@@ -38,6 +39,26 @@ export default {
       {
         name: "Barber",
         icon: "fa-cut"
+      },
+      {
+        name: "Market",
+        icon: "fa-shopping-cart"
+      },
+      {
+        name: "Elevator",
+        icon: "fa-check"
+      },
+      {
+        name: "Air condition",
+        icon: "fa-wind"
+      },
+      {
+        name: "Fire alarm",
+        icon: "fa-fire"
+      },
+      {
+        name: "Barber",
+        icon: "fa-cut"
       }     
     ],
     photos: [
@@ -49,10 +70,10 @@ export default {
     };
   },
   methods: {
-    // reserveRoom(roomID){
-    //   localStorage.setItem("room_id", roomID);
-    //   this.$router.push('/reservation');
-    // }
+    reserveRoom(room){
+      localStorage.setItem("room", JSON.stringify({room}));
+      this.$router.push('/reservation');
+    }
   },
   computed: {
     lang() {

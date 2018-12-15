@@ -10,14 +10,15 @@
           <v-tab-item lazy>
             <v-card flat>
               <v-card-text>
-                <div class="pre-line">{{history}}</div>
+                <!-- TODO: Update about object -->
+                <div class="pre-line">{{dorm.about.en}}</div>
               </v-card-text>
             </v-card>
           </v-tab-item>
           <v-tab-item lazy>
             <v-card flat>
               <v-card-text>
-                <div class="dorm-feature" v-for="(feature,index) in features" :key="index">
+                <div class="dorm-feature" v-for="(feature,index) in dorm.features" :key="index">
                   <v-icon>{{feature.icon}}</v-icon>
                   <span>{{feature.name}}</span>
                 </div>
@@ -29,13 +30,16 @@
               <v-card-text>
                 <p>You can contact us through:</p>
                 <div class="contact-info">
-                  <v-icon>fa-envelope</v-icon> <strong>Email:</strong> {{contact_email}}
+                  <v-icon>fa-user</v-icon> <strong>Name:</strong> {{dorm.contact_name}}
                 </div>
                 <div class="contact-info">
-                  <v-icon>fa-phone</v-icon> <strong>Phone:</strong> {{contact_number}}
+                  <v-icon>fa-envelope</v-icon> <strong>Email:</strong> {{dorm.contact_email}}
                 </div>
                 <div class="contact-info">
-                  <v-icon>fa-fax</v-icon> <strong>Fax:</strong> {{contact_number}}
+                  <v-icon>fa-phone</v-icon> <strong>Phone:</strong> {{dorm.contact_number}}
+                </div>
+                <div class="contact-info">
+                  <v-icon>fa-fax</v-icon> <strong>Fax:</strong> {{dorm.contact_fax}}
                 </div>
               </v-card-text>
             </v-card>
@@ -44,6 +48,7 @@
       </v-flex>
       <v-flex class="dorm-reviews" xs12 sm4>
         <div>
+          <!-- TODO: Update reviews -->
           <div class="reviews-avarage">{{reviews_average}}</div>
               <div class="review-details">
                 <v-icon>fa-user-circle</v-icon>
