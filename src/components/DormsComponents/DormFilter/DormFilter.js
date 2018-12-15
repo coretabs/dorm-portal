@@ -36,10 +36,10 @@ export default {
       return this.$store.state.dorms;
     },
     setDuration(){
-      return this.$store.state.filters[0].duration_options
+      return this.$store.state.filters.duration_options
     },
     setCategory(){
-      return this.$store.state.filters[0].category_options
+      return this.$store.state.filters.category_options
     }
   },
   mounted() {

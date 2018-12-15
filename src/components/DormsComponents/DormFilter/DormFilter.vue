@@ -68,9 +68,9 @@
     <v-container id="rightside" fluid>
       <v-layout row wrap>
 
-        <!-- <v-flex xs12>
+        <v-flex xs12>
           <dorm-search :dutarion="setDuration" :category="setCategory"></dorm-search>
-        </v-flex> -->
+        </v-flex>
         
         <v-flex xs12>
           <!-- <div v-if="showAlert" class="search-noresult">
