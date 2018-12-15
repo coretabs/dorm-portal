@@ -6,7 +6,7 @@ from features.steps.factory import *
 from api.engine.models import Dormitory, RoomCharacteristics
 
 
-@given('we have 2 dormitories with some quota')
+@given('we have 2 dormitories (and 1 room each) with some quota')
 def prepare_dormitory(self):
     category_public = create_category('public')
     self.alfam = create_dorm('Alfam', category_public)

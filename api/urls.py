@@ -25,6 +25,8 @@ dorms_router.register('bank_accounts', engine_views.BankAccountManagementViewSet
                       base_name='bank-accounts')
 dorms_router.register('photos', engine_views.PhotoDormManagementViewSet,
                       base_name='photos')
+dorms_router.register('reservations', engine_views.ReservationManagementViewSet,
+                      base_name='reservations')
 
 urlpatterns = [
 

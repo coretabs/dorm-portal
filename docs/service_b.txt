@@ -1,7 +1,7 @@
 send event decrease quota for n days (except Sat Sun)
 show iban for payment & contact & deadline
 
-upload reciept
+upload receipt
 check payment status
 send email for payment documents
 show payment documents
@@ -25,20 +25,20 @@ reservation
     
 	is_reviewed
 	
-	status {pending=1, rejected=2, confirmed=3, waiting_manager_action=4 (student uploaded reciept), manager_updated=5}
+	status {pending=0, rejected=1, confirmed=2, waiting_for_manager_action=3 (student uploaded receipt), manager_updated=4, expired=5}
 	confirmation_deadline_date
 	
 	last_update_date
 	follow_up_message
 	
-	reciepts
+	receipts
 	user
 	dorm
 	room_characteristics
 	
-reciept
-	reciept_url
-	upload_reciept_date
+receipt
+	receipt_url
+	upload_receipt_date
 	
 user
 	is_manager

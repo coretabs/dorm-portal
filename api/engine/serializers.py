@@ -21,13 +21,80 @@ from . import models
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     name = serializers.CharField(source='first_name')
     is_manager = serializers.BooleanField(read_only=True)
     class Meta:
         model = models.User
         fields = ('name', 'is_manager',)
                   #'current_step', 'reservation_id')
+
+class ReceiptSerializer(serializers.ModelSerializer):
+    url = serializers.URLField()
+    class Meta:
+        model = models.ReceiptPhoto
+        fields = ('url', 'upload_receipt_date')
+
+class ReservationRoomCharacteristicsSerializer(serializers.ModelSerializer):
+    room_type = serializers.SerializerMethodField()
+    duration = serializers.SerializerMethodField()
+
+    def get_room_type(self, obj):
+        return str(obj.room_type)
+
+    def get_duration(self, obj):
+        return str(obj.duration)
+
+    class Meta:
+        model = models.RoomCharacteristics
+        fields = ('id', 'price', 'price_currency',
+                  'room_type', 'duration', 'people_allowed_number')
+
+
+class ClientReservationManagementSerializer(serializers.ModelSerializer):
+    confirmation_deadline_date = serializers.DateField(required=False)
+    status = serializers.IntegerField(required=False)
+    follow_up_message = serializers.CharField(required=False)
+
+    def update(self, instance, validated_data):
+        status = validated_data.get('status', None)
+        if status:
+            print(status)
+            if str(status) not in [status[0] for status in models.Reservation.STATUS_CHOICES]:
+                raise serializers.ValidationError("Status doesn't exist!") 
+
+            validated_data['status'] = str(status)
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.save()
+
+        return instance
+
+    class Meta:
+        model = models.Reservation
+        fields = ('confirmation_deadline_date', 'status', 'follow_up_message')
+
+class ReservationManagementDetailsSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    room_characteristics = ReservationRoomCharacteristicsSerializer()
+    receipts = ReceiptSerializer(many=True)
+    
+    class Meta:
+        model = models.Reservation
+        fields = ('id', 
+                  'reservation_creation_date', 'confirmation_deadline_date', 'status',
+                  'user', 'room_characteristics', 'receipts')
+
+
+class ReservationManagementSerializer(serializers.Serializer):
+    reservations = ReservationManagementDetailsSerializer(many=True)
+
+    class Meta:
+        fields = ('pending_reservations', 'rejected_reservations', 
+                  'confirmed_reservations', 'waiting_for_manager_action_reservations', 
+                  'manager_updated_reservations', 'expired_reservations',
+                  'reservations')
 
 
 class RegisterSerializer(serializers.Serializer):
@@ -160,13 +227,14 @@ class ResendConfirmSerializer(serializers.Serializer):
 class FeatureFilterSerializer(serializers.ModelSerializer):
     # name = I18nField()
     name = serializers.SerializerMethodField()
+    icon = serializers.CharField(default='fa-check')
 
     def get_name(self, obj):
         return str(obj.name)
 
     class Meta:
         model = models.FeatureFilter
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'icon')
 
 
 class IntegralFilterSerializer(serializers.ModelSerializer):
@@ -174,17 +242,30 @@ class IntegralFilterSerializer(serializers.ModelSerializer):
     is_checkbox = serializers.BooleanField(default=False)
     is_integral = serializers.BooleanField(default=True)
     value = serializers.SerializerMethodField()
+    min_value = serializers.SerializerMethodField()
+    max_value = serializers.SerializerMethodField()
 
     def get_name(self, obj):
         return str(obj.name)
 
     def get_value(self, obj):
-        return obj.integralfilter.integral_choices.aggregate(
+        result = obj.integralfilter.integral_choices.aggregate(
             django_models.Max('selected_number'), django_models.Min('selected_number'))
+
+        self.min_value = result['selected_number__min']
+        self.max_value = result['selected_number__max']
+
+        return [self.min_value, self.max_value]
+
+    def get_min_value(self, obj):
+        return self.min_value
+
+    def get_max_value(self, obj):
+        return self.max_value
 
     class Meta:
         model = models.IntegralFilter
-        fields = ('id', 'name', 'is_checkbox', 'is_integral', 'value')
+        fields = ('id', 'name', 'is_checkbox', 'is_integral', 'value', 'min_value', 'max_value')
 
 
 class RadioOptionSerializer(serializers.ModelSerializer):
@@ -335,14 +416,8 @@ class ChoiceSerializer(PolymorphicSerializer):
 
 
 class PhotoSerializer(serializers.Serializer):
-    url = serializers.SerializerMethodField()
+    url = serializers.URLField()
     is_3d = serializers.BooleanField(default=False)
-
-    def get_url(self, obj):
-        if self.is_3d:
-            return obj.photo.url.replace('/media/', '')
-        else:
-            return obj.photo.path
 
     class Meta:
         fields = ('url', 'is_3d')
@@ -350,7 +425,7 @@ class PhotoSerializer(serializers.Serializer):
 
 class ClientPhotoDormSerializer(serializers.Serializer):
     uploaded_photo = serializers.ImageField(required=False)
-    url = serializers.CharField(required=False)
+    url = serializers.URLField(required=False)
     is_3d = serializers.BooleanField(default=False)
 
     def create(self, validated_data):
@@ -382,24 +457,19 @@ class RoomSerializer(serializers.ModelSerializer):
 
     photos = PhotoSerializer(many=True)
 
-    price = serializers.SerializerMethodField()
     room_type = serializers.SerializerMethodField()
-    people_allowed_number = serializers.SerializerMethodField()
+    duration = serializers.SerializerMethodField()
 
     choices = serializers.SerializerMethodField()
     features = RoomFeaturesSerializer(many=True)
 
-    def get_price(self, obj):
-        return obj.get_price()
-
     def get_room_type(self, obj):
-        return str(obj.get_room_type())
+        return str(obj.room_type)
 
-    def get_people_allowed_number(self, obj):
-        return obj.get_people_allowed_number()
+    def get_duration(self, obj):
+        return str(obj.duration)
 
     def get_choices(self, obj):
-        #choices = obj.radio_choices.all() | obj.integral_choices.all()
         choices = models.Choice.objects.filter(django_models.Q(
             id__in=obj.radio_choices.all()) | django_models.Q(id__in=obj.integral_choices.all()))
         return ChoiceSerializer(choices, many=True).data
@@ -540,11 +610,15 @@ class DormSerializer(serializers.ModelSerializer):
 class DormDetailsSerializer(serializers.ModelSerializer):
     main_info = serializers.SerializerMethodField()
     photos = PhotoSerializer(many=True)
+    about = serializers.SerializerMethodField()
     features = serializers.SerializerMethodField()
     room_characteristics = RoomSerializer(many=True)
 
     def get_main_info(self, obj):
         return DormSerializer(obj).data
+
+    def get_about(self, obj):
+        return str(obj.about)
 
     def get_features(self, obj):
         filters = models.Filter.objects.dorm_features()

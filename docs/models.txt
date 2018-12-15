@@ -78,8 +78,8 @@ dorm_features
 	
 reservation
 	is_confirmed
-	reciept_url
-	update_reciept_date
+	receipt_url
+	update_receipt_date
 	
 	user
 	dorm

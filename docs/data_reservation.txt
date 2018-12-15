@@ -5,17 +5,30 @@ room_id
 
 POST /reservations returns 200 OK
 ```
-reservation_id
-room_id
-
 student_name
 
-room_type
-reservation_duration
-people_allowed_number
+status (pending=0, rejected=1, confirmed=2, waiting_for_manager_action=3 (student uploaded receipt), manager_updated=4, expired=5)
 
-price
-currency
+confirmation_deadline_date(2018-12-15)
+
+last_update_date(2018-12-15)
+follow_up_message
+
+room_characteristics
+	id
+	
+	price
+	price_currency
+	
+	room_type
+	duration
+	people_allowed_number
+	
+	dormitory
+		contact_name
+		contact_email
+		contact_number
+		contact_fax
 
 banks
     bank_name
@@ -25,16 +38,9 @@ banks
 	swift
 	currency
 
-reciepts
-    reciept_url
-	upload_reciept_date (ordered by recent date)
-
-status (pending=1, rejected=2, confirmed=3, waiting_manager_action=4 (student uploaded reciept), manager_updated=5, expired=6)
-
-confirmation_deadline
-
-last_update
-follow_up_message
+receipts
+    receipt_url
+	upload_receipt_date (ordered by recent date) (2018-12-15)
 ```
 
 POST /reservations returns 400 Bad request
@@ -50,20 +56,30 @@ please login before making a reservation
 
 GET /reservations/{id} returns 200 OK
 ```
-room_id
-dorm_contact_name
-dorm_contact_email
-dorm_contact_number
-dorm_contact_fax
-
 student_name
 
-room_type
-reservation_duration
-people_allowed_number
+status (pending=0, rejected=1, confirmed=2, waiting_for_manager_action=3 (student uploaded receipt), manager_updated=4, expired=5)
 
-price
-currency
+confirmation_deadline_date(2018-12-15)
+
+last_update_date(2018-12-15)
+follow_up_message
+
+room_characteristics
+	id
+	
+	price
+	price_currency
+	
+	room_type
+	duration
+	people_allowed_number
+	
+	dormitory
+		contact_name
+		contact_email
+		contact_number
+		contact_fax
 
 banks
     bank_name
@@ -73,33 +89,26 @@ banks
 	swift
 	currency
 
-reciepts
-    reciept_url
-	upload_reciept_date (ordered by recent date)
-
-status (pending=1, rejected=2, confirmed=3, waiting_manager_action=4 (student uploaded reciept), manager_updated=5, expired=6)
-
-confirmation_deadline_date
-
-last_update_date
-follow_up_message
+receipts
+    receipt_url
+	upload_receipt_date (ordered by recent date) (2018-12-15)
 ```
 
-POST /reservations/{id}/reciept accepts
+POST /reservations/{id}/receipt accepts
 ```
-uploaded_reciept
+uploaded_receipt
 ```
 
-POST /reservations/{id}/reciept returns 201 created
+POST /reservations/{id}/receipt returns 201 created
 ```
 ```
 
-POST /reservations/{id}/reciept returns 400 Bad request
+POST /reservations/{id}/receipt returns 400 Bad request
 ```
 You can only add a photo for a reservation you own
 ```
 
-POST /reservations/{id}/reciept returns 403 forbidden
+POST /reservations/{id}/receipt returns 403 forbidden
 ```
 You cant add a photo to this reservation
 ```

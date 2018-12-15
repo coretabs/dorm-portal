@@ -20,7 +20,7 @@ convert currency (koop)
 send event decrease quota for 3 days (except Fri Sat Sun)
 show iban for payment & contact & deadline
 login
-upload reciept
+upload receipt
 check payment status
 send email for payment documents
 show payment documents

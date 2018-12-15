@@ -1,18 +1,54 @@
+import datetime
 from functools import reduce
 
 from django.contrib.auth.models import AbstractUser
 
-from django.db import models as django_models
+from django.db import (models as django_models, DatabaseError, transaction)
 from django.db.models.signals import post_delete
 
-
-from i18nfield.fields import I18nCharField
+from i18nfield.fields import I18nCharField, I18nTextField
 
 from polymorphic.models import PolymorphicModel
 from polymorphic.managers import PolymorphicManager
 from polymorphic.query import PolymorphicQuerySet
 
+from .exceptions import NoEnoughQuotaException
 from .utils import file_cleanup
+
+
+class ReservationQuerySet(django_models.QuerySet):
+    # def update_expired_reservations(self, dorm_id):
+    def update_expired_reservations(self):
+        # We give the student one more day to upload his receipt
+
+        today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
+
+        # result = self.filter(room_characteristics__dormitory__id=dorm_id,
+        result = self.filter(confirmation_deadline_date__gte=today_plus_one)\
+                     .update(status=Reservation.EXPIRED_STATUS)
+
+        return result
+
+    # def status_statistics(self, dorm_id):
+    def status_statistics(self):
+        # self.update_expired_reservations(dorm_id)
+        self.update_expired_reservations()
+
+        def count_status(status):
+            return django_models.Count('status', filter=django_models.Q(
+                status=status))
+
+        # result = self.filter(room_characteristics__dormitory__id=dorm_id).aggregate(
+        result = self.aggregate(
+            pending_reservations=count_status(Reservation.PENDING_STATUS),
+            rejected_reservations=count_status(Reservation.REJECTED_STATUS),
+            confirmed_reservations=count_status(Reservation.CONFIRMED_STATUS),
+            waiting_for_manager_action_reservations=count_status(
+                Reservation.WAITING_FOR_MANAGER_ACTION_STATUS),
+            manager_updated_reservations=count_status(Reservation.MANAGER_UPDATED_STATUS),
+            expired_reservations=count_status(Reservation.EXPIRED_STATUS))
+
+        return result
 
 
 class DormitoryQuerySet(django_models.QuerySet):
@@ -163,7 +199,7 @@ class IntegralFilter(Filter):
 
 
 class FeatureFilter(Filter):
-
+    icon = django_models.CharField(max_length=100)
     is_dorm_feature = django_models.BooleanField(default=False)
 
     def get_query(self):
@@ -188,7 +224,7 @@ class Choice(PolymorphicModel):
 
 
 class IntegralChoice(Choice):
-    selected_number = django_models.IntegerField(default=0)
+    selected_number = django_models.PositiveIntegerField(default=0)
 
     related_filter = django_models.ForeignKey(
         IntegralFilter, related_name='integral_choices', on_delete=django_models.CASCADE)
@@ -222,7 +258,7 @@ class DormitoryCategory(django_models.Model):
     name = I18nCharField(max_length=60)
 
     class Meta:
-        verbose_name_plural = 'Dormitory Categories'
+        verbose_name_plural = 'Dormitory categories'
 
 
 class User(AbstractUser):
@@ -231,7 +267,7 @@ class User(AbstractUser):
 
 class Dormitory(django_models.Model):
     name = django_models.CharField(max_length=60)
-    about = I18nCharField(max_length=1000)
+    about = I18nTextField()
 
     geo_longitude = django_models.CharField(max_length=20)
     geo_latitude = django_models.CharField(max_length=20)
@@ -287,28 +323,14 @@ class BankAccount(django_models.Model):
         return f'BankAccount id {self.id} name {self.bank_name} in {self.dormitory.name}'
 
 
-class DormitoryPhoto(django_models.Model):
-    photo = django_models.ImageField(upload_to='')
-    is_3d = django_models.BooleanField(default=False)
-
-    dormitory = django_models.ForeignKey(
-        Dormitory, related_name='photos', on_delete=django_models.CASCADE)
-
-    def is_owner(self, manager):
-        return self.dormitory.manager == manager
-
-
-post_delete.connect(file_cleanup, sender=DormitoryPhoto, dispatch_uid="gallery.image.file_cleanup")
-
-
 class RoomCharacteristics(django_models.Model):
-    total_quota = django_models.IntegerField(default=0)
-    allowed_quota = django_models.IntegerField(default=0)
+    total_quota = django_models.PositiveIntegerField(default=0)
+    allowed_quota = django_models.PositiveIntegerField(default=0)
 
     price_currency = django_models.ForeignKey(
         Currency, related_name='room_characteristics', on_delete=django_models.CASCADE)
 
-    room_confirmation_days = django_models.IntegerField(default=2)
+    room_confirmation_days = django_models.PositiveIntegerField(default=2)
 
     radio_choices = django_models.ManyToManyField(
         RadioChoice, related_name='radio_choices')
@@ -322,18 +344,36 @@ class RoomCharacteristics(django_models.Model):
     dormitory = django_models.ForeignKey(
         Dormitory, related_name='room_characteristics', on_delete=django_models.CASCADE)
 
-    def get_price(self):
+    @property
+    def duration(self):
+        return self.radio_choices.filter(related_filter__name__contains='Duration')\
+            .first().selected_option.name
+
+    @property
+    def price(self):
         # we use contains as we have multiple langs names
         return self.integral_choices.filter(related_filter__name__contains='Price')\
                                     .first().selected_number
 
-    def get_room_type(self):
+    @property
+    def room_type(self):
         return self.radio_choices.filter(related_filter__name__contains='Room Type')\
             .first().selected_option.name
 
-    def get_people_allowed_number(self):
+    @property
+    def people_allowed_number(self):
         return self.integral_choices.filter(related_filter__name__contains='People Allowed Number')\
                                     .first().selected_number
+
+    def increase_quota(self):
+        self.allowed_quota += 1
+
+    def decrease_quota(self):
+        if self.allowed_quota == 0:
+            import django.core.exceptions
+            raise NoEnoughQuotaException()
+
+        self.allowed_quota -= 1
 
     def __str__(self):
         return f'Room id {self.id} in {self.dormitory.name}'
@@ -342,9 +382,114 @@ class RoomCharacteristics(django_models.Model):
         verbose_name_plural = 'Rooms'
 
 
-class RoomPhoto(django_models.Model):
-    photo = django_models.ImageField()
+class Reservation(django_models.Model):
+    PENDING_STATUS = '0'
+    REJECTED_STATUS = '1'
+    CONFIRMED_STATUS = '2'
+    WAITING_FOR_MANAGER_ACTION_STATUS = '3'
+    MANAGER_UPDATED_STATUS = '4'
+    EXPIRED_STATUS = '5'
+
+    STATUS_CHOICES = (
+        (PENDING_STATUS, 'pending'),
+        (REJECTED_STATUS, 'rejected'),
+        (CONFIRMED_STATUS, 'confirmed'),
+        (WAITING_FOR_MANAGER_ACTION_STATUS, 'waiting-manager-action'),
+        (MANAGER_UPDATED_STATUS, 'manager-updated'),
+        (EXPIRED_STATUS, 'expired-please-dont-choose-this')
+    )
+
+    reservation_creation_date = django_models.DateField(auto_now=True)
+    is_reviewed = django_models.BooleanField(default=False)
+
+    status = django_models.CharField(
+        max_length=2, choices=STATUS_CHOICES, default=PENDING_STATUS)
+    confirmation_deadline_date = django_models.DateField()
+
+    last_update_date = django_models.DateField(blank=True, null=True)
+    follow_up_message = django_models.CharField(max_length=300)
+
+    user = django_models.ForeignKey(
+        User, related_name='reservations', on_delete=django_models.CASCADE)
+
+    room_characteristics = django_models.ForeignKey(
+        RoomCharacteristics, related_name='reservations', on_delete=django_models.CASCADE)
+
+    @property
+    def is_past_confirmation_deadline(self):
+        today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
+        return self.confirmation_deadline_date > today_plus_one
+
+    def is_owner(self, manager):
+        return self.room_characteristics.dormitory.manager == manager
+
+    objects = ReservationQuerySet.as_manager()
+
+    @classmethod
+    def create(cls, *args, **kwargs):
+        result = cls(confirmation_deadline_date=datetime.date.today(), *args, **kwargs)
+
+        room_characteristics = kwargs['room_characteristics']
+        room_characteristics.decrease_quota()
+
+        with transaction.atomic():
+            result.save()
+            room_characteristics.save()
+
+        return result
+
+    def update_status(self, new_status):
+        self.status = new_status
+
+        if new_status == Reservation.REJECTED_STATUS:
+            self.room_characteristics.increase_quota()
+            with transaction.atomic():
+                self.save()
+                self.room_characteristics.save()
+
+
+class UploadablePhoto(django_models.Model):
+    photo = django_models.ImageField(upload_to='')
+
+    @property
+    def url(self):
+        if self.is_3d:
+            return self.photo.url.replace('/media/', '')
+        else:
+            return self.photo.path
+
+    class Meta:
+        abstract = True
+
+
+class RoomPhoto(UploadablePhoto):
     is_3d = django_models.BooleanField(default=False)
 
     room_characteristics = django_models.ForeignKey(
         RoomCharacteristics, related_name='photos', on_delete=django_models.CASCADE)
+
+
+post_delete.connect(file_cleanup, sender=RoomPhoto, dispatch_uid="gallery.image.file_cleanup")
+
+
+class DormitoryPhoto(UploadablePhoto):
+    is_3d = django_models.BooleanField(default=False)
+
+    dormitory = django_models.ForeignKey(
+        Dormitory, related_name='photos', on_delete=django_models.CASCADE)
+
+    def is_owner(self, manager):
+        return self.dormitory.manager == manager
+
+
+post_delete.connect(file_cleanup, sender=DormitoryPhoto, dispatch_uid="gallery.image.file_cleanup")
+
+
+class ReceiptPhoto(UploadablePhoto):
+    upload_receipt_date = django_models.DateField(auto_now=True)
+
+    reservation = django_models.ForeignKey(
+        Reservation, related_name='receipts', on_delete=django_models.CASCADE)
+
+
+post_delete.connect(file_cleanup, sender=ReceiptPhoto, dispatch_uid="gallery.image.file_cleanup")

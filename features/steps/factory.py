@@ -11,6 +11,12 @@ from faker import Faker
 fake = Faker()
 
 
+def create_reservation(room, user):
+    result = Reservation.create(room_characteristics=room, user=user)
+
+    return result
+
+
 def create_uploaded_file(self, file_name):
     self.expected_file_path = os.path.join(settings.MEDIA_ROOT, 'alfam-photo.jpeg')
     if os.path.exists(self.expected_file_path):
@@ -191,6 +197,14 @@ def create_room_with_radio_integral_features(dorm, radio_choices, integral_choic
 def create_manager(self, name):
     result = User(first_name=name, username=name)
     result.is_manager = True
+
+    result.save()
+
+    return result
+
+
+def create_student(self, name):
+    result = User(first_name=name, username=name)
 
     result.save()
 

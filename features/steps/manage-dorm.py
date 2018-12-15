@@ -47,6 +47,11 @@ def filtering(self):
     self.price_1000 = create_integral_choice(self.price_filter, 1000)
     self.price_1200 = create_integral_choice(self.price_filter, 1200)
 
+    self.options_duration = [RadioOption(name='Spring'), RadioOption(name='Winter')]
+    self.duration = create_radio_filter(self.options_duration, 'Duration')
+    self.duration_choice_spring = create_radio_choice(self.options_duration[0], self.duration)
+    self.duration_choice_winter = create_radio_choice(self.options_duration[1], self.duration)
+
     self.room_type_options = [RadioOption(name='Single'),
                               RadioOption(name='Double')]
     self.room_types = create_radio_filter(self.room_type_options, 'Room Type')
@@ -55,13 +60,13 @@ def filtering(self):
 
     self.room1 = create_room_with_radio_integral_features(
         self.alfam,
-        [self.room_type_single_choice, ],
+        [self.room_type_single_choice, self.duration_choice_spring],
         [self.price_1000, ],
         [])
 
     self.room2 = create_room_with_radio_integral_features(
         self.alfam,
-        [self.room_type_double_choice, ],
+        [self.room_type_double_choice, self.duration_choice_winter],
         [self.price_1200, ],
         [])
 
@@ -320,6 +325,8 @@ def filtering(self):
                                 'contact_number': '+908501531', 'contact_fax': '+801561561'}
 
     self.deserialized_data = ClientDormManagementSerializer(data=self.updating_alfam_json)
+    print(self.deserialized_data.is_valid())
+    print(self.deserialized_data.errors)
 
 
 @then('validate the deserialized data for updating alfam')

@@ -75,7 +75,7 @@ def test_model_can_create_a_message(self):
     assert self.filtered_dorms.first().name == 'Alfam'
 
     assert self.filtered_dorms.all()[0].room_characteristics.count() == 1
-    assert self.filtered_dorms.all()[0].room_characteristics.first().get_price() == 1200
+    assert self.filtered_dorms.all()[0].room_characteristics.first().price == 1200
 
 
 @when('filter meals (breakfast & both) + luxury shower')

@@ -94,6 +94,38 @@ class HisOwnDormitory(BasePermission):
         return obj.is_owner(request.user)
 
 
+class HisOwnDormitoryReservation(BasePermission):
+    def has_permission(self, request, view):
+        return models.Dormitory.objects.get(pk=view.kwargs['dorm_pk']).manager == request.user
+
+
+class ReservationManagementViewSet(viewsets.ViewSet):
+    permission_classes = (IsAuthenticated, HisOwnDormitoryReservation)
+    serializer_class = serializers.ReservationManagementSerializer
+
+    def get_queryset(self):
+        return models.Reservation.objects.filter(
+            room_characteristics__dormitory__id=self.kwargs['dorm_pk'])
+
+    def list(self, request, dorm_pk):
+        reservations = self.get_queryset()
+
+        result = reservations.status_statistics()
+        result['reservations'] = reservations
+
+        return Response(serializers.ReservationManagementSerializer(result).data)
+
+    def update(self, request, dorm_pk, pk):
+        reservation = models.Reservation.objects.get(pk=pk)
+        self.check_object_permissions(request, reservation)
+
+        serializer = serializers.ClientReservationManagementSerializer(
+            reservation, data=request.data, partial=True)
+        serializer.is_valid()
+        serializer.save()
+        return Response(serializer.data)
+
+
 class BankAccountManagementViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, HisOwnDormitory)
     serializer_class = serializers.ClientBankAccountSerializer

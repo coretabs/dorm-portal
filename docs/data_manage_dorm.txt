@@ -240,38 +240,44 @@ photos
 
 GET /manager/dorms/{id}/reservations returns
 ```
-id
-
 pending_reservations
 rejected_reservations
 confirmed_reservations
-waiting_manager_action_reservations (same as updated)
+waiting_for_manager_action_reservations (same as updated)
 manager_updated_reservations
 expired_reservations
 
 reservations
-    reservation_date
+	id
+	
+    reservation_creation_date
     confirmation_deadline_date
 
-    price
-    currency_symbol
+	status (pending=0, rejected=1, confirmed=2, 
+            waiting_for_manager_action=3 (student uploaded receipt), manager_updated=4, expired=5)
+	
+	user
+		name
+		email
+	
+	room_characteristics
+		id
+		
+		price
+		price_currency
+		
+		room_type
+		duration
+		people_allowed_number
     
-    duration
-    room_type
-
-    student_name
-    email
-    
-    reciepts
-        reciept_url
-	    upload_reciept_date
-
-    status (pending=1, rejected=2, confirmed=3, waiting_manager_action=4 (student uploaded reciept), manager_updated=5, expired=6)
+    receipts
+        photo_url
+	    upload_receipt_date
 ```
 
 PUT /manager/dorms/{id}/reservations/{id} accepts
 ```
-status (pending=1, rejected=2, confirmed=3, waiting_manager_action=4 (student uploaded reciept), manager_updated=5)
+status (pending=0, rejected=1, confirmed=2, waiting_for_manager_action=3 (student uploaded receipt), manager_updated=4)
 confirmation_deadline_date
-follow_up_message
+confirmation_deadline_date(2018-12-15)
 ```
