@@ -86,7 +86,7 @@
         </v-flex>
 
         <v-flex xs12>
-          <!-- <dorm-card :dorm="dorm" v-for="(dorm,index) in dorms" :key="index"></dorm-card> -->
+          <dorm-card :dorm="dorm" v-for="(dorm,index) in dorms" :key="index"></dorm-card>
         </v-flex>
 
       </v-layout>
