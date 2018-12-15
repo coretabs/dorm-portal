@@ -31,8 +31,8 @@ $backend.$fetchDorms = () => {
       .then(response => response.data)
 }
 
-$backend.$fetchDorm = (dormId) => {
-  return $backend.get(`/dorms/${dormId}`)
+$backend.$fetchDorm = (dormId,lang,currencyCode) => {
+  return $backend.get(`/dorms/${dormId}/?language=${lang}&currency=${currencyCode}`)
       .then(response => response.data)
 }
 
