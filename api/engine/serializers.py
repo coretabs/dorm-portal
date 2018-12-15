@@ -58,7 +58,6 @@ class ClientReservationManagementSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         status = validated_data.get('status', None)
         if status:
-            print(status)
             if str(status) not in [status[0] for status in models.Reservation.STATUS_CHOICES]:
                 raise serializers.ValidationError("Status doesn't exist!") 
 

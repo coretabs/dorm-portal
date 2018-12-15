@@ -73,7 +73,7 @@ def test_model_can_create_a_message(self):
         "('name', 'Meals'), ('is_checkbox', True), ('is_integral', False),") == 1
 
     assert self.all_filters_string.count(
-        "('name', 'Price'), ('is_checkbox', False), ('is_integral', True), ('value', {'selected_number__max': 1700, 'selected_number__min': 1000})") == 1
+        "('name', 'Price'), ('is_checkbox', False), ('is_integral', True), ('value', [1000, 1700])") == 1
 
 
 @when('having more than one integral filter (bathrooms)')
@@ -94,7 +94,7 @@ def test_model_can_create_a_message(self):
         "('name', 'Meals'), ('is_checkbox', True), ('is_integral', False),") == 1
 
     assert self.all_filters_string.count(
-        "('name', 'Price'), ('is_checkbox', False), ('is_integral', True), ('value', {'selected_number__max': 1700, 'selected_number__min': 1000})") == 1
+        "('name', 'Price'), ('is_checkbox', False), ('is_integral', True), ('value', [1000, 1700])") == 1
 
 
 @then('not get main filters with the additional filters')
