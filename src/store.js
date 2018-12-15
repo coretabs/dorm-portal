@@ -36,11 +36,11 @@ export default new Vuex.Store({
   mutations: {
     fetchLocale(state){
       $backend.$fetchLocale().then(responseDate => {
-        state.currencies = responseDate[0].currencies;
-        state.languages = responseDate[1].languages;
-        localStorage.setItem("lang", responseDate[1].languages[0].code);
-        localStorage.setItem("currency-code", responseDate[0].currencies[0].code);
-        localStorage.setItem("currency-symbol", responseDate[0].currencies[0].symbol);
+        state.currencies = responseDate.currencies;
+        state.languages = responseDate.languages;
+        localStorage.setItem("lang", responseDate.languages[0].code);
+        localStorage.setItem("currency-code", responseDate.currencies[0].code);
+        localStorage.setItem("currency-symbol", responseDate.currencies[0].symbol);
       });
     },
     fetchFilters(state){
