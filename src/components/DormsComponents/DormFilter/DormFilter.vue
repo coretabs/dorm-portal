@@ -8,12 +8,12 @@
       </div>
       <div id="filters-body">
 
-        <div class="filter" v-for="(filter,index) in filters" :key="index">
-          
+        <div class="filter">
+
           <div class="filter-title">Dorm Features:</div>
           <template>
             <ul>
-              <li v-for="(dormFeature, index) in filter.dorm_feature" :key="index">
+              <li v-for="(dormFeature, index) in filters.dorm_features" :key="index">
                 <v-checkbox :value="dormFeature.id" :label="dormFeature.name" color="success"></v-checkbox>
               </li>
             </ul>
@@ -22,14 +22,14 @@
           <div class="filter-title">Room Features:</div>
           <template>
             <ul>
-              <li v-for="(roomFeatures, index) in filter.room_features" :key="index">
+              <li v-for="(roomFeatures, index) in filters.room_features" :key="index">
                 <v-checkbox :value="roomFeatures.id" :label="roomFeatures.name" color="success"></v-checkbox>
               </li>
             </ul>
           </template>
 
 
-          <div v-for="(additionalFilters, index) in filter.additional_filters" :key="index">
+          <div v-for="(additionalFilters, index) in filters.additional_filters" :key="index">
             <div class="filter-title">{{additionalFilters.name}}</div>
             
             <template v-if="additionalFilters.is_checkbox">
@@ -68,9 +68,9 @@
     <v-container id="rightside" fluid>
       <v-layout row wrap>
 
-        <v-flex xs12>
+        <!-- <v-flex xs12>
           <dorm-search :dutarion="setDuration" :category="setCategory"></dorm-search>
-        </v-flex>
+        </v-flex> -->
         
         <v-flex xs12>
           <!-- <div v-if="showAlert" class="search-noresult">
@@ -86,7 +86,7 @@
         </v-flex>
 
         <v-flex xs12>
-          <dorm-card :dorm="dorm" v-for="(dorm,index) in dorms" :key="index"></dorm-card>
+          <!-- <dorm-card :dorm="dorm" v-for="(dorm,index) in dorms" :key="index"></dorm-card> -->
         </v-flex>
 
       </v-layout>

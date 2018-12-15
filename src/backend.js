@@ -17,17 +17,17 @@ $backend.interceptors.response.use(function (response) {
 })
 
 $backend.$fetchLocale = () => {
-  return $backend.get(`/locale`)
+  return $backend.get(`/locale/`)
       .then(response => response.data)
 }
 
 $backend.$fetchFilters = (lang,currencyCode) => {
-  return $backend.get(`/filter?language=${lang}&currency=${currencyCode}`)
+  return $backend.get(`/filters/?language=${lang}&currency=${currencyCode}`)
       .then(response => response.data)
 }
 
 $backend.$fetchDorms = () => {
-  return $backend.get(`/dorms`)
+  return $backend.get(`/dorms/`)
       .then(response => response.data)
 }
 
