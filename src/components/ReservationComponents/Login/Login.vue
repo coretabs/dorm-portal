@@ -14,8 +14,8 @@
                   {{err}}
                 </p>
               </div>
-              <v-text-field prepend-icon="fa-envelope" :label="lang.login.email" v-model="email" :rules="emailRules" type="email" autofocus></v-text-field>
-              <v-text-field prepend-icon="fa-key" :label="lang.login.password" v-model="password" :append-icon="show ? 'visibility_off' : 'visibility'" @click:append="show = !show" :type="show ? 'text' : 'password'"></v-text-field>
+              <v-text-field prepend-icon="fa-envelope" :label="lang.login.email" v-model="email" :rules="emailRules" type="email" autofocus required></v-text-field>
+              <v-text-field prepend-icon="fa-key" :label="lang.login.password" v-model="password" :append-icon="show ? 'visibility_off' : 'visibility'" @click:append="show = !show" :type="show ? 'text' : 'password'" required></v-text-field>
             </v-card-text>
             <v-card-actions>
               <a href="#" @click.stop="isForgotPassword" class="grey--text text--darken-2 forgot-link">Forgot your password?</a>

@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "postinstall": "yarn build",
-    "json:server": "json-server --watch db.json"
+    "json:server": "json-server --watch db.json",
+    "serve-api": "vue-cli-service serve --host local.dorm.com"
   },
   "dependencies": {
     "axios": "^0.18.0",

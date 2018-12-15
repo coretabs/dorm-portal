@@ -127,12 +127,24 @@ export default new Vuex.Store({
         })
       });
     },
-    auth(){
+    auth({commit}){
       return new Promise((resolve, reject) => {
         $backend.$auth().then(responseDate => {
+          if(responseDate.is_manager){
+            localStorage.setItem('admin', true)
+          }
+          localStorage.setItem('auth', JSON.stringify({
+            user_name: responseDate.name,
+            reservarion_id : null, //responseDate.reservation_id,
+            current_step: 2 //responseDate.current_step
+          }))
+          commit('auth_success')
           resolve(responseDate)
         })
         .catch(err => {
+          localStorage.removeItem('admin')
+          localStorage.removeItem('auth')
+          commit('auth_error')
           reject(err)
         })
       })

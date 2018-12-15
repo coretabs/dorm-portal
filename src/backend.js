@@ -1,10 +1,12 @@
 import axios from 'axios'
 
 let $backend = axios.create({
-  //baseURL: 'http://localhost:3000',
-  baseURL: 'http://127.0.0.1:8000/api',
+  baseURL: 'http://localhost:8000/api',
   timeout: 5000,
-  headers: {'Content-Type': 'application/json'}
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': 'http://192.168.56.1:8080/'
+  }
 })
 
 // Response Interceptor to handle and log errors
@@ -65,7 +67,7 @@ $backend.$register = (user) => {
 }
 
 $backend.$reserveRoom = (roomId) => {
-  return $backend.post(`/reservations`,{
+  return $backend.post(`/reservations/`,{
     room_id : roomId
   })
   .then(response => response.data)
@@ -79,7 +81,7 @@ $backend.$reserveRoom = (roomId) => {
 // }
 
 $backend.$fetchReservation = () => {
-  return $backend.get(`/reservation`)
+  return $backend.get(`/reservation/`)
       .then(response => response.data)
 }
 
