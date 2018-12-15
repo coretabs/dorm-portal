@@ -8,7 +8,7 @@ from api.engine import models
 class FeatureFilterForm(forms.ModelForm):
     class Meta:
         name = models.FeatureFilter
-        fields = ['name', 'is_dorm_feature']
+        fields = ['name', 'icon', 'is_dorm_feature']
         widgets = {
             'name': i18nforms.I18nTextInput,
         }
@@ -58,5 +58,5 @@ class DormitoryForm(forms.ModelForm):
                   'contact_name', 'contact_email', 'contact_number', 'contact_fax',
                   'cover', 'category', 'features', 'manager']
         widgets = {
-            'about': i18nforms.I18nTextInput,
+            'about': i18nforms.I18nTextarea,
         }
