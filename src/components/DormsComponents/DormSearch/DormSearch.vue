@@ -21,7 +21,6 @@
         <v-icon>fa-search</v-icon>{{lang.dormSearch.button}}
       </v-btn>
     </v-flex>
-    {{type}}
   </v-layout>
 </v-form>
 </template>

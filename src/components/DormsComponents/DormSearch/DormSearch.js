@@ -6,8 +6,6 @@ export default {
   },
   data: function () {
     return {
-      number: 5,
-      defaultAcademicYear: "Academic year"
     };
   },
   computed: {
