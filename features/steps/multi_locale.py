@@ -14,28 +14,21 @@ from api.engine.views import *
 from features.steps.factory import *
 
 
-def create_currency(code, symbol):
-    result = Currency(code=code, symbol=symbol)
-    result.save()
-
-    return result
-
-
 @given('we have 3 langs En,Ar,Tr and 2 currencies USD,TL')
-def prepare_dormitory(self):
+def arrange(self):
     self.languages = settings.LANGUAGES
     self.usd = create_currency('USD', '$')
     self.tl = create_currency('TL', '₺')
 
 
 @when('serializing 3 langs En,Ar,Tr and 2 currencies USD,TL')
-def filtering(self):
+def act(self):
     self.serialized_locale = LocaleSerailizer([])
     self.serialized_locale_string = str(self.serialized_locale.data)
 
 
 @then('get valid serialized languages and currencies')
-def test_model_can_create_a_message(self):
+def test(self):
     # print(self.serialized_locale.data)
 
     assert self.serialized_locale_string.count(
@@ -43,14 +36,14 @@ def test_model_can_create_a_message(self):
 
 
 @when('hitting GET /locale endpoint')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().get(reverse('engine:locale-list'))
     view = LocaleListViewSet.as_view(actions={'get': 'list'})
     self.response = view(request)
 
 
 @then('get 200 OK with langs and currencies')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
 
     languages_prices_keys = self.response.render().data.keys()
@@ -60,7 +53,7 @@ def test_model_can_create_a_message(self):
 
 
 @given('we have 1 dorm with 2 rooms with meals and luxury shower')
-def filtering(self):
+def arrange(self):
     self.category_public = create_category(LazyI18nString(
         {'ar': 'عام', 'tr': 'Genel', 'en': 'Public'}))
     self.alfam = create_dorm('Alfam', self.category_public)
@@ -119,34 +112,34 @@ def filtering(self):
 
 
 @when('hitting GET /filters endpoint in English')
-def test_model_can_create_a_message(self):
+def act(self):
     request = APIRequestFactory().get(reverse('engine:filters-list'), {'language': 'en'})
     view = FiltersListViewSet.as_view(actions={'get': 'list'})
     self.response = view(request)
 
 
 @then('get 200 OK with English filters')
-def filtering(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
     # print(self.response.render().data)
     assert str(self.response.render().data).count("('name', 'Public')") == 1
 
 
 @when('hitting GET /filters endpoint in Turkish')
-def test_model_can_create_a_message(self):
+def act(self):
     request = APIRequestFactory().get(reverse('engine:filters-list'), {'language': 'tr'})
     view = FiltersListViewSet.as_view(actions={'get': 'list'})
     self.response = view(request)
 
 
 @then('get 200 OK with Turkish filters')
-def filtering(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
     assert str(self.response.render().data).count("('name', 'Genel')") == 1
 
 
 @when('hitting POST /dorms endpoint in English')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().post(reverse('engine:dorms-list'),
                                        {'language': 'en'}, format='json')
     view = DormViewSet.as_view(actions={'post': 'create'})
@@ -154,7 +147,7 @@ def filtering(self):
 
 
 @then('get 200 OK with English rooms characteristics')
-def filtering(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
 
     returned_dorms = self.response.render().data[0]
@@ -167,7 +160,7 @@ def filtering(self):
 
 
 @when('hitting POST /dorms endpoint in Turkish')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().post(reverse('engine:dorms-list'),
                                        {'language': 'tr'}, format='json')
     view = DormViewSet.as_view(actions={'post': 'create'})
@@ -175,7 +168,7 @@ def filtering(self):
 
 
 @then('get 200 OK with Turkish rooms characteristics')
-def filtering(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
 
     returned_dorms = self.response.render().data[0]
@@ -188,7 +181,7 @@ def filtering(self):
 
 
 @when('hitting POST /dorms endpoint in non registered language')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().post(reverse('engine:dorms-list'),
                                        {'language': 'dude'}, format='json')
     view = DormViewSet.as_view(actions={'post': 'create'})
@@ -196,7 +189,7 @@ def filtering(self):
 
 
 @then('get 200 OK with Default language (EN) rooms characteristics')
-def filtering(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
 
     returned_dorms = self.response.render().data[0]
@@ -209,20 +202,20 @@ def filtering(self):
 
 
 @when('querying dorms with TL')
-def test_model_can_create_a_message(self):
+def act(self):
     pass
 
 
 @then('getting price in TL')
-def filtering(self):
+def test(self):
     pass
 
 
 @when('hitting POST /dorms endpoint in TL')
-def test_model_can_create_a_message(self):
+def act(self):
     pass
 
 
 @then('get 200 OK with TL prices')
-def filtering(self):
+def test(self):
     pass

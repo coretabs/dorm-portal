@@ -13,25 +13,25 @@ from features.steps.factory import *
 
 
 @given('we have 2 dormitories with 2 rooms each')
-def prepare_dormitory(self):
+def arrange(self):
     create_alfam_dovec_with_4_rooms(self)
 
 
 @when('serializing alfam to get its all data')
-def test_model_can_create_a_message(self):
+def act(self):
     self.serialized_dorms = DormDetailsSerializer(
         Dormitory.objects.filter(name='Alfam').superfilter().first())
     self.serialized_dorms_string = str(self.serialized_dorms.data)
 
 
 @then('get valid serialized alfam data with 2 rooms')
-def test_model_can_create_a_message(self):
+def test(self):
     # print(self.serialized_dorms_string)
     assert self.serialized_dorms_string.count("'name': 'Alfam'") == 1
 
 
 @when('hitting GET /dorms/{alfam-id} endpoint')
-def prepare_features(self):
+def act(self):
     # request = APIRequestFactory().get(reverse('dorms-retrieve'), {'pk': self.alfam.id})
     request = APIRequestFactory().get('')
     view = DormViewSet.as_view(actions={'get': 'retrieve'})
@@ -39,7 +39,7 @@ def prepare_features(self):
 
 
 @then('get 200 OK with alfam data')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
 
     filters_keys = self.response.render().data.keys()

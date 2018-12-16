@@ -7,7 +7,7 @@ from api.engine.models import Dormitory, RoomCharacteristics
 
 
 @given('we have 2 dormitories (and 1 room each) with some quota')
-def prepare_dormitory(self):
+def arrange(self):
     category_public = create_category('public')
     self.alfam = create_dorm('Alfam', category_public)
 
@@ -23,11 +23,11 @@ def prepare_dormitory(self):
 
 
 @when('getting available dorms')
-def filtering(self):
+def act(self):
     self.filtered_dorm = Dormitory.objects.available()
 
 
 @then('get alfam dormitory and not getting dovec')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.filtered_dorm.count() == 1
     assert self.filtered_dorm.first().name == 'Alfam'

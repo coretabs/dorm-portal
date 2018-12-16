@@ -6,7 +6,7 @@ from features.steps.factory import *
 
 
 @given('we have 1 dormitory with 2 rooms')
-def prepare_dormitory(self):
+def arrange(self):
 
     category_public = create_category('public')
     self.alfam = create_dorm('Alfam', category_public)
@@ -28,14 +28,14 @@ def prepare_dormitory(self):
 
 
 @when('filtering alfam rooms by meal Breakfast')
-def filtering(self):
+def act(self):
     choosen_option_id = [self.meals_choice1.selected_option.id, ]
     filters = [self.meals.get_query(choosen_option_id), ]
     self.filtered_dorm_alfam = Dormitory.objects.apply_room_filters(filters)
 
 
 @then('get alfam dormitory with just one room having Breakfast')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.filtered_dorm_alfam.first().room_characteristics.all().count() == 1
     assert self.filtered_dorm_alfam.first()\
         .room_characteristics.first()\
@@ -43,14 +43,14 @@ def test_model_can_create_a_message(self):
 
 
 @when('filtering alfam rooms by meal Dinner')
-def filtering(self):
+def act(self):
     choosen_option_id = [self.meals_choice2.selected_option.id, ]
     filters = [self.meals.get_query(choosen_option_id), ]
     self.filtered_dorm_alfam = Dormitory.objects.apply_room_filters(filters)
 
 
 @then('get alfam dormitory with just two room having Dinner')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.filtered_dorm_alfam.first().room_characteristics.all().count() == 2
 
     assert self.filtered_dorm_alfam.first()\
@@ -63,7 +63,7 @@ def test_model_can_create_a_message(self):
 
 
 @when('filtering alfam rooms by meal Breakfast & Dinner')
-def filtering(self):
+def act(self):
     choosen_option_ids = [self.meals_choice1.selected_option.id,
                           self.meals_choice2.selected_option.id]
     filters = [self.meals.get_query(choosen_option_ids), ]
@@ -71,7 +71,7 @@ def filtering(self):
 
 
 @then('get dormitory with all room having Breakfast & Dinner')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.filtered_dorm_alfam.first().room_characteristics.all().count() == 3
 
     assert self.filtered_dorm_alfam.first()\

@@ -17,13 +17,13 @@ from features.steps.factory import *
 
 
 @given('two managers (one for alfam&dovec and one for homedorm)')
-def prepare_dormitory(self):
+def arrange(self):
     self.john = create_manager(self, 'John')
     self.scott = create_manager(self, 'Doe')
 
 
 @given('we have dorms(alfam & dovec & homedorm) + 2 rooms in alfam')
-def filtering(self):
+def arrange(self):
     self.category_public = create_category('public')
     self.category_private = create_category('private')
 
@@ -72,7 +72,7 @@ def filtering(self):
 
 
 @when('hitting GET /manager/dorms endpoint')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().get('')
     force_authenticate(request, self.john)
     view = DormManagementViewSet.as_view(actions={'get': 'list'})
@@ -80,7 +80,7 @@ def filtering(self):
 
 
 @then('get 200 OK with alfam and dovec')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
 
     returned_dorms = self.response.render().data[0]
@@ -94,24 +94,24 @@ def test_model_can_create_a_message(self):
 
 
 @then('he wont get any other non-owned dorm data')
-def test_model_can_create_a_message(self):
+def test(self):
     assert str(self.response.render().data).count("'name', 'Home Dorm'") == 0
 
 
 @when('manager asks serializer to bring alfam dorm data')
-def filtering(self):
+def act(self):
     self.serialized_dorms = DormManagementDetailsSerializer(self.john.dormitories, many=True)
     self.all_serialized_dorms = str(self.serialized_dorms.data)
 
 
 @then('get valid serialized alfam data for the manager')
-def test_model_can_create_a_message(self):
+def test(self):
     # print(self.all_serialized_dorms)
     assert self.all_serialized_dorms.count("'name', 'Alfam'") == 1
 
 
 @when('hitting GET /manager/dorms/{alfam-id}')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().get('')
     force_authenticate(request, self.john)
     view = DormManagementViewSet.as_view(actions={'get': 'retrieve'})
@@ -119,7 +119,7 @@ def filtering(self):
 
 
 @then('get 200 OK with alfam')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
 
     filters_keys = self.response.render().data.keys()
@@ -129,7 +129,7 @@ def test_model_can_create_a_message(self):
 
 
 @when('hitting GET /manager/dorms/{homedorm-id} for non-owned dorm')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().get('')
     force_authenticate(request, self.scott)
     view = DormManagementViewSet.as_view(actions={'get': 'retrieve'})
@@ -137,12 +137,12 @@ def filtering(self):
 
 
 @then('get forbidden 403 for homedorm')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_403_FORBIDDEN
 
 
 @then('the other manager can get his homedorm')
-def test_model_can_create_a_message(self):
+def test(self):
     request = APIRequestFactory().get('')
     force_authenticate(request, self.scott)
     view = DormManagementViewSet.as_view(actions={'get': 'retrieve'})
@@ -152,7 +152,7 @@ def test_model_can_create_a_message(self):
 
 
 @when('deserializing bank data for alfam')
-def filtering(self):
+def act(self):
     self.isbank_new_account = {'bank_name': 'isbank',
                                'account_name': 'Faruk', 'account_number': '987654',
                                'swift': 'IN123456', 'iban': 'TR123456', 'currency_code': 'USD'}
@@ -161,13 +161,13 @@ def filtering(self):
 
 
 @then('validate the deserialized bank data for alfam')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.deserialized_data.is_valid() == True
     # print(self.deserialized_data)
 
 
 @when('hitting PUT /manager/dorms/{alfam-id}/bank-accounts/{isbank-id}')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().put('', self.isbank_new_account, format='json')
     force_authenticate(request, self.john)
     view = BankAccountManagementViewSet.as_view(actions={'put': 'update'})
@@ -175,13 +175,13 @@ def filtering(self):
 
 
 @then('get 200 OK for updating alfam isbank data')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
     assert BankAccount.objects.filter(bank_name='isbank').first().iban == 'TR123456'
 
 
 @when('hitting same endpoint above to partially update isbank')
-def filtering(self):
+def act(self):
     isbank_new_iban = {'iban': '8888888'}
 
     request = APIRequestFactory().put('', isbank_new_iban, format='json')
@@ -191,7 +191,7 @@ def filtering(self):
 
 
 @then('get 200 OK for partially updating alfam isbank data')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
     isbank_instance = BankAccount.objects.filter(bank_name='isbank').first()
     assert isbank_instance.iban == '8888888'
@@ -199,7 +199,7 @@ def test_model_can_create_a_message(self):
 
 
 @when('hitting POST /manager/dorms/{alfam-id}/bank-accounts')
-def filtering(self):
+def act(self):
     ziraat_new_account = {'bank_name': 'ziraat',
                           'account_name': 'Murat', 'account_number': '777777',
                           'swift': 'IN4564181', 'iban': 'TR000000', 'currency_code': 'USD'}
@@ -213,14 +213,14 @@ def filtering(self):
 
 
 @then('get 201 CREATED for adding alfam ziraat data')
-def test_model_can_create_a_message(self):
+def test(self):
     # print(self.response.status_code)
     assert self.response.status_code == status.HTTP_201_CREATED
     assert BankAccount.objects.filter(bank_name='ziraat').first().iban == 'TR000000'
 
 
 @when('hitting DELETE /manager/dorms/{alfam-id}/bank-accounts/{ziraat-id}')
-def filtering(self):
+def act(self):
     ziraat = BankAccount.objects.filter(bank_name='ziraat').first()
 
     request = APIRequestFactory().delete('')
@@ -230,13 +230,13 @@ def filtering(self):
 
 
 @then('get 204 NO CONTENT for deleting alfam ziraat bank')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_204_NO_CONTENT
     assert BankAccount.objects.filter(bank_name='ziraat').first() == None
 
 
 @when('hitting POST /manager/dorms/{alfam-id}/photos for non-3d-image')
-def filtering(self):
+def act(self):
     uploaded_file = create_uploaded_file(self, 'alfam-photo.jpeg')
     photo_json = {'uploaded_photo': uploaded_file}
 
@@ -248,7 +248,7 @@ def filtering(self):
 
 
 @then('get 201 CREATED for adding alfam photo')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_201_CREATED
     assert Dormitory.objects.filter(name='Alfam').first().photos.count() == 1
 
@@ -257,7 +257,7 @@ def test_model_can_create_a_message(self):
 
 
 @when('hitting DELETE /manager/dorms/{alfam-id}/photos/{alfam-photo-id}')
-def filtering(self):
+def act(self):
     alfam_photo = Dormitory.objects.filter(name='Alfam').first().photos.first()
 
     request = APIRequestFactory().delete('')
@@ -267,14 +267,14 @@ def filtering(self):
 
 
 @then('delete that photo from alfam')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_204_NO_CONTENT
     assert Dormitory.objects.filter(name='Alfam').first().photos.count() == 0
     assert os.path.exists(self.expected_file_path) == False
 
 
 @when('hitting POST /manager/dorms/{alfam-id}/photos for 3d-image')
-def filtering(self):
+def act(self):
     photo_json = {'url': 'https://momento360.com/e/u/a9b53aa8f8b0403ba7a4e18243aabc66', 'is_3d': True}
 
     client = APIClient()
@@ -286,13 +286,13 @@ def filtering(self):
 
 
 @then('get 201 CREATED for adding 3d alfam photo')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_201_CREATED
     assert Dormitory.objects.filter(name='Alfam').first().photos.count() == 1
 
 
 @when('hitting DELETE /manager/dorms/{alfam-id}/photos/{alfam-3d-photo-id}')
-def filtering(self):
+def act(self):
     alfam_photo = Dormitory.objects.filter(name='Alfam').first().photos.first()
 
     request = APIRequestFactory().delete('')
@@ -302,12 +302,12 @@ def filtering(self):
 
 
 @then('delete that 3d photo from alfam')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_204_NO_CONTENT
 
 
 @when('deserializing data for updating alfam dorm')
-def filtering(self):
+def act(self):
     about_en = {'en': 'Luxury Alfam'}
     about_ar = {'ar': 'الفام الفخيم'}
     about_tr = {'tr': 'Super Alfam'}
@@ -330,12 +330,12 @@ def filtering(self):
 
 
 @then('validate the deserialized data for updating alfam')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.deserialized_data.is_valid() == True
 
 
 @when('hitting PUT /manager/dorms/{alfam-id}')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().put('', self.updating_alfam_json, format='json')
     force_authenticate(request, self.john)
     view = DormManagementViewSet.as_view(actions={'put': 'update'})
@@ -343,13 +343,13 @@ def filtering(self):
 
 
 @then('get 200 OK for updating alfam')
-def test_model_can_create_a_message(self):
+def test(self):
     # print(self.response.data)
     assert self.response.status_code == status.HTTP_200_OK
 
 
 @when('hitting PUT /manager/dorms/{alfam-id}/cover with new image')
-def filtering(self):
+def act(self):
     uploaded_file = create_uploaded_file(self, 'alfam-photo.jpeg')
     cover_json = {'cover': uploaded_file}
 
@@ -370,7 +370,7 @@ def filtering(self):
 
 
 @then('get 201 CREATED for adding alfam cover')
-def test_model_can_create_a_message(self):
+def test(self):
     print(self.response.data)
     assert self.response.status_code == status.HTTP_200_OK
     assert Dormitory.objects.filter(name='Alfam').first().cover != None

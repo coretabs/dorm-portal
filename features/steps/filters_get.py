@@ -13,7 +13,7 @@ from features.steps.factory import *
 
 
 @given('we have 2 dormitory with 3 prices and 3 meal options')
-def prepare_dormitory(self):
+def arrange(self):
 
     category_public = create_category('public')
     self.alfam = create_dorm('Alfam', category_public)
@@ -36,7 +36,7 @@ def prepare_dormitory(self):
 
 
 @when('adding main filters (duration)')
-def prepare_dormitory(self):
+def act(self):
     self.options_duration = [RadioOption(name='Spring'),
                              RadioOption(name='Winter'),
                              RadioOption(name='Summer'),
@@ -50,7 +50,7 @@ def prepare_dormitory(self):
 
 
 @then('will get main filters (duration and category)')
-def test_model_can_create_a_message(self):
+def test(self):
     assert Filter.objects.main_filters().count() == 1
 
     print(self.all_filters_string)
@@ -60,13 +60,13 @@ def test_model_can_create_a_message(self):
 
 
 @when('getting additional_filters: prices and meals')
-def filtering(self):
+def act(self):
     self.all_filters = ClientReturnedFiltersSerializer([])
     self.all_filters_string = str(self.all_filters.data)
 
 
 @then('get additional_filters: with price min_max and meals')
-def test_model_can_create_a_message(self):
+def test(self):
     assert Filter.objects.additional_filters().count() == 2
 
     assert self.all_filters_string.count(
@@ -77,7 +77,7 @@ def test_model_can_create_a_message(self):
 
 
 @when('having more than one integral filter (bathrooms)')
-def prepare_dormitory(self):
+def act(self):
     self.bathrooms = IntegralFilter(name='bathroom')
     self.bathrooms.save()
     self.bathrooms_alfam1 = create_integral_choice(self.bathrooms, 1)
@@ -87,7 +87,7 @@ def prepare_dormitory(self):
 
 
 @then('will get bathrooms with the max bathrooms number correctly')
-def test_model_can_create_a_message(self):
+def test(self):
     assert Filter.objects.additional_filters().count() == 3
 
     assert self.all_filters_string.count(
@@ -98,7 +98,7 @@ def test_model_can_create_a_message(self):
 
 
 @then('not get main filters with the additional filters')
-def test_model_can_create_a_message(self):
+def test(self):
     additional_filters = Filter.objects.additional_filters()
     assert additional_filters.count() == 3
 
@@ -106,7 +106,7 @@ def test_model_can_create_a_message(self):
 
 
 @when('adding features filters for dorms and rooms')
-def prepare_features(self):
+def act(self):
     self.swimming_pool = create_dorm_feature('Swimming pool')
     self.free_wifi = create_dorm_feature('Free WiFi')
     self.free_wifi = create_dorm_feature('Reception')
@@ -119,7 +119,7 @@ def prepare_features(self):
 
 
 @then('got both features filters for dorms and room')
-def test_model_can_create_a_message(self):
+def test(self):
     assert Filter.objects.dorm_features().count() == 3
     assert Filter.objects.room_features().count() == 2
 
@@ -131,14 +131,14 @@ def test_model_can_create_a_message(self):
 
 
 @when('requesting GET /filters')
-def prepare_features(self):
+def act(self):
     request = APIRequestFactory().get(reverse('engine:filters-list'))
     view = FiltersListViewSet.as_view(actions={'get': 'list'})
     self.response = view(request)
 
 
 @then('get 200 OK and all filters in GET /filters')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
 
     filters_keys = self.response.render().data.keys()

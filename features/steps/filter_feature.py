@@ -6,7 +6,7 @@ from features.steps.factory import *
 
 
 @given('we have 2 dormitory with different features')
-def prepare_dormitory(self):
+def arrange(self):
 
     self.swimming_pool = create_dorm_feature('Swimming pool')
     self.free_wifi = create_dorm_feature('Free WiFi')
@@ -24,19 +24,19 @@ def prepare_dormitory(self):
 
 
 @when('filtering dorms by swimming pool')
-def filtering(self):
+def act(self):
     filters = [self.swimming_pool.get_query(), ]
     self.filtered_dorm_alfam = Dormitory.objects.apply_dorm_filters(filters)
 
 
 @then('get only the dorm which has swimming pool')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.filtered_dorm_alfam.first().name == 'Alfam'
     assert self.filtered_dorm_alfam.all().count() == 1
 
 
 @given('we have 2 dormitoroes with room-specific features')
-def prepare_dormitory(self):
+def arrange(self):
 
     self.luxury_shower = create_room_feature('Luxury shower')
     self.air_conditioner = create_room_feature('Air Conditioner')
@@ -48,13 +48,13 @@ def prepare_dormitory(self):
 
 
 @when('filtering dorms by having one room with luxury shower')
-def filtering(self):
+def act(self):
     filters = [self.luxury_shower.get_query(), ]
     self.filtered_dorms = Dormitory.objects.apply_room_filters(filters)
 
 
 @then('get only alfam with just one room which has luxury shower')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.filtered_dorms.first().name == 'Alfam'
     assert self.filtered_dorms.count() == 1
 
@@ -64,14 +64,14 @@ def test_model_can_create_a_message(self):
 
 
 @when('filtering dorms by luxury shower & air conditioner')
-def filtering(self):
+def act(self):
     filters = [self.luxury_shower.get_query(
     ), self.air_conditioner.get_query(), ]
     self.filtered_dorms = Dormitory.objects.apply_room_filters(filters)
 
 
 @then('get only alfam with just one rooms having luxury shower & air conditioner')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.filtered_dorms.first().name == 'Alfam'
     assert self.filtered_dorms.count() == 1
 
@@ -83,13 +83,13 @@ def test_model_can_create_a_message(self):
 
 
 @when('filtering dorms by air conditioner')
-def filtering(self):
+def act(self):
     filters = [self.air_conditioner.get_query(), ]
     self.filtered_dorms = Dormitory.objects.apply_room_filters(filters)
 
 
 @then('get only alfam with two rooms having air conditioner')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.filtered_dorms.first().name == 'Alfam'
     assert self.filtered_dorms.count() == 1
 

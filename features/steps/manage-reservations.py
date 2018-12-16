@@ -25,7 +25,7 @@ Both these two scenarios implenetations exist in manage-dorm.py
 
 
 @given('two students reserved first room and one reserved second one')
-def reservations(self):
+def arrange(self):
     self.user1 = create_student(self, 'Owen')
     self.user2 = create_student(self, 'Tia')
     self.reservation1 = create_reservation(self.room1, self.user1)
@@ -33,7 +33,7 @@ def reservations(self):
 
 
 @given('two user have expired reservations for room2')
-def reservations(self):
+def arrange(self):
     self.user3 = create_student(self, 'Mako')
     self.user4 = create_student(self, 'Lora')
 
@@ -48,25 +48,25 @@ def reservations(self):
 
 
 @when('changing reservation status into rejected')
-def filtering(self):
+def act(self):
     self.quota_before_rejection = self.reservation1.room_characteristics.allowed_quota
     self.reservation1.update_status(Reservation.REJECTED_STATUS)
 
 
 @then('quota of that room should increase by 1')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.reservation1.status == Reservation.REJECTED_STATUS
     assert self.reservation1.room_characteristics.allowed_quota == self.quota_before_rejection + 1
 
 
 @when('asking for reservations status statistics by dorm_id')
-def filtering(self):
+def act(self):
     #self.reservations_statistics = models.Reservation.objects.status_statistics(self.alfam.id)
     self.reservations_statistics = models.Reservation.objects.status_statistics()
 
 
 @then('get the correct reservations status statistics')
-def filtering(self):
+def test(self):
     assert self.reservations_statistics['pending_reservations'] == 1
     assert self.reservations_statistics['rejected_reservations'] == 1
     assert self.reservations_statistics['confirmed_reservations'] == 0
@@ -76,7 +76,7 @@ def filtering(self):
 
 
 @when('serializing all dorm reservations')
-def filtering(self):
+def act(self):
     self.reservations = Reservation.objects.filter(
         room_characteristics__dormitory__id=self.alfam.id)
 
@@ -87,13 +87,13 @@ def filtering(self):
 
 
 @then('get valid serialized reservations')
-def test_model_can_create_a_message(self):
+def test(self):
     # print(self.all_serialized_dorms)
     assert self.all_serialized_dorms.count("'name', 'Mako'") == 1
 
 
 @when('hitting GET /manager/dorms/{alfam-id}/reservations')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().get('')
     force_authenticate(request, self.john)
     view = ReservationManagementViewSet.as_view(actions={'get': 'list'})
@@ -101,7 +101,7 @@ def filtering(self):
 
 
 @then('get 200 OK with all the reservations')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
 
     # print(self.response.render().data)
@@ -110,7 +110,7 @@ def test_model_can_create_a_message(self):
 
 
 @when('hitting GET /manager/dorms/{homedorm-id}/reservations non-owned dorm')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().get('')
     force_authenticate(request, self.john)
     view = ReservationManagementViewSet.as_view(actions={'get': 'list'})
@@ -118,12 +118,12 @@ def filtering(self):
 
 
 @then('get 403 forbidden for homedorm reservations')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_403_FORBIDDEN
 
 
 @then('the other manager can get his homedorm reservations')
-def test_model_can_create_a_message(self):
+def test(self):
     request = APIRequestFactory().get('')
     force_authenticate(request, self.scott)
     view = ReservationManagementViewSet.as_view(actions={'get': 'list'})
@@ -133,7 +133,7 @@ def test_model_can_create_a_message(self):
 
 
 @when('deserializing reservation new data')
-def filtering(self):
+def act(self):
     self.reservation_new_data = {'confirmation_deadline_date': '2015-12-15',
                                  'status': Reservation.MANAGER_UPDATED_STATUS,
                                  'follow_up_message': 'Please upload your receipt again'}
@@ -142,12 +142,12 @@ def filtering(self):
 
 
 @then('get valid deserialized reservation data')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.deserialized_data.is_valid() == True
 
 
 @when('hitting PUT /manager/dorms/{alfam-id}/reservations/{res1-id} into manager_updated')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().put('', self.reservation_new_data, format='json')
     force_authenticate(request, self.john)
     view = ReservationManagementViewSet.as_view(actions={'put': 'update'})
@@ -155,14 +155,14 @@ def filtering(self):
 
 
 @then('get 200 OK for updating that reservation into manager_updated')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_200_OK
     assert Reservation.objects.filter(id=self.reservation1.id).first(
     ).status == Reservation.MANAGER_UPDATED_STATUS
 
 
 @when('hitting PUT non-owned reservation into manager_updated')
-def filtering(self):
+def act(self):
     request = APIRequestFactory().put('', self.reservation_new_data, format='json')
     force_authenticate(request, self.scott)
     view = ReservationManagementViewSet.as_view(actions={'put': 'update'})
@@ -170,5 +170,5 @@ def filtering(self):
 
 
 @then('get 403 forbidden for updating non-owned reservation')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.response.status_code == status.HTTP_403_FORBIDDEN

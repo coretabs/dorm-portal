@@ -6,7 +6,7 @@ from features.steps.factory import *
 
 
 @given('we have 4 rooms different prices (alfam: 3 rooms, dovec: 1 room)')
-def prepare_dormitory(self):
+def arrange(self):
     category_public = create_category('public')
     self.alfam = create_dorm('Alfam', category_public)
 
@@ -28,25 +28,25 @@ def prepare_dormitory(self):
 
 
 @when('filtering alfam prices between 500, 1500')
-def filtering(self):
+def act(self):
     filters = [self.price_filter.get_query(500, 1500), ]
     self.filtered_dorm_alfam = Dormitory.objects.filter(
         name='Alfam').apply_room_filters(filters)
 
 
 @then('get alfam dormitory with just 2 rooms')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.filtered_dorm_alfam.first().name == 'Alfam'
     assert self.filtered_dorm_alfam.first().room_characteristics.count() == 2
 
 
 @when('filtering dovec with wrong price range')
-def filtering(self):
+def act(self):
     filters = [self.price_filter.get_query(500, 1500), ]
     self.filtered_dorm_dovec = Dormitory.objects.filter(
         name='Dovec').apply_room_filters(filters)
 
 
 @then('not getting any dorm in dovec for wrong price')
-def test_model_can_create_a_message(self):
+def test(self):
     assert self.filtered_dorm_dovec.count() == 0
