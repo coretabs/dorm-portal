@@ -31,8 +31,6 @@ export default {
         dutarion: this.chosenDutarion,
         category: this.chosenCategory
       }
-      console.log(this.chosenDutarion)
-      console.log(this.chosenCategory)
       this.$store.dispatch('fetchSearchedDorms', data)
     }
   }

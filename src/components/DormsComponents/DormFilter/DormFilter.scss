@@ -81,6 +81,7 @@
     font-size: 20px;
   }
   #rightside {
+    min-height: calc(100vh - 65px);
     padding: 30px 80px;
     @media (max-width: 600px) {
       padding: 30px 10px;
