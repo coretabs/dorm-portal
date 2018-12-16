@@ -36,6 +36,11 @@ export default {
       return this.$store.state.dorms;
     },
     setDuration(){
+      let allTime = {
+        name: 'All Time',
+        id: null
+      }
+      this.$store.state.filters.duration_options.push(allTime)
       return this.$store.state.filters.duration_options
     },
     setCategory(){
