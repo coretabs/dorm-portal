@@ -59,6 +59,11 @@ class DormViewSet(viewsets.ViewSet):
         translation.activate(language)
 
     def create(self, request):
+        """
+        It's not actually creating anything, it's just filtering
+        But drf doesn't allow changing the action of list ViewSet
+        """
+
         self.activate_language(request)
 
         deserialized_filters = serializers.ClientAcceptedFiltersSerializer(data=request.data)
