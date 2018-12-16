@@ -340,7 +340,7 @@ class ClientReturnedFiltersSerializer(serializers.Serializer):
         return FeatureFilterSerializer(filters, many=True).data
 
 
-class ClientAddtionalFiltersSerializer(serializers.Serializer):
+class ClientAdditionalFiltersSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     choosen_options_ids = serializers.ListField(child=serializers.IntegerField(), required=False)
     min_value = serializers.IntegerField(required=False)
@@ -351,19 +351,12 @@ class ClientAddtionalFiltersSerializer(serializers.Serializer):
         fields = ('id', 'choosen_options_ids', 'min_value', 'max_value')
 
 
-class ClientFeaturesSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-
-    class Meta:
-        fields = ('id', )
-
-
 class ClientAcceptedFiltersSerializer(serializers.Serializer):
     category_selected_option_id = serializers.IntegerField(required=False)
     duration_option_id = serializers.IntegerField(required=False)
-    additional_filters = ClientAddtionalFiltersSerializer(many=True, required=False)
-    dorm_features = ClientFeaturesSerializer(many=True, required=False)
-    room_features = ClientFeaturesSerializer(many=True, required=False)
+    additional_filters = ClientAdditionalFiltersSerializer(many=True, required=False)
+    dorm_features = serializers.ListField(child=serializers.IntegerField(), required=False)
+    room_features = serializers.ListField(child=serializers.IntegerField(), required=False)
 
 
 class RoomFeaturesSerializer(serializers.Serializer):
@@ -517,7 +510,7 @@ class ClientBankAccountSerializer(serializers.Serializer):
 class ClientDormManagementSerializer(serializers.Serializer):
     name = serializers.CharField(required=False)
     abouts = serializers.ListField(child=I18nField(), required=False)
-    features = ClientFeaturesSerializer(many=True, required=False)
+    features = serializers.ListField(child=serializers.IntegerField(), required=False)
     cover = serializers.ImageField(required=False)
     geo_longitude = serializers.CharField(required=False)
     geo_latitude = serializers.CharField(required=False)
@@ -537,8 +530,8 @@ class ClientDormManagementSerializer(serializers.Serializer):
         features = validated_data.get('features', None)
         if features:
             instance.features.clear()
-            for serialized_feature in features:
-                feature = models.FeatureFilter.objects.get(pk=serialized_feature['id'])
+            for feature_id in features:
+                feature = models.FeatureFilter.objects.get(pk=feature_id)
                 instance.features.add(feature)
         validated_data.pop('features', None)
 

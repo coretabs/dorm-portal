@@ -51,11 +51,9 @@ additional_filters
         min_value max_value
     }
 
-dorm_features
-    id
+dorm_features_ids
 
-room_features
-    id
+room_features_ids
 ```
 
 POST /dorms returns

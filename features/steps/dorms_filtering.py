@@ -38,8 +38,7 @@ def test(self):
 
 @when('filter free wifi')
 def act(self):
-    free_wifi = {'id': self.free_wifi.id, }
-    self.filtered_dorms = Dormitory.objects.superfilter(dorm_features_ids=[free_wifi, ])
+    self.filtered_dorms = Dormitory.objects.superfilter(dorm_features_ids=[self.free_wifi.id, ])
 
 
 @then('get only dovec which has free wifi with two rooms')
@@ -83,11 +82,9 @@ def act(self):
     breakfast_both = {'id': self.meals.id, 'choosen_options_ids': [
         self.meals_choice_breakfast.selected_option.id, self.meals_choice_both.selected_option.id]}
 
-    luxury_shower = {'id': self.luxury_shower.id, }
-
     self.filtered_dorms = Dormitory.objects.superfilter(
         radio_integeral_choices=[breakfast_both, ],
-        room_features_ids=[luxury_shower, ])
+        room_features_ids=[self.luxury_shower.id, ])
 
 
 @then('get only dovec with two rooms')
@@ -105,12 +102,9 @@ def act(self):
     breakfast_both = {'id': self.meals.id, 'choosen_options_ids': [
         self.meals_choice_breakfast.selected_option.id, self.meals_choice_both.selected_option.id]}
 
-    luxury_shower = {'id': self.luxury_shower.id, }
-    air_conditioner = {'id': self.air_conditioner.id, }
-
     self.filtered_dorms = Dormitory.objects.superfilter(
         radio_integeral_choices=[breakfast_both, price_choice, bathroom_choice],
-        room_features_ids=[luxury_shower, air_conditioner])
+        room_features_ids=[self.luxury_shower.id, self.air_conditioner.id])
 
 
 @then('get only dovec with one room only')
@@ -127,11 +121,8 @@ def act(self):
     breakfast_both = {'id': self.meals.id, 'choosen_options_ids': [
         self.meals_choice_breakfast.selected_option.id, self.meals_choice_both.selected_option.id]}
 
-    luxury_shower = {'id': self.luxury_shower.id, }
-    air_conditioner = {'id': self.air_conditioner.id, }
-
     self.same_filter_above_json = {'additional_filters': [price_choice, bathroom_choice, breakfast_both],
-                                   'room_features': [luxury_shower, air_conditioner]}
+                                   'room_features': [self.luxury_shower.id, self.air_conditioner.id]}
 
     self.deserialized_data = ClientAcceptedFiltersSerializer(data=self.same_filter_above_json)
 

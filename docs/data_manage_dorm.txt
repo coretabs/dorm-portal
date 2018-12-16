@@ -49,8 +49,7 @@ abouts
     lang_code
     about
 
-features
-    id
+features_ids
 
 cover
 

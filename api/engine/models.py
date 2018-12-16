@@ -100,8 +100,8 @@ class DormitoryQuerySet(django_models.QuerySet):
         dorm_filters = []
 
         if dorm_features_ids:
-            for current_feature in dorm_features_ids:
-                current_filter = Filter.objects.filter(id=current_feature['id']).first()
+            for current_feature_id in dorm_features_ids:
+                current_filter = Filter.objects.filter(id=current_feature_id).first()
                 dorm_filters.append(current_filter.get_query())
 
         room_filters = []
@@ -112,8 +112,8 @@ class DormitoryQuerySet(django_models.QuerySet):
             room_filters.append(duration_filter)
 
         if room_features_ids:
-            for current_feature in room_features_ids:
-                current_filter = Filter.objects.filter(id=current_feature['id']).first()
+            for current_feature_id in room_features_ids:
+                current_filter = Filter.objects.filter(id=current_feature_id).first()
                 room_filters.append(current_filter.get_query())
 
         if radio_integeral_choices:

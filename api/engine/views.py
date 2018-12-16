@@ -176,7 +176,8 @@ class DormManagementViewSet(viewsets.ViewSet):
             dorm, data=request.data, partial=True)
         serializer.is_valid()
         serializer.save()
-        return Response(serializer.data)
+
+        return Response()
 
     @action(detail=True, methods=['put'])
     def update_cover(self, request, pk=None):

@@ -312,12 +312,9 @@ def act(self):
     about_ar = {'ar': 'الفام الفخيم'}
     about_tr = {'tr': 'Super Alfam'}
 
-    feature_swimming_pool = {'id': self.swimming_pool.id, }
-    feature_free_wifi = {'id': self.free_wifi.id, }
-
     self.updating_alfam_json = {'name': 'Alfam',
                                 'abouts': [about_en, about_ar, about_tr],
-                                'features': [feature_free_wifi, feature_swimming_pool],
+                                'features': [self.swimming_pool.id, self.free_wifi.id],
                                 # 'cover': 'https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
                                 'geo_longitude': '35.15010', 'geo_latitude': '33.90111',
                                 'address': 'Next to Computer Department',
