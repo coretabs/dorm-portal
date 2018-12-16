@@ -15,6 +15,11 @@ export default new Vuex.Store({
     languages: [],
     filters: [],
     dorms:[],
+    userFilters: {
+      category: null,
+      duration: null,
+      dorm_features: []
+    },
     reservation: {},
     authStatus: '',
     isAuth: localStorage.getItem('auth'),
@@ -53,8 +58,14 @@ export default new Vuex.Store({
         state.dorms = responseDate;
       });
     },
-    fetchSearchedDorms(state, searchFilters) {
-      $backend.$searchDorms(state.language, state.currencyCode, searchFilters.category, searchFilters.dutarion).then(responseDate => {
+    fetchSearchedDorms(state) {
+      let filters = {
+        lang: state.language,
+        currency: state.currencyCode,
+        duration: state.userFilters.duration,
+        category: state.userFilters.category
+      }
+      $backend.$searchDorms(filters).then(responseDate => {
         state.dorms = responseDate;
       });
     },
@@ -93,8 +104,8 @@ export default new Vuex.Store({
     fetchDorms(context) {
       context.commit('fetchDorms');
     },
-    fetchSearchedDorms(context, payload){
-      context.commit('fetchSearchedDorms', payload);
+    fetchSearchedDorms(context){
+      context.commit('fetchSearchedDorms');
     },
     // login({commit}){
 

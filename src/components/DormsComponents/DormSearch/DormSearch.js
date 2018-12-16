@@ -27,11 +27,9 @@ export default {
   },
   methods: {
     search(){
-      let data = {
-        dutarion: this.chosenDutarion,
-        category: this.chosenCategory
-      }
-      this.$store.dispatch('fetchSearchedDorms', data)
+      this.$store.state.userFilters.category = this.chosenCategory
+      this.$store.state.userFilters.duration = this.chosenDutarion
+      this.$store.dispatch('fetchSearchedDorms')
     }
   }
 };

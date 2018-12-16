@@ -35,12 +35,12 @@ $backend.$fetchDorms = (lang, currency) => {
   })
     .then(response => response.data)
 },
-$backend.$searchDorms = (lang, currency, category, dutarion) => {
+$backend.$searchDorms = (filters) => {
   return $backend.post(`/dorms/`,{
-    currency: currency,
-    language: lang,
-    category_selected_option_id: category,
-    duration_option_id: dutarion
+    currency: filters.currency,
+    language: filters.lang,
+    category_selected_option_id: filters.category,
+    duration_option_id: filters.duration
   })
   .then(response => response.data)
 }
