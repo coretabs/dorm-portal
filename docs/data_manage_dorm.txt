@@ -49,7 +49,7 @@ abouts
     lang_code
     about
 
-features_ids
+features (array of ids)
 
 cover
 

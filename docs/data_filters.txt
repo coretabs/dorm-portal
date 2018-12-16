@@ -51,9 +51,9 @@ additional_filters
         min_value max_value
     }
 
-dorm_features_ids
+dorm_features (array of ids)
 
-room_features_ids
+room_features (array of ids)
 ```
 
 POST /dorms returns
