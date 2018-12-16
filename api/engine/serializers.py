@@ -477,7 +477,7 @@ class RoomSerializer(serializers.ModelSerializer):
         model = models.RoomCharacteristics
         fields = ('id', 'rooms_left',
                   'photos',
-                  'price', 'room_type', 'people_allowed_number',
+                  'price', 'duration', 'room_type', 'people_allowed_number',
                   'choices', 'features')
 
 

@@ -58,7 +58,7 @@ class DormViewSet(viewsets.ViewSet):
 
         translation.activate(language)
 
-    def list(self, request):
+    def create(self, request):
         self.activate_language(request)
 
         deserialized_filters = serializers.ClientAcceptedFiltersSerializer(data=request.data)
