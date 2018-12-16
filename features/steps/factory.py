@@ -4,6 +4,7 @@ from django.core.files import File
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 
+from i18nfield.strings import LazyI18nString
 
 from api.engine.models import *
 
@@ -268,6 +269,114 @@ def create_alfam_dovec_with_4_rooms(self):
     self.options_duration = [RadioOption(name='Spring'), RadioOption(name='Winter'),
                              RadioOption(name='Summer'), RadioOption(name='Full year')]
     self.duration = create_radio_filter(self.options_duration, 'Duration')
+    self.duration_choice_spring = create_radio_choice(
+        self.options_duration[0], self.duration)
+    self.duration_choice_winter = create_radio_choice(
+        self.options_duration[1], self.duration)
+    self.duration_choice_summer = create_radio_choice(
+        self.options_duration[2], self.duration)
+    self.duration_choice_full = create_radio_choice(
+        self.options_duration[3], self.duration)
+
+    self.room1 = create_room_with_radio_integral_features(
+        self.alfam,
+        [self.duration_choice_spring, self.room_type_studio_choice],
+        [self.price_1000, self.one_person],
+        [])
+
+    self.room2 = create_room_with_radio_integral_features(
+        self.alfam,
+        [self.meals_choice_breakfast, self.duration_choice_spring, self.room_type_single_choice],
+        [self.price_1200, self.bathrooms1, self.one_person],
+        [self.air_conditioner, ])
+
+    self.room3 = create_room_with_radio_integral_features(
+        self.dovec,
+        [self.meals_choice_breakfast, self.duration_choice_spring, self.room_type_double_choice],
+        [self.price_1700, self.two_persons],
+        [self.luxury_shower, ])
+
+    self.room4 = create_room_with_radio_integral_features(
+        self.dovec,
+        [self.meals_choice_both, self.duration_choice_full, self.room_type_double_choice],
+        [self.price_2000, self.bathrooms2, self.two_persons],
+        [self.luxury_shower, self.air_conditioner])
+
+
+def fill_dorm_data(dorm, *args, **kwargs):
+    for attr, value in validated_data.items():
+        setattr(dorm, attr, value)
+
+    dorm.save()
+
+
+def create_alfam_dovec_with_4_rooms_localized_en_tr(self):
+    self.category_public = create_category(LazyI18nString({'tr': 'Genel', 'en': 'Public'}))
+    self.category_private = create_category(LazyI18nString({'tr': 'Özel', 'en': 'Private'}))
+
+    self.alfam = create_dorm('Alfam', self.category_public)
+    self.dovec = create_dorm('Dovec', self.category_private)
+
+    self.swimming_pool = create_dorm_feature(
+        LazyI18nString({'tr': 'Yüzme Havuzu', 'en': 'Swimming Pool'}))
+    self.free_wifi = create_dorm_feature(LazyI18nString(
+        {'tr': 'Bedava Internet', 'en': 'Free WiFi'}))
+
+    self.alfam.features.add(self.swimming_pool)
+    self.alfam.save()
+    self.dovec.features.add(self.free_wifi)
+    self.dovec.save()
+
+    self.luxury_shower = create_room_feature(
+        LazyI18nString({'tr': 'Lüks Duş', 'en': 'Luxury shower'}))
+    self.air_conditioner = create_room_feature(
+        LazyI18nString({'tr': 'Klima', 'en': 'Air Conditioner'}))
+
+    self.price_filter = IntegralFilter(name=LazyI18nString({'tr': 'Fiyat', 'en': 'Price'}))
+    self.price_filter.save()
+    self.price_1000 = create_integral_choice(self.price_filter, 1000)
+    self.price_1200 = create_integral_choice(self.price_filter, 1200)
+    self.price_1700 = create_integral_choice(self.price_filter, 1700)
+    self.price_2000 = create_integral_choice(self.price_filter, 2000)
+
+    self.people_allowed_number_filter = IntegralFilter(name=LazyI18nString(
+        {'tr': 'Kişi İzin Numarası', 'en': 'People Allowed Number'}))
+    self.people_allowed_number_filter.save()
+    self.one_person = create_integral_choice(self.people_allowed_number_filter, 1)
+    self.two_persons = create_integral_choice(self.people_allowed_number_filter, 2)
+    self.three_persons = create_integral_choice(self.people_allowed_number_filter, 3)
+    self.four_persons = create_integral_choice(self.people_allowed_number_filter, 4)
+
+    self.bathrooms = IntegralFilter(name=LazyI18nString({'tr': 'Banyo', 'en': 'Bathroom'}))
+    self.bathrooms.save()
+    self.bathrooms1 = create_integral_choice(self.bathrooms, 1)
+    self.bathrooms2 = create_integral_choice(self.bathrooms, 2)
+
+    self.meal_options = [RadioOption(name=LazyI18nString({'tr': 'Kahvaltı', 'en': 'Breakfast'})),
+                         RadioOption(name=LazyI18nString({'tr': 'Akşam Yemegi', 'en': 'Dinner'})),
+                         RadioOption(name=LazyI18nString({'tr': 'Her Ikisi de', 'en': 'Both'}))]
+    self.meals = create_radio_filter(
+        self.meal_options, LazyI18nString({'tr': 'Yemekler', 'en': 'Meals'}))
+    self.meals_choice_breakfast = create_radio_choice(self.meal_options[0], self.meals)
+    self.meals_choice_dinner = create_radio_choice(self.meal_options[1], self.meals)
+    self.meals_choice_both = create_radio_choice(self.meal_options[2], self.meals)
+
+    self.room_type_options = [RadioOption(name=LazyI18nString({'tr': 'Tek ', 'en': 'Single'})),
+                              RadioOption(name=LazyI18nString(
+                                  {'tr': 'Çift Kişilik', 'en': 'Double'})),
+                              RadioOption(name=LazyI18nString({'tr': 'Stüdyo', 'en': 'Studio'}))]
+    self.room_types = create_radio_filter(self.room_type_options, LazyI18nString({
+                                          'tr': 'Oda Tipi ', 'en': 'Room Type'}))
+    self.room_type_single_choice = create_radio_choice(self.room_type_options[0], self.room_types)
+    self.room_type_double_choice = create_radio_choice(self.room_type_options[1], self.room_types)
+    self.room_type_studio_choice = create_radio_choice(self.room_type_options[2], self.room_types)
+
+    self.options_duration = [RadioOption(name=LazyI18nString({'tr': 'Bahar', 'en': 'Spring'})),
+                             RadioOption(name=LazyI18nString({'tr': 'Kış', 'en': 'Winter'})),
+                             RadioOption(name=LazyI18nString({'tr': 'Yaz', 'en': 'Summer'})),
+                             RadioOption(name=LazyI18nString({'tr': 'Tüm Yıl', 'en': 'Full Year'}))]
+    self.duration = create_radio_filter(
+        self.options_duration, LazyI18nString({'tr': 'Süre', 'en': 'Duration'}))
     self.duration_choice_spring = create_radio_choice(
         self.options_duration[0], self.duration)
     self.duration_choice_winter = create_radio_choice(

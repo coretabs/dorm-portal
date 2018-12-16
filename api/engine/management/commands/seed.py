@@ -9,5 +9,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         self.stdout.write('Seeding the database...')
-        factory.create_alfam_dovec_with_4_rooms(self)
+        factory.create_alfam_dovec_with_4_rooms_localized_en_tr(self)
         self.stdout.write('Done !')
