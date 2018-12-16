@@ -304,13 +304,31 @@ def create_alfam_dovec_with_4_rooms(self):
 
 
 def fill_dorm_data(dorm, *args, **kwargs):
-    for attr, value in validated_data.items():
+    for attr, value in kwargs.items():
         setattr(dorm, attr, value)
 
     dorm.save()
 
 
 def create_alfam_dovec_with_4_rooms_localized_en_tr(self):
+    alfam_about_en = """In an ideal world this website wouldn’t exist, a client would acknowledge the importance of having web copy before the design starts. Needless to say it’s very important, content is king and people are beginning to understand that.
+
+
+    We believe that staying in a dormitory where all types of technological, cultural and sportive facilities are offered under campus safety, will be a best start for your academic life."""
+
+    alfam_about_tr = """İdeal bir dünyada, bu web sitesi mevcut değildi, bir müşteri tasarımın başlamasından önce web kopyasının önemini kabul ederdi. Çok önemli olduğunu söylemeye gerek yok, içerik kraldır ve insanlar bunu anlamaya başlıyor.
+
+
+    Kampüs güvenliği altında her türlü teknolojik, kültürel ve sportif tesislerin sunulduğu bir yurtta kalmanın akademik hayatınız için en iyi başlangıç olacağına inanıyoruz."""
+
+    dovec_about_en = """We believe that staying in a dormitory where all types of technological, cultural and sportive facilities are offered under campus safety, will be a best start for your academic life. 
+
+    In an ideal world this website wouldn’t exist, a client would acknowledge the importance of having web copy before the design starts. Needless to say it’s very important, content is king and people are beginning to understand that."""
+
+    dovec_about_tr = """Kampüs güvenliği altında her türlü teknolojik, kültürel ve sportif tesislerin sunulduğu bir yurtta kalmanın akademik hayatınız için en iyi başlangıç olacağına inanıyoruz.
+
+    İdeal bir dünyada, bu web sitesi mevcut değildi, bir müşteri tasarımın başlamasından önce web kopyasının önemini kabul ederdi. Çok önemli olduğunu söylemeye gerek yok, içerik kraldır ve insanlar bunu anlamaya başlıyor."""
+
     self.category_public = create_category(LazyI18nString({'tr': 'Genel', 'en': 'Public'}))
     self.category_private = create_category(LazyI18nString({'tr': 'Özel', 'en': 'Private'}))
 
@@ -323,8 +341,21 @@ def create_alfam_dovec_with_4_rooms_localized_en_tr(self):
         {'tr': 'Bedava Internet', 'en': 'Free WiFi'}))
 
     self.alfam.features.add(self.swimming_pool)
+    fill_dorm_data(self.alfam,
+                   about=LazyI18nString({'tr': alfam_about_tr, 'en': alfam_about_en}),
+                   geo_longitude='35.1501', geo_latitude='33.90111',
+                   address='Next to Computer Department',
+                   contact_name='Mohammed Alhakem', contact_email='Alhakeem@gmail.com',
+                   contact_number='+905338524788', contact_fax='+9021555455')
     self.alfam.save()
+
     self.dovec.features.add(self.free_wifi)
+    fill_dorm_data(self.dovec,
+                   about=LazyI18nString({'tr': dovec_about_tr, 'en': dovec_about_en}),
+                   geo_longitude='35.2020', geo_latitude='33.90900',
+                   address='Next to Electric Faculty',
+                   contact_name='Yaser Alnajjar', contact_email='Alnajjar@gmail.com',
+                   contact_number='+905338882626', contact_fax='+90123456')
     self.dovec.save()
 
     self.luxury_shower = create_room_feature(
