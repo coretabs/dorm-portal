@@ -100,16 +100,20 @@ def filtering(self):
         RadioOption(name=LazyI18nString({'ar': 'شتاء', 'tr': 'Kış', 'en': 'Winter'}))]
     self.duration = create_radio_filter(self.options_duration, LazyI18nString(
         {'ar': 'المدة', 'tr': 'Müddet', 'en': 'Duration'}))
+    self.duration_choice_spring = create_radio_choice(
+        self.options_duration[0], self.duration)
+    self.duration_choice_winter = create_radio_choice(
+        self.options_duration[1], self.duration)
 
     self.room1 = create_room_with_radio_integral_features(
         self.alfam,
-        [self.meals_choice_dinner, self.room_type_single_choice],
+        [self.meals_choice_dinner, self.room_type_single_choice, self.duration_choice_spring],
         [self.price_1000, self.one_person],
         [])
 
     self.room2 = create_room_with_radio_integral_features(
         self.alfam,
-        [self.meals_choice_breakfast, self.room_type_double_choice],
+        [self.meals_choice_breakfast, self.room_type_double_choice, self.duration_choice_winter],
         [self.price_1000, self.two_persons],
         [self.luxury_shower, ])
 
@@ -145,7 +149,7 @@ def filtering(self):
 def filtering(self):
     request = APIRequestFactory().post(reverse('engine:dorms-list'),
                                        {'language': 'en'}, format='json')
-    view = DormViewSet.as_view(actions={'post': 'list'})
+    view = DormViewSet.as_view(actions={'post': 'create'})
     self.response = view(request)
 
 
@@ -166,7 +170,7 @@ def filtering(self):
 def filtering(self):
     request = APIRequestFactory().post(reverse('engine:dorms-list'),
                                        {'language': 'tr'}, format='json')
-    view = DormViewSet.as_view(actions={'post': 'list'})
+    view = DormViewSet.as_view(actions={'post': 'create'})
     self.response = view(request)
 
 
@@ -187,7 +191,7 @@ def filtering(self):
 def filtering(self):
     request = APIRequestFactory().post(reverse('engine:dorms-list'),
                                        {'language': 'dude'}, format='json')
-    view = DormViewSet.as_view(actions={'post': 'list'})
+    view = DormViewSet.as_view(actions={'post': 'create'})
     self.response = view(request)
 
 

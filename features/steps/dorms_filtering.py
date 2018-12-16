@@ -157,7 +157,7 @@ def test_model_can_create_a_message(self):
 def filtering(self):
     request = APIRequestFactory().post(reverse('engine:dorms-list'),
                                        self.same_filter_above_json, format='json')
-    view = DormViewSet.as_view(actions={'post': 'list'})
+    view = DormViewSet.as_view(actions={'post': 'create'})
     self.response = view(request)
 
 
