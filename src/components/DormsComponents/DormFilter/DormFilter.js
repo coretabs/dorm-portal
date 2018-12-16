@@ -10,24 +10,63 @@ export default {
     return {
       showAlert: true,
       dormSelectedFeatures: [],
-      roomSelectedFeatures: []
+      roomSelectedFeatures: [],
+      roomAdditionalFilters: [],
+      roomIntegralFilters:[],
+      optionsHolder: [],
+      minValue: null
     };
   },
   methods: {
-
     fetchFilters() {
       this.$store.dispatch('fetchFilters');
     },
-
-    // fetchDorms() {
-    //   this.$store.dispatch('fetchDorms');
-    // },
+    fetchDorms() {
+      this.$store.dispatch('fetchDorms');
+    },
     dormFeatiresFilter(){
       this.$store.state.userFilters.dorm_features = this.dormSelectedFeatures
       this.$store.dispatch('fetchSearchedDorms')
     },
     roomFeatiresFilter(){
       this.$store.state.userFilters.room_features = this.roomSelectedFeatures
+      this.$store.dispatch('fetchSearchedDorms')
+    },
+    selectedAdditionalFilters(filterID, optionID,index){
+     
+      // this.roomAdditionalFilters[index].push({
+      //   id : filterID,
+      //   choosen_options_ids: this.optionsHolder
+      // })
+
+      // const filters = {
+      //   id : filterID,
+      //   choosen_options_id: this.optionsHolder
+      // }
+      // this.roomAdditionalFilters.push(filters)
+
+    },
+    integralFilter(value, id){
+      const minValue = value[0]
+      const maxValue = value[1]
+      let objectUpdated = null;
+      for(const filter of this.roomIntegralFilters){
+        if (filter.id === id) {
+          filter.min_value = minValue;
+          filter.max_value = maxValue;
+          objectUpdated = -1;
+          continue;
+        }
+      }
+      if(objectUpdated != -1){
+        this.roomIntegralFilters.push({
+          id: id,
+          min_value: minValue,
+          max_value: maxValue
+        })
+       }
+      
+      this.$store.state.userFilters.additional_filters = this.roomIntegralFilters
       this.$store.dispatch('fetchSearchedDorms')
     }
   },

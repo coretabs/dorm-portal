@@ -19,7 +19,8 @@ export default new Vuex.Store({
       category: null,
       duration: null,
       dorm_features: [],
-      room_features: []
+      room_features: [],
+      additional_filters: []
     },
     reservation: {},
     authStatus: '',
@@ -66,7 +67,8 @@ export default new Vuex.Store({
         duration: state.userFilters.duration,
         category: state.userFilters.category,
         dormFeatures: state.userFilters.dorm_features,
-        roomFeatures: state.userFilters.room_features
+        roomFeatures: state.userFilters.room_features,
+        additionalFilters: state.userFilters.additional_filters
       }
       $backend.$searchDorms(filters).then(responseDate => {
         state.dorms = responseDate;

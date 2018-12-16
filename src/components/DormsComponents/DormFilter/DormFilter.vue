@@ -27,24 +27,24 @@
               </li>
             </ul>
           </template>
+          
 
-
-          <div v-for="(additionalFilters, index) in filters.additional_filters" :key="index">
+          <div v-for="(additionalFilters, i) in filters.additional_filters" :key="i">
             <div class="filter-title">{{additionalFilters.name}}</div>
-            
             <template v-if="additionalFilters.is_checkbox">
             <ul>
               <li v-for="(option, index) in additionalFilters.options" :key="index">
-                <v-checkbox :value="option.id" :label="option.name" color="success"></v-checkbox>
+                <v-checkbox v-model="optionsHolder[option.id]" @click="selectedAdditionalFilters(additionalFilters.id,option.id,i)" :value="option.id" :label="option.name" color="success"></v-checkbox>
               </li>
             </ul>
           </template>
-
+          
           <template v-if="additionalFilters.is_integral">
+            
             <div>
               <v-layout class="integral-filter" row>
                 <v-flex class="px-3">
-                  <v-range-slider thumb-label="always" thumb-color="#3ab86c" v-model="additionalFilters.value" :max="additionalFilters.max_value" :min="additionalFilters.min_value" :step="1" color="success"></v-range-slider>
+                  <v-range-slider @change="integralFilter(additionalFilters.value, additionalFilters.id)" thumb-label="always" thumb-color="#3ab86c" v-model="additionalFilters.value" :max="additionalFilters.max_value" :min="additionalFilters.min_value" :step="1" color="success"></v-range-slider>
                 </v-flex>
               </v-layout>
               <v-layout class="integral-filter" v-show="false" row>

@@ -42,7 +42,8 @@ $backend.$searchDorms = (filters) => {
     category_selected_option_id: filters.category,
     duration_option_id: filters.duration,
     dorm_features: filters.dormFeatures,
-    room_features: filters.roomFeatures
+    room_features: filters.roomFeatures,
+    additional_filters: filters.additionalFilters
   })
   .then(response => response.data)
 }
