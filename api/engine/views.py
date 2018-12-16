@@ -122,7 +122,6 @@ class ReservationManagementViewSet(viewsets.ViewSet):
 
     def update(self, request, dorm_pk, pk):
         reservation = models.Reservation.objects.get(pk=pk)
-        self.check_object_permissions(request, reservation)
 
         serializer = serializers.ClientReservationManagementSerializer(
             reservation, data=request.data, partial=True)
