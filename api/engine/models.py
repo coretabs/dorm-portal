@@ -53,13 +53,11 @@ class ReservationQuerySet(django_models.QuerySet):
 
 class DormitoryQuerySet(django_models.QuerySet):
     def apply_room_filters(self, filters):
-
         if filters:
             filtered_rooms = RoomCharacteristics.objects.filter(filters[0])\
                 .prefetch_related('radio_choices', 'integral_choices',
                                   'radio_choices__related_filter', 'integral_choices__related_filter',
                                   'features')
-
             for current_filter in filters:
                 filtered_rooms = filtered_rooms.filter(current_filter)
 
@@ -109,9 +107,8 @@ class DormitoryQuerySet(django_models.QuerySet):
         room_filters = []
 
         if duration_option_id:
-            duration_option = RadioOption.objects.filter(duration_option_id).first()
-            duration_filter = duration_option.related_filter.get_query(
-                duration_option_id)
+            duration_option = RadioOption.objects.filter(id=duration_option_id).first()
+            duration_filter = duration_option.related_filter.get_query(duration_option_id)
             room_filters.append(duration_filter)
 
         if room_features_ids:
@@ -172,6 +169,10 @@ class RadioFilter(Filter):
     is_optional = django_models.BooleanField(default=True)
 
     def get_query(self, selected_options):
+        only_one_selected_option = isinstance(selected_options, int)
+        if only_one_selected_option:
+            selected_options = [selected_options]
+
         return (django_models.Q(radio_choices__related_filter__id=self.id) &
                 django_models.Q(radio_choices__selected_option__id__in=selected_options))
 
