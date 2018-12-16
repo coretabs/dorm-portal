@@ -9,6 +9,8 @@ export default {
   data: function () {
     return {
       showAlert: true,
+      dormSelectedFeatures: [],
+      roomSelectedFeatures: []
     };
   },
   methods: {
@@ -17,10 +19,17 @@ export default {
       this.$store.dispatch('fetchFilters');
     },
 
-    fetchDorms() {
-      this.$store.dispatch('fetchDorms');
+    // fetchDorms() {
+    //   this.$store.dispatch('fetchDorms');
+    // },
+    dormFeatiresFilter(){
+      this.$store.state.userFilters.dorm_features = this.dormSelectedFeatures
+      this.$store.dispatch('fetchSearchedDorms')
+    },
+    roomFeatiresFilter(){
+      this.$store.state.userFilters.room_features = this.roomSelectedFeatures
+      this.$store.dispatch('fetchSearchedDorms')
     }
-
   },
   computed: {
     lang() {

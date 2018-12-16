@@ -40,7 +40,9 @@ $backend.$searchDorms = (filters) => {
     currency: filters.currency,
     language: filters.lang,
     category_selected_option_id: filters.category,
-    duration_option_id: filters.duration
+    duration_option_id: filters.duration,
+    dorm_features: filters.dormFeatures,
+    room_features: filters.roomFeatures
   })
   .then(response => response.data)
 }

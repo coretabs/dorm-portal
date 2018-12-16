@@ -14,7 +14,7 @@
           <template>
             <ul>
               <li v-for="(dormFeature, index) in filters.dorm_features" :key="index">
-                <v-checkbox :value="dormFeature.id" :label="dormFeature.name" color="success"></v-checkbox>
+                <v-checkbox v-model="dormSelectedFeatures" @change="dormFeatiresFilter"  :value="dormFeature.id" :label="dormFeature.name" color="success"></v-checkbox>
               </li>
             </ul>
           </template>
@@ -23,7 +23,7 @@
           <template>
             <ul>
               <li v-for="(roomFeatures, index) in filters.room_features" :key="index">
-                <v-checkbox :value="roomFeatures.id" :label="roomFeatures.name" color="success"></v-checkbox>
+                <v-checkbox v-model="roomSelectedFeatures" @change="roomFeatiresFilter" :value="roomFeatures.id" :label="roomFeatures.name" color="success"></v-checkbox>
               </li>
             </ul>
           </template>
