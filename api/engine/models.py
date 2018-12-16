@@ -390,13 +390,15 @@ class Reservation(django_models.Model):
     MANAGER_UPDATED_STATUS = '4'
     EXPIRED_STATUS = '5'
 
+    STATUS_CHARS_LIST = [PENDING_STATUS, REJECTED_STATUS, CONFIRMED_STATUS,
+                         WAITING_FOR_MANAGER_ACTION_STATUS, MANAGER_UPDATED_STATUS]
+
     STATUS_CHOICES = (
         (PENDING_STATUS, 'pending'),
         (REJECTED_STATUS, 'rejected'),
         (CONFIRMED_STATUS, 'confirmed'),
         (WAITING_FOR_MANAGER_ACTION_STATUS, 'waiting-manager-action'),
         (MANAGER_UPDATED_STATUS, 'manager-updated'),
-        (EXPIRED_STATUS, 'expired-please-dont-choose-this')
     )
 
     reservation_creation_date = django_models.DateField(auto_now=True)

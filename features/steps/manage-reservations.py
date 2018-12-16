@@ -135,7 +135,7 @@ def test_model_can_create_a_message(self):
 @when('deserializing reservation new data')
 def filtering(self):
     self.reservation_new_data = {'confirmation_deadline_date': '2015-12-15',
-                                 'status': 5,
+                                 'status': Reservation.MANAGER_UPDATED_STATUS,
                                  'follow_up_message': 'Please upload your receipt again'}
 
     self.deserialized_data = ClientReservationManagementSerializer(data=self.reservation_new_data)
@@ -157,7 +157,8 @@ def filtering(self):
 @then('get 200 OK for updating that reservation into manager_updated')
 def test_model_can_create_a_message(self):
     assert self.response.status_code == status.HTTP_200_OK
-    assert Reservation.objects.filter(id=self.reservation1.id).first().status == '5'
+    assert Reservation.objects.filter(id=self.reservation1.id).first(
+    ).status == Reservation.MANAGER_UPDATED_STATUS
 
 
 @when('hitting PUT non-owned reservation into manager_updated')
