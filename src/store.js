@@ -49,7 +49,12 @@ export default new Vuex.Store({
       });
     },
     fetchDorms(state) {
-      $backend.$fetchDorms().then(responseDate => {
+      $backend.$fetchDorms(state.language, state.currencyCode).then(responseDate => {
+        state.dorms = responseDate;
+      });
+    },
+    fetchSearchedDorms(state, searchFilters) {
+      $backend.$searchDorms(state.language, state.currencyCode, searchFilters.category, searchFilters.dutarion).then(responseDate => {
         state.dorms = responseDate;
       });
     },
@@ -87,6 +92,9 @@ export default new Vuex.Store({
     },
     fetchDorms(context) {
       context.commit('fetchDorms');
+    },
+    fetchSearchedDorms(context, payload){
+      context.commit('fetchSearchedDorms', payload);
     },
     // login({commit}){
 

@@ -28,9 +28,21 @@ $backend.$fetchFilters = (lang,currencyCode) => {
       .then(response => response.data)
 }
 
-$backend.$fetchDorms = () => {
-  return $backend.get(`/dorms/`)
-      .then(response => response.data)
+$backend.$fetchDorms = (lang, currency) => {
+  return $backend.post(`/dorms/`,{
+    currency: currency,
+    language: lang
+  })
+    .then(response => response.data)
+},
+$backend.$searchDorms = (lang, currency, category, dutarion) => {
+  return $backend.post(`/dorms/`,{
+    currency: currency,
+    language: lang,
+    category_selected_option_id: category,
+    duration_option_id: dutarion
+  })
+  .then(response => response.data)
 }
 
 $backend.$fetchDorm = (dormId,lang,currencyCode) => {

@@ -7,17 +7,17 @@
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
-          }"></v-select>
+          }" v-model="chosenCategory"></v-select>
     </v-flex>
     <v-flex xs12 sm2>
       <v-select class="shift-left" :items="dutarion" item-text="name" item-value="id" label="Duration" prepend-inner-icon="calendar_today" solo color="success" append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
-          }" ></v-select>
+          }" v-model="chosenDutarion"></v-select>
     </v-flex>
     <v-flex xs12 md1>
-      <v-btn depressed large>
+      <v-btn depressed large @click="search">
         <v-icon>fa-search</v-icon>{{lang.dormSearch.button}}
       </v-btn>
     </v-flex>

@@ -6,6 +6,8 @@ export default {
   },
   data: function () {
     return {
+      chosenDutarion: null,
+      chosenCategory: null
     };
   },
   computed: {
@@ -21,6 +23,17 @@ export default {
       if(this.dutarion != null){
         return this.dutarion[0].name
       }
+    }
+  },
+  methods: {
+    search(){
+      let data = {
+        dutarion: this.chosenDutarion,
+        category: this.chosenCategory
+      }
+      console.log(this.chosenDutarion)
+      console.log(this.chosenCategory)
+      this.$store.dispatch('fetchSearchedDorms', data)
     }
   }
 };

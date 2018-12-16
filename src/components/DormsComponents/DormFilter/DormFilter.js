@@ -39,6 +39,11 @@ export default {
       return this.$store.state.filters.duration_options
     },
     setCategory(){
+      let allDorms = {
+        name: 'All dormitories',
+        id: null
+      }
+      this.$store.state.filters.category_options.push(allDorms)
       return this.$store.state.filters.category_options
     }
   },
