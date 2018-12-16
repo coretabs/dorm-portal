@@ -78,11 +78,19 @@
             Sorry we didn't find any results matching this search
             <div class="close-alert"><v-icon small @click="showAlert = false">fa-times</v-icon></div>
           </div> -->
-          <div v-if="showAlert" class="search-success">
+          <div v-if="resultAlert > 0" class="search-success">
             <v-icon small>fa-check-circle</v-icon>
-            25 results matches your search
+            {{resultAlert}} 
+            <span v-if="resultAlert > 1">Dorms matches your search</span>
+            <span v-else>Dorm matches your search</span>
             <div class="close-alert"><v-icon small @click="showAlert = false">fa-times</v-icon></div>
           </div>
+          <div v-if="resultAlert == 0" class="search-noresult">
+            <v-icon small>fa-times</v-icon>
+             Sorry, no dorm matches your search
+            <div class="close-alert"><v-icon small @click="showAlert = false">fa-times</v-icon></div>
+          </div>
+
         </v-flex>
 
         <v-flex xs12>

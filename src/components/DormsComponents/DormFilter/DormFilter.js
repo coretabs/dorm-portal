@@ -45,6 +45,9 @@ export default {
       }
       this.$store.state.filters.category_options.push(allDorms)
       return this.$store.state.filters.category_options
+    },
+    resultAlert(){
+      return this.$store.state.dorms.length
     }
   },
   mounted() {
