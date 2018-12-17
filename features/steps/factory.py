@@ -12,6 +12,13 @@ from faker import Faker
 fake = Faker()
 
 
+def create_receipt_photo(reservation, photo=None):
+    result = ReceiptPhoto(reservation=reservation)
+    result.save()
+
+    return result
+
+
 def create_reservation(room, user):
     result = Reservation.create(room_characteristics=room, user=user)
 

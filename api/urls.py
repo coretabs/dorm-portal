@@ -13,6 +13,7 @@ from .engine import views as engine_views
 router = routers.DefaultRouter()
 router.register('locale', engine_views.LocaleListViewSet, base_name='locale')
 router.register('filters', engine_views.FiltersListViewSet, base_name='filters')
+router.register('reservations', engine_views.ReservationViewSet, base_name='reservations')
 router.register('dorms', engine_views.DormViewSet, base_name='dorms')
 router.register('manager-dorms', engine_views.DormManagementViewSet, base_name='manager-dorms')
 

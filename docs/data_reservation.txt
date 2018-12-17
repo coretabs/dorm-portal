@@ -25,18 +25,20 @@ room_characteristics
 	people_allowed_number
 	
 	dormitory
+		id
+		
 		contact_name
 		contact_email
 		contact_number
 		contact_fax
-
-banks
-    bank_name
-	account_name
-	account_num
-	iban
-	swift
-	currency
+		
+		bank_accounts
+			bank_name
+			account_name
+			account_num
+			iban
+			swift
+			currency
 
 receipts
     receipt_url
@@ -48,7 +50,7 @@ POST /reservations returns 400 Bad request
 quota is full, try another room
 ```
 
-POST /reservations returns 401 Unauthorized
+POST /reservations returns 403 Forbidden
 ```
 please login before making a reservation
 ```
@@ -76,22 +78,28 @@ room_characteristics
 	people_allowed_number
 	
 	dormitory
+		id
+		
 		contact_name
 		contact_email
 		contact_number
 		contact_fax
-
-banks
-    bank_name
-	account_name
-	account_num
-	iban
-	swift
-	currency
+		
+		bank_accounts
+			bank_name
+			account_name
+			account_num
+			iban
+			swift
+			currency
 
 receipts
     receipt_url
 	upload_receipt_date (ordered by recent date) (2018-12-15)
+```
+
+GET /reservations/{id} returns 403 Forbidden (for non-owned reservation)
+```
 ```
 
 POST /reservations/{id}/receipt accepts

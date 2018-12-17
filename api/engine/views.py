@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
 from django.utils import translation
 
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
 from rest_framework.decorators import action
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework.response import Response
@@ -10,6 +10,7 @@ from rest_framework.response import Response
 
 from api import settings
 
+from .exceptions import NoEnoughQuotaException, NonFinishedUserReservationsException
 from . import serializers
 from . import models
 
@@ -182,3 +183,34 @@ class DormManagementViewSet(viewsets.ViewSet):
     @action(detail=True, methods=['put'])
     def update_cover(self, request, pk=None):
         return self.update(request, pk)
+
+
+class HisOwnReservation(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.is_owner(request.user)
+
+
+class ReservationViewSet(viewsets.ViewSet):
+    permission_classes = (IsAuthenticated, HisOwnReservation)
+
+    def create(self, request):
+        serializer = serializers.ClientAcceptedReservationSerializer(
+            data=request.data, context={'request': request})
+        serializer.is_valid()
+
+        try:
+            result = serializer.save()
+            reservation = models.Reservation.objects.get(pk=result.id)
+            response = Response(serializers.ReservationDetailsSerializer(reservation).data,
+                                status=status.HTTP_201_CREATED)
+
+        except (NoEnoughQuotaException, NonFinishedUserReservationsException) as exception:
+            response = Response(str(exception), status=status.HTTP_400_BAD_REQUEST)
+
+        return response
+
+    def retrieve(self, request, pk=None):
+        reservation = models.Reservation.objects.get(pk=pk).check_if_expired()
+        self.check_object_permissions(request, reservation)
+
+        return Response(serializers.ReservationDetailsSerializer(reservation).data)

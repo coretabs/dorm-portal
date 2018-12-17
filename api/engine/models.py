@@ -12,33 +12,30 @@ from polymorphic.models import PolymorphicModel
 from polymorphic.managers import PolymorphicManager
 from polymorphic.query import PolymorphicQuerySet
 
-from .exceptions import NoEnoughQuotaException
+from .exceptions import (NoEnoughQuotaException,
+                         NonFinishedUserReservationsException,
+                         NonUpdatableReservationException)
 from .utils import file_cleanup
 
 
 class ReservationQuerySet(django_models.QuerySet):
-    # def update_expired_reservations(self, dorm_id):
     def update_expired_reservations(self):
         # We give the student one more day to upload his receipt
 
         today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
 
-        # result = self.filter(room_characteristics__dormitory__id=dorm_id,
         result = self.filter(confirmation_deadline_date__gte=today_plus_one)\
                      .update(status=Reservation.EXPIRED_STATUS)
 
         return result
 
-    # def status_statistics(self, dorm_id):
     def status_statistics(self):
-        # self.update_expired_reservations(dorm_id)
         self.update_expired_reservations()
 
         def count_status(status):
             return django_models.Count('status', filter=django_models.Q(
                 status=status))
 
-        # result = self.filter(room_characteristics__dormitory__id=dorm_id).aggregate(
         result = self.aggregate(
             pending_reservations=count_status(Reservation.PENDING_STATUS),
             rejected_reservations=count_status(Reservation.REJECTED_STATUS),
@@ -391,6 +388,8 @@ class Reservation(django_models.Model):
     MANAGER_UPDATED_STATUS = '4'
     EXPIRED_STATUS = '5'
 
+    NON_UPDATABLE_STATUS_LIST = [REJECTED_STATUS, CONFIRMED_STATUS, EXPIRED_STATUS]
+
     STATUS_CHARS_LIST = [PENDING_STATUS, REJECTED_STATUS, CONFIRMED_STATUS,
                          WAITING_FOR_MANAGER_ACTION_STATUS, MANAGER_UPDATED_STATUS]
 
@@ -430,12 +429,43 @@ class Reservation(django_models.Model):
 
     @classmethod
     def create(cls, *args, **kwargs):
-        result = cls(confirmation_deadline_date=datetime.date.today(), *args, **kwargs)
+
+        def cleanup_reservations(reservations, current_reserved_room):
+            for reservation in reservations:
+                not_same_reserved_room = reservation.room_characteristics.id != current_reserved_room.id
+                if not_same_reserved_room:
+                    reservation.room_characteristics.increase_quota()
+                    reservation.room_characteristics.save()
+                    reservation.delete()
+
+        def throw_error_if_user_has_non_finished_reservations(user):
+            non_finished_reservations_query = django_models.Q(
+                status=Reservation.WAITING_FOR_MANAGER_ACTION_STATUS) | django_models.Q(
+                status=Reservation.MANAGER_UPDATED_STATUS)
+
+            user_non_finished_reservations = user.reservations.filter(
+                non_finished_reservations_query).count()
+
+            if user_non_finished_reservations > 0:
+                raise NonFinishedUserReservationsException()
 
         room_characteristics = kwargs['room_characteristics']
-        room_characteristics.decrease_quota()
+        user = kwargs['user']
+
+        throw_error_if_user_has_non_finished_reservations(user)
+
+        user_pending_reservations = user.reservations.filter(
+            status=Reservation.PENDING_STATUS).all()
+
+        confirmation_deadline_date = datetime.date.today() + datetime.timedelta(
+            days=room_characteristics.room_confirmation_days)
+        result = cls(confirmation_deadline_date=confirmation_deadline_date, *args, **kwargs)
 
         with transaction.atomic():
+            room_characteristics.decrease_quota()
+
+            cleanup_reservations(user_pending_reservations, room_characteristics)
+
             result.save()
             room_characteristics.save()
 
@@ -444,11 +474,30 @@ class Reservation(django_models.Model):
     def update_status(self, new_status):
         self.status = new_status
 
-        if new_status == Reservation.REJECTED_STATUS:
+        if new_status == Reservation.REJECTED_STATUS or new_status == Reservation.EXPIRED_STATUS:
             self.room_characteristics.increase_quota()
             with transaction.atomic():
                 self.save()
                 self.room_characteristics.save()
+
+    def check_if_expired(self):
+        if self.is_past_confirmation_deadline:
+            self.update_status(Reservation.EXPIRED_STATUS)
+        return self
+
+    def add_receipt(self, receipt):
+        if self.status in Reservation.NON_UPDATABLE_STATUS_LIST:
+            raise NonUpdatableReservationException()
+
+        self.receipts.add(receipt)
+        self.status = Reservation.WAITING_FOR_MANAGER_ACTION_STATUS
+        self.save()
+
+    def is_owner(self, user):
+        return self.user == user
+
+    def __str__(self):
+        return f'Reservation id {self.id} for {self.user} {self.room_characteristics}'
 
 
 class UploadablePhoto(django_models.Model):

@@ -251,6 +251,9 @@ reservations
 	
     reservation_creation_date
     confirmation_deadline_date
+	
+	last_update_date(2018-12-15)
+	follow_up_message
 
 	status (pending=0, rejected=1, confirmed=2, 
             waiting_for_manager_action=3 (student uploaded receipt), manager_updated=4, expired=5)
