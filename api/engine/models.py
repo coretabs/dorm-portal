@@ -430,6 +430,9 @@ class Reservation(django_models.Model):
 
     objects = ReservationQuerySet.as_manager()
 
+    class Meta:
+        ordering = ['reservation_creation_date']
+
     @classmethod
     def create(cls, *args, **kwargs):
 

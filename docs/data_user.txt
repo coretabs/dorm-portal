@@ -44,7 +44,7 @@ GET /auth/user/ returns 200 OK
 ```
 name
 is_manager
-current_step (email_confirmed=2, payment_uploaded=3)
+current_step (email_confirmed=2, non_pending_reservation=3)
 reservation_id (null = doesnt have a reservation yet)
 ```
 

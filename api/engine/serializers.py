@@ -23,56 +23,75 @@ from . import models
 
 
 class UserSerializer(serializers.ModelSerializer):
+    EMAIL_CONFIRMED = 2
+    NON_PENDING_RESERVATION = 3
+
     name = serializers.CharField(source='first_name')
     is_manager = serializers.BooleanField(read_only=True)
+    reservation_id = serializers.SerializerMethodField()
+    current_step = serializers.SerializerMethodField()
+
+    def get_reservation_id(self, obj):
+        self._reservation = obj.reservations.first()
+        return self._reservation.id
+
+    def get_current_step(self, obj):
+        status = self._reservation.status
+        if status == models.Reservation.PENDING_STATUS:
+            result = UserSerializer.EMAIL_CONFIRMED
+        else:
+            result = UserSerializer.NON_PENDING_RESERVATION
+
+        return result
+
     class Meta:
         model = models.User
-        fields = ('name', 'is_manager',)
-                  #'current_step', 'reservation_id')
+        fields = ('name', 'is_manager',
+                  'reservation_id', 'current_step')
 
 class BankAccountSerializer(serializers.ModelSerializer):
-    currency_code = serializers.SerializerMethodField()
+    currency_code=serializers.SerializerMethodField()
 
     def get_currency_code(self, obj):
         return obj.currency.code
 
     class Meta:
-        model = models.BankAccount
-        fields = ('id', 'bank_name', 'account_name',
+        model=models.BankAccount
+        fields=('id', 'bank_name', 'account_name',
                   'account_number', 'swift', 'iban', 'currency_code')
 
 class ReservationDormitorySerializer(serializers.ModelSerializer):
-    bank_accounts = BankAccountSerializer(many=True)
+    bank_accounts=BankAccountSerializer(many = True)
 
     class Meta:
-        model = models.Dormitory
-        fields = ('id', 
-                  'contact_name', 'contact_email', 'contact_number', 'contact_fax', 
+        model=models.Dormitory
+        fields=('id',
+                  'contact_name', 'contact_email', 'contact_number', 'contact_fax',
                   'bank_accounts')
 
 class ReceiptSerializer(serializers.ModelSerializer):
-    url = serializers.URLField(read_only=True)
-    upload_receipt_date = serializers.DateField(format='%Y-%m-%d', required=False)
-    uploaded_photo = serializers.ImageField(required=False)
+    url=serializers.URLField(read_only = True)
+    upload_receipt_date=serializers.DateField(format = '%Y-%m-%d', required = False)
+    uploaded_photo=serializers.ImageField(required = False)
 
     def create(self, validated_data):
-        uploaded_photo = validated_data.get('uploaded_photo', None)
-        reservation = models.Reservation.objects.get(pk=self.context['reservation_pk'])
+        uploaded_photo=validated_data.get('uploaded_photo', None)
+        reservation=models.Reservation.objects.get(pk = self.context['reservation_pk'])
 
-        instance = models.ReceiptPhoto(photo=uploaded_photo, reservation=reservation)
+        instance=models.ReceiptPhoto(photo = uploaded_photo, reservation = reservation)
 
         reservation.add_receipt(instance)
 
         return instance
 
     class Meta:
-        model = models.ReceiptPhoto
-        fields = ('url', 'upload_receipt_date', 'uploaded_photo')
+        model=models.ReceiptPhoto
+        fields=('url', 'upload_receipt_date', 'uploaded_photo')
 
 class ReservationRoomCharacteristicsSerializer(serializers.ModelSerializer):
-    room_type = serializers.SerializerMethodField()
-    duration = serializers.SerializerMethodField()
-    dormitory = ReservationDormitorySerializer()
+    room_type=serializers.SerializerMethodField()
+    duration=serializers.SerializerMethodField()
+    dormitory=ReservationDormitorySerializer()
 
     def get_room_type(self, obj):
         return str(obj.room_type)
@@ -81,62 +100,62 @@ class ReservationRoomCharacteristicsSerializer(serializers.ModelSerializer):
         return str(obj.duration)
 
     class Meta:
-        model = models.RoomCharacteristics
-        fields = ('id', 'price', 'price_currency',
+        model=models.RoomCharacteristics
+        fields=('id', 'price', 'price_currency',
                   'room_type', 'duration', 'people_allowed_number',
                   'dormitory')
 
 class ReservationDetailsSerializer(serializers.ModelSerializer):
-    reservation_creation_date = serializers.DateField(format='%Y-%m-%d')
-    confirmation_deadline_date = serializers.DateField(format='%Y-%m-%d')
-    last_update_date = serializers.DateField(format='%Y-%m-%d')
+    reservation_creation_date=serializers.DateField(format = '%Y-%m-%d')
+    confirmation_deadline_date=serializers.DateField(format = '%Y-%m-%d')
+    last_update_date=serializers.DateField(format = '%Y-%m-%d')
 
-    user = UserSerializer()
-    room_characteristics = ReservationRoomCharacteristicsSerializer()
-    receipts = ReceiptSerializer(many=True)
-    
+    user=UserSerializer()
+    room_characteristics=ReservationRoomCharacteristicsSerializer()
+    receipts=ReceiptSerializer(many = True)
+
     class Meta:
-        model = models.Reservation
-        fields = ('id', 
+        model=models.Reservation
+        fields=('id',
                   'reservation_creation_date', 'confirmation_deadline_date', 'status',
                   'last_update_date', 'follow_up_message',
                   'user', 'room_characteristics', 'receipts')
 
 class ClientAcceptedReservationSerializer(serializers.Serializer):
-    room_id = serializers.IntegerField()
+    room_id=serializers.IntegerField()
 
     def create(self, validated_data):
-        room_id = validated_data.get('room_id', None)
-        user = self.context['request'].user
+        room_id=validated_data.get('room_id', None)
+        user=self.context['request'].user
 
-        room_characteristics = models.RoomCharacteristics.objects.get(pk=room_id)
-        instance = models.Reservation.create(user=user, room_characteristics=room_characteristics)
+        room_characteristics=models.RoomCharacteristics.objects.get(pk = room_id)
+        instance=models.Reservation.create(user = user, room_characteristics = room_characteristics)
         instance.save()
 
         return instance
 
     class Meta:
-        fields = ('room_id')
+        fields=('room_id')
 
 class ClientReservationManagementSerializer(serializers.ModelSerializer):
-    confirmation_deadline_date = serializers.DateField(required=False, format='%Y-%m-%d')
-    status = serializers.IntegerField(required=False)
-    follow_up_message = serializers.CharField(required=False)
+    confirmation_deadline_date=serializers.DateField(required = False, format = '%Y-%m-%d')
+    status=serializers.IntegerField(required = False)
+    follow_up_message=serializers.CharField(required = False)
 
     def update(self, instance, validated_data):
-        status = validated_data.get('status', None)
-        status = str(status)
+        status=validated_data.get('status', None)
+        status=str(status)
         if status:
             if status not in models.Reservation.STATUS_CHARS_LIST:
-                raise serializers.ValidationError("Status doesn't exist!") 
-            
+                raise serializers.ValidationError("Status doesn't exist!")
+
             if status == models.Reservation.MANAGER_UPDATED_STATUS:
-                follow_up_message = validated_data.get('follow_up_message', None)
+                follow_up_message=validated_data.get('follow_up_message', None)
                 if not follow_up_message:
                     raise serializers.ValidationError('Please add a follow up message')
-                instance.last_update_date = datetime.date.today()
+                instance.last_update_date=datetime.date.today()
 
-            validated_data['status'] = status
+            validated_data['status']=status
 
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
@@ -146,12 +165,12 @@ class ClientReservationManagementSerializer(serializers.ModelSerializer):
         return instance
 
     class Meta:
-        model = models.Reservation
-        fields = ('confirmation_deadline_date', 'status', 'follow_up_message')
+        model=models.Reservation
+        fields=('confirmation_deadline_date', 'status', 'follow_up_message')
 
 class ReservationRoomCharacteristicsManagementSerializer(serializers.ModelSerializer):
-    room_type = serializers.SerializerMethodField()
-    duration = serializers.SerializerMethodField()
+    room_type=serializers.SerializerMethodField()
+    duration=serializers.SerializerMethodField()
 
     def get_room_type(self, obj):
         return str(obj.room_type)
@@ -160,45 +179,45 @@ class ReservationRoomCharacteristicsManagementSerializer(serializers.ModelSerial
         return str(obj.duration)
 
     class Meta:
-        model = models.RoomCharacteristics
-        fields = ('id', 'price', 'price_currency',
+        model=models.RoomCharacteristics
+        fields=('id', 'price', 'price_currency',
                   'room_type', 'duration', 'people_allowed_number')
 
 class ReservationManagementDetailsSerializer(serializers.ModelSerializer):
-    reservation_creation_date = serializers.DateField(format='%Y-%m-%d')
-    confirmation_deadline_date = serializers.DateField(format='%Y-%m-%d')
-    last_update_date = serializers.DateField(format='%Y-%m-%d')
+    reservation_creation_date=serializers.DateField(format = '%Y-%m-%d')
+    confirmation_deadline_date=serializers.DateField(format = '%Y-%m-%d')
+    last_update_date=serializers.DateField(format = '%Y-%m-%d')
 
-    user = UserSerializer()
-    room_characteristics = ReservationRoomCharacteristicsManagementSerializer()
-    receipts = ReceiptSerializer(many=True)
-    
+    user=UserSerializer()
+    room_characteristics=ReservationRoomCharacteristicsManagementSerializer()
+    receipts=ReceiptSerializer(many = True)
+
     class Meta:
-        model = models.Reservation
-        fields = ('id', 
+        model=models.Reservation
+        fields=('id',
                   'reservation_creation_date', 'confirmation_deadline_date', 'status',
                   'last_update_date', 'follow_up_message',
                   'user', 'room_characteristics', 'receipts')
 
 
 class ReservationManagementSerializer(serializers.Serializer):
-    reservations = ReservationManagementDetailsSerializer(many=True)
+    reservations=ReservationManagementDetailsSerializer(many = True)
 
     class Meta:
-        fields = ('pending_reservations', 'rejected_reservations', 
-                  'confirmed_reservations', 'waiting_for_manager_action_reservations', 
+        fields=('pending_reservations', 'rejected_reservations',
+                  'confirmed_reservations', 'waiting_for_manager_action_reservations',
                   'manager_updated_reservations', 'expired_reservations',
                   'reservations')
 
 
 class RegisterSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
-    name = serializers.CharField(required=True, write_only=True)
-    password1 = serializers.CharField(required=True, write_only=True)
-    password2 = serializers.CharField(required=True, write_only=True)
+    email=serializers.EmailField(required = allauth_settings.EMAIL_REQUIRED)
+    name=serializers.CharField(required = True, write_only = True)
+    password1=serializers.CharField(required = True, write_only = True)
+    password2=serializers.CharField(required = True, write_only = True)
 
     def validate_email(self, email):
-        email = get_adapter().clean_email(email)
+        email=get_adapter().clean_email(email)
         if allauth_settings.UNIQUE_EMAIL:
             if email and email_address_exists(email):
                 raise serializers.ValidationError(
@@ -677,7 +696,7 @@ class DormSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Dormitory
         fields = ('id', 'name', 'cover',
-                  #'stars', 'number_of_reviews',
+                  # 'stars', 'number_of_reviews',
                   'geo_longitude', 'geo_latitude', 'address',
                   'rooms_left_in_dorm',
                   'features', 'room_characteristics')
@@ -706,7 +725,7 @@ class DormDetailsSerializer(serializers.ModelSerializer):
                   'photos',
                   'about', 'contact_name', 'contact_email', 'contact_number', 'contact_fax',
                   'features',
-                  #'number_of_reviews', 'reviews_average', 'reviews',
+                  # 'number_of_reviews', 'reviews_average', 'reviews',
                   'room_characteristics')
 
 
