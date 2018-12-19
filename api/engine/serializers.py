@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models as django_models
 from django.contrib.sites.shortcuts import get_current_site
 
@@ -128,7 +130,7 @@ class ClientReservationManagementSerializer(serializers.ModelSerializer):
             if status not in models.Reservation.STATUS_CHARS_LIST:
                 raise serializers.ValidationError("Status doesn't exist!") 
             
-            if status == Reservation.MANAGER_UPDATED_STATUS:
+            if status == models.Reservation.MANAGER_UPDATED_STATUS:
                 follow_up_message = validated_data.get('follow_up_message', None)
                 if not follow_up_message:
                     raise serializers.ValidationError('Please add a follow up message')
@@ -515,10 +517,10 @@ class ClientPhotoDormSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         dormitory = models.Dormitory.objects.get(pk=self.context.get('view').kwargs.get('dorm_pk'))
-        
+        uploaded_photo = validated_data.get('uploaded_photo', None)
         
         url = validated_data.get('url', None)
-
+        
         if not url and not uploaded_photo:
             raise serializers.ValidationError('please add either url or uploaded_photo')
 

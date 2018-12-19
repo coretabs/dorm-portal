@@ -24,8 +24,9 @@ class ReservationQuerySet(django_models.QuerySet):
 
         today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
 
-        result = self.filter(confirmation_deadline_date__gte=today_plus_one)\
-                     .update(status=Reservation.EXPIRED_STATUS)
+        result = self.filter(status__in=Reservation.EXPIRABLE_STATUS_LIST,
+                             confirmation_deadline_date__lte=today_plus_one)\
+            .update(status=Reservation.EXPIRED_STATUS)
 
         return result
 
@@ -51,12 +52,13 @@ class ReservationQuerySet(django_models.QuerySet):
 class DormitoryQuerySet(django_models.QuerySet):
     def apply_room_filters(self, filters):
         if filters:
-            filtered_rooms = RoomCharacteristics.objects.filter(filters[0])\
-                .prefetch_related('radio_choices', 'integral_choices',
-                                  'radio_choices__related_filter', 'integral_choices__related_filter',
-                                  'features')
+            filtered_rooms = RoomCharacteristics.objects
             for current_filter in filters:
                 filtered_rooms = filtered_rooms.filter(current_filter)
+
+            filtered_rooms.prefetch_related('features', 'radio_choices', 'integral_choices',
+                                            'radio_choices__related_filter',
+                                            'integral_choices__related_filter')
 
             room_characteristics = django_models.Prefetch(
                 'room_characteristics', queryset=filtered_rooms)
@@ -388,6 +390,7 @@ class Reservation(django_models.Model):
     MANAGER_UPDATED_STATUS = '4'
     EXPIRED_STATUS = '5'
 
+    EXPIRABLE_STATUS_LIST = [PENDING_STATUS, MANAGER_UPDATED_STATUS]
     NON_UPDATABLE_STATUS_LIST = [REJECTED_STATUS, CONFIRMED_STATUS, EXPIRED_STATUS]
 
     STATUS_CHARS_LIST = [PENDING_STATUS, REJECTED_STATUS, CONFIRMED_STATUS,
@@ -499,7 +502,7 @@ class Reservation(django_models.Model):
         return self.user == user
 
     def __str__(self):
-        return f'Reservation id {self.id} for {self.user} {self.room_characteristics}'
+        return f'Reservation id {self.id} status {self.status} for {self.user} {self.room_characteristics}'
 
 
 class UploadablePhoto(django_models.Model):

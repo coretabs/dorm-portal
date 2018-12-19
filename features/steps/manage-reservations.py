@@ -40,10 +40,9 @@ def arrange(self):
     self.reservation3 = create_reservation(self.room2, self.user3)
     self.reservation4 = create_reservation(self.room2, self.user4)
 
-    after_tomorrow = datetime.date.today() + datetime.timedelta(days=2)
-    self.reservation3.confirmation_deadline_date = after_tomorrow
+    self.reservation3.confirmation_deadline_date = datetime.date.today()
     self.reservation3.save()
-    self.reservation4.confirmation_deadline_date = after_tomorrow
+    self.reservation4.confirmation_deadline_date = datetime.date.today()
     self.reservation4.save()
 
 
@@ -68,7 +67,7 @@ def act(self):
 
 @then('get the correct reservations status statistics')
 def test(self):
-    print(self.reservations_statistics['pending_reservations'])
+    # print(self.reservations_statistics['pending_reservations'])
     assert self.reservations_statistics['pending_reservations'] == 1
     assert self.reservations_statistics['rejected_reservations'] == 1
     assert self.reservations_statistics['confirmed_reservations'] == 0
