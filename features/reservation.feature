@@ -1,4 +1,5 @@
-Feature: Quota
+Feature: Reservation
+
     Scenario: As a student
               I want to make reservations
               So that I get a room to stay in
@@ -73,5 +74,5 @@ Feature: Quota
         When hitting POST /reservations/{res-id}/receipt for rejected/confirmed/expired
         Then get 400 bad request for not updatable reservation
 
-        When hitting POST /reservations/{res-id}/receipt non-owned reservation 
-        Then get forbidden 403 for non-owned reservation        
+        When hitting POST /reservations/{res-id}/receipt non-owned reservation
+        Then get forbidden 403 for non-owned reservation

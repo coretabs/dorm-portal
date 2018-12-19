@@ -489,9 +489,11 @@ class Reservation(django_models.Model):
         if self.status in Reservation.NON_UPDATABLE_STATUS_LIST:
             raise NonUpdatableReservationException()
 
-        self.receipts.add(receipt)
         self.status = Reservation.WAITING_FOR_MANAGER_ACTION_STATUS
-        self.save()
+
+        with transaction.atomic():
+            receipt.save()
+            self.save()
 
     def is_owner(self, user):
         return self.user == user

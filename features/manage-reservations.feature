@@ -1,4 +1,4 @@
-Feature: Managing dormitory and room data
+Feature: Managing reservations
 
     Scenario: As a manager
               I want to manage my dorms reservations

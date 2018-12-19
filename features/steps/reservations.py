@@ -289,3 +289,76 @@ def act(self):
 def act(self):
     assert self.result_exception != None
     assert isinstance(self.result_exception, NonUpdatableReservationException) == True
+
+
+@when('hitting POST /reservations/{res-id}/receipt to add new receipt')
+def act(self):
+    self.reservation1.status = Reservation.PENDING_STATUS
+    self.reservation1.receipts.all().delete()
+    self.reservation1.save()
+
+    uploaded_file = create_uploaded_file(self, 'receipt.jpg')
+    photo_json = {'uploaded_photo': uploaded_file}
+
+    client = APIClient()
+    client.force_authenticate(self.user1)
+
+    url = reverse('engine.reservations:receipts-list',
+                  kwargs={'reservation_pk': self.reservation1.id})
+    self.response = client.post(url, photo_json, format='multipart')
+
+
+@then('get 201 created for adding a receipt')
+def test(self):
+    # print(self.response.data)
+    assert self.response.status_code == status.HTTP_201_CREATED
+    assert Reservation.objects.first().receipts.count() == 1
+
+    assert os.path.exists(self.expected_file_path) == True
+    os.remove(self.expected_file_path)
+
+
+@when('hitting POST /reservations/{res-id}/receipt for rejected/confirmed/expired')
+def act(self):
+    self.reservation1.status = Reservation.REJECTED_STATUS
+    self.reservation1.receipts.all().delete()
+    self.reservation1.save()
+
+    uploaded_file = create_uploaded_file(self, 'receipt.jpg')
+    photo_json = {'uploaded_photo': uploaded_file}
+
+    client = APIClient()
+    client.force_authenticate(self.user1)
+
+    url = reverse('engine.reservations:receipts-list',
+                  kwargs={'reservation_pk': self.reservation1.id})
+    self.response = client.post(url, photo_json, format='multipart')
+
+
+@then('get 400 bad request for not updatable reservation')
+def test(self):
+    # print(self.response.data)
+    assert self.response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+@when('hitting POST /reservations/{res-id}/receipt non-owned reservation')
+def act(self):
+    self.reservation1.status = Reservation.PENDING_STATUS
+    self.reservation1.receipts.all().delete()
+    self.reservation1.save()
+
+    uploaded_file = create_uploaded_file(self, 'receipt.jpg')
+    photo_json = {'uploaded_photo': uploaded_file}
+
+    client = APIClient()
+    client.force_authenticate(self.user2)
+
+    url = reverse('engine.reservations:receipts-list',
+                  kwargs={'reservation_pk': self.reservation1.id})
+    self.response = client.post(url, photo_json, format='multipart')
+
+
+@then('get forbidden 403 for non-owned reservation')
+def test(self):
+    # print(self.response.data)
+    assert self.response.status_code == status.HTTP_403_FORBIDDEN

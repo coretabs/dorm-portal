@@ -26,14 +26,14 @@ def create_reservation(room, user):
 
 
 def create_uploaded_file(self, file_name):
-    self.expected_file_path = os.path.join(settings.MEDIA_ROOT, 'alfam-photo.jpeg')
+    self.expected_file_path = os.path.join(settings.MEDIA_ROOT, file_name)
     if os.path.exists(self.expected_file_path):
         os.remove(self.expected_file_path)
 
     photo_file = File(open(os.path.join(os.path.dirname(
-        os.path.realpath(__file__)), 'alfam-photo.jpeg'), 'rb'))
+        os.path.realpath(__file__)), file_name), 'rb'))
 
-    result = SimpleUploadedFile('alfam-photo.jpeg', photo_file.read(),
+    result = SimpleUploadedFile(file_name, photo_file.read(),
                                 content_type='multipart/form-data')
 
     return result

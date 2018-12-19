@@ -49,12 +49,23 @@ class ReservationDormitorySerializer(serializers.ModelSerializer):
                   'bank_accounts')
 
 class ReceiptSerializer(serializers.ModelSerializer):
-    url = serializers.URLField()
-    upload_receipt_date = serializers.DateField(format='%Y-%m-%d')
+    url = serializers.URLField(read_only=True)
+    upload_receipt_date = serializers.DateField(format='%Y-%m-%d', required=False)
+    uploaded_photo = serializers.ImageField(required=False)
+
+    def create(self, validated_data):
+        uploaded_photo = validated_data.get('uploaded_photo', None)
+        reservation = models.Reservation.objects.get(pk=self.context['reservation_pk'])
+
+        instance = models.ReceiptPhoto(photo=uploaded_photo, reservation=reservation)
+
+        reservation.add_receipt(instance)
+
+        return instance
 
     class Meta:
         model = models.ReceiptPhoto
-        fields = ('url', 'upload_receipt_date')
+        fields = ('url', 'upload_receipt_date', 'uploaded_photo')
 
 class ReservationRoomCharacteristicsSerializer(serializers.ModelSerializer):
     room_type = serializers.SerializerMethodField()
@@ -504,7 +515,8 @@ class ClientPhotoDormSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         dormitory = models.Dormitory.objects.get(pk=self.context.get('view').kwargs.get('dorm_pk'))
-        uploaded_photo = validated_data.get('uploaded_photo', None)
+        
+        
         url = validated_data.get('url', None)
 
         if not url and not uploaded_photo:

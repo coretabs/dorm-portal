@@ -10,7 +10,8 @@ from rest_framework.response import Response
 
 from api import settings
 
-from .exceptions import NoEnoughQuotaException, NonFinishedUserReservationsException
+from .exceptions import (NoEnoughQuotaException, NonFinishedUserReservationsException,
+                         NonUpdatableReservationException)
 from . import serializers
 from . import models
 
@@ -188,6 +189,31 @@ class DormManagementViewSet(viewsets.ViewSet):
 class HisOwnReservation(BasePermission):
     def has_object_permission(self, request, view, obj):
         return obj.is_owner(request.user)
+
+
+class ReceiptViewSet(viewsets.ViewSet):
+    permission_classes = (IsAuthenticated, HisOwnReservation)
+    serializer_class = serializers.ReceiptSerializer
+
+    def get_queryset(self):
+        return models.ReceiptPhoto.objects.filter(reservation=self.kwargs['reservation_pk'])
+
+    def create(self, request, reservation_pk=None):
+        reservation = models.Reservation.objects.get(pk=self.kwargs['reservation_pk'])
+        self.check_object_permissions(request, reservation)
+
+        serializer = serializers.ReceiptSerializer(
+            data=request.data, context={'reservation_pk': reservation_pk})
+        serializer.is_valid()
+
+        try:
+            result = serializer.save()
+            response = Response(status=status.HTTP_201_CREATED)
+
+        except (NonUpdatableReservationException) as exception:
+            response = Response(str(exception), status=status.HTTP_400_BAD_REQUEST)
+
+        return response
 
 
 class ReservationViewSet(viewsets.ViewSet):

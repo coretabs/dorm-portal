@@ -20,6 +20,9 @@ router.register('manager-dorms', engine_views.DormManagementViewSet, base_name='
 # for url in router.urls:
 #    print(url.__dict__)
 
+reservations_router = routers.NestedSimpleRouter(router, 'reservations', lookup='reservation')
+reservations_router.register('receipts', engine_views.ReceiptViewSet,
+                             base_name='receipts')
 
 dorms_router = routers.NestedSimpleRouter(router, 'manager-dorms', lookup='dorm')
 dorms_router.register('bank_accounts', engine_views.BankAccountManagementViewSet,
@@ -38,6 +41,7 @@ urlpatterns = [
     path('api/', include((router.urls, 'engine'), namespace='engine')),
     #path('api/manager', include((manager_router.urls, 'engine'), namespace='engine')),
     path('api/dorms', include((dorms_router.urls, 'engine'), namespace='engine.dorms')),
+    path('api/', include((reservations_router.urls, 'engine'), namespace='engine.reservations')),
 
     path('api/auth/', include('rest_auth.urls')),
     #path(r'^', include('django.contrib.auth.urls')),

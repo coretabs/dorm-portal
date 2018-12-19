@@ -51,6 +51,7 @@ def arrange(self):
 def act(self):
     self.quota_before_rejection = self.reservation1.room_characteristics.allowed_quota
     self.reservation1.update_status(Reservation.REJECTED_STATUS)
+    self.reservation1 = Reservation.objects.get(pk=self.reservation1.id)
 
 
 @then('quota of that room should increase by 1')
@@ -67,6 +68,7 @@ def act(self):
 
 @then('get the correct reservations status statistics')
 def test(self):
+    print(self.reservations_statistics['pending_reservations'])
     assert self.reservations_statistics['pending_reservations'] == 1
     assert self.reservations_statistics['rejected_reservations'] == 1
     assert self.reservations_statistics['confirmed_reservations'] == 0
