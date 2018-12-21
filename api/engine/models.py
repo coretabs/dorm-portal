@@ -116,7 +116,10 @@ class DormitoryQuerySet(django_models.QuerySet):
                 room_filters.append(current_filter.get_query())
 
         if radio_integeral_choices:
-            for choice in radio_integeral_choices:
+            non_empty_radio_integeral_choices = [
+                x for x in radio_integeral_choices if x.get('choosen_options_ids', None) != []]
+
+            for choice in non_empty_radio_integeral_choices:
                 current_filter = Filter.objects.filter(id=choice['id']).first()
                 room_filters.append(current_filter.get_query_polymorphic(choice))
 

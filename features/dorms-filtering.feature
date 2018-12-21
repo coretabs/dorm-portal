@@ -22,6 +22,9 @@ Feature: filtering dorms
         When filter meals (breakfast & both) + luxury shower
         Then get only dovec with two rooms
 
+        When filter meals (without any option sent)
+        Then ignore the meals filter
+
         When (breakfast&both) + luxuryshower + airconidtioner + price(1500,2000) + bathrooms(1,2)
         Then get only dovec with one room only
 

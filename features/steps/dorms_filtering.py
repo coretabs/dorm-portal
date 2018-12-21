@@ -94,6 +94,21 @@ def test(self):
     assert self.filtered_dorms.all()[0].room_characteristics.count() == 2
 
 
+@when('filter meals (without any option sent)')
+def act(self):
+    breakfast_both = {'id': self.meals.id, 'choosen_options_ids': []}
+
+    self.filtered_dorms = Dormitory.objects.superfilter(
+        radio_integeral_choices=[breakfast_both, ],)
+
+
+@then('ignore the meals filter')
+def test(self):
+    assert self.filtered_dorms.count() == 2
+    assert self.filtered_dorms.all()[0].room_characteristics.count() == 2
+    assert self.filtered_dorms.all()[1].room_characteristics.count() == 2
+
+
 @when('(breakfast&both) + luxuryshower + airconidtioner + price(1500,2000) + bathrooms(1,2)')
 def act(self):
     price_choice = {'id': self.price_filter.id, 'min_value': 1500, 'max_value': 2000}
