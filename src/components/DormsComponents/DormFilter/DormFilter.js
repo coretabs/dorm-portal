@@ -11,7 +11,6 @@ export default {
       showAlert: true,
       dormSelectedFeatures: [],
       roomSelectedFeatures: [],
-      roomAdditionalFilters: [],
       roomIntegralFilters:[],
       optionsHolder: [],
       minValue: null
@@ -32,19 +31,33 @@ export default {
       this.$store.state.userFilters.room_features = this.roomSelectedFeatures
       this.$store.dispatch('fetchSearchedDorms')
     },
-    selectedAdditionalFilters(filterID, optionID,index){
-     
-      // this.roomAdditionalFilters[index].push({
-      //   id : filterID,
-      //   choosen_options_ids: this.optionsHolder
-      // })
-
-      // const filters = {
-      //   id : filterID,
-      //   choosen_options_id: this.optionsHolder
-      // }
-      // this.roomAdditionalFilters.push(filters)
-
+    selectedAdditionalFilters(filterID, optionID){
+      let objectUpdated = 0;
+      for(const filter of this.roomIntegralFilters){
+        if (filter.id === filterID){
+          let optionsArray = filter.choosen_options_ids
+          if(optionsArray.includes(optionID)){
+            let index = optionsArray.indexOf(optionID)
+            optionsArray.splice(index, 1)
+            objectUpdated = -1;
+            continue;
+          }else{
+            optionsArray.push(optionID)
+            objectUpdated = -1;
+            continue;
+          }
+        }
+      }
+      if(objectUpdated != -1){
+        this.optionsHolder.push(optionID)
+        this.$store.state.userFilters.additional_filters.push({
+          id: filterID,
+          choosen_options_ids: this.optionsHolder
+        })
+        this.optionsHolder = []
+      }
+      this.roomIntegralFilters = this.$store.state.userFilters.additional_filters
+      this.$store.dispatch('fetchSearchedDorms')
     },
     integralFilter(value, id){
       const minValue = value[0]
@@ -59,14 +72,14 @@ export default {
         }
       }
       if(objectUpdated != -1){
-        this.roomIntegralFilters.push({
+        this.$store.state.userFilters.additional_filters.push({
           id: id,
           min_value: minValue,
           max_value: maxValue
         })
+        this.roomIntegralFilters = this.$store.state.userFilters.additional_filters
        }
       
-      this.$store.state.userFilters.additional_filters = this.roomIntegralFilters
       this.$store.dispatch('fetchSearchedDorms')
     }
   },

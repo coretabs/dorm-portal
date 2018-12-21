@@ -14,7 +14,7 @@
           <template>
             <ul>
               <li v-for="(dormFeature, index) in filters.dorm_features" :key="index">
-                <v-checkbox v-model="dormSelectedFeatures" @change="dormFeatiresFilter"  :value="dormFeature.id" :label="dormFeature.name" color="success"></v-checkbox>
+                <v-checkbox v-model="dormSelectedFeatures" @change="dormFeatiresFilter" :value="dormFeature.id" :label="dormFeature.name" color="success"></v-checkbox>
               </li>
             </ul>
           </template>
@@ -27,36 +27,35 @@
               </li>
             </ul>
           </template>
-          
 
           <div v-for="(additionalFilters, i) in filters.additional_filters" :key="i">
             <div class="filter-title">{{additionalFilters.name}}</div>
             <template v-if="additionalFilters.is_checkbox">
-            <ul>
-              <li v-for="(option, index) in additionalFilters.options" :key="index">
-                <v-checkbox v-model="optionsHolder[option.id]" @click="selectedAdditionalFilters(additionalFilters.id,option.id,i)" :value="option.id" :label="option.name" color="success"></v-checkbox>
-              </li>
-            </ul>
-          </template>
-          
-          <template v-if="additionalFilters.is_integral">
-            
-            <div>
-              <v-layout class="integral-filter" row>
-                <v-flex class="px-3">
-                  <v-range-slider @change="integralFilter(additionalFilters.value, additionalFilters.id)" thumb-label="always" thumb-color="#3ab86c" v-model="additionalFilters.value" :max="additionalFilters.max_value" :min="additionalFilters.min_value" :step="1" color="success"></v-range-slider>
-                </v-flex>
-              </v-layout>
-              <v-layout class="integral-filter" v-show="false" row>
-                <v-flex class="integral-input">
-                  <v-text-field label="From" v-model="additionalFilters.value[0]" class="mt-0" hide-details type="text" disabled></v-text-field>
-                </v-flex>
-                <v-flex class="integral-input">
-                  <v-text-field label="To" v-model="additionalFilters.value[1]" class="mt-0" hide-details type="text" disabled></v-text-field>
-                </v-flex>
-              </v-layout>
-            </div>
-          </template>
+              <ul>
+                <li v-for="(option, index) in additionalFilters.options" :key="index">
+                  <v-checkbox @change="selectedAdditionalFilters(additionalFilters.id, option.id)" :value="option.id" :label="option.name" color="success"></v-checkbox>
+                </li>
+              </ul>
+            </template>
+
+            <template v-if="additionalFilters.is_integral">
+
+              <div>
+                <v-layout class="integral-filter" row>
+                  <v-flex class="px-3">
+                    <v-range-slider @change="integralFilter(additionalFilters.value, additionalFilters.id)" thumb-label="always" thumb-color="#3ab86c" v-model="additionalFilters.value" :max="additionalFilters.max_value" :min="additionalFilters.min_value" :step="1" color="success"></v-range-slider>
+                  </v-flex>
+                </v-layout>
+                <v-layout class="integral-filter" v-show="false" row>
+                  <v-flex class="integral-input">
+                    <v-text-field label="From" v-model="additionalFilters.value[0]" class="mt-0" hide-details type="text" disabled></v-text-field>
+                  </v-flex>
+                  <v-flex class="integral-input">
+                    <v-text-field label="To" v-model="additionalFilters.value[1]" class="mt-0" hide-details type="text" disabled></v-text-field>
+                  </v-flex>
+                </v-layout>
+              </div>
+            </template>
 
           </div>
 
@@ -71,7 +70,7 @@
         <v-flex xs12>
           <dorm-search :dutarion="setDuration" :category="setCategory"></dorm-search>
         </v-flex>
-        
+
         <v-flex xs12>
           <!-- <div v-if="showAlert" class="search-noresult">
             <v-icon small>fa-exclamation-circle</v-icon>
@@ -80,15 +79,19 @@
           </div> -->
           <div v-if="resultAlert > 0" class="search-success">
             <v-icon small>fa-check-circle</v-icon>
-            {{resultAlert}} 
+            {{resultAlert}}
             <span v-if="resultAlert > 1">Dorms matches your search</span>
             <span v-else>Dorm matches your search</span>
-            <div class="close-alert"><v-icon small @click="showAlert = false">fa-times</v-icon></div>
+            <div class="close-alert">
+              <v-icon small @click="showAlert = false">fa-times</v-icon>
+            </div>
           </div>
           <div v-if="resultAlert == 0" class="search-noresult">
             <v-icon small>fa-times</v-icon>
-             Sorry, no dorm matches your search
-            <div class="close-alert"><v-icon small @click="showAlert = false">fa-times</v-icon></div>
+            Sorry, no dorm matches your search
+            <div class="close-alert">
+              <v-icon small @click="showAlert = false">fa-times</v-icon>
+            </div>
           </div>
 
         </v-flex>
