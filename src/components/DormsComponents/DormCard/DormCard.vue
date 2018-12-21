@@ -40,6 +40,7 @@
               <span>{{dorm.rooms_left_in_dorm}} {{lang.dormCard.roomsLeft}}</span>
             </v-layout>
           </template>
+          
 
           <v-layout wrap class="dorm-features">
 

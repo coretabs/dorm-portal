@@ -41,9 +41,12 @@
             <template v-if="additionalFilters.is_integral">
 
               <div>
-                <v-layout class="integral-filter" row>
-                  <v-flex class="px-3">
-                    <v-range-slider @change="integralFilter(additionalFilters.value, additionalFilters.id)" thumb-label="always" thumb-color="#3ab86c" v-model="additionalFilters.value" :max="additionalFilters.max_value" :min="additionalFilters.min_value" :step="1" color="success"></v-range-slider>
+                <v-layout class="integral-filter" row wrap>
+                  <v-flex xs12 class="px-2">
+                    <v-range-slider @change="integralFilter(additionalFilters.value, additionalFilters.id)" thumb-color="#3ab86c" v-model="additionalFilters.value" :max="additionalFilters.max_value" :min="additionalFilters.min_value" :step="1" color="success"></v-range-slider>
+                  </v-flex>
+                  <v-flex xs12 class="mb-3 text-xs-center font-weight-medium">
+                    <span>{{additionalFilters.value[0]}} - {{additionalFilters.value[1]}}</span>
                   </v-flex>
                 </v-layout>
                 <v-layout class="integral-filter" v-show="false" row>
@@ -72,26 +75,15 @@
         </v-flex>
 
         <v-flex xs12>
-          <!-- <div v-if="showAlert" class="search-noresult">
-            <v-icon small>fa-exclamation-circle</v-icon>
-            Sorry we didn't find any results matching this search
-            <div class="close-alert"><v-icon small @click="showAlert = false">fa-times</v-icon></div>
-          </div> -->
           <div v-if="resultAlert > 0" class="search-success">
             <v-icon small>fa-check-circle</v-icon>
             {{resultAlert}}
             <span v-if="resultAlert > 1">Dorms matches your search</span>
             <span v-else>Dorm matches your search</span>
-            <div class="close-alert">
-              <v-icon small @click="showAlert = false">fa-times</v-icon>
-            </div>
           </div>
           <div v-if="resultAlert == 0" class="search-noresult">
-            <v-icon small>fa-times</v-icon>
+            <v-icon small>fa-exclamation-circle</v-icon>
             Sorry, no dorm matches your search
-            <div class="close-alert">
-              <v-icon small @click="showAlert = false">fa-times</v-icon>
-            </div>
           </div>
 
         </v-flex>
