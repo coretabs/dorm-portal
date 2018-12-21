@@ -1,8 +1,7 @@
 <template>
 <div id="dorm-profile">
   <v-content>
-
-    <v-parallax height="450" dark :src="dorm.cover">
+    <v-parallax height="450" dark :src="dorm.main_info.cover">
       <v-layout justify-center>
         <v-flex md8 xs10>
           <section id="dorm-banner">
