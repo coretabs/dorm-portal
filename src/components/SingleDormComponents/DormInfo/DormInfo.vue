@@ -11,7 +11,7 @@
             <v-card flat>
               <v-card-text>
                 <!-- TODO: Update about object -->
-                <div class="pre-line">{{dorm.about.en}}</div>
+                <div class="pre-line">{{dorm.about}}</div>
               </v-card-text>
             </v-card>
           </v-tab-item>

@@ -5,7 +5,7 @@
       <v-flex class="room-images" xs12 sm8>
         <v-carousel>
           <!-- TODO: Update images to be fetched from the endpoint -->
-          <v-carousel-item v-for="(image,index) in photos" :key="index" :src="image"></v-carousel-item>
+          <v-carousel-item v-for="(image,index) in room.photos" :key="index" :src="image"></v-carousel-item>
         </v-carousel>
       </v-flex>
       <v-flex class="room-details" xs12 sm4>
@@ -43,7 +43,6 @@
 
           <v-flex class="feature-block" xs12>
             <h3>Room Features:</h3>
-            <!-- TODO: Update features to be fetched from the endpoint -->
             <div class="feature-block__scroll">
               <div class="room-feature" v-for="(feature,index) in room.features" :key="index">
                 <v-icon>{{feature.icon}}</v-icon>

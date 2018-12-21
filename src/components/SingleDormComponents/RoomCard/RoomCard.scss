@@ -46,7 +46,7 @@
         margin: 4px 0;
       }
       span{
-        font-size: 18px;
+        font-size: 16px;
         .v-icon{
           font-size: 16px;
           line-height: 26px;
@@ -117,7 +117,6 @@
       }
       .feature-block{
         margin: 10px 0;
-        
         @include radius(5px);
         max-height: 250px;
         overflow-y: auto;
@@ -133,6 +132,10 @@
         padding-top: 10px;
         .room-price{
           margin: 10px 0;
+          span{
+            font-weight: 700;
+            font-size: 20px;
+          }
         }
         .reserve-btn{
           margin: 10px 0 0; 
