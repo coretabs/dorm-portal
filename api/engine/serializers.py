@@ -33,14 +33,19 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_reservation_id(self, obj):
         self._reservation = obj.reservations.first()
-        return self._reservation.id
+        if self._reservation:
+            result = self._reservation.id
+        else:
+            result = None
+
+        return result
 
     def get_current_step(self, obj):
-        status = self._reservation.status
-        if status == models.Reservation.PENDING_STATUS:
-            result = UserSerializer.EMAIL_CONFIRMED
-        else:
-            result = UserSerializer.NON_PENDING_RESERVATION
+        result = UserSerializer.EMAIL_CONFIRMED
+        if self._reservation:
+            status = self._reservation.status
+            if status != models.Reservation.PENDING_STATUS:
+                result = UserSerializer.NON_PENDING_RESERVATION
 
         return result
 
