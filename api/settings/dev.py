@@ -13,6 +13,23 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 BASE_URL = 'http://127.0.0.1:8000'
 
+
+# CORS settings
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+
+# CSRF & Session Domains
+#CSRF_COOKIE_DOMAIN = '127.0.0.1'
+#SESSION_COOKIE_DOMAIN = '127.0.0.1'
+COOKIE_DOMAINS = {
+    'http://dorm-portal.herokuapp.com': 'dorm-portal.herokuapp.com',
+    'http://127.0.0.1:8000': '127.0.0.1',
+    'http://127.0.0.1:8080': '127.0.0.1',
+    'http://localhost:8080': '127.0.0.1'
+}
+
+
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 

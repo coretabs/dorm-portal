@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models as django_models
 from django.contrib.sites.shortcuts import get_current_site
+from django.conf import settings
 
 from rest_framework import serializers
 
@@ -17,7 +18,6 @@ from i18nfield.rest_framework import I18nField
 
 from rest_polymorphic.serializers import PolymorphicSerializer
 
-from api import settings
 
 from . import models
 
