@@ -49,7 +49,7 @@ export default {
     integralFilter(value, id){
       const minValue = value[0]
       const maxValue = value[1]
-      let objectUpdated = null;
+      let objectUpdated = 0;
       for(const filter of this.roomIntegralFilters){
         if (filter.id === id) {
           filter.min_value = minValue;
@@ -88,16 +88,22 @@ export default {
         name: 'All Time',
         id: null
       }
-      this.$store.state.filters.duration_options.push(allTime)
-      return this.$store.state.filters.duration_options
+      const duration = this.$store.state.filters.duration_options
+      if(duration){
+        duration.push(allTime)
+      }
+      return duration
     },
     setCategory(){
       let allDorms = {
         name: 'All dormitories',
         id: null
       }
-      this.$store.state.filters.category_options.push(allDorms)
-      return this.$store.state.filters.category_options
+      const category = this.$store.state.filters.category_options
+      if(category){
+        category.push(allDorms)
+      }
+      return category
     },
     resultAlert(){
       return this.$store.state.dorms.length
