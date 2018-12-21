@@ -20,6 +20,12 @@ from . import models
 index_view = never_cache(TemplateView.as_view(template_name='index.html'))
 
 
+def activate_language(language):
+    if language not in settings.LANGUAGES_DICT:
+        language = 'en'
+    translation.activate(language)
+
+
 class ResendConfirmView(generics.GenericAPIView):
 
     serializer_class = serializers.ResendConfirmSerializer
@@ -43,22 +49,12 @@ class FiltersListViewSet(viewsets.ViewSet):
     serializer_class = serializers.ClientReturnedFiltersSerializer
 
     def list(self, request):
-        language = request.query_params.get('language', 'en')
-        if language not in settings.LANGUAGES_DICT:
-            language = 'en'
-
-        translation.activate(language)
+        activate_language(request.query_params.get('language', 'en'))
 
         return Response(self.serializer_class([]).data)
 
 
 class DormViewSet(viewsets.ViewSet):
-    def activate_language(self, request):
-        language = request.data.get('language', 'en')
-        if language not in settings.LANGUAGES_DICT:
-            language = 'en'
-
-        translation.activate(language)
 
     def create(self, request):
         """
@@ -66,7 +62,7 @@ class DormViewSet(viewsets.ViewSet):
         But drf doesn't allow changing the action of list ViewSet
         """
 
-        self.activate_language(request)
+        activate_language(request.data.get('language', 'en'))
 
         deserialized_filters = serializers.ClientAcceptedFiltersSerializer(data=request.data)
         deserialized_filters.is_valid()
@@ -89,7 +85,7 @@ class DormViewSet(viewsets.ViewSet):
         return Response(serializers.DormSerializer(filtered_dorms, many=True).data)
 
     def retrieve(self, request, pk=None):
-        self.activate_language(request)
+        activate_language(request.query_params.get('language', 'en'))
 
         dorm = models.Dormitory.objects.filter(id=pk).superfilter().first()
 
