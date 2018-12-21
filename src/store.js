@@ -112,45 +112,6 @@ export default new Vuex.Store({
     fetchSearchedDorms(context){
       context.commit('fetchSearchedDorms');
     },
-    // login({commit}){
-
-    //   return new Promise((resolve, reject) => {
-
-    //     $backend.$login().then(responseDate => {
-
-    //       if(responseDate.is_manager){
-    //         localStorage.setItem('admin', true)
-    //       }
-    //       localStorage.setItem('auth', JSON.stringify({
-    //         user_name: responseDate.name,
-    //         reservarion_id : responseDate.reservation_id,
-    //         current_step: responseDate.current_step
-    //       }))
-    //       commit('auth_success')
-    //       resolve(responseDate)
-
-    //     })
-    //     .catch(err => {
-    //       localStorage.removeItem('admin')
-    //       localStorage.removeItem('auth')
-    //       commit('auth_error')
-    //       reject(err)
-    //     })
-
-
-    //   });
-
-    // },
-    login({commit},user){
-      return new Promise((resolve, reject) => {
-        $backend.$login(user).then(responseDate => {
-          resolve(responseDate)
-        })
-        .catch(err => {
-          reject(err)
-        })
-      });
-    },
     auth({commit}){
       return new Promise((resolve, reject) => {
         $backend.$auth().then(responseDate => {
@@ -159,8 +120,8 @@ export default new Vuex.Store({
           }
           localStorage.setItem('auth', JSON.stringify({
             user_name: responseDate.name,
-            reservarion_id : null, //responseDate.reservation_id,
-            current_step: 2 //responseDate.current_step
+            reservarion_id : responseDate.reservation_id,
+            current_step: responseDate.current_step
           }))
           commit('auth_success')
           resolve(responseDate)
@@ -172,6 +133,16 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    login({commit},user){
+      return new Promise((resolve, reject) => {
+        $backend.$login(user).then(responseDate => {
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      });
     },
     logout({commit}){
       return new Promise((resolve, reject) => {
