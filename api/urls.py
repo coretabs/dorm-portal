@@ -24,13 +24,13 @@ reservations_router = routers.NestedSimpleRouter(router, 'reservations', lookup=
 reservations_router.register('receipts', engine_views.ReceiptViewSet,
                              base_name='receipts')
 
-dorms_router = routers.NestedSimpleRouter(router, 'manager-dorms', lookup='dorm')
-dorms_router.register('bank_accounts', engine_views.BankAccountManagementViewSet,
-                      base_name='bank-accounts')
-dorms_router.register('photos', engine_views.PhotoDormManagementViewSet,
-                      base_name='photos')
-dorms_router.register('reservations', engine_views.ReservationManagementViewSet,
-                      base_name='reservations')
+manager_dorms_router = routers.NestedSimpleRouter(router, 'manager-dorms', lookup='dorm')
+manager_dorms_router.register('bank-accounts', engine_views.BankAccountManagementViewSet,
+                              base_name='bank-accounts')
+manager_dorms_router.register('photos', engine_views.PhotoDormManagementViewSet,
+                              base_name='photos')
+manager_dorms_router.register('reservations', engine_views.ReservationManagementViewSet,
+                              base_name='reservations')
 
 urlpatterns = [
 
@@ -40,7 +40,7 @@ urlpatterns = [
     # http://localhost:8000/api/<router-viewsets>
     path('api/', include((router.urls, 'engine'), namespace='engine')),
     #path('api/manager', include((manager_router.urls, 'engine'), namespace='engine')),
-    path('api/dorms', include((dorms_router.urls, 'engine'), namespace='engine.dorms')),
+    path('api/', include((manager_dorms_router.urls, 'engine'), namespace='engine.dorms')),
     path('api/', include((reservations_router.urls, 'engine'), namespace='engine.reservations')),
 
     path('api/auth/', include('rest_auth.urls')),
