@@ -108,7 +108,7 @@ def test(self):
 
 @when('retrieving an expired reservation')
 def act(self):
-    self.reservation2.confirmation_deadline_date = datetime.date.today() + datetime.timedelta(days=3)
+    self.reservation2.confirmation_deadline_date = datetime.date.today() - datetime.timedelta(days=1)
     self.reservation2.save()
 
     self.reservation2 = Reservation.objects.get(pk=self.reservation2.id).check_if_expired()
@@ -229,7 +229,7 @@ def test(self):
 
 @when('hitting GET /reservations/{res-id} for expired reservation')
 def act(self):
-    self.reservation1.confirmation_deadline_date = datetime.date.today() + datetime.timedelta(days=3)
+    self.reservation1.confirmation_deadline_date = datetime.date.today() - datetime.timedelta(days=1)
     self.reservation1.save()
 
     request = APIRequestFactory().get('')

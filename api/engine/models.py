@@ -405,6 +405,7 @@ class Reservation(django_models.Model):
         (CONFIRMED_STATUS, 'confirmed'),
         (WAITING_FOR_MANAGER_ACTION_STATUS, 'waiting-manager-action'),
         (MANAGER_UPDATED_STATUS, 'manager-updated'),
+        (EXPIRED_STATUS, 'expired-dont-choose-this'),
     )
 
     reservation_creation_date = django_models.DateField(auto_now=True)
@@ -426,7 +427,7 @@ class Reservation(django_models.Model):
     @property
     def is_past_confirmation_deadline(self):
         today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
-        return self.confirmation_deadline_date > today_plus_one
+        return self.confirmation_deadline_date < today_plus_one
 
     def is_owner(self, manager):
         return self.room_characteristics.dormitory.manager == manager
