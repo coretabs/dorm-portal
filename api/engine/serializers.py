@@ -96,6 +96,7 @@ class ReceiptSerializer(serializers.ModelSerializer):
 class ReservationRoomCharacteristicsSerializer(serializers.ModelSerializer):
     room_type=serializers.SerializerMethodField()
     duration=serializers.SerializerMethodField()
+    price_currency=serializers.SerializerMethodField()
     dormitory=ReservationDormitorySerializer()
 
     def get_room_type(self, obj):
@@ -103,6 +104,9 @@ class ReservationRoomCharacteristicsSerializer(serializers.ModelSerializer):
 
     def get_duration(self, obj):
         return str(obj.duration)
+
+    def get_price_currency(self, obj):
+        return obj.price_currency.symbol
 
     class Meta:
         model=models.RoomCharacteristics
