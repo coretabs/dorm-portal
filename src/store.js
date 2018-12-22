@@ -33,9 +33,7 @@ export default new Vuex.Store({
       const lang = require(`../locale/student.${currentLang}.json`);
       return lang[currentLang]
     },
-    activeCurrency: state => {
-      return state.currencySymbol;
-    },
+    activeCurrency: state => state.currencySymbol,
     isLoggedIn: state => !!state.isAuth,
     isAdmin: state => !!state.isAdmin,
     authStatus: state => state.authStatus,
