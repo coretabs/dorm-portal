@@ -552,6 +552,10 @@ post_delete.connect(file_cleanup, sender=DormitoryPhoto, dispatch_uid="gallery.i
 class ReceiptPhoto(UploadablePhoto):
     upload_receipt_date = django_models.DateField(auto_now=True)
 
+    @property
+    def url(self):
+        return self.photo.path
+
     reservation = django_models.ForeignKey(
         Reservation, related_name='receipts', on_delete=django_models.CASCADE)
 

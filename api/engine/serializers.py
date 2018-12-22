@@ -76,7 +76,7 @@ class ReservationDormitorySerializer(serializers.ModelSerializer):
 
 class ReceiptSerializer(serializers.ModelSerializer):
     url=serializers.URLField(read_only = True)
-    upload_receipt_date=serializers.DateField(format = '%Y-%m-%d', required = False)
+    upload_receipt_date=serializers.DateField(format = '%Y-%m-%d', required = False, read_only = True)
     uploaded_photo=serializers.ImageField(required = False)
 
     def create(self, validated_data):
