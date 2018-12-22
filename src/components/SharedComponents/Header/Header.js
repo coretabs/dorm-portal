@@ -3,7 +3,8 @@ export default {
   data: function() {
     return {
       activeBtn: 1,
-      showNav: true
+      showNav: true,
+      userName: ''
     };
   },
   methods: {
@@ -35,6 +36,13 @@ export default {
       else{
         this.$router.push('/reservation')
       }
+    },
+    getUserName(){
+      const user = JSON.parse(localStorage.getItem('auth'));
+      if(user){
+        const fullName = user.user_name.split(' ');
+        this.userName = fullName[fullName.length - 1];
+      }
     }
   },
   computed: {
@@ -52,11 +60,9 @@ export default {
     },
     isAdmin(){
       return this.$store.getters.isAdmin;
-    },
-    userName(){
-      const user = JSON.parse(localStorage.getItem('auth'));
-      const fullName = user.user_name.split(' ');
-      return fullName[fullName.length - 1];
-    }
+    }    
+  },
+  updated(){
+    this.getUserName()
   }
 };
