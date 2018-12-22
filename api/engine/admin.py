@@ -1,3 +1,4 @@
+from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
 
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
@@ -63,7 +64,19 @@ admin.site.register(models.BankAccount)
 admin.site.register(models.DormitoryPhoto)
 
 
+# User
+class CustomUserAdmin(UserAdmin):
+    # as an example, this custom user admin orders users by email address
+    ordering = ('email',)
+    fieldsets = UserAdmin.fieldsets + (
+        ('Custom fields', {'fields': ('is_manager', )}),
+    )
+
+
+admin.site.register(models.User, CustomUserAdmin)
+
 # Other models
+
 
 class RadioOptionAdmin(admin.ModelAdmin):
     form = forms.RadioOptionForm
@@ -72,8 +85,6 @@ class RadioOptionAdmin(admin.ModelAdmin):
 admin.site.register(models.RadioOption, RadioOptionAdmin)
 
 admin.site.register(models.Currency)
-
-admin.site.register(models.User)
 
 
 admin.site.register(models.RoomCharacteristics)
