@@ -12,6 +12,9 @@ Feature: Reservation
         Then quota of the room should decrease
         And deadline date should be equal to today+room_confirmation_days
 
+        When create a reservation for the same room
+        Then quota of the room should be the same
+
         When creating reservation for room 2 for same user
         Then create a reservation for that student for room 2
         And first pending reservation should be deleted
@@ -36,6 +39,7 @@ Feature: Reservation
         
         When hitting POST /reservations for room 1
         Then get 201 Created for creating that reservation
+        And cleanup the created reservation
 
         When hitting POST /reservations with logging in
         Then get 403 Forbidden to ensure reservation after login

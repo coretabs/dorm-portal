@@ -373,7 +373,6 @@ class RoomCharacteristics(django_models.Model):
 
     def decrease_quota(self):
         if self.allowed_quota == 0:
-            import django.core.exceptions
             raise NoEnoughQuotaException()
 
         self.allowed_quota -= 1
@@ -441,12 +440,17 @@ class Reservation(django_models.Model):
     def create(cls, *args, **kwargs):
 
         def cleanup_reservations(reservations, current_reserved_room):
+            cleanup_operations = []
+            reservations = reservations.all()
             for reservation in reservations:
                 not_same_reserved_room = reservation.room_characteristics.id != current_reserved_room.id
                 if not_same_reserved_room:
                     reservation.room_characteristics.increase_quota()
-                    reservation.room_characteristics.save()
-                    reservation.delete()
+                    cleanup_operations.append(reservation.room_characteristics.save)
+
+                cleanup_operations.append(reservation.delete)
+
+            return cleanup_operations
 
         def throw_error_if_user_has_non_finished_reservations(user):
             non_finished_reservations_query = django_models.Q(
@@ -465,19 +469,26 @@ class Reservation(django_models.Model):
         throw_error_if_user_has_non_finished_reservations(user)
 
         user_pending_reservations = user.reservations.filter(
-            status=Reservation.PENDING_STATUS).all()
+            status=Reservation.PENDING_STATUS)
 
         confirmation_deadline_date = datetime.date.today() + datetime.timedelta(
             days=room_characteristics.room_confirmation_days)
         result = cls(confirmation_deadline_date=confirmation_deadline_date, *args, **kwargs)
 
         with transaction.atomic():
-            room_characteristics.decrease_quota()
+            not_same_room = user_pending_reservations.filter(
+                room_characteristics_id=room_characteristics.id).exists() == False
+            if not_same_room:
+                room_characteristics.decrease_quota()
+            #print('qooq', room_characteristics.allowed_quota)
 
-            cleanup_reservations(user_pending_reservations, room_characteristics)
+            cleanup_operations = cleanup_reservations(
+                user_pending_reservations, room_characteristics)
 
             result.save()
             room_characteristics.save()
+            for operation in cleanup_operations:
+                operation()
 
         return result
 

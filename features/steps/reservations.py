@@ -37,6 +37,7 @@ def act(self):
 
 @then('quota of the room should decrease')
 def test(self):
+    self.room1 = RoomCharacteristics.objects.get(pk=self.room1.id)
     assert self.room1.allowed_quota == self.previous_quota - 1
 
 
@@ -46,6 +47,18 @@ def test(self):
     # print(datetime.date.today() + datetime.timedelta(days=2))
     # print(self.reservation1.confirmation_deadline_date)
     assert self.reservation1.confirmation_deadline_date == datetime.date.today() + datetime.timedelta(days=2)
+
+
+@when('create a reservation for the same room')
+def act(self):
+    self.previous_quota = self.room1.allowed_quota
+    self.reservation1 = create_reservation(self.room1, self.user1)
+
+
+@then('quota of the room should be the same')
+def test(self):
+    self.room1 = RoomCharacteristics.objects.get(pk=self.room1.id)
+    assert self.room1.allowed_quota == self.previous_quota
 
 
 @when('creating reservation for room 2 for same user')
@@ -143,6 +156,11 @@ def test(self):
     self.reservation1 = Reservation.objects.first()
 
 
+@then('cleanup the created reservation')
+def act(self):
+    self.reservation1.delete()
+
+
 @when('hitting POST /reservations with logging in')
 def act(self):
     reservation_data = {'room_id': self.room1.id}
@@ -213,6 +231,10 @@ def test(self):
 
 @when('hitting GET /reservations/{res-id}')
 def act(self):
+    self.room1.allowed_quota = 5
+    self.room1.save()
+    self.reservation1 = create_reservation(self.room1, self.user1)
+
     request = APIRequestFactory().get('')
     force_authenticate(request, self.user1)
     view = ReservationViewSet.as_view(actions={'get': 'retrieve'})
