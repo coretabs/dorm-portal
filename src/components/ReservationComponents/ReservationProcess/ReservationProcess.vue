@@ -47,12 +47,29 @@
     </v-layout>
   </v-container>
 
-  <v-tooltip top>
-    <v-btn slot="activator" color="rgb(36, 204, 27)" class="contact-icon" dark fab>
+  <v-tooltip top v-if="this.$store.getters.isLoggedIn">
+    <v-btn slot="activator" color="rgb(36, 204, 27)" class="contact-icon" dark fab @click="contactDate">
       <v-icon>fa-comment-alt</v-icon>
     </v-btn>
     <span>Contact Us</span>
   </v-tooltip>
+
+  <v-dialog v-model="contactDialog" max-width="500" lazy>
+    <v-card>
+      <v-card-text class="pa-4">
+        <h2 class="mb-4">Feel Free to Contact Us:</h2>
+        <div class="contact-info">
+          <v-icon>fa-envelope</v-icon> <span>Email:</span> {{contact.contact_email}}
+        </div>
+        <div class="contact-info">
+          <v-icon>fa-phone</v-icon> <span>Phone:</span> {{contact.contact_number}}
+        </div>
+        <div class="contact-info">
+          <v-icon>fa-fax</v-icon> <span>Fax:</span> {{contact.contact_fax}}
+        </div>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 
 </v-content>
 </template>

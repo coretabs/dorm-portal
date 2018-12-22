@@ -7,7 +7,9 @@ export default {
   data: function () {
     return {
       progress: 0,
-      complated: false
+      complated: false,
+      contactDialog: false,
+      contact: {}
     };
   },
   components: {
@@ -38,7 +40,7 @@ export default {
         return isReserved? true : false
       }
       return false
-    }
+    }   
   },
   methods:{
     loadroom(){
@@ -62,11 +64,14 @@ export default {
             this.$store.dispatch('fetchReservation', response.id)
           })
         }
-
       }
+    },
+    contactDate(){
+      this.contact = this.$store.state.reservation.room_characteristics.dormitory
+      this.contactDialog = !this.contactDialog
     }
   },
   mounted(){
-    this.loadroom();
+    this.loadroom()
   }
 };

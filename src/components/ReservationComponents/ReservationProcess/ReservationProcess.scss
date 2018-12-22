@@ -34,4 +34,17 @@
     position: fixed;
     z-index: 5;
   }
+
+}
+.contact-info{
+  margin: 15px 0;
+  .v-icon{
+    font-size: 14px;
+    line-height: 18px;
+    margin-right: 10px;
+    color: $light-gray-color !important;
+  }
+  span{
+    font-weight: 700;
+  }
 }
