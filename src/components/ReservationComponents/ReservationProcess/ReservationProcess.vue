@@ -46,9 +46,14 @@
 
     </v-layout>
   </v-container>
-  <v-btn v-show="!hidden" color="rgb(36, 204, 27)" class="contact-icon" dark fab>
-    <v-icon>fa-comment-alt</v-icon>
-  </v-btn>
+
+  <v-tooltip top>
+    <v-btn slot="activator" color="rgb(36, 204, 27)" class="contact-icon" dark fab>
+      <v-icon>fa-comment-alt</v-icon>
+    </v-btn>
+    <span>Contact Us</span>
+  </v-tooltip>
+
 </v-content>
 </template>
 

@@ -33,7 +33,7 @@ export default {
           break;
         case '1':
           this.status = "rejected"
-          this.statusIcon = "fa-clock"
+          this.statusIcon = "fa-times"
           break;
         case '2':
           this.status = "confirmed"

@@ -22,7 +22,7 @@ export default {
     reservationStep(){
       if(this.$store.getters.isLoggedIn){
         const step = JSON.parse(localStorage.getItem('auth'));
-        this.progress = 2 //step.current_step || 1;
+        this.progress = step.current_step || 1;
       }else{
         this.progress = 1;
       }
@@ -43,17 +43,27 @@ export default {
   methods:{
     loadroom(){
       if(this.$store.getters.isLoggedIn){
+
         const user = JSON.parse(localStorage.getItem('auth'))
-        const isReserved = user.reservarion_id
-        if(isReserved == null && !!localStorage.getItem('room')){
+        let isReserved = user.reservarion_id
+        let step = user.current_step
+        let savedRoom = localStorage.getItem('room')
+        if(isReserved != null){
+          this.$store.dispatch('fetchReservation', isReserved);
+        }
+        else if(!!savedRoom && step == 2){
           const savedRoom = JSON.parse(localStorage.getItem('room'))
           this.$store.dispatch('reserveRoom', savedRoom.room.id)
           .then(response => {
-            //this.$store.dispatch('fetchReservation');
+            localStorage.setItem('auth', JSON.stringify({
+              user_name: response.user.name,
+              reservarion_id : response.id,
+              current_step: response.user.current_step
+            }))
+            this.$store.dispatch('fetchReservation', response.id)
           })
-        }else{
-          this.$store.dispatch('fetchReservation', isReserved);
         }
+
       }
     }
   },
