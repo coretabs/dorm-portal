@@ -10,6 +10,10 @@ Feature: filtering dorms
         Then get the 2 dorms with the 4 rooms
         And get the rooms left equals the sum quota
 
+        When one of the alfam rooms has no quota
+        Then get all the room except the one with no quota
+        And return the quota back for the alfam room
+
         When filter free wifi
         Then get only dovec which has free wifi with two rooms
 

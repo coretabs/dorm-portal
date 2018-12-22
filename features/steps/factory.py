@@ -145,7 +145,7 @@ def create_room(dorm):
 def create_room_with_radio_choices(dorm, choices):
     dollar_currency = create_currency('$', 'USD')
 
-    result = RoomCharacteristics(dormitory=dorm, price_currency=dollar_currency)
+    result = RoomCharacteristics(dormitory=dorm, allowed_quota=5, price_currency=dollar_currency)
     result.save()
 
     for choice in choices:
@@ -158,7 +158,7 @@ def create_room_with_radio_choices(dorm, choices):
 def create_room_with_integral_choices(dorm, choices):
     dollar_currency = create_currency('$', 'USD')
 
-    result = RoomCharacteristics(dormitory=dorm, price_currency=dollar_currency)
+    result = RoomCharacteristics(dormitory=dorm, allowed_quota=5, price_currency=dollar_currency)
     result.save()
 
     for choice in choices:
@@ -171,7 +171,7 @@ def create_room_with_integral_choices(dorm, choices):
 def create_room_with_features(dorm, features):
     dollar_currency = create_currency('$', 'USD')
 
-    result = RoomCharacteristics(dormitory=dorm, price_currency=dollar_currency)
+    result = RoomCharacteristics(dormitory=dorm, allowed_quota=5, price_currency=dollar_currency)
     result.save()
 
     for feature in features:

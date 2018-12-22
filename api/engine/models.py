@@ -51,8 +51,10 @@ class ReservationQuerySet(django_models.QuerySet):
 
 class DormitoryQuerySet(django_models.QuerySet):
     def apply_room_filters(self, filters):
+        filtered_rooms = RoomCharacteristics.objects.filter(allowed_quota__gte=1)
+
         if filters:
-            filtered_rooms = RoomCharacteristics.objects
+            print(filtered_rooms)
             for current_filter in filters:
                 filtered_rooms = filtered_rooms.filter(current_filter)
 
@@ -67,7 +69,9 @@ class DormitoryQuerySet(django_models.QuerySet):
                         .prefetch_related(room_characteristics).distinct()
 
         else:
-            dorms = self.prefetch_related('room_characteristics').distinct()
+            room_characteristics = django_models.Prefetch(
+                'room_characteristics', queryset=filtered_rooms)
+            dorms = self.prefetch_related(room_characteristics).distinct()
 
         return dorms
 

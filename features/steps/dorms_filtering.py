@@ -36,6 +36,26 @@ def test(self):
     assert self.filtered_dorms.all()[1].rooms_left_in_dorm == 10
 
 
+@when('one of the alfam rooms has no quota')
+def act(self):
+    self.room1.allowed_quota = 0
+    self.room1.save()
+    self.filtered_dorms = Dormitory.objects.superfilter()
+
+
+@then('get all the room except the one with no quota')
+def test(self):
+    assert self.filtered_dorms.count() == 2
+    assert self.filtered_dorms.all()[0].room_characteristics.count() == 1
+    assert self.filtered_dorms.all()[1].room_characteristics.count() == 2
+
+
+@then('return the quota back for the alfam room')
+def test(self):
+    self.room1.allowed_quota = 5
+    self.room1.save()
+
+
 @when('filter free wifi')
 def act(self):
     self.filtered_dorms = Dormitory.objects.superfilter(dorm_features_ids=[self.free_wifi.id, ])
