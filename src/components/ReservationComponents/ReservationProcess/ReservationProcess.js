@@ -22,14 +22,22 @@ export default {
     reservationStep(){
       if(this.$store.getters.isLoggedIn){
         const step = JSON.parse(localStorage.getItem('auth'));
-        this.progress = step.current_step || 1;
+        this.progress = 2 //step.current_step || 1;
       }else{
         this.progress = 1;
       }
       return this.progress;
     },
     isRoomNotSaved(){
-      return (localStorage.getItem('room') == null);
+      return (localStorage.getItem('room') != null);
+    },
+    isRoomReserved(){
+      const user = JSON.parse(localStorage.getItem('auth'))
+      if(user){
+        const isReserved = user.reservarion_id
+        return isReserved? true : false
+      }
+      return false
     }
   },
   methods:{
@@ -41,11 +49,10 @@ export default {
           const savedRoom = JSON.parse(localStorage.getItem('room'))
           this.$store.dispatch('reserveRoom', savedRoom.room.id)
           .then(response => {
-            //check response is ok
-            this.$store.dispatch('fetchReservation');
+            //this.$store.dispatch('fetchReservation');
           })
         }else{
-          this.$store.dispatch('fetchReservation');
+          this.$store.dispatch('fetchReservation', isReserved);
         }
       }
     }

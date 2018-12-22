@@ -4,9 +4,9 @@ let $backend = axios.create({
     baseURL: 'http://127.0.0.1:8000/api',
     timeout: 5000,
     headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
     },
-    withCredentials: true,
+    withCredentials: true
 })
 
 $backend.defaults.xsrfHeaderName = "X-CSRFToken"
@@ -92,15 +92,8 @@ $backend.$reserveRoom = (roomId) => {
         .then(response => response.data)
 }
 
-// $backend.$fetchReservation = (reservationID) => {
-//   return $backend.post(`/reservation`,{
-//     reservation_id : reservationID
-//   })
-//   .then(response => response.data)
-// }
-
-$backend.$fetchReservation = () => {
-    return $backend.get(`/reservation/`)
+$backend.$fetchReservation = (id) => {
+    return $backend.get(`/reservations/${id}`)
         .then(response => response.data)
 }
 

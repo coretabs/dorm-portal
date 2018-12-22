@@ -22,10 +22,10 @@ export default {
       return this.$store.getters.lang;
     },
     reservation(){
-      return this.$store.state.reservation;
+      return this.$store.getters.reservationData
     },
     date(){
-      return this.$store.state.reservation.confirmation_deadline;
+      return this.$store.state.reservation.confirmation_deadline_date
     }
   }
 };

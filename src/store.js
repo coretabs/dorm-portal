@@ -38,7 +38,8 @@ export default new Vuex.Store({
     },
     isLoggedIn: state => !!state.isAuth,
     isAdmin: state => !!state.isAdmin,
-    authStatus: state => state.authStatus
+    authStatus: state => state.authStatus,
+    reservationData: state => state.reservation
   },
   mutations: {
     fetchLocale(state){
@@ -93,8 +94,8 @@ export default new Vuex.Store({
     //   $backend.$reserveRoom(payload).then(responseDate => {
     //   });
     // }
-    fetchReservation(state){
-      $backend.$fetchReservation().then(responseDate => {
+    fetchReservation(state, id){
+      $backend.$fetchReservation(id).then(responseDate => {
         state.reservation = responseDate;
       });
     }
@@ -165,8 +166,8 @@ export default new Vuex.Store({
       });
       
     },
-    fetchReservation(context){
-      context.commit('fetchReservation')
+    fetchReservation(context, id){
+      context.commit('fetchReservation', id)
     },
     register({commit}, user){
       return new Promise((resolve, reject) => {

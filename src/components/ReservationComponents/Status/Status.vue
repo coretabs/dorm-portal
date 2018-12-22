@@ -8,28 +8,35 @@
       indeterminate
       size="18"
       color="#ccc"
-      v-if="reservation.status == 4"
+      v-if="reservation.status == 0"
     ></v-progress-circular>
-      <v-icon v-if="reservation.status != 4">{{statusIcon}}</v-icon>
+      <v-icon v-if="reservation.status != 0">{{statusIcon}}</v-icon>
      {{status}}</span>
     </div>
     <div class="status-row">
       <h3>Last Updated on:</h3>
-      <span>{{reservation.last_update}}</span>
+      <span v-if="reservation.status == 5">{{reservation.confirmation_deadline_date}}</span>
+      <span v-else>{{reservation.last_update_date}}</span>
     </div>
     <div class="status-row">
       <h3>{{lang.reservationStatus.commentHeading}}:</h3>
+      <span v-if="reservation.status == 5">Your reservation has expired since you haven't uploaded the payment receipt before the deadline. You can contact the dorm manager or reserve a new room.</span>
       <span>{{reservation.follow_up_message}}</span>
     </div>
-    <div class="status-button">
+    <div class="status-button" v-if="reservation.status != 5">
       <v-btn dark color="#1c3a70" class="elevation-0" @click="$store.state.reservationStep = 2">
         <v-icon small>fa-cloud-upload-alt</v-icon>
         {{lang.reservationStatus.newUpload}}</v-btn>
     </div>
+    <div class="status-button" v-else>
+      <v-btn dark color="#1c3a70" class="elevation-0" @click="$store.state.reservationStep = 2">
+        reserve new room
+      </v-btn>
+    </div>
   </v-flex>
 
   <v-flex xs12 md6>
-    <div class="uploaded-file">
+    <div class="uploaded-file" v-if="reservation.receipts.length > 0">
       <v-list two-line subheader>
         <v-subheader inset>{{lang.reservationStatus.uploadedDocuments}}</v-subheader>
         <v-list-tile v-for="(file,i) in reservation.reciepts" :key="i" avata>

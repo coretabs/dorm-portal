@@ -1,19 +1,20 @@
 <template>
 <v-layout row wrap>
-   <v-flex v-if="date" xs12 class="mb-5 confirmation-countdown">
+   <v-flex v-if="date" xs12 class="mb-5 mt-4 confirmation-countdown">
      <h1>Confirmation Deadline</h1>
     <flip-countdown :deadline="date"></flip-countdown>
   </v-flex>
   <v-flex xs12 md4 px-3>
     <div id="amount">
       <h3>Amount to pay:</h3>
-      <span>{{reservation.currency}}{{reservation.price}}</span>
+      <span>{{reservation.room_characteristics.price_currency}}{{reservation.room_characteristics.price}}</span>
       <v-icon>fa-money-bill-alt</v-icon>
     </div>
     <div id="bank-accounts">
       <h3>Our Bank Accounts:</h3>
       <v-expansion-panel >
-        <v-expansion-panel-content v-for="(account,i) in reservation.banks" :key="i">
+        <!-- TODO: Add bank to DB -->
+        <v-expansion-panel-content v-for="(account,i) in reservation.room_characteristics.dormitory.bank_accounts" :key="i">
           <div slot="header"><v-icon class="v-icon__bank" small>fa-university</v-icon> {{account.bank_name}}</div>
           <v-card>
             <v-card-text>
@@ -25,11 +26,11 @@
                 </tr>
                 <tr>
                   <td><strong>Currency:</strong></td>
-                  <td>{{account.currency}}</td>
+                  <td>{{account.currency_code}}</td>
                 </tr>
                 <tr>
                   <td><strong>Account No:</strong></td>
-                  <td>{{account.account_num}}</td>
+                  <td>{{account.account_number}}</td>
                 </tr>
                 <tr>
                   <td><strong>swift:</strong></td>

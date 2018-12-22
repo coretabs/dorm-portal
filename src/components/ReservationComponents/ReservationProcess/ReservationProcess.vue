@@ -1,6 +1,6 @@
 <template>
 <v-content id="reservation">
-  <v-container fluid fill-height mb-4>
+  <v-container fluid fill-height mb-4 mt-3>
     <v-layout justify-center>
       <v-flex xs12 sm8 md8>
         <v-stepper v-model="reservationStep" class="pb-4">
@@ -13,8 +13,8 @@
 
             <v-divider></v-divider>
 
-            <v-stepper-step :complete="complated"  step="3" color="#1c3a70">Await Approval</v-stepper-step>
-            
+            <v-stepper-step :complete="complated" step="3" color="#1c3a70">Await Approval</v-stepper-step>
+
           </v-stepper-header>
 
           <v-stepper-items>
@@ -24,7 +24,7 @@
             </v-stepper-content>
 
             <v-stepper-content class="pt-0" step="2">
-              <div v-if="isRoomNotSaved" >
+              <div v-if="!isRoomNotSaved && !isRoomReserved">
                 <div class="noroom-alert mt-4">
                   <v-icon left>fa-info-circle</v-icon>
                   <span>Ops! it seems that you haven't choosen any room yet.</span>
@@ -46,8 +46,12 @@
 
     </v-layout>
   </v-container>
+  <v-btn v-show="!hidden" color="rgb(36, 204, 27)" class="contact-icon" dark fab>
+    <v-icon>fa-comment-alt</v-icon>
+  </v-btn>
 </v-content>
 </template>
 
 <script src="./ReservationProcess.js"></script>
+
 <style src="./ReservationProcess.scss" lang="scss"></style>

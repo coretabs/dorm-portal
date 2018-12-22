@@ -5,7 +5,7 @@
     background: $gray-background;
   }
   .layout {
-    margin-top: 40px;
+    // margin-top: 40px;
     .v-stepper {
       @include radius(4px);
     }
@@ -27,5 +27,11 @@
         font-size: 22px;
         margin-right: 10px;
       }
+  }
+  .contact-icon{
+    bottom: 50px;
+    right: 20px;
+    position: fixed;
+    z-index: 5;
   }
 }
