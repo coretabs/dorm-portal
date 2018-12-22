@@ -1,0 +1,75 @@
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+
+<table style="width: 100%; direction: rtl; border-collapse: collapse;">
+    <thead>
+      <tr style="text-align: center;">
+        <td style="padding:20px 0 10px;">
+          <img src="https://forums.coretabs.net/uploads/default/original/1X/a5ccc636dda6380ef461b51f79ea34b5633457e5.png" alt="Coretabs logo" width="200">
+        </td>
+      </tr>
+    </thead>
+    <tbody style=" background: #fafafa; padding: 20px;">
+      <tr style="padding:20px; text-align: center;">
+        <td style="padding-top: 40px;">
+          <h2>مرحباً {{ user_display }}</h2>
+          <p style="font-size: 18px; max-width: 600px; margin: 0 auto; line-height: 27px;">
+            حصولك على هذا الإيميل يعني بأنك على وشك حجز مقعد من مقاعد محدودة للحصول على فرصة تدريبية لإكتساب مهارات عالية.
+          </p>
+
+          <p style="font-size: 18px; max-width: 600px; margin: 20px auto 0; line-height: 27px; text-align:right;">
+           لذلك نحرص على أن يتم إستثمار هذه الفرصة بالشكل المطلوب الذي ينعكس بالفائدة عليك، وعليه نرجوا منك تأكيد موافقتك على الشروط التالية:
+          </p>
+          
+          <ul style="max-width:600px; margin: 40px auto 40px; text-align:right;">
+            <li style="font-size: 18px; margin: 8px 0; list-style: square;">الإلتزام بإكمال المحتوى</li>
+            <li style="font-size: 18px; margin: 8px 0; list-style: square;">الإلتزام بتسليم المهام المطلوبة</li>
+          </ul>
+
+          <p style="font-size: 18px; max-width: 600px; margin: 0px auto; line-height: 27px; text-align:right; color: #666;">
+            في حال عدم الإلتزام بالشروط أعلاة قد تخسر فرصتك بالتدريب والتوجية الشخصي. 
+          </p>
+
+          <a href="{{ activate_url }}" style="display: block; width: 150px; background-color: #5355e8; background-image:linear-gradient(to left, #2d43e7, #9042e8); color:#fff; padding: 12px 10px 10px; margin: 30px auto; border-radius:100px; text-decoration: none; font-size: 18px;">أوافق على الشروط</a>
+        </td>
+      </tr>
+      <tr style="padding:20px; text-align: center;">
+        <td style="padding: 0 0 50px;">
+          <div style="max-width: 500px; margin: 0 auto;">
+            
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p style="font-size: 14px; max-width: 600px; margin: 0px auto 50px; color: #a4a4a4; text-align: center;">إذا كان الزر لا يعمل، قم بنسخ الرابط أدناه ولصقه في المتصفح
+
+            <a href="{{ activate_url }}" style="display: block; color:#9042e8; text-decoration: none;">{{ activate_url }}</a>
+          </p>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr style="text-align: center;">
+        <td>
+          <span style="display: block; padding-top: 30px; color: #666;">مع أطيب الأمنيات</span>
+          <span  style="display: block; color: #666;">فريق أكاديمية كورتابز</span>
+        </td>
+      </tr>
+      <tr style="text-align: center; ">
+        <td style="padding: 15px 0 30px;">
+            <a href="https://www.facebook.com/coretabs.academy/" style="padding: 3px; text-decoration: none;" target="_blank" title="facebook">
+                <img src="https://forums.coretabs.net/uploads/default/original/1X/f626d1403b20960c174d1b6adeec4c0fde4277de.png" alt="facebook">
+            </a>
+            <a href="https://twitter.com/CoretabsAcademy" style="padding: 3px; text-decoration: none;" target="_blank" title="twitter">
+              <img src="https://forums.coretabs.net/uploads/default/original/1X/6f8cb52ab0203ac1d7b8bbedd1b09c087db7a727.png" alt="twitter">
+            </a>
+            <a href="https://www.youtube.com/channel/UCe47ca6TFCIIglUsgK5Ml3w?view_as=subscriber" target="_blank" style="padding: 3px; text-decoration: none;" title="youtube">
+              <img src="https://forums.coretabs.net/uploads/default/original/1X/6fdc398d1e4fa619fee7611d67b1092807305db5.png" alt="youtube">   
+            </a>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+{% endblocktrans %}{% endautoescape %}
+
