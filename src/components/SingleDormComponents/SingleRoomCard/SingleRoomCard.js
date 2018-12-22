@@ -28,8 +28,15 @@ export default {
     closeRoomModel(){
       this.showSavedRoomModel = false;
     },
-    reserveRoom(){
-      this.$router.push('/reservation');
+    reserveRoom(room){
+      if(this.$store.getters.isLoggedIn){
+        this.$store.dispatch('reserveRoom', room).then(() => {
+          this.$router.push('/reservation')
+        })
+      }else{
+        localStorage.setItem("room", JSON.stringify({room}))
+        this.$router.push('/reservation')
+      }
     }
   },
   computed: {

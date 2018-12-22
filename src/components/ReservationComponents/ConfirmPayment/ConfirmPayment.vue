@@ -4,7 +4,7 @@
      <h1>Confirmation Deadline</h1>
     <flip-countdown :deadline="date"></flip-countdown>
   </v-flex>
-  <v-flex xs12 md4 px-3>
+  <v-flex xs12 md4 px-3 v-if="reservation.room_characteristics">
     <div id="amount">
       <h3>Amount to pay:</h3>
       <span>{{reservation.room_characteristics.price_currency}}{{reservation.room_characteristics.price}}</span>

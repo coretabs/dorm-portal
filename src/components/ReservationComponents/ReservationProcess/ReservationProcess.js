@@ -43,7 +43,6 @@ export default {
   methods:{
     loadroom(){
       if(this.$store.getters.isLoggedIn){
-
         const user = JSON.parse(localStorage.getItem('auth'))
         let isReserved = user.reservarion_id
         let step = user.current_step
@@ -51,9 +50,9 @@ export default {
         if(isReserved != null){
           this.$store.dispatch('fetchReservation', isReserved);
         }
-        else if(!!savedRoom && step == 2){
-          const savedRoom = JSON.parse(localStorage.getItem('room'))
-          this.$store.dispatch('reserveRoom', savedRoom.room.id)
+        else if(isReserved == null && !!savedRoom && step == 2){
+          const savedRoomData = JSON.parse(localStorage.getItem('room'))
+          this.$store.dispatch('reserveRoom', savedRoomData.room)
           .then(response => {
             localStorage.setItem('auth', JSON.stringify({
               user_name: response.user.name,

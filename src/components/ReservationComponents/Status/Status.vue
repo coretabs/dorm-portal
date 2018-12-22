@@ -41,7 +41,7 @@
   </v-flex>
 
   <v-flex xs12 md6>
-    <div class="uploaded-file mt-2">
+    <div class="uploaded-file mt-2" v-if="reservation.receipts">
       <v-list two-line subheader>
         <v-subheader inset>{{lang.reservationStatus.uploadedDocuments}}</v-subheader>
         <v-list-tile v-for="(file,i) in reservation.receipts" :key="i" v-if="reservation.receipts.length > 0">

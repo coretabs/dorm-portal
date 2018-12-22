@@ -90,10 +90,14 @@ export default new Vuex.Store({
     registerSuccess(state){
       state.authStatus = 'Registeration Faild'
     },
-    // reserveRoom(state, payload){
-    //   $backend.$reserveRoom(payload).then(responseDate => {
-    //   });
-    // }
+    reserveRoom(state, {room, responseDate}){
+      localStorage.setItem("room", JSON.stringify({room}))
+      localStorage.setItem('auth', JSON.stringify({
+        user_name: responseDate.user.name,
+        reservarion_id : responseDate.id,
+        current_step: responseDate.user.current_step
+      }))
+    },
     fetchReservation(state, id){
       $backend.$fetchReservation(id).then(responseDate => {
         state.reservation = responseDate;
@@ -153,11 +157,11 @@ export default new Vuex.Store({
         resolve()
       });
     },
-    reserveRoom(context,payload){
+    reserveRoom(context,room){
 
       return new Promise((resolve, reject) => {
-        $backend.$reserveRoom(payload).then(responseDate => {
-          //context.commit('reserveRoom')
+        $backend.$reserveRoom(room.id).then(responseDate => {
+          context.commit('reserveRoom', {room, responseDate})
           resolve(responseDate)
         })
         .catch(err => {
