@@ -43,6 +43,15 @@ export default {
     }   
   },
   methods:{
+    checkAuth(){
+      this.$store.dispatch('auth')
+      .catch(() => {
+        this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('/login')
+        })
+      })
+    },
     loadroom(){
       if(this.$store.getters.isLoggedIn){
         const user = JSON.parse(localStorage.getItem('auth'))
@@ -72,6 +81,7 @@ export default {
     }
   },
   mounted(){
+    this.checkAuth()
     this.loadroom()
   }
 };

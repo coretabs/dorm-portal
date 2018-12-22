@@ -12,8 +12,6 @@ let $backend = axios.create({
 $backend.defaults.xsrfHeaderName = "X-CSRFToken"
 $backend.defaults.xsrfCookieName = 'csrftoken'
 
-
-// Response Interceptor to handle and log errors
 $backend.interceptors.response.use(function (response) {
     return response
 }, function (error) {
@@ -56,11 +54,6 @@ $backend.$fetchDorm = (dormId, lang, currencyCode) => {
     return $backend.get(`/dorms/${dormId}/?language=${lang}&currency=${currencyCode}`)
         .then(response => response.data)
 }
-
-// $backend.$login = () => {
-//   return $backend.get(`/login`)
-//       .then(response => response.data)
-// }
 
 $backend.$login = (user) => {
     return $backend.post(`/auth/login/`, {
