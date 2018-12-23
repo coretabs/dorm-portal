@@ -117,7 +117,7 @@ class ReservationManagementViewSet(viewsets.ViewSet):
         return Response(serializers.ReservationManagementSerializer(result).data)
 
     def update(self, request, dorm_pk, pk):
-        reservation = models.Reservation.objects.get(pk=pk)
+        reservation = self.get_queryset().get(pk=pk)
 
         serializer = serializers.ClientReservationManagementSerializer(
             reservation, data=request.data, partial=True)
