@@ -1,10 +1,11 @@
 import datetime
 from functools import reduce
 
-from django.contrib.auth.models import AbstractUser
-
 from django.db import (models as django_models, DatabaseError, transaction)
 from django.db.models.signals import post_delete
+
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 
 from i18nfield.fields import I18nCharField, I18nTextField
 
@@ -435,6 +436,9 @@ class Reservation(django_models.Model):
     @property
     def is_reviewable(self):
         """The reservation becomes reviewable after three months"""
+        if settings.IS_ALWAYS_REVIEWABLE:
+            return True
+
         not_reviewed = self.is_reviewed == False
         confirmed = self.status == Reservation.CONFIRMED_STATUS
         if confirmed and not_reviewed:

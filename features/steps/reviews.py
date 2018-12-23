@@ -1,9 +1,10 @@
-from django.test.utils import override_settings
 import os
 
 from django.urls import reverse
 from django.contrib.sites.models import Site
 from django.core import mail
+from django.conf import settings
+from django.test.utils import override_settings
 
 from rest_framework.test import APIRequestFactory, force_authenticate, APIClient
 from rest_framework import status
@@ -19,6 +20,9 @@ from api.engine.serializers import *
 from api.engine.views import *
 
 from features.steps.factory import *
+
+
+settings.IS_ALWAYS_REVIEWABLE = False
 
 
 @when('both reservations arent confirmed')

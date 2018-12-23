@@ -53,6 +53,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # run "python -m smtpd -n -c DebuggingServer localhost:1025"
 EMAIL_HOST = 'localhost'
 
+# Reservations settings
+IS_ALWAYS_REVIEWABLE = True
 
 # 5678 is the default attach port in the VS Code debug configurations
 if False:
