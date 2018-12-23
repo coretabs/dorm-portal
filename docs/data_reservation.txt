@@ -104,7 +104,7 @@ GET /reservations/{id} returns 403 Forbidden (for non-owned reservation)
 
 POST /reservations/{id}/receipts accepts
 ```
-uploaded_receipt
+uploaded_photo
 ```
 
 POST /reservations/{id}/receipts returns 201 created

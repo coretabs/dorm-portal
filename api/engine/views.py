@@ -9,7 +9,7 @@ from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework.response import Response
 
 from .exceptions import (NoEnoughQuotaException, NonFinishedUserReservationsException,
-                         NonUpdatableReservationException)
+                         NonUpdatableReservationException, NonReviewableReservation)
 from . import serializers
 from . import models
 
@@ -88,6 +88,10 @@ class DormViewSet(viewsets.ViewSet):
         dorm = models.Dormitory.objects.filter(id=pk).superfilter().first()
 
         return Response(serializers.DormDetailsSerializer(dorm).data)
+
+    def reviews(self, request, pk):
+        reviews = models.Dormitory.objects.get(pk=pk).reviews
+        return Response(serializers.ReviewSerializer(reviews, many=True).data)
 
 
 class HisOwnDormitory(BasePermission):
@@ -244,3 +248,20 @@ class ReservationViewSet(viewsets.ViewSet):
         self.check_object_permissions(request, reservation)
 
         return Response(serializers.ReservationDetailsSerializer(reservation).data)
+
+    @action(detail=True, methods=['post'], url_path='add-review')
+    def add_review(self, request, pk):
+        reservation = models.Reservation.objects.get(pk=pk)
+        self.check_object_permissions(request, reservation)
+
+        try:
+            serializer = serializers.ReviewSerializer(
+                data=request.data, context={'reservation_id': pk})
+            serializer.is_valid()
+            serializer.save()
+            response = Response(status=status.HTTP_201_CREATED)
+
+        except NonReviewableReservation as exception:
+            response = Response(str(exception), status=status.HTTP_400_BAD_REQUEST)
+
+        return response

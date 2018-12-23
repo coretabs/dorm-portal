@@ -17,3 +17,10 @@ class NonUpdatableReservationException(Exception):
         if msg is None:
             msg = 'You cannot update this reservation, please create another one'
         super().__init__(msg)
+
+
+class NonReviewableReservation(Exception):
+    def __init__(self, msg=None):
+        if msg is None:
+            msg = 'You cannot review this non-reviewable reservation'
+        super().__init__(msg)

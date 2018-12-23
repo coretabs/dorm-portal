@@ -21,6 +21,25 @@ from rest_polymorphic.serializers import PolymorphicSerializer
 
 from . import models
 
+
+class ReviewSerializer(serializers.ModelSerializer):
+    review_creation_date = serializers.DateField(read_only=True, format = '%Y-%m-%d')
+    stars = serializers.DecimalField(decimal_places=1, max_digits=2)
+    description = serializers.CharField()
+    student_name = serializers.CharField(read_only=True, source='user.first_name')
+
+    def save(self, *args, **kwargs):
+        print('qoooq', self.context.get('reservation_id'))
+        reservation = models.Reservation.objects.get(pk=self.context.get('reservation_id'))
+        #print(**self.validated_data)
+        reservation.create_review(**self.validated_data)
+        
+
+    class Meta:
+        model = models.Review
+        fields = ('review_creation_date', 'stars',
+                  'description', 'student_name')
+
 class AskForReviewSerializer(serializers.Serializer):
     reservation_id = serializers.IntegerField()
 

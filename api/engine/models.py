@@ -1,7 +1,9 @@
 import datetime
 from functools import reduce
+from decimal import Decimal
 
 from django.db import (models as django_models, DatabaseError, transaction)
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_delete
 
 from django.contrib.auth.models import AbstractUser
@@ -15,7 +17,8 @@ from polymorphic.query import PolymorphicQuerySet
 
 from .exceptions import (NoEnoughQuotaException,
                          NonFinishedUserReservationsException,
-                         NonUpdatableReservationException)
+                         NonUpdatableReservationException,
+                         NonReviewableReservation)
 from .utils import file_cleanup
 
 
@@ -538,11 +541,37 @@ class Reservation(django_models.Model):
             receipt.save()
             self.save()
 
+    def create_review(self, *args, **kwargs):
+        if not self.is_reviewable:
+            raise NonReviewableReservation()
+
+        review = Review(
+            user=self.user, dormitory=self.room_characteristics.dormitory, *args, **kwargs)
+
+        self.is_reviewed = True
+
+        with transaction.atomic():
+            self.save()
+            review.save()
+
     def is_owner(self, user):
         return self.user == user
 
     def __str__(self):
         return f'Reservation id {self.id} status {self.status} for {self.user} {self.room_characteristics}'
+
+
+class Review(django_models.Model):
+    review_creation_date = django_models.DateField(auto_now=True)
+    stars = django_models.DecimalField(decimal_places=1, max_digits=2,
+                                       validators=[MinValueValidator(Decimal('0.0')),
+                                                   MaxValueValidator(Decimal('5.0'))])
+    description = django_models.TextField()
+
+    user = django_models.ForeignKey(
+        User, related_name='reviews', on_delete=django_models.CASCADE)
+    dormitory = django_models.ForeignKey(
+        Dormitory, related_name='reviews', on_delete=django_models.CASCADE)
 
 
 class UploadablePhoto(django_models.Model):

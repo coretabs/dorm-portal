@@ -52,6 +52,8 @@ Feature: Reviews
         Then creating review throws NonReviewableReservation
 
 
+
+
         When serializing dorm reviews
         Then get valid serialized dorm reviews
 
@@ -63,9 +65,13 @@ Feature: Reviews
         
         When deserializing dorm review sent by user
         Then get validated deserialized review
+        And save that review successfully
 
-        When hitting POST /dorms/{id}/reviews
+        When hitting POST /reservations/{res-id}/add-review
         Then get 201 Created for creating the review
 
-        When hitting POST /dorms/{id}/reviews for non-reviewable dorm
+        When hitting POST /reservations/{res-id}/add-review for non-reviewable dorm
         Then get 400 Bad Request for not creating the review
+
+        When hitting POST /reservations/{res-id}/add-review for non-owned reservation
+        Then get 403 forbidden for not creating the review

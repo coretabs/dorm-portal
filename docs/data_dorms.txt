@@ -48,6 +48,7 @@ contact_fax
 number_of_reviews
 reviews_average
 reviews
+	review_creation_date
     student_name
     stars
     description
@@ -56,7 +57,7 @@ reviews
 GET /dorms/{id}/reviews
 ```
 reviews
-	date
+	review_creation_date
     student_name
     stars
     description
