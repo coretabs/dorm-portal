@@ -64,22 +64,30 @@
 
   .drag-drop {
     .upload {
-      padding: 40px 20px;
+      padding: 15px 10px;
       @include radius(4px);
       border: 2px dashed $light-gray-color;
       text-align: center;
-      margin: 30px 0 20px;
+      margin: 30px 0 0;
 
-      .v-icon {
-        font-size: 60px;
-        color: $light-gray-color;
-        margin-bottom: 20px;
+      p{
+        margin: 0 0 0 10px;
       }
+      
 
       label {
-        margin-top: 5px;
-        text-decoration: underline;
         cursor: pointer;
+        display: inline-block;
+        padding: 8px 15px;
+        border: 1px solid #666;
+        font-weight: 500;
+        width: 90%;
+        @include radius(4px);
+        .v-icon {
+          font-size: 16px;
+          display: inline;
+          margin-right: 5px;
+        }
       }
 
       ul {
@@ -122,25 +130,27 @@
     }
 
     .action-btn {
-      .select-btn {
-        top: 14px;
-        padding: 7px 20px;
-        margin-right: 5px;
-        background: #ddd;
-        font-weight: 500;
-        @include radius(2px);
-        @media (max-width: 600px) {
-          width: 100%;
-          margin-bottom: 20px;
-        }
-        label{
-          cursor: pointer;
-        }
+      .upload-btn{
+        margin: 15px 0 0;  
+        padding: 8px 15px;
+        @include radius(3px);
       }
     }
+    
 
   }
-
+.files-list{
+  padding: 15px;
+  background: #fafafa;
+  border-bottom: 1px dashed #ccc;
+  &:last-of-type{
+    border-bottom: none;
+  }
+  .v-icon{
+    color: #999 !important;
+    cursor: pointer;
+  }
+}
   .payment-instruction{
     background: #fefccf;
     padding: 10px 15px;

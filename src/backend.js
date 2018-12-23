@@ -122,9 +122,11 @@ $backend.$resetPasswordConfirm = (data) => {
 }
 
 
-$backend.$postMessage = (payload) => {
-    return $backend.post(`messages/`, payload)
-        .then(response => response.data)
+$backend.$uploadReceipt = (id, receipts) => {
+    return $backend.post(`/reservations/${id}/receipt`, {
+        receipts: receipts
+    })
+    .then(response => response.data)
 }
 
 $backend.$deleteMessage = (msgId) => {

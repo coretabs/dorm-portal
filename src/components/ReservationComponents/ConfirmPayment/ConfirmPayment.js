@@ -15,6 +15,9 @@ export default {
   methods:{
     submit(){
       this.$store.state.reservationStep++;
+    },
+    removeFile(index){
+      this.files.splice(index, 1)
     }
   },
   computed: {
@@ -26,6 +29,9 @@ export default {
     },
     date(){
       return this.$store.state.reservation.confirmation_deadline_date
+    },
+    fileSize(){
+      let size = file.size | formatSize
     }
   }
 };

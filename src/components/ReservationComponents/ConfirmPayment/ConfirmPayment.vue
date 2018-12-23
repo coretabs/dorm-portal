@@ -1,7 +1,7 @@
 <template>
 <v-layout row wrap>
-   <v-flex v-if="date" xs12 class="mb-5 mt-4 confirmation-countdown">
-     <h1>Confirmation Deadline</h1>
+  <v-flex v-if="date" xs12 class="mb-5 mt-4 confirmation-countdown">
+    <h1>Confirmation Deadline</h1>
     <flip-countdown :deadline="date"></flip-countdown>
   </v-flex>
   <v-flex xs12 md4 px-3 v-if="reservation.room_characteristics">
@@ -12,10 +12,12 @@
     </div>
     <div id="bank-accounts">
       <h3>Our Bank Accounts:</h3>
-      <v-expansion-panel >
+      <v-expansion-panel>
         <!-- TODO: Add bank to DB -->
         <v-expansion-panel-content v-for="(account,i) in reservation.room_characteristics.dormitory.bank_accounts" :key="i">
-          <div slot="header"><v-icon class="v-icon__bank" small>fa-university</v-icon> {{account.bank_name}}</div>
+          <div slot="header">
+            <v-icon class="v-icon__bank" small>fa-university</v-icon> {{account.bank_name}}
+          </div>
           <v-card>
             <v-card-text>
 
@@ -52,26 +54,25 @@
     <div>
       <v-card class="elevation-0">
         <v-card-text class="pa-0">
-          <p class="payment-instruction"><v-icon small>fa-exclamation-triangle</v-icon> {{lang.confirmPayment.instruction}}</p>
+          <p class="payment-instruction">
+            <v-icon small>fa-exclamation-triangle</v-icon> {{lang.confirmPayment.instruction}}
+          </p>
           <div class="drag-drop">
             <div class="upload">
-              <ul v-if="files.length">
-                <li v-for="file in files" :key="file.id">
-                  <span>{{file.name}}</span> -
-                  <span>{{file.size | formatSize}}</span> -
-                  <span v-if="file.error">{{file.error}}</span>
-                  <span v-else-if="file.success">success</span>
-                  <span v-else-if="file.active">active</span>
-                  <span v-else-if="file.active">active</span>
-                  <span v-else></span>
-                </li>
-              </ul>
-              <ul v-else>
-                <div>
-                  <v-icon>fa-file-import</v-icon>
-                  <h4>{{lang.confirmPayment.dragMessage}}</h4>
-                  <label for="file">{{lang.confirmPayment.chooseFile}}</label>
-                </div>
+
+              <ul>
+                <v-layout align-center>
+                  <v-flex md3>
+                    <label for="file">
+                      <v-icon>fa-plus</v-icon>
+                      {{lang.confirmPayment.chooseFile}}
+                    </label>
+                  </v-flex>
+                  <v-flex md9 class="text-md-left">
+                    <p>Drag &amp; drop your payment receipt here.</p>
+                  </v-flex>
+
+                </v-layout>
               </ul>
 
               <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
@@ -79,32 +80,62 @@
               </div>
             </div>
 
+            <v-layout v-if="files.length" wrap>
+
+              <v-flex class="files-list" md12 v-for="(file,index) in files" :key="file.id">
+                <v-layout>
+                  <v-flex class="text-truncate" md5>
+                    <span>{{file.name}}</span>
+                  </v-flex>
+                  <v-flex  md2>
+                    <span>{{file.size/1000 | formatSize/1000 }} KB</span>
+                  </v-flex>
+                  <v-flex  md4>
+                    <span v-if="file.error">{{file.error}}</span>
+                    <span v-else-if="file.success">success</span>
+                    <span v-else-if="file.active">active</span>
+                    <span v-else-if="file.active">active</span>
+                    <span v-else></span>
+                  </v-flex>
+                  <v-flex class="text-md-right" md1>
+                    <v-icon small @click="removeFile(index)">fa-trash</v-icon>
+                  </v-flex>
+                </v-layout>
+
+
+              </v-flex>
+
+            </v-layout>
+
             <v-flex class="action-btn">
-              <file-upload class="select-btn" post-action="/upload/post" :multiple="true" :drop="true" :drop-directory="true" v-model="files" ref="upload">
+              <file-upload v-show="false" class="select-btn" :drop="true" :drop-directory="true" v-model="files" ref="upload">
                 {{lang.confirmPayment.selectFile}}
               </file-upload>
 
-              <v-btn color="#1c3a70" dark class="elevation-0" v-if="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true">
+              <div v-show="files.length">
+                <v-btn color="#1c3a70" dark class="elevation-0 upload-btn" v-if="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true">
                 <v-icon small left>fa-cloud-upload-alt</v-icon>
                 {{lang.confirmPayment.startUpload}}
               </v-btn>
 
-              <v-btn color="red darken-1" dark class="elevation-0" v-else @click.prevent="$refs.upload.active = false">
+              <v-btn color="red darken-1" dark class="elevation-0 upload-btn" v-else @click.prevent="$refs.upload.active = false">
                 <v-icon left>fa-times-circle</v-icon>
                 {{lang.confirmPayment.stopUpload}}
               </v-btn>
-
+              </div>
+              
             </v-flex>
           </div>
+
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="#feae25" class="elevation-0" @click="submit" v-if="$refs.upload && $refs.upload.uploaded">{{lang.confirmPayment.confirmButton}}</v-btn>
+          <!-- <v-btn color="#feae25" class="elevation-0" @click="submit" v-if="$refs.upload && $refs.upload.uploaded">{{lang.confirmPayment.confirmButton}}</v-btn> -->
         </v-card-actions>
       </v-card>
     </div>
   </v-flex>
- 
+
 </v-layout>
 </template>
 
