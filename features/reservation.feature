@@ -72,11 +72,11 @@ Feature: Reservation
         But adding a receipt to a rejected/confirmed/expired reservation
         Then it should throw NonUpdatableReservationException
 
-        When hitting POST /reservations/{res-id}/receipt to add new receipt
+        When hitting POST /reservations/{res-id}/receipts to add new receipt
         Then get 201 created for adding a receipt
 
-        When hitting POST /reservations/{res-id}/receipt for rejected/confirmed/expired
+        When hitting POST /reservations/{res-id}/receipts for rejected/confirmed/expired
         Then get 400 bad request for not updatable reservation
 
-        When hitting POST /reservations/{res-id}/receipt non-owned reservation
+        When hitting POST /reservations/{res-id}/receipts non-owned reservation
         Then get forbidden 403 for non-owned reservation

@@ -102,21 +102,21 @@ GET /reservations/{id} returns 403 Forbidden (for non-owned reservation)
 ```
 ```
 
-POST /reservations/{id}/receipt accepts
+POST /reservations/{id}/receipts accepts
 ```
 uploaded_receipt
 ```
 
-POST /reservations/{id}/receipt returns 201 created
+POST /reservations/{id}/receipts returns 201 created
 ```
 ```
 
-POST /reservations/{id}/receipt returns 400 Bad request
+POST /reservations/{id}/receipts returns 400 Bad request
 ```
 You can only add a photo for a reservation you own
 ```
 
-POST /reservations/{id}/receipt returns 403 forbidden
+POST /reservations/{id}/receipts returns 403 forbidden
 ```
 You cant add a photo to this reservation
 ```
