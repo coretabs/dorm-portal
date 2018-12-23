@@ -249,6 +249,9 @@ expired_reservations
 reservations
 	id
 	
+	is_reviewed
+	is_reviewable
+	
     reservation_creation_date
     confirmation_deadline_date
 	
@@ -282,4 +285,8 @@ PUT /manager/dorms/{id}/reservations/{id} accepts
 status (pending=0, rejected=1, confirmed=2, waiting_for_manager_action=3 (student uploaded receipt), manager_updated=4)
 confirmation_deadline_date
 confirmation_deadline_date(2018-12-15)
+```
+
+POST /manager/dorms/{id}/reservations/{id}/ask-review
+```
 ```

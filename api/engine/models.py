@@ -432,6 +432,20 @@ class Reservation(django_models.Model):
         today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
         return self.confirmation_deadline_date < today_plus_one
 
+    @property
+    def is_reviewable(self):
+        """The reservation becomes reviewable after three months"""
+        not_reviewed = self.is_reviewed == False
+        confirmed = self.status == Reservation.CONFIRMED_STATUS
+        if confirmed and not_reviewed:
+            today_and_creation_date_difference = datetime.date.today() - self.reservation_creation_date
+            result = today_and_creation_date_difference.days >= 90
+            # print(today_and_creation_date_difference.days)
+        else:
+            result = False
+
+        return result
+
     def is_owner(self, manager):
         return self.room_characteristics.dormitory.manager == manager
 

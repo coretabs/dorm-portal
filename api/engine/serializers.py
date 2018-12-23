@@ -21,6 +21,36 @@ from rest_polymorphic.serializers import PolymorphicSerializer
 
 from . import models
 
+class AskForReviewSerializer(serializers.Serializer):
+    reservation_id = serializers.IntegerField()
+
+    def save(self, *args, **kwargs):
+        request = self.context.get('request')
+
+        current_site = get_current_site(request)
+        reservation_id = self.validated_data['reservation_id']
+
+        reservation = models.Reservation.objects.get(pk=reservation_id)
+        if not reservation.is_reviewable:
+            raise serializers.ValidationError('This reservation is not reviewable')
+
+        user = reservation.user
+
+        path = f'/reservations/{reservation_id}/review'
+        url = settings.BASE_URL + path
+        context = {'current_site': current_site,
+                   'user': user,
+                   'review_url': url,
+                   'request': request}
+
+        get_adapter().send_mail(
+            'review/email/ask_for_review',
+            user.email,
+            context)
+
+    class Meta:
+        fields = ('reservation_id', )
+
 
 class UserSerializer(serializers.ModelSerializer):
     EMAIL_CONFIRMED = 2

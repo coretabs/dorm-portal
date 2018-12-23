@@ -125,6 +125,16 @@ class ReservationManagementViewSet(viewsets.ViewSet):
         serializer.save()
         return Response(serializer.data)
 
+    @action(detail=True, methods=['post'], url_path='ask-review')
+    def ask_review(self, request, dorm_pk, pk):
+        serializer = serializers.AskForReviewSerializer(
+            data={'reservation_id': pk}, context={'request': request})
+
+        serializer.is_valid()
+        serializer.save()
+
+        return Response()
+
 
 class BankAccountManagementViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, HisOwnDormitory)
@@ -175,7 +185,7 @@ class DormManagementViewSet(viewsets.ViewSet):
 
         return Response()
 
-    @action(detail=True, methods=['put'])
+    @action(detail=True, methods=['put'], url_path='update-cover')
     def update_cover(self, request, pk=None):
         return self.update(request, pk)
 

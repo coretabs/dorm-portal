@@ -1,0 +1,16 @@
+POST /dorms/{id}/reviews accepts
+```
+stars (0-5 decimal 3.5)
+description
+```
+
+POST /dorms/{id}/reviews returns 201 created
+```
+```
+
+POST /dorms/{id}/reviews returns 400 Bad request
+```
+Your cannot review your reservation twice
+Your review cannot be proccessed
+Your cannot review your reservation yet
+```
