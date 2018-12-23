@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.conf import settings
-from django.test.utils import override_settings
 
 from rest_framework.test import APIRequestFactory, force_authenticate, APIClient
 from rest_framework import status
@@ -116,17 +115,19 @@ def test(context):
 
 @when('asking for review and saving')
 def act(context):
-    site = Site(domain='http://127.0.0.1:8000', name='127.0.0.1')
-    site.save()
+    context.site = Site(domain='http://127.0.0.1:8000', name='127.0.0.1')
+    context.site.save()
+    settings.SITE_ID = context.site.id
 
-    request = {'SITE_ID': site.id}
     context.asking_reservation = {'reservation_id': context.reservation1.id}
     context.deserialized_data = AskForReviewSerializer(
-        data=context.asking_reservation, context={'request': request})
+        data=context.asking_reservation)
 
 
 @then('validate data and send email for review asking')
 def test(context):
+    settings.EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+
     with freeze_time(context.reservation_creation_date_plus_two_months):
         assert context.deserialized_data.is_valid() == True
         assert len(mail.outbox) == 0
@@ -136,7 +137,6 @@ def test(context):
 
 
 @when('hitting POST /manager/dorms/{alfam-id}/reservations/{res-id}/ask-review')
-@override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
 def act(context):
     #request = APIRequestFactory().post('')
     #force_authenticate(request, context.john)
