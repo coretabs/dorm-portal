@@ -85,10 +85,7 @@ class UserSerializer(serializers.ModelSerializer):
                   'reservation_id', 'current_step')
 
 class BankAccountSerializer(serializers.ModelSerializer):
-    currency_code=serializers.SerializerMethodField()
-
-    def get_currency_code(self, obj):
-        return obj.currency.code
+    currency_code=serializers.CharField(source='currency.code')
 
     class Meta:
         model=models.BankAccount
@@ -126,7 +123,7 @@ class ReceiptSerializer(serializers.ModelSerializer):
 class ReservationRoomCharacteristicsSerializer(serializers.ModelSerializer):
     room_type=serializers.SerializerMethodField()
     duration=serializers.SerializerMethodField()
-    price_currency=serializers.SerializerMethodField()
+    price_currency=serializers.CharField(source='price_currency.symbol')
     dormitory=ReservationDormitorySerializer()
 
     def get_room_type(self, obj):
@@ -134,9 +131,6 @@ class ReservationRoomCharacteristicsSerializer(serializers.ModelSerializer):
 
     def get_duration(self, obj):
         return str(obj.duration)
-
-    def get_price_currency(self, obj):
-        return obj.price_currency.symbol
 
     class Meta:
         model=models.RoomCharacteristics
