@@ -15,207 +15,209 @@ from features.steps.factory import *
 
 
 @given('we have 3 langs En,Ar,Tr and 2 currencies USD,TL')
-def arrange(self):
-    self.languages = settings.LANGUAGES
-    self.usd = create_currency('USD', '$')
-    self.tl = create_currency('TL', '₺')
+def arrange(context):
+    context.languages = settings.LANGUAGES
+    context.usd = create_currency('USD', '$')
+    context.tl = create_currency('TL', '₺')
 
 
 @when('serializing 3 langs En,Ar,Tr and 2 currencies USD,TL')
-def act(self):
-    self.serialized_locale = LocaleSerailizer([])
-    self.serialized_locale_string = str(self.serialized_locale.data)
+def act(context):
+    context.serialized_locale = LocaleSerailizer([])
+    context.serialized_locale_string = str(context.serialized_locale.data)
 
 
 @then('get valid serialized languages and currencies')
-def test(self):
-    # print(self.serialized_locale.data)
+def test(context):
+    # print(context.serialized_locale.data)
 
-    assert self.serialized_locale_string.count(
+    assert context.serialized_locale_string.count(
         "('name', 'Türkçe')") == 1
 
 
 @when('hitting GET /locale endpoint')
-def act(self):
+def act(context):
     request = APIRequestFactory().get(reverse('engine:locale-list'))
     view = LocaleListViewSet.as_view(actions={'get': 'list'})
-    self.response = view(request)
+    context.response = view(request)
 
 
 @then('get 200 OK with langs and currencies')
-def test(self):
-    assert self.response.status_code == status.HTTP_200_OK
+def test(context):
+    assert context.response.status_code == status.HTTP_200_OK
 
-    languages_prices_keys = self.response.render().data.keys()
+    languages_prices_keys = context.response.render().data.keys()
     number_of_returned_json_data = len(list(languages_prices_keys))
-    # print(self.response.render().data)
+    # print(context.response.render().data)
     assert number_of_returned_json_data == 2
 
 
 @given('we have 1 dorm with 2 rooms with meals and luxury shower')
-def arrange(self):
-    self.category_public = create_category(LazyI18nString(
+def arrange(context):
+    context.category_public = create_category(LazyI18nString(
         {'ar': 'عام', 'tr': 'Genel', 'en': 'Public'}))
-    self.alfam = create_dorm('Alfam', self.category_public)
+    context.alfam = create_dorm('Alfam', context.category_public)
 
-    self.luxury_shower = create_room_feature(LazyI18nString(
+    context.luxury_shower = create_room_feature(LazyI18nString(
         {'ar': 'شاور فاخر', 'tr': 'lüks duş', 'en': 'Luxury Shower'}))
 
-    self.room_type_options = [RadioOption(name=LazyI18nString(
+    context.room_type_options = [RadioOption(name=LazyI18nString(
         {'ar': 'غرفة سنجل', 'tr': 'tek oda', 'en': 'Single'})),
         RadioOption(name=LazyI18nString(
             {'ar': 'غرفة دبل', 'tr': 'double oda', 'en': 'Double'}))]
-    self.room_types = create_radio_filter(self.room_type_options, LazyI18nString(
+    context.room_types = create_radio_filter(context.room_type_options, LazyI18nString(
         {'ar': 'نوع الغرفة', 'tr': 'oda tip', 'en': 'Room Type'}))
-    self.room_type_single_choice = create_radio_choice(self.room_type_options[0], self.room_types)
-    self.room_type_double_choice = create_radio_choice(self.room_type_options[1], self.room_types)
+    context.room_type_single_choice = create_radio_choice(
+        context.room_type_options[0], context.room_types)
+    context.room_type_double_choice = create_radio_choice(
+        context.room_type_options[1], context.room_types)
 
-    self.people_allowed_number_filter = IntegralFilter(name='People Allowed Number')
-    self.people_allowed_number_filter.save()
-    self.one_person = create_integral_choice(self.people_allowed_number_filter, 1)
-    self.two_persons = create_integral_choice(self.people_allowed_number_filter, 2)
+    context.people_allowed_number_filter = IntegralFilter(name='People Allowed Number')
+    context.people_allowed_number_filter.save()
+    context.one_person = create_integral_choice(context.people_allowed_number_filter, 1)
+    context.two_persons = create_integral_choice(context.people_allowed_number_filter, 2)
 
-    self.meal_options = [
+    context.meal_options = [
         RadioOption(name=LazyI18nString({'ar': 'افطار', 'tr': 'Kahvalti', 'en': 'Breakfast'})),
         RadioOption(name=LazyI18nString({'ar': 'عشاء', 'tr': 'Akşam Yemeği', 'en': 'Dinner'}))]
-    self.meals = create_radio_filter(self.meal_options, name=LazyI18nString(
+    context.meals = create_radio_filter(context.meal_options, name=LazyI18nString(
         {'ar': 'وجبة', 'tr': 'Yemek', 'en': 'Meals'}))
-    self.meals_choice_breakfast = create_radio_choice(self.meal_options[0], self.meals)
-    self.meals_choice_dinner = create_radio_choice(self.meal_options[1], self.meals)
+    context.meals_choice_breakfast = create_radio_choice(context.meal_options[0], context.meals)
+    context.meals_choice_dinner = create_radio_choice(context.meal_options[1], context.meals)
 
-    self.price_filter = IntegralFilter(name=LazyI18nString(
+    context.price_filter = IntegralFilter(name=LazyI18nString(
         {'ar': 'السعر', 'tr': 'Fiyat', 'en': 'Price'}))
-    self.price_filter.save()
-    self.price_1000 = create_integral_choice(self.price_filter, 1000)
+    context.price_filter.save()
+    context.price_1000 = create_integral_choice(context.price_filter, 1000)
 
-    self.options_duration = [
+    context.options_duration = [
         RadioOption(name=LazyI18nString({'ar': 'ربيع', 'tr': 'Ilkbahar', 'en': 'Spring'})),
         RadioOption(name=LazyI18nString({'ar': 'شتاء', 'tr': 'Kış', 'en': 'Winter'}))]
-    self.duration = create_radio_filter(self.options_duration, LazyI18nString(
+    context.duration = create_radio_filter(context.options_duration, LazyI18nString(
         {'ar': 'المدة', 'tr': 'Müddet', 'en': 'Duration'}))
-    self.duration_choice_spring = create_radio_choice(
-        self.options_duration[0], self.duration)
-    self.duration_choice_winter = create_radio_choice(
-        self.options_duration[1], self.duration)
+    context.duration_choice_spring = create_radio_choice(
+        context.options_duration[0], context.duration)
+    context.duration_choice_winter = create_radio_choice(
+        context.options_duration[1], context.duration)
 
-    self.room1 = create_room_with_radio_integral_features(
-        self.alfam,
-        [self.meals_choice_dinner, self.room_type_single_choice, self.duration_choice_spring],
-        [self.price_1000, self.one_person],
+    context.room1 = create_room_with_radio_integral_features(
+        context.alfam,
+        [context.meals_choice_dinner, context.room_type_single_choice, context.duration_choice_spring],
+        [context.price_1000, context.one_person],
         [])
 
-    self.room2 = create_room_with_radio_integral_features(
-        self.alfam,
-        [self.meals_choice_breakfast, self.room_type_double_choice, self.duration_choice_winter],
-        [self.price_1000, self.two_persons],
-        [self.luxury_shower, ])
+    context.room2 = create_room_with_radio_integral_features(
+        context.alfam,
+        [context.meals_choice_breakfast, context.room_type_double_choice, context.duration_choice_winter],
+        [context.price_1000, context.two_persons],
+        [context.luxury_shower, ])
 
 
 @when('hitting GET /filters endpoint in English')
-def act(self):
+def act(context):
     request = APIRequestFactory().get(reverse('engine:filters-list'), {'language': 'en'})
     view = FiltersListViewSet.as_view(actions={'get': 'list'})
-    self.response = view(request)
+    context.response = view(request)
 
 
 @then('get 200 OK with English filters')
-def test(self):
-    assert self.response.status_code == status.HTTP_200_OK
-    # print(self.response.render().data)
-    assert str(self.response.render().data).count("('name', 'Public')") == 1
+def test(context):
+    assert context.response.status_code == status.HTTP_200_OK
+    # print(context.response.render().data)
+    assert str(context.response.render().data).count("('name', 'Public')") == 1
 
 
 @when('hitting GET /filters endpoint in Turkish')
-def act(self):
+def act(context):
     request = APIRequestFactory().get(reverse('engine:filters-list'), {'language': 'tr'})
     view = FiltersListViewSet.as_view(actions={'get': 'list'})
-    self.response = view(request)
+    context.response = view(request)
 
 
 @then('get 200 OK with Turkish filters')
-def test(self):
-    assert self.response.status_code == status.HTTP_200_OK
-    assert str(self.response.render().data).count("('name', 'Genel')") == 1
+def test(context):
+    assert context.response.status_code == status.HTTP_200_OK
+    assert str(context.response.render().data).count("('name', 'Genel')") == 1
 
 
 @when('hitting POST /dorms endpoint in English')
-def act(self):
+def act(context):
     request = APIRequestFactory().post(reverse('engine:dorms-list'),
                                        {'language': 'en'}, format='json')
     view = DormViewSet.as_view(actions={'post': 'create'})
-    self.response = view(request)
+    context.response = view(request)
 
 
 @then('get 200 OK with English rooms characteristics')
-def test(self):
-    assert self.response.status_code == status.HTTP_200_OK
+def test(context):
+    assert context.response.status_code == status.HTTP_200_OK
 
-    returned_dorms = self.response.render().data[0]
+    returned_dorms = context.response.render().data[0]
 
     number_of_returned_json_filters = len(list(returned_dorms))
     assert number_of_returned_json_filters == 9
 
-    # print(self.response.render().data)
-    assert str(self.response.render().data).count("('choice', 'Breakfast')") == 1
+    # print(context.response.render().data)
+    assert str(context.response.render().data).count("('choice', 'Breakfast')") == 1
 
 
 @when('hitting POST /dorms endpoint in Turkish')
-def act(self):
+def act(context):
     request = APIRequestFactory().post(reverse('engine:dorms-list'),
                                        {'language': 'tr'}, format='json')
     view = DormViewSet.as_view(actions={'post': 'create'})
-    self.response = view(request)
+    context.response = view(request)
 
 
 @then('get 200 OK with Turkish rooms characteristics')
-def test(self):
-    assert self.response.status_code == status.HTTP_200_OK
+def test(context):
+    assert context.response.status_code == status.HTTP_200_OK
 
-    returned_dorms = self.response.render().data[0]
+    returned_dorms = context.response.render().data[0]
 
     number_of_returned_json_filters = len(list(returned_dorms))
     assert number_of_returned_json_filters == 9
 
-    # print(self.response.render().data)
-    assert str(self.response.render().data).count("('choice', 'Kahvalti')") == 1
+    # print(context.response.render().data)
+    assert str(context.response.render().data).count("('choice', 'Kahvalti')") == 1
 
 
 @when('hitting POST /dorms endpoint in non registered language')
-def act(self):
+def act(context):
     request = APIRequestFactory().post(reverse('engine:dorms-list'),
                                        {'language': 'dude'}, format='json')
     view = DormViewSet.as_view(actions={'post': 'create'})
-    self.response = view(request)
+    context.response = view(request)
 
 
 @then('get 200 OK with Default language (EN) rooms characteristics')
-def test(self):
-    assert self.response.status_code == status.HTTP_200_OK
+def test(context):
+    assert context.response.status_code == status.HTTP_200_OK
 
-    returned_dorms = self.response.render().data[0]
+    returned_dorms = context.response.render().data[0]
 
     number_of_returned_json_filters = len(list(returned_dorms))
     assert number_of_returned_json_filters == 9
 
-    # print(self.response.render().data)
-    assert str(self.response.render().data).count("('choice', 'Breakfast')") == 1
+    # print(context.response.render().data)
+    assert str(context.response.render().data).count("('choice', 'Breakfast')") == 1
 
 
 @when('querying dorms with TL')
-def act(self):
+def act(context):
     pass
 
 
 @then('getting price in TL')
-def test(self):
+def test(context):
     pass
 
 
 @when('hitting POST /dorms endpoint in TL')
-def act(self):
+def act(context):
     pass
 
 
 @then('get 200 OK with TL prices')
-def test(self):
+def test(context):
     pass

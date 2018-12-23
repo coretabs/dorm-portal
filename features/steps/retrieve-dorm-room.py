@@ -13,36 +13,36 @@ from features.steps.factory import *
 
 
 @given('we have 2 dormitories with 2 rooms each')
-def arrange(self):
-    create_alfam_dovec_with_4_rooms(self)
+def arrange(context):
+    create_alfam_dovec_with_4_rooms(context)
 
 
 @when('serializing alfam to get its all data')
-def act(self):
-    self.serialized_dorms = DormDetailsSerializer(
+def act(context):
+    context.serialized_dorms = DormDetailsSerializer(
         Dormitory.objects.filter(name='Alfam').superfilter().first())
-    self.serialized_dorms_string = str(self.serialized_dorms.data)
+    context.serialized_dorms_string = str(context.serialized_dorms.data)
 
 
 @then('get valid serialized alfam data with 2 rooms')
-def test(self):
-    # print(self.serialized_dorms_string)
-    assert self.serialized_dorms_string.count("'name': 'Alfam'") == 1
+def test(context):
+    # print(context.serialized_dorms_string)
+    assert context.serialized_dorms_string.count("'name': 'Alfam'") == 1
 
 
 @when('hitting GET /dorms/{alfam-id} endpoint')
-def act(self):
-    # request = APIRequestFactory().get(reverse('dorms-retrieve'), {'pk': self.alfam.id})
+def act(context):
+    # request = APIRequestFactory().get(reverse('dorms-retrieve'), {'pk': context.alfam.id})
     request = APIRequestFactory().get('')
     view = DormViewSet.as_view(actions={'get': 'retrieve'})
-    self.response = view(request, pk=self.alfam.id)
+    context.response = view(request, pk=context.alfam.id)
 
 
 @then('get 200 OK with alfam data')
-def test(self):
-    assert self.response.status_code == status.HTTP_200_OK
+def test(context):
+    assert context.response.status_code == status.HTTP_200_OK
 
-    filters_keys = self.response.render().data.keys()
+    filters_keys = context.response.render().data.keys()
     number_of_returned_json_filters = len(list(filters_keys))
-    print(self.response.render().data)
+    print(context.response.render().data)
     assert number_of_returned_json_filters == 9

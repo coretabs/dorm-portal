@@ -25,151 +25,152 @@ Both these two scenarios implenetations exist in manage-dorm.py
 
 
 @given('two students reserved first room and one reserved second one')
-def arrange(self):
-    self.user1 = create_student(self, 'Owen')
-    self.user2 = create_student(self, 'Tia')
-    self.reservation1 = create_reservation(self.room1, self.user1)
-    self.reservation2 = create_reservation(self.room2, self.user2)
+def arrange(context):
+    context.user1 = create_student(context, 'Owen')
+    context.user2 = create_student(context, 'Tia')
+    context.reservation1 = create_reservation(context.room1, context.user1)
+    context.reservation2 = create_reservation(context.room2, context.user2)
 
 
 @given('two user have expired reservations for room2')
-def arrange(self):
-    self.user3 = create_student(self, 'Mako')
-    self.user4 = create_student(self, 'Lora')
+def arrange(context):
+    context.user3 = create_student(context, 'Mako')
+    context.user4 = create_student(context, 'Lora')
 
-    self.reservation3 = create_reservation(self.room2, self.user3)
-    self.reservation4 = create_reservation(self.room2, self.user4)
+    context.reservation3 = create_reservation(context.room2, context.user3)
+    context.reservation4 = create_reservation(context.room2, context.user4)
 
-    self.reservation3.confirmation_deadline_date = datetime.date.today()
-    self.reservation3.save()
-    self.reservation4.confirmation_deadline_date = datetime.date.today()
-    self.reservation4.save()
+    context.reservation3.confirmation_deadline_date = datetime.date.today()
+    context.reservation3.save()
+    context.reservation4.confirmation_deadline_date = datetime.date.today()
+    context.reservation4.save()
 
 
 @when('changing reservation status into rejected')
-def act(self):
-    self.quota_before_rejection = self.reservation1.room_characteristics.allowed_quota
-    self.reservation1.update_status(Reservation.REJECTED_STATUS)
-    self.reservation1 = Reservation.objects.get(pk=self.reservation1.id)
+def act(context):
+    context.quota_before_rejection = context.reservation1.room_characteristics.allowed_quota
+    context.reservation1.update_status(Reservation.REJECTED_STATUS)
+    context.reservation1 = Reservation.objects.get(pk=context.reservation1.id)
 
 
 @then('quota of that room should increase by 1')
-def test(self):
-    assert self.reservation1.status == Reservation.REJECTED_STATUS
-    assert self.reservation1.room_characteristics.allowed_quota == self.quota_before_rejection + 1
+def test(context):
+    assert context.reservation1.status == Reservation.REJECTED_STATUS
+    assert context.reservation1.room_characteristics.allowed_quota == context.quota_before_rejection + 1
 
 
 @when('asking for reservations status statistics by dorm_id')
-def act(self):
-    #self.reservations_statistics = models.Reservation.objects.status_statistics(self.alfam.id)
-    self.reservations_statistics = models.Reservation.objects.status_statistics()
+def act(context):
+    #context.reservations_statistics = models.Reservation.objects.status_statistics(context.alfam.id)
+    context.reservations_statistics = models.Reservation.objects.status_statistics()
 
 
 @then('get the correct reservations status statistics')
-def test(self):
-    # print(self.reservations_statistics['pending_reservations'])
-    assert self.reservations_statistics['pending_reservations'] == 1
-    assert self.reservations_statistics['rejected_reservations'] == 1
-    assert self.reservations_statistics['confirmed_reservations'] == 0
-    assert self.reservations_statistics['waiting_for_manager_action_reservations'] == 0
-    assert self.reservations_statistics['manager_updated_reservations'] == 0
-    assert self.reservations_statistics['expired_reservations'] == 2
+def test(context):
+    # print(context.reservations_statistics['pending_reservations'])
+    assert context.reservations_statistics['pending_reservations'] == 1
+    assert context.reservations_statistics['rejected_reservations'] == 1
+    assert context.reservations_statistics['confirmed_reservations'] == 0
+    assert context.reservations_statistics['waiting_for_manager_action_reservations'] == 0
+    assert context.reservations_statistics['manager_updated_reservations'] == 0
+    assert context.reservations_statistics['expired_reservations'] == 2
 
 
 @when('serializing all dorm reservations')
-def act(self):
-    self.reservations = Reservation.objects.filter(
-        room_characteristics__dormitory__id=self.alfam.id)
+def act(context):
+    context.reservations = Reservation.objects.filter(
+        room_characteristics__dormitory__id=context.alfam.id)
 
-    self.reservations_statistics['reservations'] = self.reservations.all()
+    context.reservations_statistics['reservations'] = context.reservations.all()
 
-    self.serialized_dorms = ReservationManagementSerializer(self.reservations_statistics)
-    self.all_serialized_dorms = str(self.serialized_dorms.data)
+    context.serialized_dorms = ReservationManagementSerializer(context.reservations_statistics)
+    context.all_serialized_dorms = str(context.serialized_dorms.data)
 
 
 @then('get valid serialized reservations')
-def test(self):
-    # print(self.all_serialized_dorms)
-    assert self.all_serialized_dorms.count("'name', 'Mako'") == 1
+def test(context):
+    # print(context.all_serialized_dorms)
+    assert context.all_serialized_dorms.count("'name', 'Mako'") == 1
 
 
 @when('hitting GET /manager/dorms/{alfam-id}/reservations')
-def act(self):
+def act(context):
     request = APIRequestFactory().get('')
-    force_authenticate(request, self.john)
+    force_authenticate(request, context.john)
     view = ReservationManagementViewSet.as_view(actions={'get': 'list'})
-    self.response = view(request, dorm_pk=self.alfam.id)
+    context.response = view(request, dorm_pk=context.alfam.id)
 
 
 @then('get 200 OK with all the reservations')
-def test(self):
-    assert self.response.status_code == status.HTTP_200_OK
+def test(context):
+    assert context.response.status_code == status.HTTP_200_OK
 
-    # print(self.response.render().data)
+    # print(context.response.render().data)
 
-    assert str(self.response.render().data).count("'name', 'Mako'") == 1
+    assert str(context.response.render().data).count("'name', 'Mako'") == 1
 
 
 @when('hitting GET /manager/dorms/{homedorm-id}/reservations non-owned dorm')
-def act(self):
+def act(context):
     request = APIRequestFactory().get('')
-    force_authenticate(request, self.john)
+    force_authenticate(request, context.john)
     view = ReservationManagementViewSet.as_view(actions={'get': 'list'})
-    self.response = view(request, dorm_pk=self.homedorm.id)
+    context.response = view(request, dorm_pk=context.homedorm.id)
 
 
 @then('get 403 forbidden for homedorm reservations')
-def test(self):
-    assert self.response.status_code == status.HTTP_403_FORBIDDEN
+def test(context):
+    assert context.response.status_code == status.HTTP_403_FORBIDDEN
 
 
 @then('the other manager can get his homedorm reservations')
-def test(self):
+def test(context):
     request = APIRequestFactory().get('')
-    force_authenticate(request, self.scott)
+    force_authenticate(request, context.scott)
     view = ReservationManagementViewSet.as_view(actions={'get': 'list'})
-    self.response = view(request, dorm_pk=self.homedorm.id)
+    context.response = view(request, dorm_pk=context.homedorm.id)
 
-    assert self.response.status_code == status.HTTP_200_OK
+    assert context.response.status_code == status.HTTP_200_OK
 
 
 @when('deserializing reservation new data')
-def act(self):
-    self.reservation_new_data = {'confirmation_deadline_date': '2015-12-15',
-                                 'status': Reservation.MANAGER_UPDATED_STATUS,
-                                 'follow_up_message': 'Please upload your receipt again'}
+def act(context):
+    context.reservation_new_data = {'confirmation_deadline_date': '2015-12-15',
+                                    'status': Reservation.MANAGER_UPDATED_STATUS,
+                                    'follow_up_message': 'Please upload your receipt again'}
 
-    self.deserialized_data = ClientReservationManagementSerializer(data=self.reservation_new_data)
+    context.deserialized_data = ClientReservationManagementSerializer(
+        data=context.reservation_new_data)
 
 
 @then('get valid deserialized reservation data')
-def test(self):
-    assert self.deserialized_data.is_valid() == True
+def test(context):
+    assert context.deserialized_data.is_valid() == True
 
 
 @when('hitting PUT /manager/dorms/{alfam-id}/reservations/{res1-id} into manager_updated')
-def act(self):
-    request = APIRequestFactory().put('', self.reservation_new_data, format='json')
-    force_authenticate(request, self.john)
+def act(context):
+    request = APIRequestFactory().put('', context.reservation_new_data, format='json')
+    force_authenticate(request, context.john)
     view = ReservationManagementViewSet.as_view(actions={'put': 'update'})
-    self.response = view(request, dorm_pk=self.alfam.id, pk=self.reservation1.id)
+    context.response = view(request, dorm_pk=context.alfam.id, pk=context.reservation1.id)
 
 
 @then('get 200 OK for updating that reservation into manager_updated')
-def test(self):
-    assert self.response.status_code == status.HTTP_200_OK
-    assert Reservation.objects.filter(id=self.reservation1.id).first(
+def test(context):
+    assert context.response.status_code == status.HTTP_200_OK
+    assert Reservation.objects.filter(id=context.reservation1.id).first(
     ).status == Reservation.MANAGER_UPDATED_STATUS
 
 
 @when('hitting PUT non-owned reservation into manager_updated')
-def act(self):
-    request = APIRequestFactory().put('', self.reservation_new_data, format='json')
-    force_authenticate(request, self.scott)
+def act(context):
+    request = APIRequestFactory().put('', context.reservation_new_data, format='json')
+    force_authenticate(request, context.scott)
     view = ReservationManagementViewSet.as_view(actions={'put': 'update'})
-    self.response = view(request, dorm_pk=self.alfam.id, pk=self.reservation1.id)
+    context.response = view(request, dorm_pk=context.alfam.id, pk=context.reservation1.id)
 
 
 @then('get 403 forbidden for updating non-owned reservation')
-def test(self):
-    assert self.response.status_code == status.HTTP_403_FORBIDDEN
+def test(context):
+    assert context.response.status_code == status.HTTP_403_FORBIDDEN

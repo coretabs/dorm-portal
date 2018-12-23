@@ -7,27 +7,27 @@ from api.engine.models import Dormitory, RoomCharacteristics
 
 
 @given('we have 2 dormitories (and 1 room each) with some quota')
-def arrange(self):
+def arrange(context):
     category_public = create_category('public')
-    self.alfam = create_dorm('Alfam', category_public)
+    context.alfam = create_dorm('Alfam', category_public)
 
-    self.room1 = create_room(self.alfam)
-    self.room1.allowed_quota = 5
-    self.room1.save()
+    context.room1 = create_room(context.alfam)
+    context.room1.allowed_quota = 5
+    context.room1.save()
 
-    self.dovec = create_dorm('Dovec', category_public)
+    context.dovec = create_dorm('Dovec', category_public)
 
-    self.room2 = create_room(self.dovec)
-    self.room1.allowed_quota = 0
-    self.room2.save()
+    context.room2 = create_room(context.dovec)
+    context.room1.allowed_quota = 0
+    context.room2.save()
 
 
 @when('getting available dorms')
-def act(self):
-    self.filtered_dorm = Dormitory.objects.available()
+def act(context):
+    context.filtered_dorm = Dormitory.objects.available()
 
 
 @then('get alfam dormitory and not getting dovec')
-def test(self):
-    assert self.filtered_dorm.count() == 1
-    assert self.filtered_dorm.first().name == 'Alfam'
+def test(context):
+    assert context.filtered_dorm.count() == 1
+    assert context.filtered_dorm.first().name == 'Alfam'
