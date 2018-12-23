@@ -352,17 +352,7 @@ def act(self):
 
     client = APIClient()
     client.force_authenticate(self.john)
-    #view = DormManagementViewSet.reverse_action(self, url_name='cover')
-    #x = view.reverse_action('update-cover', args=['1'])
-
-    #view = DormManagementViewSet()
-    #view.basename = 'engine:dorms'
-    #view.request = None
-
-    #url = view.reverse_action('detail-cover', args=['1'])
     url = reverse('engine:manager-dorms-update-cover', kwargs={'pk': self.alfam.id})
-    #url = reverse(action, kwargs={'pk': self.alfam.id})
-
     self.response = client.put(url, cover_json, format='multipart')
 
 
