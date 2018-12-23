@@ -145,7 +145,7 @@ def act(context):
     with freeze_time(context.reservation_creation_date_plus_two_months):
         client = APIClient()
         client.force_authenticate(context.john)
-        url = reverse('engine.dorms:reservations-ask-review',
+        url = reverse('engine.manager-dorms:reservations-ask-review',
                       kwargs={'dorm_pk': context.alfam.id, 'pk': context.reservation1.id})
         context.response = client.post(url)
         print(len(mail.outbox))
@@ -170,7 +170,7 @@ def act(context):
 
     client = APIClient()
     client.force_authenticate(context.john)
-    url = reverse('engine.dorms:reservations-ask-review',
+    url = reverse('engine.manager-dorms:reservations-ask-review',
                   kwargs={'dorm_pk': context.alfam.id, 'pk': context.reservation1.id})
     context.response = client.post(url)
 

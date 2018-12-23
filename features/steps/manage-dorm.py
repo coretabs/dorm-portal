@@ -248,7 +248,7 @@ def act(context):
     client = APIClient()
     client.force_authenticate(context.john)
 
-    url = reverse('engine.dorms:photos-list', kwargs={'dorm_pk': context.alfam.id})
+    url = reverse('engine.manager-dorms:photos-list', kwargs={'dorm_pk': context.alfam.id})
     context.response = client.post(url, photo_json, format='multipart')
 
 
@@ -285,7 +285,7 @@ def act(context):
     client = APIClient()
     client.force_authenticate(context.john)
 
-    url = reverse('engine.dorms:photos-list',
+    url = reverse('engine.manager-dorms:photos-list',
                   kwargs={'dorm_pk': context.alfam.id})
     context.response = client.post(url, photo_json, format='multipart')
 

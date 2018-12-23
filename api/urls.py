@@ -41,7 +41,7 @@ urlpatterns = [
     path('api/', include((router.urls, 'engine'), namespace='engine')),
     #path('api/manager', include((manager_router.urls, 'engine'), namespace='engine')),
     path('api/', include((reservations_router.urls, 'engine'), namespace='engine.reservations')),
-    path('api/', include((manager_dorms_router.urls, 'engine'), namespace='engine.dorms')),
+    path('api/', include((manager_dorms_router.urls, 'engine'), namespace='engine.manager-dorms')),
 
     path('api/auth/', include('rest_auth.urls')),
     #path(r'^', include('django.contrib.auth.urls')),
