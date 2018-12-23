@@ -122,10 +122,8 @@ $backend.$resetPasswordConfirm = (data) => {
 }
 
 
-$backend.$uploadReceipt = (id, receipts) => {
-    return $backend.post(`/reservations/${id}/receipt`, {
-        receipts: receipts
-    })
+$backend.$uploadReceipt = (id, formData) => {
+    return $backend.post(`/reservations/${id}/receipts/`, formData)
     .then(response => response.data)
 }
 

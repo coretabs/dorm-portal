@@ -1,20 +1,23 @@
-import FileUpload from 'vue-upload-component/src'
 import FlipCountdown from 'vue2-flip-countdown'
 
 export default {
   name: "ConfirmPayment",
   data: function() {
     return {
-      files: []
+      file: null
     };
   },
   components: {
-    'file-upload': FileUpload,
     'flip-countdown': FlipCountdown 
   },
   methods:{
-    submit(){
-      this.$store.state.reservationStep++;
+    selectFile(){
+      this.file = this.$refs.file.files[0]
+    },
+    submit(id){
+      const formData = new FormData()
+      formData.append('uploaded_photo', this.file)
+      this.$store.dispatch("uploadReceipt", {id,formData})
     },
     removeFile(index){
       this.files.splice(index, 1)
@@ -29,9 +32,9 @@ export default {
     },
     date(){
       return this.$store.state.reservation.confirmation_deadline_date
-    },
-    fileSize(){
-      let size = file.size | formatSize
     }
+  },
+  updated(){
+    
   }
 };

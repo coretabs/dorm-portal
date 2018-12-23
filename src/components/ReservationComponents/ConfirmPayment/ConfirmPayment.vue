@@ -57,10 +57,24 @@
           <p class="payment-instruction">
             <v-icon small>fa-exclamation-triangle</v-icon> {{lang.confirmPayment.instruction}}
           </p>
-          <div class="drag-drop">
-            <div class="upload">
 
-              <ul>
+          <!-- <div class="drag-drop">
+          <div class="upload">
+            <v-form enctype="multipart/form-data">
+              <label for="file">
+                <v-icon>fa-plus</v-icon>
+                {{lang.confirmPayment.chooseFile}}
+              </label>
+              <input type="file" id="file" @change="selectFile" ref="file" v-show="false"></input>
+            </v-form>
+          </div>
+          </div> -->
+          
+          <div class="drag-drop">
+            <v-form enctype="multipart/form-data" @submit.prevent="submit(reservation.id)">
+
+              <div class="upload">
+
                 <v-layout align-center>
                   <v-flex md3>
                     <label for="file">
@@ -71,67 +85,18 @@
                   <v-flex md9 class="text-md-left">
                     <p>Drag &amp; drop your payment receipt here.</p>
                   </v-flex>
-
-                </v-layout>
-              </ul>
-
-              <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
-                <h3>{{lang.confirmPayment.dragMessage}}</h3>
-              </div>
-            </div>
-
-            <v-layout v-if="files.length" wrap>
-
-              <v-flex class="files-list" md12 v-for="(file,index) in files" :key="file.id">
-                <v-layout>
-                  <v-flex class="text-truncate" md5>
-                    <span>{{file.name}}</span>
-                  </v-flex>
-                  <v-flex  md2>
-                    <span>{{file.size/1000 | formatSize/1000 }} KB</span>
-                  </v-flex>
-                  <v-flex  md4>
-                    <span v-if="file.error">{{file.error}}</span>
-                    <span v-else-if="file.success">success</span>
-                    <span v-else-if="file.active">active</span>
-                    <span v-else-if="file.active">active</span>
-                    <span v-else></span>
-                  </v-flex>
-                  <v-flex class="text-md-right" md1>
-                    <v-icon small @click="removeFile(index)">fa-trash</v-icon>
-                  </v-flex>
                 </v-layout>
 
+                <input type="file" id="file" @change="selectFile" ref="file" v-show="false"></input>
 
-              </v-flex>
-
-            </v-layout>
-
-            <v-flex class="action-btn">
-              <file-upload v-show="false" class="select-btn" :drop="true" :drop-directory="true" v-model="files" ref="upload">
-                {{lang.confirmPayment.selectFile}}
-              </file-upload>
-
-              <div v-show="files.length">
-                <v-btn color="#1c3a70" dark class="elevation-0 upload-btn" v-if="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true">
-                <v-icon small left>fa-cloud-upload-alt</v-icon>
-                {{lang.confirmPayment.startUpload}}
-              </v-btn>
-
-              <v-btn color="red darken-1" dark class="elevation-0 upload-btn" v-else @click.prevent="$refs.upload.active = false">
-                <v-icon left>fa-times-circle</v-icon>
-                {{lang.confirmPayment.stopUpload}}
-              </v-btn>
               </div>
-              
-            </v-flex>
+              <v-btn type="submit">upload</v-btn>
+            </v-form>
+
           </div>
 
         </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <!-- <v-btn color="#feae25" class="elevation-0" @click="submit" v-if="$refs.upload && $refs.upload.uploaded">{{lang.confirmPayment.confirmButton}}</v-btn> -->
-        </v-card-actions>
+
       </v-card>
     </div>
   </v-flex>

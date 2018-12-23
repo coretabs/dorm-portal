@@ -221,6 +221,14 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    uploadReceipt({commit}, data){
+      $backend.$uploadReceipt(data.id, data.formData).then(responseDate => {
+        console.log(responseDate)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
 
   }

@@ -24,7 +24,7 @@ export default {
     reservationStep(){
       if(this.$store.getters.isLoggedIn){
         const step = JSON.parse(localStorage.getItem('auth'));
-        this.progress = step.current_step || 1;
+        this.progress = 2 //step.current_step || 1;
       }else{
         this.progress = 1;
       }
@@ -44,13 +44,15 @@ export default {
   },
   methods:{
     checkAuth(){
-      this.$store.dispatch('auth')
-      .catch(() => {
-        this.$store.dispatch('logout')
-        .then(() => {
-          this.$router.push('/login')
+      if(this.$store.getters.isLoggedIn){
+        this.$store.dispatch('auth')
+        .catch(() => {
+          this.$store.dispatch('logout')
+          .then(() => {
+            this.$router.push('/login')
+          })
         })
-      })
+     }
     },
     loadroom(){
       if(this.$store.getters.isLoggedIn){
