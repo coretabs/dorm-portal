@@ -261,19 +261,17 @@ reservations
 	status (pending=0, rejected=1, confirmed=2, 
             waiting_for_manager_action=3 (student uploaded receipt), manager_updated=4, expired=5)
 	
-	user
-		name
-		email
+	student_name
+	student_email
 	
-	room_characteristics
-		id
-		
-		price
-		price_currency
-		
-		room_type
-		duration
-		people_allowed_number
+	room_id
+	
+	room_price
+	room_price_currency
+	
+	room_type
+	room_duration
+	room_people_allowed_number
     
     receipts
         photo_url

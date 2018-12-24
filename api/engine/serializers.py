@@ -216,28 +216,27 @@ class ClientReservationManagementSerializer(serializers.ModelSerializer):
         model=models.Reservation
         fields=('confirmation_deadline_date', 'status', 'follow_up_message')
 
-class ReservationRoomCharacteristicsManagementSerializer(serializers.ModelSerializer):
-    room_type=serializers.SerializerMethodField()
-    duration=serializers.SerializerMethodField()
-
-    def get_room_type(self, obj):
-        return str(obj.room_type)
-
-    def get_duration(self, obj):
-        return str(obj.duration)
-
-    class Meta:
-        model=models.RoomCharacteristics
-        fields=('id', 'price', 'price_currency',
-                  'room_type', 'duration', 'people_allowed_number')
-
 class ReservationManagementDetailsSerializer(serializers.ModelSerializer):
     reservation_creation_date=serializers.DateField(format = '%Y-%m-%d')
     confirmation_deadline_date=serializers.DateField(format = '%Y-%m-%d')
     last_update_date=serializers.DateField(format = '%Y-%m-%d')
 
-    user=UserSerializer()
-    room_characteristics=ReservationRoomCharacteristicsManagementSerializer()
+    student_name=serializers.CharField(source='user.first_name')
+    student_email=serializers.CharField(source='user.email')
+
+    room_id = serializers.IntegerField(source='room_characteristics.id')
+    room_price=serializers.IntegerField(source='room_characteristics.price')
+    room_price_currency=serializers.CharField(source='room_characteristics.price_currency.symbol')
+    room_type=serializers.SerializerMethodField()
+    room_duration=serializers.SerializerMethodField()
+    room_people_allowed_number=serializers.IntegerField(source='room_characteristics.people_allowed_number')
+
+    def get_room_type(self, obj):
+        return str(obj.room_characteristics.room_type)
+
+    def get_room_duration(self, obj):
+        return str(obj.room_characteristics.duration)
+
     receipts=ReceiptSerializer(many = True)
 
     class Meta:
@@ -245,7 +244,10 @@ class ReservationManagementDetailsSerializer(serializers.ModelSerializer):
         fields=('id',
                   'reservation_creation_date', 'confirmation_deadline_date', 'status',
                   'last_update_date', 'follow_up_message',
-                  'user', 'room_characteristics', 'receipts')
+                  'student_name', 'student_email', 
+                  'room_id', 'room_price', 'room_price_currency', 
+                  'room_type', 'room_duration', 'room_people_allowed_number',
+                  'receipts')
 
 
 class ReservationManagementSerializer(serializers.Serializer):

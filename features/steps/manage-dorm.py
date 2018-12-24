@@ -63,16 +63,22 @@ def arrange(context):
     context.room_type_double_choice = create_radio_choice(
         context.room_type_options[1], context.room_types)
 
+    context.people_allowed_number_filter = IntegralFilter(name=LazyI18nString(
+        {'tr': 'Kişi İzin Numarası', 'en': 'People Allowed Number'}))
+    context.people_allowed_number_filter.save()
+    context.one_person = create_integral_choice(context.people_allowed_number_filter, 1)
+    context.two_persons = create_integral_choice(context.people_allowed_number_filter, 2)
+
     context.room1 = create_room_with_radio_integral_features(
         context.alfam,
         [context.room_type_single_choice, context.duration_choice_spring],
-        [context.price_1000, ],
+        [context.price_1000, context.one_person],
         [])
 
     context.room2 = create_room_with_radio_integral_features(
         context.alfam,
         [context.room_type_double_choice, context.duration_choice_winter],
-        [context.price_1200, ],
+        [context.price_1200, context.two_persons],
         [])
 
 

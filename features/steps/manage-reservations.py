@@ -90,7 +90,7 @@ def act(context):
 @then('get valid serialized reservations')
 def test(context):
     # print(context.all_serialized_dorms)
-    assert context.all_serialized_dorms.count("'name', 'Mako'") == 1
+    assert context.all_serialized_dorms.count("'student_name', 'Mako'") == 1
 
 
 @when('hitting GET /manager/dorms/{alfam-id}/reservations')
@@ -107,7 +107,7 @@ def test(context):
 
     # print(context.response.render().data)
 
-    assert str(context.response.render().data).count("'name', 'Mako'") == 1
+    assert str(context.response.render().data).count("'student_name', 'Mako'") == 1
 
 
 @when('hitting GET /manager/dorms/{homedorm-id}/reservations non-owned dorm')
