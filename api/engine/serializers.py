@@ -76,6 +76,7 @@ class UserSerializer(serializers.ModelSerializer):
     NON_PENDING_RESERVATION = 3
 
     name = serializers.CharField(source='first_name')
+    email = serializers.CharField()
     is_manager = serializers.BooleanField(read_only=True)
     reservation_id = serializers.SerializerMethodField()
     current_step = serializers.SerializerMethodField()
@@ -100,7 +101,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.User
-        fields = ('name', 'is_manager',
+        fields = ('name', 'email', 'is_manager',
                   'reservation_id', 'current_step')
 
 class BankAccountSerializer(serializers.ModelSerializer):
@@ -253,6 +254,13 @@ class ReservationManagementDetailsSerializer(serializers.ModelSerializer):
 
 
 class ReservationManagementSerializer(serializers.Serializer):
+    pending_reservations = serializers.IntegerField(default=0)
+    rejected_reservations = serializers.IntegerField(default=0)
+    confirmed_reservations = serializers.IntegerField(default=0)
+    waiting_for_manager_action_reservations = serializers.IntegerField(default=0)
+    manager_updated_reservations = serializers.IntegerField(default=0)
+    expired_reservations = serializers.IntegerField(default=0)
+
     reservations=ReservationManagementDetailsSerializer(many = True)
 
     class Meta:
