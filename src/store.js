@@ -5,6 +5,10 @@ Vue.prototype.$backend = $backend;
 
 Vue.use(Vuex);
 
+const clean = (data) => {
+  Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
+}
+
 export default new Vuex.Store({
   state: {
     language: localStorage.getItem('lang') || "en",
@@ -13,6 +17,11 @@ export default new Vuex.Store({
     drawer: null,
     managerDrawerControl: false,
     adminActiveComponent: null,
+    snackbar: {
+      trigger: false,
+      message: '',
+      color: ''
+    },
     currencies: [],
     languages: [],
     filters: [],
@@ -45,7 +54,8 @@ export default new Vuex.Store({
     managerDorms: state => state.managerDorms,
     adminActiveComponent: state => state.adminActiveComponent,
     managerDrawerControl: state => state.managerDrawerControl,
-    manageReservation: state => state.manageReservation
+    manageReservation: state => state.manageReservation,
+    snackbar : state => state.snackbar,
   },
   mutations: {
     fetchLocale(state){
@@ -267,6 +277,7 @@ export default new Vuex.Store({
       })
     },
     updateReservationStatus(context, data){
+      clean(data)
       return new Promise((resolve, reject) => {
         $backend.$updateReservationStatus(data).then(responseDate => {
           resolve(responseDate)

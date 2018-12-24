@@ -7,11 +7,13 @@ export default {
       showUpdateStatus: false,
       date: null,
       menu: false,
+      loadingBtn: false,
       search: '',
       headers: [
         { text: '', value: 'room_price' },
         { text: '', value: 'receipts', sortable: false  },
         { text: '', value: 'status' },
+        { text: '', value: 'last_update_date' },
         { text: '', value: 'student_name' },
         { text: '', value: 'student_email' },
         { text: '', value: 'reservation_creation_date' },
@@ -26,11 +28,11 @@ export default {
       details:{
         roomType: '',
         duration:'',
-        people: null
+        people: null,
+        message: ''
       },
-      messageRules:[
-        v => !!v || 'Message is required',
-        v => v.length >= 6 || 'Message Must be more than 8 letters'
+      requiredRules:[
+        v => !!v || 'This field is required'
       ],
       statusRules:[
         v => !!v || 'Status is required',
@@ -49,8 +51,10 @@ export default {
     reservations(){
       return this.$store.getters.manageReservation;
     },
-    showDate(){
-
+    allReservation(){
+      if(this.reservations.reservations){
+        return this.reservations.reservations.length
+      }
     }
   },
   methods:{
@@ -60,13 +64,14 @@ export default {
         this.headers[i].text = this.lang.manageResrevations.tableHeaders[i]
     },
     filterStatus(keyWord){
-      this.search = keyWord
+      //this.search = this.status[keyWord]
     },
     showMoreDetails(item){
       this.showDetails = true
       this.details.duration = item.room_duration
       this.details.roomType =  item.room_type
       this.details.people = item.room_people_allowed_number
+      this.details.message = item.follow_up_message
     },
     updateStatus(item){
       this.showUpdateStatus = true
@@ -74,9 +79,10 @@ export default {
       this.reservationID = item.id
     },
     close(){
-      this.showUpdateStatus = false,
       this.currentStatus = '',
-      this.followUpMessage = ''
+      this.followUpMessage = '',
+      this.date = '',
+      this.showUpdateStatus = false
     },
     fetchManagerReservation(){
       let dorm = this.$store.getters.managerDorms
@@ -90,7 +96,6 @@ export default {
       this.statusIndex = this.status.indexOf(this.currentStatus)
     },
     submit(){
- 
       let data = {
         reservationID: this.reservationID,
         dormID: localStorage.getItem('manageDormID'),
@@ -99,7 +104,20 @@ export default {
         message: this.followUpMessage
       }
       if(this.$refs.form.validate()){
-        this.$store.dispatch("updateReservationStatus", data)
+        this.loadingBtn = true
+        this.$store.dispatch("updateReservationStatus", data).then(()=>{
+          this.loadingBtn = false
+          this.close()
+          this.$store.dispatch("fetchManagerReservation", data.dormID)
+          this.$store.state.snackbar.trigger = true
+          this.$store.state.snackbar.message = 'Status has been Updeated, successfully'
+          this.$store.state.snackbar.color = 'success'
+        }).catch(()=>{
+          this.loadingBtn = false
+          this.$store.state.snackbar.trigger = true
+          this.$store.state.snackbar.message = 'Something went Wrong! Try again'
+          this.$store.state.snackbar.color = 'error'
+        })
       }
     },
   },

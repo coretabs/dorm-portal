@@ -93,9 +93,10 @@
         "Amount",
         "Receipts",
         "Status",
+        "Last Updated On",
         "Student Name",
         "Student Email",
-        "Submitted On",
+        "Created On",
         "Deadline",
         "Actions"        
       ],

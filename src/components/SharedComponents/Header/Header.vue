@@ -1,5 +1,11 @@
 <template>
 <header>
+
+  <v-snackbar v-model="snackbar.trigger" :timeout="4000" top :color="snackbar.color">
+    <span>{{snackbar.message}}</span>
+    <v-btn flat color="white" @click="closeSnackbar">close</v-btn>
+  </v-snackbar>
+  
   <v-toolbar light flat fixed app :clipped-left="$vuetify.breakpoint.lgAndUp">
     <!-- <v-toolbar-side-icon  @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
     <v-toolbar-title>

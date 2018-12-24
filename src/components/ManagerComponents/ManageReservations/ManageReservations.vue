@@ -7,12 +7,12 @@
         <v-flex xs6 md2>
           <div @click="filterStatus('')">
             <h3>{{lang.manageResrevations.all}}</h3>
-            <span>0</span>
+            <span>{{allReservation}}</span>
           </div>
         </v-flex>
 
         <v-flex xs6 md2>
-          <div @click="filterStatus(lang.manageResrevations.wating)">
+          <div @click="filterStatus(3)">
             <h3>{{lang.manageResrevations.wating}}</h3>
             <span>{{reservations.waiting_for_manager_action_reservations}}</span>
           </div>
@@ -71,7 +71,6 @@
                     <v-card class="v-list-files">
                       <v-list v-for="(receipt,i) in props.item.receipts" :key="i">
                         <v-list-tile avatar>
-                          
 
                           <v-list-tile-content>
                             <v-list-tile-title>
@@ -105,13 +104,14 @@
                   <span v-else-if="props.item.status == 4">Updated</span>
                   <span v-else>Expired</span>
                 </td>
+                <td class="text-xs-left">{{ props.item.last_update_date }}</td>
                 <td class="text-xs-left">{{ props.item.student_name }}</td>
                 <td class="text-xs-left">{{ props.item.student_email }}</td>
                 <td class="text-xs-left">{{ props.item.reservation_creation_date }}</td>
                 <td class="text-xs-left">{{ props.item.confirmation_deadline_date }}</td>
                 <td class="text-xs-left layout px-0">
                   <v-btn @click="showMoreDetails(props.item)" flat icon>
-                    <v-icon color="#ccc">fa-info-circle</v-icon>
+                    <v-icon color="#777">fa-info-circle</v-icon>
                   </v-btn>
                   <v-btn depressed @click="updateStatus(props.item)" v-if="props.item.status != 2" color="green" dark>{{lang.manageResrevations.updateStatus}}</v-btn>
                   <v-btn depressed v-else>{{lang.manageResrevations.askForReview}}</v-btn>
@@ -132,13 +132,29 @@
     <v-dialog v-model="showDetails" max-width="400">
       <v-card>
         <v-card-text>
-          <div class="details-model__info">
-            <h3>Room Type:</h3>
-            <span>{{details.roomType}}</span>
+          <div class="details-model__info details-message mb-3" v-if="details.message">
+            <h3>Status Message:</h3>
+            <span>{{details.message}}</span>
           </div>
-          <div class="details-model__info">
-            <h3>Staying Duration:</h3>
-            <span>{{details.duration}}</span>
+          <div class="details-room">
+            <div class="details-model__info mb-3">
+              <h3>Room Type:</h3>
+              <span>{{details.roomType}}</span>
+            </div>
+            <div class="details-model__info mb-3">
+              <h3>Allowed people in room:</h3>
+              <span v-if="details.people < 4">
+              <v-icon v-for="n in details.people" small :key="n">fa-user</v-icon>
+            </span>
+              <span v-else>
+              <v-icon>fa-user</v-icon>
+              X {{details.people}}
+            </span>
+            </div>
+            <div class="details-model__info">
+              <h3>Staying Duration:</h3>
+              <span>{{details.duration}}</span>
+            </div>
           </div>
         </v-card-text>
         <v-card-actions>
@@ -164,14 +180,14 @@
                 </v-flex>
                 <v-flex xs12 v-if="statusIndex == 0">
                   <v-menu ref="menu" :close-on-content-click="false" v-model="menu" :nudge-right="40" :return-value.sync="date" lazy transition="scale-transition" offset-y full-width min-width="290px">
-                    <v-text-field prepend-icon="fa-calendar" slot="activator" v-model="date" label="Deadline" readonly></v-text-field>
+                    <v-text-field :required="setStatusIndex == 0" :rules="requiredRules" prepend-icon="fa-calendar" slot="activator" v-model="date" label="Deadline" readonly></v-text-field>
                     <v-date-picker v-model="date" no-title @input="$refs.menu.save(date); menu = false" scrollable>
 
                     </v-date-picker>
                   </v-menu>
                 </v-flex>
                 <v-flex xs12>
-                  <v-textarea prepend-icon="fa-envelope" label="Note" v-model="followUpMessage" required :rules="messageRules"></v-textarea>
+                  <v-textarea prepend-icon="fa-envelope" label="Note" v-model="followUpMessage" required :rules="requiredRules"></v-textarea>
                 </v-flex>
 
               </v-layout>
@@ -181,7 +197,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="grey darken-1" flat @click="close">Close</v-btn>
-          <v-btn color="green darken-1" dark depressed @click="submit">Update</v-btn>
+          <v-btn color="green darken-1" dark depressed @click="submit" :loading="loadingBtn">Update</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

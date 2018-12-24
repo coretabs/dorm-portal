@@ -52,6 +52,9 @@ export default {
       if( this.$store.getters.adminActiveComponent == 'ManageReservations' ){
         this.$store.dispatch("fetchManagerReservation", id)
       }
+    },
+    closeSnackbar(){
+      this.$store.state.snackbar.trigger = false
     }
   },
   computed: {
@@ -72,7 +75,10 @@ export default {
     },
     managerDorms(){
       return this.$store.getters.managerDorms
-    }    
+    },
+    snackbar(){
+      return this.$store.getters.snackbar
+    }
   },
   updated(){
     this.getUserName()
