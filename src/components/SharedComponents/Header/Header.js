@@ -9,16 +9,16 @@ export default {
   },
   methods: {
     changeLang(lang) {
-      this.$store.state.language = lang;
-      localStorage.setItem("lang", lang);
-      this.$store.dispatch('fetchFilters');
+      this.$store.state.language = lang
+      localStorage.setItem("lang", lang)
+      this.$store.dispatch('fetchFilters')
     },
     changeCurrency(code,symbol){
-      this.$store.state.currencyCode = code;
-      this.$store.state.currencySymbol = symbol;
-      localStorage.setItem("currency-code", code);
-      localStorage.setItem("currency-symbol", symbol);
-      this.$store.dispatch('fetchFilters');
+      this.$store.state.currencyCode = code
+      this.$store.state.currencySymbol = symbol
+      localStorage.setItem("currency-code", code)
+      localStorage.setItem("currency-symbol", symbol)
+      this.$store.dispatch('fetchFilters')
     },
     toggleDrawer(){
       this.$store.state.drawer = !this.$store.state.drawer
@@ -38,28 +38,37 @@ export default {
       }
     },
     getUserName(){
-      const user = JSON.parse(localStorage.getItem('auth'));
+      const user = JSON.parse(localStorage.getItem('auth'))
       if(user){
-        const fullName = user.user_name.split(' ');
-        this.userName = fullName[fullName.length - 1];
+        const fullName = user.user_name.split(' ')
+        this.userName = fullName[fullName.length - 1]
+      }
+    },
+    switchDorms(id){
+      localStorage.setItem('manageDormID', id)
+      if( this.$store.getters.adminActiveComponent == 'ManageReservations' ){
+        this.$store.dispatch("fetchManagerReservation", id)
       }
     }
   },
   computed: {
     lang() {
-      return this.$store.getters.lang;
+      return this.$store.getters.lang
     },
     languages(){
-      return this.$store.state.languages;
+      return this.$store.state.languages
     },
     currencies(){
-      return this.$store.state.currencies;
+      return this.$store.state.currencies
     },
     isLogin(){
-      return this.$store.getters.isLoggedIn;
+      return this.$store.getters.isLoggedIn
     },
     isAdmin(){
-      return this.$store.getters.isAdmin;
+      return this.$store.getters.isAdmin
+    },
+    managerDorms(){
+      return this.$store.getters.managerDorms
     }    
   },
   updated(){

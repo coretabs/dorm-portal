@@ -26,6 +26,7 @@ export default new Vuex.Store({
     },
     managerDorms: [],
     reservation: {},
+    manageReservation: [],
     authStatus: '',
     isAuth: localStorage.getItem('auth'),
     isAdmin: localStorage.getItem('admin')
@@ -43,7 +44,8 @@ export default new Vuex.Store({
     reservationData: state => state.reservation,
     managerDorms: state => state.managerDorms,
     adminActiveComponent: state => state.adminActiveComponent,
-    managerDrawerControl: state => state.managerDrawerControl
+    managerDrawerControl: state => state.managerDrawerControl,
+    manageReservation: state => state.manageReservation
   },
   mutations: {
     fetchLocale(state){
@@ -109,6 +111,9 @@ export default new Vuex.Store({
     },
     fetchManagerDorms(state, responseDate){
       state.managerDorms = responseDate
+    },
+    fetchManagerReservation(state, responseDate){
+      state.manageReservation = responseDate
     }
   },
   actions: {
@@ -245,7 +250,6 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         $backend.$fetchManagerDorms().then(response => {
           context.commit('fetchManagerDorms', response)
-          this.managerDorms = response
           resolve(response)
         }).catch(err => {
           reject(err)
@@ -255,6 +259,7 @@ export default new Vuex.Store({
     fetchManagerReservation(context, id){
       return new Promise((resolve, reject) => {
         $backend.$fetchManagerReservation(id).then(response => {
+          context.commit('fetchManagerReservation', response)
           resolve(response)
         }).catch(err => {
           reject(err)

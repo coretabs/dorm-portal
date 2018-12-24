@@ -11,10 +11,29 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
+      <!-- <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more" v-if="$route.path === '/manage' && multiDorms" @click="switchDorms">
+        <v-icon color="#666" left small>fa-exchange-alt</v-icon>
+        Switch Dorms
+      </v-btn> -->
+
+      <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y v-if="$route.path === '/manage' && managerDorms.length > 1">
+        <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
+          Switch Dorms
+          <v-icon color="#ccc" right>expand_more</v-icon>
+        </v-btn>
+        <v-list>
+          <v-list-tile v-for="(dorm, index) in managerDorms" :key="index" @click="switchDorms(dorm.id)">
+            <v-list-tile-title>{{ dorm.name }}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+
+
       <!-- Currency -->
       <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y v-if="$route.path !== '/reservation' && $route.path !== '/manage'">
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
-          {{this.$store.state.currencyCode}}<v-icon color="#ccc" right>expand_more</v-icon>
+          {{this.$store.state.currencyCode}}
+          <v-icon color="#ccc" right>expand_more</v-icon>
         </v-btn>
         <v-list>
           <v-list-tile v-for="(currency, index) in currencies" :key="index" @click="changeCurrency(currency.code, currency.symbol)">
@@ -23,7 +42,7 @@
         </v-list>
       </v-menu>
       <!-- language -->
-      <v-menu id="language-menu"  transition="slide-y-transition" bottom offset-y>
+      <v-menu id="language-menu" transition="slide-y-transition" bottom offset-y>
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
           <v-icon color="#666">language</v-icon>
           <v-icon color="#ccc" right>expand_more</v-icon>
@@ -35,16 +54,16 @@
         </v-list>
       </v-menu>
       <!-- check status -->
-      
+
       <v-btn v-if="!isLogin" flat dark class="status-btn" to="/login">{{lang.header.button}}</v-btn>
-      <v-menu v-else id="language-menu"  class="status-btn"  transition="slide-y-transition" bottom offset-y>
+      <v-menu v-else id="language-menu" class="status-btn" transition="slide-y-transition" bottom offset-y>
         <v-btn dark slot="activator" class="lang-btn pl-3" flat append-icon="expand_more">
           <span>{{userName}}</span>
           <v-icon color="#ccc">expand_more</v-icon>
         </v-btn>
         <v-list>
           <v-list-tile @click="userRedirect">
-            <v-list-tile-title >
+            <v-list-tile-title>
               <span v-if="isAdmin">
                 Dashboard
               </span>

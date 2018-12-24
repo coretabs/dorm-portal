@@ -18,7 +18,6 @@ export default {
         { text: '', value: 'deadline' },
         { text: '', value: 'id', sortable: false }
       ],
-      reservations: [],
       status: [
         'confirmed',
         'pending',
@@ -37,6 +36,9 @@ export default {
   computed: {
     lang() {
       return this.$store.getters.lang;
+    },
+    reservations(){
+      return this.$store.getters.manageReservation;
     }
   },
   methods:{
@@ -66,9 +68,7 @@ export default {
         dorm = dorm[0].id
       }
       const dormID = localStorage.getItem('manageDormID') ||  dorm
-      this.$store.dispatch("fetchManagerReservation", dormID).then((response)=>{
-        this.reservations = response
-      })
+      this.$store.dispatch("fetchManagerReservation", dormID)
     }
   },
   mounted(){
