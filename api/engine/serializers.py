@@ -191,7 +191,7 @@ class ClientAcceptedReservationSerializer(serializers.Serializer):
         fields=('room_id')
 
 class ClientReservationManagementSerializer(serializers.ModelSerializer):
-    confirmation_deadline_date=serializers.DateField(required = False, format = '%Y-%m-%d')
+    confirmation_deadline_date=serializers.DateField(format = '%Y-%m-%d', required = False)
     status=serializers.IntegerField(required = False)
     follow_up_message=serializers.CharField(required = False)
 
@@ -201,14 +201,9 @@ class ClientReservationManagementSerializer(serializers.ModelSerializer):
         if status:
             if status not in models.Reservation.STATUS_CHARS_LIST:
                 raise serializers.ValidationError("Status doesn't exist!")
-
-            if status == models.Reservation.MANAGER_UPDATED_STATUS:
-                follow_up_message=validated_data.get('follow_up_message', None)
-                if not follow_up_message:
-                    raise serializers.ValidationError('Please add a follow up message')
-                instance.last_update_date=datetime.date.today()
-
             validated_data['status']=status
+
+        instance.last_update_date=datetime.date.today()
 
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
@@ -254,12 +249,12 @@ class ReservationManagementDetailsSerializer(serializers.ModelSerializer):
 
 
 class ReservationManagementSerializer(serializers.Serializer):
-    pending_reservations = serializers.IntegerField(default=0)
-    rejected_reservations = serializers.IntegerField(default=0)
-    confirmed_reservations = serializers.IntegerField(default=0)
-    waiting_for_manager_action_reservations = serializers.IntegerField(default=0)
-    manager_updated_reservations = serializers.IntegerField(default=0)
-    expired_reservations = serializers.IntegerField(default=0)
+    pending_reservations = serializers.IntegerField(default=0, read_only=True)
+    rejected_reservations = serializers.IntegerField(default=0, read_only=True)
+    confirmed_reservations = serializers.IntegerField(default=0, read_only=True)
+    waiting_for_manager_action_reservations = serializers.IntegerField(default=0, read_only=True)
+    manager_updated_reservations = serializers.IntegerField(default=0, read_only=True)
+    expired_reservations = serializers.IntegerField(default=0, read_only=True)
 
     reservations=ReservationManagementDetailsSerializer(many = True)
 

@@ -106,7 +106,7 @@ class HisOwnDormitoryReservation(BasePermission):
 
 class ReservationManagementViewSet(viewsets.ViewSet):
     permission_classes = (IsAuthenticated, HisOwnDormitoryReservation)
-    serializer_class = serializers.ReservationManagementSerializer
+    serializer_class = serializers.ClientReservationManagementSerializer
 
     def get_queryset(self):
         return models.Reservation.objects.filter(
