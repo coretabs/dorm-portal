@@ -11,6 +11,8 @@ export default new Vuex.Store({
     currencyCode: localStorage.getItem('currency-code') || "USD",
     currencySymbol: localStorage.getItem('currency-symbol') || "$",
     drawer: null,
+    managerDrawerControl: false,
+    adminActiveComponent: null,
     currencies: [],
     languages: [],
     filters: [],
@@ -22,6 +24,7 @@ export default new Vuex.Store({
       room_features: [],
       additional_filters: []
     },
+    managerDorms: [],
     reservation: {},
     authStatus: '',
     isAuth: localStorage.getItem('auth'),
@@ -37,7 +40,10 @@ export default new Vuex.Store({
     isLoggedIn: state => !!state.isAuth,
     isAdmin: state => !!state.isAdmin,
     authStatus: state => state.authStatus,
-    reservationData: state => state.reservation
+    reservationData: state => state.reservation,
+    managerDorms: state => state.managerDorms,
+    adminActiveComponent: state => state.adminActiveComponent,
+    managerDrawerControl: state => state.managerDrawerControl
   },
   mutations: {
     fetchLocale(state){
@@ -100,6 +106,9 @@ export default new Vuex.Store({
       $backend.$fetchReservation(id).then(responseDate => {
         state.reservation = responseDate;
       });
+    },
+    fetchManagerDorms(state, responseDate){
+      state.managerDorms = responseDate
     }
   },
   actions: {
@@ -114,6 +123,17 @@ export default new Vuex.Store({
     },
     fetchSearchedDorms(context){
       context.commit('fetchSearchedDorms');
+    },
+    fetchManagerDorms(context){
+      return new Promise((resolve, reject) => {
+        $backend.$fetchManagerDorms().then(response => {
+          context.commit('fetchManagerDorms', response)
+          this.managerDorms = response
+          resolve(response)
+        }).catch(err => {
+          reject(err)
+        })
+      })
     },
     auth({commit}){
       return new Promise((resolve, reject) => {

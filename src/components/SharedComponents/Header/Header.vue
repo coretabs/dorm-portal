@@ -12,7 +12,7 @@
 
     <v-toolbar-items>
       <!-- Currency -->
-      <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y v-if="$route.path !== '/reservation'">
+      <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y v-if="$route.path !== '/reservation' && $route.path !== '/manage'">
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
           {{this.$store.state.currencyCode}}<v-icon color="#ccc" right>expand_more</v-icon>
         </v-btn>

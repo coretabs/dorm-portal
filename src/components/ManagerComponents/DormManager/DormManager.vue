@@ -1,7 +1,7 @@
 <template>
 <div id="manager">
   <!-- filters sidebar -->
-  <v-navigation-drawer touchless :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawerControl" fixed app>
+  <v-navigation-drawer width="220" touchless :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawerControl" fixed app>
     <v-list dense>
         <v-list-tile v-for="(menu,index) in drawerMenu" :key="index" @click="loadComponent(menu.componentName)">
           <v-list-tile-content>

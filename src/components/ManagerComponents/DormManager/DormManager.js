@@ -3,6 +3,7 @@ import ManageDorm from '../ManageDorm/ManageDorm.vue'
 import ManageRooms from '../ManageRooms/ManageRooms.vue'
 import ManageReservations from '../ManageReservations/ManageReservations.vue'
 import AddNewRoom from '../AddNewRoom/AddNewRoom.vue'
+import SelectDorm from '../SelectDorm/SelectDorm.vue'
 
 export default {
   name: "DormManager",
@@ -10,12 +11,11 @@ export default {
     ManageDorm,
     ManageRooms,
     ManageReservations,
-    AddNewRoom
+    AddNewRoom,
+    SelectDorm
   },
   data: function () {
     return {
-      drawerControl: null,
-      currentTabComponent: ManageReservations,
       drawerMenu: [
         {
           icon: 'fa-money-bill-wave',
@@ -34,17 +34,37 @@ export default {
   },
   methods: {
     loadComponent(component){
-      this.currentTabComponent = component
+      this.$store.state.adminActiveComponent = component
+    },
+    fetchManagerDorms(){
+      this.$store.dispatch("fetchManagerDorms").then((response)=>{
+        if(response.length > 1 && !localStorage.getItem("manageDormID")){
+          this.$store.state.adminActiveComponent = 'SelectDorm'
+        }else{
+          this.$store.state.managerDrawerControl = null
+          this.$store.state.adminActiveComponent = 'ManageReservations'
+        }
+      })
+      
     }
   },
   computed: {
     lang() {
-      return this.$store.getters.lang;
-    }    
+      return this.$store.getters.lang
+    },
+    currentTabComponent(){
+      return this.$store.getters.adminActiveComponent
+    },
+    drawerControl(){
+      return this.$store.getters.managerDrawerControl
+    }
   },
   created() {
+  },
+  mounted(){
     this.$root.$on('currentTabComponent',(componentName) => {
-      this.currentTabComponent = componentName;
+      this.$store.state.adminActiveComponent = componentName;
     })
+    this.fetchManagerDorms()
   }
 };

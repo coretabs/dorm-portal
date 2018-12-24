@@ -127,6 +127,14 @@ $backend.$uploadReceipt = (id, formData) => {
     .then(response => response.data)
 }
 
+
+$backend.$fetchManagerDorms = () => {
+    return $backend.get(`/manager-dorms/`)
+        .then(response => response.data)
+}
+
+
+
 $backend.$deleteMessage = (msgId) => {
     return $backend.delete(`messages/${msgId}`)
         .then(response => response.data)

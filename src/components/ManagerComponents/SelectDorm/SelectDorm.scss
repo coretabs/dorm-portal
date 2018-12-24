@@ -1,0 +1,87 @@
+@import "../../../assets/styles/vars";
+@import "../../../assets/styles/mixins";
+#manage-reservations{
+  #statistics-cards{
+    > div{
+      @include box-sizing();
+      padding: 10px;
+      div{
+        background: #ccc;
+        padding: 20px 40px;
+        @include radius(5px);
+        cursor: pointer;
+      }
+      span{
+        font-size: 32px;
+        font-weight: 500;
+      }
+      &:nth-of-type(1){
+        div{
+          background: #d0d0d0;
+          h3{
+            color: #656565;
+          }
+        }
+      }
+      &:nth-of-type(2){
+        div{
+          background: #89a4cc;
+          h3{
+            color: #2b4771;
+          }
+        }
+      }
+      &:nth-of-type(3){
+        div{
+          background: #f5cd79;
+          h3{
+            color: #a27c2b;
+          }
+        }
+      }
+      &:nth-of-type(4){
+        div{
+          background: #51b783;
+          h3{
+            color: #0f5547;
+          }
+        }
+      }
+      &:nth-of-type(5){
+        div{
+          background: #e54f43;
+          h3{
+            color: #661b16;
+          }
+        }
+      }
+      &:nth-of-type(6){
+        div{
+          background: #f19066;
+          h3{
+            color: #783b20;
+          }
+        }
+      }
+    }
+  }
+  #receipts-records{
+    .v-btn{
+      margin-left:0;
+    }
+    .receipts-btn{
+      padding: 0;
+      font-weight: normal;
+      text-transform: capitalize;
+    }
+  }
+}
+.details-model__info{
+  margin: 5px 5px 14px;
+  h3{
+    margin-bottom: 3px;
+  }
+  span{
+    font-size: 18px;
+  }
+}
