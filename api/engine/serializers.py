@@ -243,6 +243,7 @@ class ReservationManagementDetailsSerializer(serializers.ModelSerializer):
         model=models.Reservation
         fields=('id',
                   'reservation_creation_date', 'confirmation_deadline_date', 'status',
+                  'is_reviewed', 'is_reviewable',
                   'last_update_date', 'follow_up_message',
                   'student_name', 'student_email', 
                   'room_id', 'room_price', 'room_price_currency', 
@@ -747,7 +748,7 @@ class DormManagementDetailsSerializer(serializers.ModelSerializer):
 
 class DormSerializer(serializers.ModelSerializer):
     rooms_left_in_dorm = serializers.IntegerField()
-    
+
     number_of_reviews = serializers.IntegerField()
     stars_average = serializers.DecimalField(decimal_places=1, max_digits=2)
 
