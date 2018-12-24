@@ -63,8 +63,8 @@ dorms
 	name
     cover
 
-    stars
     number_of_reviews
+	stars_average
 
     geo_longitude
     geo_latitude

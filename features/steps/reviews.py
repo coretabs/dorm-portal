@@ -95,10 +95,10 @@ def act(context):
 
 @then('is_reviewable is false for already reviewed reservation')
 def test(context):
-    context.reservation_creation_date_plus_two_months = context.reservation2.reservation_creation_date + \
+    context.reservation_creation_date_plus_three_months = context.reservation2.reservation_creation_date + \
         datetime.timedelta(days=90)
 
-    with freeze_time(context.reservation_creation_date_plus_two_months):
+    with freeze_time(context.reservation_creation_date_plus_three_months):
         context.reservation1 = Reservation.objects.get(pk=context.reservation1.id)
         context.reservation2 = Reservation.objects.get(pk=context.reservation2.id)
         # print(datetime.date.today())
@@ -128,7 +128,7 @@ def act(context):
 def test(context):
     settings.EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
 
-    with freeze_time(context.reservation_creation_date_plus_two_months):
+    with freeze_time(context.reservation_creation_date_plus_three_months):
         assert context.deserialized_data.is_valid() == True
         assert len(mail.outbox) == 0
 
@@ -142,7 +142,7 @@ def act(context):
     #force_authenticate(request, context.john)
     #view = ReservationManagementViewSet.as_view(actions={'post': 'ask_review'})
     #context.response = view(request, dorm_pk=context.alfam.id, pk=context.reservation1.id)
-    with freeze_time(context.reservation_creation_date_plus_two_months):
+    with freeze_time(context.reservation_creation_date_plus_three_months):
         client = APIClient()
         client.force_authenticate(context.john)
         url = reverse('engine.manager-dorms:reservations-ask-review',

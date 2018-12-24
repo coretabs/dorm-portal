@@ -46,8 +46,8 @@ contact_number
 contact_fax
 
 number_of_reviews
-reviews_average
-reviews
+stars_average
+reviews (last 3)
 	review_creation_date
     student_name
     stars

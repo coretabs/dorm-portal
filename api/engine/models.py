@@ -94,6 +94,20 @@ class DormitoryQuerySet(django_models.QuerySet):
     def available(self):
         return self.filter(room_characteristics__allowed_quota__gte=1)
 
+    def with_last_3_reviews(self):
+        last_3_reviews = django_models.Subquery(
+            Review.objects.filter(dormitory__in=self,
+                                  dormitory_id=django_models.OuterRef('dormitory_id')).values_list('id', flat=True)[:3])
+
+        prefetch_reviews = django_models.Prefetch(
+            'reviews', queryset=Review.objects.filter(id__in=last_3_reviews))
+        return self.prefetch_related(prefetch_reviews)
+
+    def with_reviews_statistics(self):
+        reviews_count = django_models.Count('reviews', distinct=True)
+        reviews_avg = django_models.Avg('reviews__stars', distinct=True)
+        return self.annotate(number_of_reviews=reviews_count, stars_average=reviews_avg)
+
     def superfilter(self, category_id=None, duration_option_id=None,
                     dorm_features_ids=None, radio_integeral_choices=None, room_features_ids=None):
 
@@ -459,7 +473,7 @@ class Reservation(django_models.Model):
     objects = ReservationQuerySet.as_manager()
 
     class Meta:
-        ordering = ['reservation_creation_date']
+        ordering = ['-reservation_creation_date']
 
     @classmethod
     def create(cls, *args, **kwargs):
@@ -572,6 +586,12 @@ class Review(django_models.Model):
         User, related_name='reviews', on_delete=django_models.CASCADE)
     dormitory = django_models.ForeignKey(
         Dormitory, related_name='reviews', on_delete=django_models.CASCADE)
+
+    class Meta:
+        ordering = ['-review_creation_date']
+
+    def __str__(self):
+        return f'Review id {self.id} for {self.user}'
 
 
 class UploadablePhoto(django_models.Model):

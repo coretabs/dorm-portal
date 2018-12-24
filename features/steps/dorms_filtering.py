@@ -140,7 +140,8 @@ def act(context):
 
     context.filtered_dorms = Dormitory.objects.superfilter(
         radio_integeral_choices=[breakfast_both, price_choice, bathroom_choice],
-        room_features_ids=[context.luxury_shower.id, context.air_conditioner.id])
+        room_features_ids=[context.luxury_shower.id, context.air_conditioner.id])\
+        .with_last_3_reviews().with_reviews_statistics()
 
 
 @then('get only dovec with one room only')
@@ -195,7 +196,7 @@ def test(context):
     returned_dorms = context.response.render().data[0]
 
     number_of_returned_json_filters = len(list(returned_dorms))
-    assert number_of_returned_json_filters == 9
+    assert number_of_returned_json_filters == 11
 
     print(context.response.render().data)
     assert str(context.response.render().data).count("('name', 'Dovec')") == 1

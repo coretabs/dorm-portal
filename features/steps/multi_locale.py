@@ -155,7 +155,7 @@ def test(context):
     returned_dorms = context.response.render().data[0]
 
     number_of_returned_json_filters = len(list(returned_dorms))
-    assert number_of_returned_json_filters == 9
+    assert number_of_returned_json_filters == 11
 
     # print(context.response.render().data)
     assert str(context.response.render().data).count("('choice', 'Breakfast')") == 1
@@ -176,7 +176,7 @@ def test(context):
     returned_dorms = context.response.render().data[0]
 
     number_of_returned_json_filters = len(list(returned_dorms))
-    assert number_of_returned_json_filters == 9
+    assert number_of_returned_json_filters == 11
 
     # print(context.response.render().data)
     assert str(context.response.render().data).count("('choice', 'Kahvalti')") == 1
@@ -197,7 +197,7 @@ def test(context):
     returned_dorms = context.response.render().data[0]
 
     number_of_returned_json_filters = len(list(returned_dorms))
-    assert number_of_returned_json_filters == 9
+    assert number_of_returned_json_filters == 11
 
     # print(context.response.render().data)
     assert str(context.response.render().data).count("('choice', 'Breakfast')") == 1

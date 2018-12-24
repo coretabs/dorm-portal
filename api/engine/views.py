@@ -76,7 +76,8 @@ class DormViewSet(viewsets.ViewSet):
                 radio_integeral_choices=deserialized_filters.data.get(
                     'additional_filters', None),
                 room_features_ids=deserialized_filters.data.get(
-                    'room_features', None))
+                    'room_features', None))\
+            .with_reviews_statistics()\
 
         # print(filtered_dorms)
 
@@ -85,7 +86,11 @@ class DormViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
         activate_language(request.query_params.get('language', 'en'))
 
-        dorm = models.Dormitory.objects.filter(id=pk).superfilter().first()
+        dorm = models.Dormitory.objects.filter(id=pk)\
+            .superfilter()\
+            .with_last_3_reviews()\
+            .with_reviews_statistics()\
+            .first()
 
         return Response(serializers.DormDetailsSerializer(dorm).data)
 

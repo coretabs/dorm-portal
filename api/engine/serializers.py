@@ -746,14 +746,18 @@ class DormManagementDetailsSerializer(serializers.ModelSerializer):
 
 
 class DormSerializer(serializers.ModelSerializer):
+    rooms_left_in_dorm = serializers.IntegerField()
+    
+    number_of_reviews = serializers.IntegerField()
+    stars_average = serializers.DecimalField(decimal_places=1, max_digits=2)
+
     features = FeatureFilterSerializer(many=True)
     room_characteristics = RoomSerializer(many=True)
-    rooms_left_in_dorm = serializers.IntegerField()
 
     class Meta:
         model = models.Dormitory
         fields = ('id', 'name', 'cover',
-                  # 'stars', 'number_of_reviews',
+                  'number_of_reviews', 'stars_average',
                   'geo_longitude', 'geo_latitude', 'address',
                   'rooms_left_in_dorm',
                   'features', 'room_characteristics')
@@ -765,6 +769,9 @@ class DormDetailsSerializer(serializers.ModelSerializer):
     about = serializers.SerializerMethodField()
     features = serializers.SerializerMethodField()
     room_characteristics = RoomSerializer(many=True)
+    number_of_reviews = serializers.IntegerField()
+    stars_average = serializers.DecimalField(decimal_places=1, max_digits=2)
+    reviews = ReviewSerializer(many=True)
 
     def get_main_info(self, obj):
         return DormSerializer(obj).data
@@ -782,7 +789,7 @@ class DormDetailsSerializer(serializers.ModelSerializer):
                   'photos',
                   'about', 'contact_name', 'contact_email', 'contact_number', 'contact_fax',
                   'features',
-                  # 'number_of_reviews', 'reviews_average', 'reviews',
+                  'number_of_reviews', 'stars_average', 'reviews',
                   'room_characteristics')
 
 
