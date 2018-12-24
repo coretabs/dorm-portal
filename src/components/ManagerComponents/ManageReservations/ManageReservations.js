@@ -18,19 +18,23 @@ export default {
         { text: '', value: 'deadline' },
         { text: '', value: 'id', sortable: false }
       ],
-      status: [
-        'confirmed',
-        'pending',
-        'Rejected',
-        'Unpaid'
-      ],
+      status: this.$store.getters.lang.manageResrevations.status,
       currentStatus: '',
-      currentStatusId: null,
+      followUpMessage: '',
+      reservationID: null,
+      statusIndex: null,
       details:{
         roomType: '',
         duration:'',
         people: null
-      }
+      },
+      messageRules:[
+        v => !!v || 'Message is required',
+        v => v.length >= 6 || 'Message Must be more than 8 letters'
+      ],
+      statusRules:[
+        v => !!v || 'Status is required',
+      ],
     };
   },
   computed: {
@@ -39,6 +43,9 @@ export default {
     },
     reservations(){
       return this.$store.getters.manageReservation;
+    },
+    showDate(){
+
     }
   },
   methods:{
@@ -58,9 +65,13 @@ export default {
     },
     updateStatus(item){
       this.showUpdateStatus = true
-      this.date = item.deadline
-      this.currentStatusId = item.id
-      this.currentStatus = item.status
+      //this.date = item.confirmation_deadline_date
+      this.reservationID = item.id
+    },
+    close(){
+      this.showUpdateStatus = false,
+      this.currentStatus = '',
+      this.followUpMessage = ''
     },
     fetchManagerReservation(){
       let dorm = this.$store.getters.managerDorms
@@ -69,7 +80,23 @@ export default {
       }
       const dormID = localStorage.getItem('manageDormID') ||  dorm
       this.$store.dispatch("fetchManagerReservation", dormID)
-    }
+    },
+    setStatusIndex(){
+      this.statusIndex = this.status.indexOf(this.currentStatus)
+    },
+    submit(){
+ 
+      let data = {
+        reservationID: this.reservationID,
+        dormID: localStorage.getItem('manageDormID'),
+        status: this.statusIndex,
+        deadline: this.date,
+        message: this.followUpMessage
+      }
+      if(this.$refs.form.validate()){
+        this.$store.dispatch("updateReservationStatus", data)
+      }
+    },
   },
   mounted(){
     this.fetchManagerReservation(),

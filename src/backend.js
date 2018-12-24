@@ -118,7 +118,7 @@ $backend.$resetPasswordConfirm = (data) => {
         new_password1: data.password,
         new_password2: data.password
     })
-        .then(response => response.data)
+    .then(response => response.data)
 }
 
 
@@ -136,6 +136,15 @@ $backend.$fetchManagerDorms = () => {
 $backend.$fetchManagerReservation = (id) => {
     return $backend.get(`/manager-dorms/${id}/reservations/`)
         .then(response => response.data)
+}
+
+$backend.$updateReservationStatus = (data) => {
+    return $backend.put(`/manager-dorms/${data.dormID}/reservations/${data.reservationID}/`,{
+        status: data.status,
+        confirmation_deadline_date: data.deadline,
+        follow_up_message: data.message
+    })
+    .then(response => response.data)
 }
 
 

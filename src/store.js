@@ -265,7 +265,19 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    updateReservationStatus(context, data){
+      return new Promise((resolve, reject) => {
+        $backend.$updateReservationStatus(data).then(responseDate => {
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
     }
+
+    
 
   }
 });

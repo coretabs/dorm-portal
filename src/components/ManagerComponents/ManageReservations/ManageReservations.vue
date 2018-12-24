@@ -56,7 +56,7 @@
               <v-spacer></v-spacer>
               <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
             </v-card-title>
-            
+
             <v-data-table :headers="headers" :items="reservations.reservations" :search="search">
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">{{ props.item.room_characteristics.price_currency }}{{ props.item.room_characteristics.price }}</td>
@@ -68,7 +68,7 @@
                       <v-icon color="#999">expand_more</v-icon>
                     </v-btn>
                     <v-list>
-                      <v-list-tile v-for="(receipt,i) in props.item.receipts" :key="i" >
+                      <v-list-tile v-for="(receipt,i) in props.item.receipts" :key="i">
                         <a :href="receipt.url" download>{{lang.manageResrevations.receipt}} {{i+1}}</a>
                       </v-list-tile>
                     </v-list>
@@ -137,51 +137,36 @@
   <v-layout row justify-center>
     <v-dialog v-model="showUpdateStatus" persistent max-width="600px">
       <v-card lazy>
-       
         <v-card-text>
           <v-container grid-list-md>
-            <v-layout wrap>
-              <v-flex xs12>
-                <v-select :items="status" v-model="currentStatus" label="Status"></v-select>
-              </v-flex>
-              <v-flex xs12 v-if="currentStatus == 'pending' ">
-                   <v-menu
-                    ref="menu"
-                    :close-on-content-click="false"
-                    v-model="menu"
-                    :nudge-right="40"
-                    :return-value.sync="date"
-                    lazy
-                    transition="scale-transition"
-                    offset-y
-                    full-width
-                    min-width="290px"
-                    >
-                      <v-text-field
-                        slot="activator"
-                        v-model="date"
-                        label="Deadline"
-                        readonly
-                      ></v-text-field>
-                      <v-date-picker v-model="date" no-title scrollable>
-                        <v-spacer></v-spacer>
-                        <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-                        <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                      </v-date-picker>
+            <v-form ref="form" lazy-validation>
+
+              <v-layout wrap>
+                <v-flex xs12>
+                  <v-select :items="status" v-model="currentStatus" label="Status" @change="setStatusIndex" required :rules="statusRules"></v-select>
+                </v-flex>
+                <v-flex xs12 v-if="statusIndex == 0">
+                  <v-menu ref="menu" :close-on-content-click="false" v-model="menu" :nudge-right="40" :return-value.sync="date" lazy transition="scale-transition" offset-y full-width min-width="290px">
+                    <v-text-field slot="activator" v-model="date" label="Deadline" readonly></v-text-field>
+                    <v-date-picker v-model="date" no-title scrollable>
+                      <v-spacer></v-spacer>
+                      <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                      <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                    </v-date-picker>
                   </v-menu>
-              </v-flex>
-              <v-flex xs12>
-                <v-textarea
-                  label="Note"
-                ></v-textarea>
-              </v-flex>
-            </v-layout>
+                </v-flex>
+                <v-flex xs12>
+                  <v-textarea label="Note" v-model="followUpMessage" required :rules="messageRules"></v-textarea>
+                </v-flex>
+
+              </v-layout>
+            </v-form>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click="showUpdateStatus = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="showUpdateStatus = false">Update</v-btn>
+          <v-btn color="blue darken-1" flat @click="close">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click="submit">Update</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
