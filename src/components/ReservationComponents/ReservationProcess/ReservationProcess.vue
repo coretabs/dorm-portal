@@ -1,6 +1,6 @@
 <template>
 <v-content id="reservation">
-  <v-container fluid fill-height mb-4 mt-3>
+  <v-container fluid fill-height py-5>
     <v-layout justify-center>
       <v-flex xs12 sm8 md8>
         <v-stepper v-model="reservationStep" class="pb-4">

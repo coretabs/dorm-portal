@@ -5,26 +5,26 @@
 
   #amount {
     background: $light-green-color;
-    padding: 20px;
+    padding: 26px 30px;
     @include radius(4px);
     position: relative;
 
     h3 {
-      color: $white-color;
-      font-weight: 400;
+      color: rgba(0, 0, 0, 0.6);
+      font-weight: 700;
     }
 
     span {
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 600;
     }
 
     .v-icon {
       position: absolute;
-      right: 50px;
+      right: 40px;
       top: 0;
       bottom: 0;
-      font-size: 42px;
+      font-size: 50px;
       color: rgba(0, 0, 0, 0.3);
     }
   }

@@ -24,7 +24,7 @@ export default {
     reservationStep(){
       if(this.$store.getters.isLoggedIn){
         const step = JSON.parse(localStorage.getItem('auth'));
-        this.progress = 2 //step.current_step || 1;
+        this.progress = step.current_step || 1;
       }else{
         this.progress = 1;
       }

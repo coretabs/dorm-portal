@@ -1,6 +1,6 @@
 <template>
 <v-layout row wrap>
-  <v-flex v-if="date" xs12 class="mb-5 mt-4 confirmation-countdown">
+  <v-flex v-if="date" xs12 class="my-4 mx-3  confirmation-countdown">
     <h1>Confirmation Deadline</h1>
     <flip-countdown :deadline="date"></flip-countdown>
   </v-flex>
@@ -63,14 +63,14 @@
 
               <div class="upload">
 
-                <v-layout align-center>
-                  <v-flex md3>
+                <v-layout align-center wrap>
+                  <v-flex md3 xs12>
                     <label for="file">
                       <v-icon>fa-plus</v-icon>
                       {{lang.confirmPayment.chooseFile}}
                     </label>
                   </v-flex>
-                  <v-flex md9 class="text-md-left">
+                  <v-flex md9 xs12 class="text-md-left">
                     <p>Allowed documents: JEPG, PNG, GIF and PDF</p>
                   </v-flex>
                 </v-layout>
