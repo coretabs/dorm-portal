@@ -10,6 +10,17 @@
         padding: 20px 40px;
         @include radius(5px);
         cursor: pointer;
+        position: relative;
+
+        .v-icon{
+          position: absolute;
+          right: 35px;
+          top: 0;
+          bottom: 0;
+          margin: 0;
+          font-size: 30px;
+          color: rgba(0,0,0,.1)
+        }
       }
       span{
         font-size: 32px;

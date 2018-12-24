@@ -1,11 +1,12 @@
 <template>
-<div id="manage-reservations">
+<div id="manage-reservations" class="mt-2">
   <v-card>
     <v-card-text>
       <v-layout id="statistics-cards" wrap>
 
         <v-flex xs6 md2>
           <div @click="filterStatus('')">
+            <v-icon>fa-layer-group</v-icon>
             <h3>{{lang.manageResrevations.all}}</h3>
             <span>{{allReservation}}</span>
           </div>
@@ -13,6 +14,7 @@
 
         <v-flex xs6 md2>
           <div @click="filterStatus(3)">
+            <v-icon>fa-hourglass-end</v-icon>
             <h3>{{lang.manageResrevations.wating}}</h3>
             <span>{{reservations.waiting_for_manager_action_reservations}}</span>
           </div>
@@ -20,6 +22,7 @@
 
         <v-flex xs6 md2>
           <div @click="filterStatus(lang.manageResrevations.pending)">
+            <v-icon>fa-history</v-icon>
             <h3>{{lang.manageResrevations.pending}}</h3>
             <span>{{reservations.pending_reservations}}</span>
           </div>
@@ -27,6 +30,7 @@
 
         <v-flex xs6 md2>
           <div @click="filterStatus(lang.manageResrevations.confirmed)">
+            <v-icon>fa-check</v-icon>
             <h3>{{lang.manageResrevations.confirmed}}</h3>
             <span>{{reservations.confirmed_reservations}}</span>
           </div>
@@ -34,6 +38,7 @@
 
         <v-flex xs6 md2>
           <div @click="filterStatus(lang.manageResrevations.rejected)">
+            <v-icon>fa-ban</v-icon>
             <h3>{{lang.manageResrevations.rejected}}</h3>
             <span>{{reservations.rejected_reservations}}</span>
           </div>
@@ -41,6 +46,7 @@
 
         <v-flex xs6 md2>
           <div @click="filterStatus(lang.manageResrevations.unpaid)">
+            <v-icon>fa-calendar-times</v-icon>
             <h3>{{lang.manageResrevations.Expired}}</h3>
             <span>{{reservations.expired_reservations}}</span>
           </div>
@@ -52,7 +58,7 @@
         <v-flex xs12>
           <v-card class="elevation-0">
             <v-card-title>
-              <strong>{{lang.manageResrevations.heading}}</strong>
+              <h2>{{lang.manageResrevations.heading}}</h2>
               <v-spacer></v-spacer>
               <v-text-field v-model="search" prepend-icon="search" label="Search" single-line hide-details></v-text-field>
             </v-card-title>
@@ -111,7 +117,7 @@
                 <td class="text-xs-left">{{ props.item.confirmation_deadline_date }}</td>
                 <td class="text-xs-left layout px-0">
                   <v-btn @click="showMoreDetails(props.item)" flat icon>
-                    <v-icon color="#777">fa-info-circle</v-icon>
+                    <v-icon color="#28439a">fa-info-circle</v-icon>
                   </v-btn>
                   <v-btn depressed @click="updateStatus(props.item)" v-if="props.item.status != 2" color="green" dark>{{lang.manageResrevations.updateStatus}}</v-btn>
                   <v-btn depressed v-else>{{lang.manageResrevations.askForReview}}</v-btn>
