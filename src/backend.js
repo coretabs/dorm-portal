@@ -133,6 +133,11 @@ $backend.$fetchManagerDorms = () => {
         .then(response => response.data)
 }
 
+$backend.$fetchManagerReservation = (id) => {
+    return $backend.get(`/manager-dorms/${id}/reservations/`)
+        .then(response => response.data)
+}
+
 
 
 $backend.$deleteMessage = (msgId) => {

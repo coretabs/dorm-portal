@@ -18,60 +18,7 @@ export default {
         { text: '', value: 'deadline' },
         { text: '', value: 'id', sortable: false }
       ],
-      reservations: [
-        {
-          id: 1,
-          amount: 1600,
-          name: 'Mohammed Alhakem',
-          passport: '05727780',
-          email: 'Alhakeem.prof@gmail.com',
-          submittedOn: '2018-08-02',
-          deadline: '2018-06-02',
-          status: 'pending',
-          receipts: ['https://google.com'],
-          room_type: 'Singel Room',
-          duration: 'summer'
-        },
-        {
-          id: 2,
-          amount: 1000,
-          name: 'Yasser Alnajjar',
-          passport: '05727780',
-          email: 'Alhakeem.prof@gmail.com',
-          submittedOn: '2018-08-02',
-          deadline: '2018-08-02',
-          status: 'confirmed',
-          receipts: ['https://google.com','https://youtube.com'],
-          room_type: 'Double Room',
-          duration: 'full Academic Year'
-        },
-        {
-          id: 3,
-          amount: 3000,
-          name: 'Yasser Alnajjar',
-          passport: '05727780',
-          email: 'Alhakeem.pro@gmail.com',
-          submittedOn: '2018-08-02',
-          deadline: '2018-08-02',
-          status: 'Unpaid',
-          receipts: ['https://google.com','https://youtube.com'],
-          room_type: 'Singel Room',
-          duration: 'summer'
-        },
-        {
-          id: 4,
-          amount: 4000,
-          name: 'Yasser Alnajjar',
-          passport: '05727780',
-          email: 'Alhakeem.prof@gmail.com',
-          submittedOn: '2018-08-02',
-          deadline: '2018-08-02',
-          status: 'confirmed',
-          receipts: ['https://google.com','https://youtube.com'],
-          room_type: 'Dalux Room',
-          duration: 'fall'
-        }
-      ],
+      reservations: [],
       status: [
         'confirmed',
         'pending',
@@ -82,7 +29,8 @@ export default {
       currentStatusId: null,
       details:{
         roomType: '',
-        duration:''
+        duration:'',
+        people: null
       }
     };
   },
@@ -102,17 +50,29 @@ export default {
     },
     showMoreDetails(item){
       this.showDetails = true
-      this.details.duration = item.duration
-      this.details.roomType =  item.room_type
+      this.details.duration = item.room_characteristics.duration
+      this.details.roomType =  item.room_characteristics.room_type
+      this.details.people = item.room_characteristics.people_allowed_number
     },
     updateStatus(item){
       this.showUpdateStatus = true
       this.date = item.deadline
       this.currentStatusId = item.id
       this.currentStatus = item.status
+    },
+    fetchManagerReservation(){
+      let dorm = this.$store.getters.managerDorms
+      if(dorm){
+        dorm = dorm[0].id
+      }
+      const dormID = localStorage.getItem('manageDormID') ||  dorm
+      this.$store.dispatch("fetchManagerReservation", dormID).then((response)=>{
+        this.reservations = response
+      })
     }
   },
   mounted(){
+    this.fetchManagerReservation(),
     this.setHeaderText()
   }
 };

@@ -124,17 +124,6 @@ export default new Vuex.Store({
     fetchSearchedDorms(context){
       context.commit('fetchSearchedDorms');
     },
-    fetchManagerDorms(context){
-      return new Promise((resolve, reject) => {
-        $backend.$fetchManagerDorms().then(response => {
-          context.commit('fetchManagerDorms', response)
-          this.managerDorms = response
-          resolve(response)
-        }).catch(err => {
-          reject(err)
-        })
-      })
-    },
     auth({commit}){
       return new Promise((resolve, reject) => {
         $backend.$auth().then(responseDate => {
@@ -248,6 +237,26 @@ export default new Vuex.Store({
           resolve(response)
         })
         .catch(err => {
+          reject(err)
+        })
+      })
+    },
+    fetchManagerDorms(context){
+      return new Promise((resolve, reject) => {
+        $backend.$fetchManagerDorms().then(response => {
+          context.commit('fetchManagerDorms', response)
+          this.managerDorms = response
+          resolve(response)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    fetchManagerReservation(context, id){
+      return new Promise((resolve, reject) => {
+        $backend.$fetchManagerReservation(id).then(response => {
+          resolve(response)
+        }).catch(err => {
           reject(err)
         })
       })

@@ -56,29 +56,38 @@
               <v-spacer></v-spacer>
               <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
             </v-card-title>
-            <v-data-table :headers="headers" :items="reservations" :search="search">
+            
+            <v-data-table :headers="headers" :items="reservations.reservations" :search="search">
               <template slot="items" slot-scope="props">
-                <td class="text-xs-left">${{ props.item.amount }}</td>
+                <td class="text-xs-left">{{ props.item.room_characteristics.price_currency }}{{ props.item.room_characteristics.price }}</td>
                 <td class="text-xs-left">
 
-                  <v-menu offset-y>
+                  <v-menu offset-y v-if="props.item.receipts.length">
                     <v-btn class="receipts-btn" slot="activator" depressed flat>
                       {{lang.manageResrevations.download}}
                       <v-icon color="#999">expand_more</v-icon>
                     </v-btn>
                     <v-list>
-                      <v-list-tile v-for="(receipt,i) in props.item.receipts" :key="i">
-                        <a :href="receipt" download>{{lang.manageResrevations.receipt}} {{i+1}}</a>
+                      <v-list-tile v-for="(receipt,i) in props.item.receipts" :key="i" >
+                        <a :href="receipt.url" download>{{lang.manageResrevations.receipt}} {{i+1}}</a>
                       </v-list-tile>
                     </v-list>
                   </v-menu>
+                  <div v-else class="grey--text text--darken-5 ml-1">No Files</div>
 
                 </td>
-                <td class="text-xs-left">{{ props.item.status }}</td>
-                <td class="text-xs-left">{{ props.item.name }}</td>
-                <td class="text-xs-left">{{ props.item.email }}</td>
-                <td class="text-xs-left">{{ props.item.submittedOn }}</td>
-                <td class="text-xs-left">{{ props.item.deadline }}</td>
+                <td class="text-xs-left">
+                  <span v-if="props.item.status == 0">Pending</span>
+                  <span v-else-if="props.item.status == 1">Rejected</span>
+                  <span v-else-if="props.item.status == 2">Confirmed</span>
+                  <span v-else-if="props.item.status == 3">Wating Action</span>
+                  <span v-else-if="props.item.status == 4">Updated</span>
+                  <span v-else>Expired</span>
+                </td>
+                <td class="text-xs-left">{{ props.item.user.name }}</td>
+                <td class="text-xs-left">{{ props.item.user.email }}</td>
+                <td class="text-xs-left">{{ props.item.reservation_creation_date }}</td>
+                <td class="text-xs-left">{{ props.item.confirmation_deadline_date }}</td>
                 <td class="text-xs-left layout px-0">
                   <v-btn @click="showMoreDetails(props.item)" flat icon>
                     <v-icon color="#ccc">fa-info-circle</v-icon>
@@ -109,6 +118,10 @@
           <div class="details-model__info">
             <h3>Staying Duration:</h3>
             <span>{{details.duration}}</span>
+          </div>
+          <div class="details-model__info">
+            <h3>Number of People:</h3>
+            <span>{{details.people}}</span>
           </div>
         </v-card-text>
         <v-card-actions>
