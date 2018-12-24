@@ -6,13 +6,13 @@
     <v-btn flat color="white" @click="closeSnackbar">close</v-btn>
   </v-snackbar>
   
-  <v-toolbar light flat fixed app :clipped-left="$vuetify.breakpoint.lgAndUp">
+  <v-toolbar light flat fixed app >
     <!-- <v-toolbar-side-icon  @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
     <v-toolbar-title>
       <v-layout>
-        <v-flex class="text-xs-center" v-if="$route.path === '/manage'">
-          <v-btn flat class="mr-2 my-0" icon @click="toggleAdminDrawer">
-            <v-icon class="">fa-bars</v-icon>
+        <v-flex class="text-xs-center" v-if="$route.path === '/manage' || $route.path === '/'">
+          <v-btn flat class="mr-2 my-0" icon @click="toggleDrawer">
+            <v-icon>menu</v-icon>
           </v-btn>
         </v-flex>
         <v-flex>

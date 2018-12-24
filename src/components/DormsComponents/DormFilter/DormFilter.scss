@@ -16,18 +16,20 @@
     @include radius(10px);
   }
   #filters-heading {
-    line-height: 50px;
+    line-height: 64px;
     padding: 2px 15px 0;
     background: #ff884e;
     background: -webkit-linear-gradient(to right, #f9ba23, #ff884e);
     background: linear-gradient(to right, #f9ba23, #ff884e);
     font-size: 1.3em;
+    font-weight: 500;
     color: #000;
     width: 100%;
     .v-icon {
       color: #b75f11;
-      margin-right: 6px;
+      margin-right: 10px;
       margin-left: 6px;
+      font-size: 20px;
     }
   }
   #filters-body {
@@ -116,6 +118,8 @@
   }
   .v-navigation-drawer{
     width: 300px !important;
+    margin-top: 0 !important;
+    max-height: 100% !important;
   }
   @media (max-width: 600px) {
     .v-navigation-drawer--close{

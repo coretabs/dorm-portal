@@ -4,7 +4,7 @@
   <v-navigation-drawer touchless :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawerControl" fixed app>
     <template>
       <div id="filters-heading">
-        <v-icon left>filter_list</v-icon>{{lang.dormFilter.heading}} :
+        <v-icon left>fa-filter</v-icon>{{lang.dormFilter.heading}} :
       </div>
       <div id="filters-body">
 

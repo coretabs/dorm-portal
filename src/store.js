@@ -15,7 +15,6 @@ export default new Vuex.Store({
     currencyCode: localStorage.getItem('currency-code') || "USD",
     currencySymbol: localStorage.getItem('currency-symbol') || "$",
     drawer: null,
-    managerDrawerControl: false,
     adminActiveComponent: null,
     snackbar: {
       trigger: false,
@@ -53,7 +52,7 @@ export default new Vuex.Store({
     reservationData: state => state.reservation,
     managerDorms: state => state.managerDorms,
     adminActiveComponent: state => state.adminActiveComponent,
-    managerDrawerControl: state => state.managerDrawerControl,
+    drawer: state => state.drawer,
     manageReservation: state => state.manageReservation,
     snackbar : state => state.snackbar,
   },

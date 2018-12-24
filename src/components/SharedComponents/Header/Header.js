@@ -23,9 +23,6 @@ export default {
     toggleDrawer(){
       this.$store.state.drawer = !this.$store.state.drawer
     },
-    toggleAdminDrawer(){
-      this.$store.state.managerDrawerControl = !this.$store.state.managerDrawerControl
-    },
     logout(){
       this.$store.dispatch('logout')
       .then(() => {

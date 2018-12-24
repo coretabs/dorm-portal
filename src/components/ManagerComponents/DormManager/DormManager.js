@@ -56,7 +56,7 @@ export default {
       return this.$store.getters.adminActiveComponent
     },
     drawerControl(){
-      return this.$store.getters.managerDrawerControl
+      return this.$store.getters.drawer
     }
   },
   created() {
