@@ -83,7 +83,7 @@
       "pending": "Pending",
       "confirmed": "Confirmed",
       "rejected": "Rejected",
-      "unpaid": "Unpaid",
+      "Expired": "Expired",
       "searchResults": "No record found for ",
       "updateStatus": "Update Status",
       "askForReview": "Ask for review",
@@ -98,6 +98,11 @@
         "Submitted On",
         "Deadline",
         "Actions"        
+      ],
+      "status":[
+        "Pending",
+        "Rejected",
+        "Confirm"
       ]
     },
     "manageRoom": [

@@ -7,42 +7,42 @@
         <v-flex xs6 md2>
           <div @click="filterStatus('')">
             <h3>{{lang.manageResrevations.all}}</h3>
-            <span>25</span>
+            <span>0</span>
           </div>
         </v-flex>
 
         <v-flex xs6 md2>
           <div @click="filterStatus(lang.manageResrevations.wating)">
             <h3>{{lang.manageResrevations.wating}}</h3>
-            <span>25</span>
+            <span>{{reservations.waiting_for_manager_action_reservations}}</span>
           </div>
         </v-flex>
 
         <v-flex xs6 md2>
           <div @click="filterStatus(lang.manageResrevations.pending)">
             <h3>{{lang.manageResrevations.pending}}</h3>
-            <span>12</span>
+            <span>{{reservations.pending_reservations}}</span>
           </div>
         </v-flex>
 
         <v-flex xs6 md2>
           <div @click="filterStatus(lang.manageResrevations.confirmed)">
             <h3>{{lang.manageResrevations.confirmed}}</h3>
-            <span>125</span>
+            <span>{{reservations.confirmed_reservations}}</span>
           </div>
         </v-flex>
 
         <v-flex xs6 md2>
           <div @click="filterStatus(lang.manageResrevations.rejected)">
             <h3>{{lang.manageResrevations.rejected}}</h3>
-            <span>35</span>
+            <span>{{reservations.rejected_reservations}}</span>
           </div>
         </v-flex>
 
         <v-flex xs6 md2>
           <div @click="filterStatus(lang.manageResrevations.unpaid)">
-            <h3>{{lang.manageResrevations.unpaid}}</h3>
-            <span>28</span>
+            <h3>{{lang.manageResrevations.Expired}}</h3>
+            <span>{{reservations.expired_reservations}}</span>
           </div>
         </v-flex>
 
@@ -54,24 +54,45 @@
             <v-card-title>
               <strong>{{lang.manageResrevations.heading}}</strong>
               <v-spacer></v-spacer>
-              <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+              <v-text-field v-model="search" prepend-icon="search" label="Search" single-line hide-details></v-text-field>
             </v-card-title>
 
-            <v-data-table :headers="headers" :items="reservations.reservations" :search="search">
+            <v-data-table :headers="headers" :items="reservations.reservations" :search="search" :rows-per-page-items="rowsPerPage" :pagination.sync="pagination">
               <template slot="items" slot-scope="props">
-                <td class="text-xs-left">{{ props.item.room_characteristics.price_currency }}{{ props.item.room_characteristics.price }}</td>
+                <td class="text-xs-left">{{ props.item.room_price_currency }}{{ props.item.room_price }}</td>
                 <td class="text-xs-left">
 
-                  <v-menu offset-y v-if="props.item.receipts.length">
+                  <v-menu :close-on-content-click="false" transition="slide-y-transition" :nudge-width="150" offset-y v-if="props.item.receipts.length">
                     <v-btn class="receipts-btn" slot="activator" depressed flat>
                       {{lang.manageResrevations.download}}
                       <v-icon color="#999">expand_more</v-icon>
                     </v-btn>
-                    <v-list>
-                      <v-list-tile v-for="(receipt,i) in props.item.receipts" :key="i">
-                        <a :href="receipt.url" download>{{lang.manageResrevations.receipt}} {{i+1}}</a>
-                      </v-list-tile>
-                    </v-list>
+
+                    <v-card class="v-list-files">
+                      <v-list v-for="(receipt,i) in props.item.receipts" :key="i">
+                        <v-list-tile avatar>
+                          
+
+                          <v-list-tile-content>
+                            <v-list-tile-title>
+                              <a :href="receipt.url" download>{{lang.manageResrevations.receipt}} {{i+1}}</a>
+                            </v-list-tile-title>
+                            <v-list-tile-sub-title>
+                              {{receipt.upload_receipt_date}}
+                            </v-list-tile-sub-title>
+                          </v-list-tile-content>
+
+                          <v-list-tile-action>
+                            <a :href="receipt.url" download>
+                              <v-icon class="grey--text text--lighten-1">fa-file-download</v-icon>
+                            </a>
+                          </v-list-tile-action>
+
+                        </v-list-tile>
+
+                      </v-list>
+
+                    </v-card>
                   </v-menu>
                   <div v-else class="grey--text text--darken-5 ml-1">No Files</div>
 
@@ -84,15 +105,15 @@
                   <span v-else-if="props.item.status == 4">Updated</span>
                   <span v-else>Expired</span>
                 </td>
-                <td class="text-xs-left">{{ props.item.user.name }}</td>
-                <td class="text-xs-left">{{ props.item.user.email }}</td>
+                <td class="text-xs-left">{{ props.item.student_name }}</td>
+                <td class="text-xs-left">{{ props.item.student_email }}</td>
                 <td class="text-xs-left">{{ props.item.reservation_creation_date }}</td>
                 <td class="text-xs-left">{{ props.item.confirmation_deadline_date }}</td>
                 <td class="text-xs-left layout px-0">
                   <v-btn @click="showMoreDetails(props.item)" flat icon>
                     <v-icon color="#ccc">fa-info-circle</v-icon>
                   </v-btn>
-                  <v-btn depressed @click="updateStatus(props.item)" v-if="props.item.status.toLowerCase() != lang.manageResrevations.confirmed.toLowerCase()" color="green" dark>{{lang.manageResrevations.updateStatus}}</v-btn>
+                  <v-btn depressed @click="updateStatus(props.item)" v-if="props.item.status != 2" color="green" dark>{{lang.manageResrevations.updateStatus}}</v-btn>
                   <v-btn depressed v-else>{{lang.manageResrevations.askForReview}}</v-btn>
                 </td>
               </template>
@@ -119,10 +140,6 @@
             <h3>Staying Duration:</h3>
             <span>{{details.duration}}</span>
           </div>
-          <div class="details-model__info">
-            <h3>Number of People:</h3>
-            <span>{{details.people}}</span>
-          </div>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -143,20 +160,18 @@
 
               <v-layout wrap>
                 <v-flex xs12>
-                  <v-select :items="status" v-model="currentStatus" label="Status" @change="setStatusIndex" required :rules="statusRules"></v-select>
+                  <v-select prepend-icon="fa-pen" :items="status" v-model="currentStatus" label="Status" @change="setStatusIndex" required :rules="statusRules"></v-select>
                 </v-flex>
                 <v-flex xs12 v-if="statusIndex == 0">
                   <v-menu ref="menu" :close-on-content-click="false" v-model="menu" :nudge-right="40" :return-value.sync="date" lazy transition="scale-transition" offset-y full-width min-width="290px">
-                    <v-text-field slot="activator" v-model="date" label="Deadline" readonly></v-text-field>
-                    <v-date-picker v-model="date" no-title scrollable>
-                      <v-spacer></v-spacer>
-                      <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-                      <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                    <v-text-field prepend-icon="fa-calendar" slot="activator" v-model="date" label="Deadline" readonly></v-text-field>
+                    <v-date-picker v-model="date" no-title @input="$refs.menu.save(date); menu = false" scrollable>
+
                     </v-date-picker>
                   </v-menu>
                 </v-flex>
                 <v-flex xs12>
-                  <v-textarea label="Note" v-model="followUpMessage" required :rules="messageRules"></v-textarea>
+                  <v-textarea prepend-icon="fa-envelope" label="Note" v-model="followUpMessage" required :rules="messageRules"></v-textarea>
                 </v-flex>
 
               </v-layout>
@@ -165,8 +180,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click="close">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="submit">Update</v-btn>
+          <v-btn color="grey darken-1" flat @click="close">Close</v-btn>
+          <v-btn color="green darken-1" dark depressed @click="submit">Update</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

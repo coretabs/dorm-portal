@@ -9,13 +9,13 @@ export default {
       menu: false,
       search: '',
       headers: [
-        { text: '', value: 'amount' },
+        { text: '', value: 'room_price' },
         { text: '', value: 'receipts', sortable: false  },
         { text: '', value: 'status' },
-        { text: '', value: 'name' },
-        { text: '', value: 'email' },
-        { text: '', value: 'submittedOn' },
-        { text: '', value: 'deadline' },
+        { text: '', value: 'student_name' },
+        { text: '', value: 'student_email' },
+        { text: '', value: 'reservation_creation_date' },
+        { text: '', value: 'confirmation_deadline_date' },
         { text: '', value: 'id', sortable: false }
       ],
       status: this.$store.getters.lang.manageResrevations.status,
@@ -35,6 +35,11 @@ export default {
       statusRules:[
         v => !!v || 'Status is required',
       ],
+      rowsPerPage: [10, 20, 30, 40],
+      pagination: {
+        rowsPerPage: 10
+      }
+
     };
   },
   computed: {
@@ -59,9 +64,9 @@ export default {
     },
     showMoreDetails(item){
       this.showDetails = true
-      this.details.duration = item.room_characteristics.duration
-      this.details.roomType =  item.room_characteristics.room_type
-      this.details.people = item.room_characteristics.people_allowed_number
+      this.details.duration = item.room_duration
+      this.details.roomType =  item.room_type
+      this.details.people = item.room_people_allowed_number
     },
     updateStatus(item){
       this.showUpdateStatus = true
@@ -99,7 +104,7 @@ export default {
     },
   },
   mounted(){
-    this.fetchManagerReservation(),
+    this.fetchManagerReservation()
     this.setHeaderText()
   }
 };

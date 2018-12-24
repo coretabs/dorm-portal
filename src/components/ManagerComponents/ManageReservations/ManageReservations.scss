@@ -75,6 +75,7 @@
       text-transform: capitalize;
     }
   }
+ 
 }
 .details-model__info{
   margin: 5px 5px 14px;
@@ -83,5 +84,10 @@
   }
   span{
     font-size: 18px;
+  }
+}
+.v-list-files{
+  > :nth-child(even){
+    background: #fafafa !important;
   }
 }
