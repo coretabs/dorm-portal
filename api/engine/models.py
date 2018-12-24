@@ -58,7 +58,8 @@ class DormitoryQuerySet(django_models.QuerySet):
         filtered_rooms = RoomCharacteristics.objects.filter(allowed_quota__gte=1)
 
         if filters:
-            print(filtered_rooms)
+            # print(filtered_rooms)
+
             for current_filter in filters:
                 filtered_rooms = filtered_rooms.filter(current_filter)
 
