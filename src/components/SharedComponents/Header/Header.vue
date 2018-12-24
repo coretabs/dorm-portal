@@ -3,19 +3,25 @@
   <v-toolbar light flat fixed app :clipped-left="$vuetify.breakpoint.lgAndUp">
     <!-- <v-toolbar-side-icon  @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
     <v-toolbar-title>
-      <router-link to="/" id="logo">
-        <img src="../../../assets/images/header/logo.png" alt="EMU">
-        <span>{{lang.header.logo}}</span>
-      </router-link>
+      <v-layout>
+        <v-flex class="text-xs-center" v-if="$route.path === '/manage'">
+          <v-btn flat class="mr-2 my-0" icon @click="toggleAdminDrawer">
+            <v-icon class="">fa-bars</v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex>
+          <router-link to="/" id="logo">
+            <img src="../../../assets/images/header/logo.png" alt="EMU">
+            <span>{{lang.header.logo}}</span>
+          </router-link>
+        </v-flex>
+      </v-layout>
     </v-toolbar-title>
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-      <!-- <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more" v-if="$route.path === '/manage' && multiDorms" @click="switchDorms">
-        <v-icon color="#666" left small>fa-exchange-alt</v-icon>
-        Switch Dorms
-      </v-btn> -->
 
+      <!-- Switching Dorms -->
       <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y v-if="$route.path === '/manage' && managerDorms.length > 1">
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
           Switch Dorms
@@ -27,7 +33,6 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-
 
       <!-- Currency -->
       <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y v-if="$route.path !== '/reservation' && $route.path !== '/manage'">
