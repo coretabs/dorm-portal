@@ -39,9 +39,10 @@ export default {
     fetchManagerDorms(){
       this.$store.dispatch("fetchManagerDorms").then((response)=>{
         if(response.length > 1 && !localStorage.getItem("manageDormID")){
+          this.$store.state.drawer = false
           this.$store.state.adminActiveComponent = 'SelectDorm'
         }else{
-          this.$store.state.managerDrawerControl = null
+          this.$store.state.drawer = null
           this.$store.state.adminActiveComponent = 'ManageReservations'
         }
       })

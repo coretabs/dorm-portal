@@ -90,7 +90,13 @@ export default {
         dorm = dorm[0].id
       }
       const dormID = localStorage.getItem('manageDormID') ||  dorm
-      this.$store.dispatch("fetchManagerReservation", dormID)
+      this.$store.dispatch("fetchManagerReservation", dormID).then(()=>{
+        localStorage.setItem('manageDormID',dormID)
+      }).catch(()=>{
+        this.$store.state.snackbar.trigger = true
+        this.$store.state.snackbar.message = 'Can\'t load dorm'
+        this.$store.state.snackbar.color = 'error'
+      })
     },
     setStatusIndex(){
       this.statusIndex = this.status.indexOf(this.currentStatus)
