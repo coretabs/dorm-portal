@@ -34,7 +34,10 @@
   }
   #filters-body {
     background: #fcfcfc;
-    padding: 20px 0px 60px;
+    padding: 20px 0px 20px;
+    @media (max-width: 600px) {
+      padding-bottom: 60px;
+    }
     .filter {
       margin-bottom: 15px;
       .filter-title {

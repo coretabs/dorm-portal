@@ -115,12 +115,23 @@
                 <td class="text-xs-left">{{ props.item.student_email }}</td>
                 <td class="text-xs-left">{{ props.item.reservation_creation_date }}</td>
                 <td class="text-xs-left">{{ props.item.confirmation_deadline_date }}</td>
-                <td class="text-xs-left layout px-0">
-                  <v-btn @click="showMoreDetails(props.item)" flat icon>
-                    <v-icon color="#28439a">fa-info-circle</v-icon>
+                <td class="text-xs-left layout pl-3">
+                  <v-tooltip top>
+                    <v-btn slot="activator" @click="showMoreDetails(props.item)" flat icon>
+                        <v-icon color="#677889">fa-info-circle</v-icon>
+                    </v-btn>
+                    <span>More info</span>
+                  </v-tooltip>
+                  <v-btn depressed @click="updateStatus(props.item)" v-if="props.item.status != 2" color="green" dark>
+                    {{lang.manageResrevations.updateStatus}}
                   </v-btn>
-                  <v-btn depressed @click="updateStatus(props.item)" v-if="props.item.status != 2" color="green" dark>{{lang.manageResrevations.updateStatus}}</v-btn>
-                  <v-btn depressed v-else>{{lang.manageResrevations.askForReview}}</v-btn>
+                  <v-btn depressed v-if="props.item.status == 2">{{lang.manageResrevations.askForReview}}</v-btn>
+                  <v-tooltip top>
+                    <v-btn slot="activator" icon depressed @click="updateStatus(props.item)" v-if="props.item.status == 2">
+                      <v-icon small class="grey--text">fa-pen</v-icon>
+                    </v-btn>
+                    <span>Update Status</span>
+                  </v-tooltip>
                 </td>
               </template>
               <v-alert slot="no-results" :value="true" color="error" icon="warning">
@@ -150,7 +161,7 @@
             <div class="details-model__info mb-3">
               <h3>Allowed people in room:</h3>
               <span v-if="details.people < 4">
-              <v-icon v-for="n in details.people" small :key="n">fa-user</v-icon>
+              <v-icon v-for="n in details.people" small :key="n" class="mr-1">fa-user</v-icon>
             </span>
               <span v-else>
               <v-icon>fa-user</v-icon>
@@ -178,6 +189,7 @@
       <v-card lazy>
         <v-card-text>
           <v-container grid-list-md>
+            <h2 class="mb-4">Update Reservation Status </h2>
             <v-form ref="form" lazy-validation>
 
               <v-layout wrap>

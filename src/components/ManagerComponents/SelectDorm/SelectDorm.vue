@@ -4,7 +4,7 @@
   <v-layout wrap row justify-center>
     <v-flex md4 xs12 v-for="(dorm,index) in dorms" :key="index">
       <v-card class="ma-3">
-        <v-img :src="dorm.cover" aspect-ratio="2.75">
+        <v-img :src="dorm.cover" aspect-ratio="2.75" gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)">
           <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
             <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
           </v-layout>
