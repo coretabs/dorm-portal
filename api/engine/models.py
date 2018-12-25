@@ -33,7 +33,7 @@ class ReservationQuerySet(django_models.QuerySet):
 
         result = self.filter(status__in=Reservation.EXPIRABLE_STATUS_LIST,
                              confirmation_deadline_date__lt=yesterday)\
-            .update(status=Reservation.EXPIRED_STATUS)
+            .update(status=Reservation.EXPIRED_STATUS, last_update_date=datetime.date.today())
 
         return result
 
@@ -575,6 +575,7 @@ class Reservation(django_models.Model):
 
     def update_status(self, new_status):
         self.status = new_status
+        self.last_update_date = datetime.date.today()
 
         if new_status == Reservation.REJECTED_STATUS or new_status == Reservation.EXPIRED_STATUS:
             self.room_characteristics.increase_quota()
