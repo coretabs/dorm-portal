@@ -158,7 +158,8 @@ $backend.$updateDormInfo = (data) => {
         contact_name: data.contact_name,
         contact_number: data.contact_number,
         contact_fax: data.contact_fax,
-        contact_email: data.contact_email
+        contact_email: data.contact_email,
+        features: data.features
     })
     .then(response => response.data)
 }

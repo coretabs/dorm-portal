@@ -114,4 +114,18 @@
     font-size: 16px;
     white-space: pre-line;
   }
+  .dorm-feature{
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fafafa;
+    background: #fafafa;
+    @include radius(5px);
+    .v-icon{
+      color: $light-green-color;
+      margin-right: 10px;
+    }
+    span{
+      font-size: 18px;
+    }
+  }
 }

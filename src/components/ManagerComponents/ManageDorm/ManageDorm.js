@@ -9,8 +9,7 @@ export default {
     return {
       active: null,
       items: ['Streaming', 'Eating'],
-      selectedFeatures: [1,2],
-      selectedFeaturesId: [],
+      selectedFeatures: [],
       isUpdating: false,
       loadingBtn: false,
       Features: [
@@ -21,11 +20,16 @@ export default {
       ],
       files: [],
       dialog: {
-        general: false
+        general: false,
+        features: false
       },
       dormsAboutDesc:[1,2],
       requiredRules:[
         v => !!v || 'This field is required'
+      ],
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v.trim()) || 'E-mail must be valid'
       ],
     };
   },
@@ -50,7 +54,13 @@ export default {
     },
     fetchManagerDorm(){
       const dormID = localStorage.getItem('manageDormID')
-      this.$store.dispatch("fetchManagerDorm", dormID)
+      this.$store.dispatch("fetchManagerDorm", dormID).then((response)=>{
+        let dormFeatures = []
+        for(const feature of response.features){
+          dormFeatures.push(feature.id)
+        }
+        this.selectedFeatures = dormFeatures
+      })
       .catch(()=>{
         this.$store.state.snackbar.trigger = true
         this.$store.state.snackbar.message = 'Can\'t load dorm'
@@ -65,7 +75,28 @@ export default {
       this.dialog[dialogName] = false
       this.$store.dispatch("fetchManagerDorm", dormID)
     },
-    submitDormInfo(){
+    UpdateDormInfo(data,dialog){
+      if(this.$refs.form.validate()){
+        this.loadingBtn = true
+        this.$store.dispatch("updateDormInfo", data).then(()=>{
+          let snackbar = {
+            message: 'Updeated successfully',
+            color: 'success'
+          }
+          this.closeDialog(dialog)
+          this.$store.commit('updateSnackbar', snackbar)
+        }).catch(()=>{
+          let snackbar = {
+            message: 'Something went wrong!, try again',
+            color: 'error'
+          }
+          this.$store.commit('updateSnackbar', snackbar)
+        }).then(()=>{
+          this.loadingBtn = false
+        })
+      }
+    },
+    submitDormInfo(dialog){
       let about = []
       for(const lang in this.dorm.abouts){
         about.push({
@@ -78,27 +109,15 @@ export default {
         contact_name: this.dorm.contact_name,
         contact_number: this.dorm.contact_number,
         contact_fax: this.dorm.contact_fax,
-        contact_email: this.dorm.contact_email
+        contact_email: this.dorm.contact_email,
       }
-      if(this.$refs.form.validate()){
-        this.loadingBtn = true
-        this.$store.dispatch("updateDormInfo", data).then(()=>{
-          let snackbar = {
-            message: 'Updeated successfully',
-            color: 'success'
-          }
-          this.closeDialog('general')
-          this.$store.commit('updateSnackbar', snackbar)
-        }).catch(()=>{
-          let snackbar = {
-            message: 'Something went wrong!, try again',
-            color: 'error'
-          }
-          this.$store.commit('updateSnackbar', snackbar)
-        }).then(()=>{
-          this.loadingBtn = false
-        })
+      this.UpdateDormInfo(data, dialog)
+    },
+    submitDormFeatures(dialog){
+      let data = {
+        features: this.selectedFeatures
       }
+      this.UpdateDormInfo(data, dialog)
     }
   },
   watch: {

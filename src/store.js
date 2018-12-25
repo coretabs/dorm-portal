@@ -56,7 +56,7 @@ export default new Vuex.Store({
     drawer: state => state.drawer,
     manageReservation: state => state.manageReservation,
     manageDorm: state => state.manageDorm,
-    snackbar : state => state.snackbar,
+    snackbar : state => state.snackbar
   },
   mutations: {
     updateSnackbar(state , payload){
