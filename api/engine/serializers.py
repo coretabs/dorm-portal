@@ -743,13 +743,18 @@ class DormManagementDetailsSerializer(serializers.ModelSerializer):
     features = FeatureFilterSerializer(many=True)
     photos = PhotoSerializer(many=True)
     abouts = serializers.SerializerMethodField()
+    all_features = serializers.SerializerMethodField()
 
     def get_abouts(self, obj):
         return obj.about.data
 
+    def get_all_features(self, obj):
+        all_dorm_features = models.Filter.objects.dorm_features()
+        return FeatureFilterSerializer(all_dorm_features, many=True).data
+
     class Meta:
         model = models.Dormitory
-        fields = ('name', 'abouts', 'bank_accounts', 'features',
+        fields = ('name', 'abouts', 'bank_accounts', 'all_features', 'features',
                   'cover', 'photos',
                   'geo_longitude', 'geo_latitude', 'address',
                   'contact_name', 'contact_email', 'contact_number', 'contact_fax')

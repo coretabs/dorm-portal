@@ -20,6 +20,10 @@ bank_accounts
 	iban
 	currency_code
 	
+all_features
+	id
+	name
+	
 features
     id
     name

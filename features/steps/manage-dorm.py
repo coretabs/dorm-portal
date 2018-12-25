@@ -136,7 +136,7 @@ def test(context):
     filters_keys = context.response.render().data.keys()
     number_of_returned_json_filters = len(list(filters_keys))
     # print(context.response.render().data)
-    assert number_of_returned_json_filters == 13
+    assert number_of_returned_json_filters == 14
 
 
 @when('hitting GET /manager/dorms/{homedorm-id} for non-owned dorm')
