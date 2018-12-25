@@ -25,6 +25,7 @@ INSTALLED_APPS = [
 
     'behave_django',
     'polymorphic',
+    'djmoney.contrib.exchange',
     'api.engine',
 ]
 
@@ -149,3 +150,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 
 EMAIL_SUBJECT_PREFIX = ''
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+
+# Currency Exchange Settings
+
+#EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.FixerBackend'

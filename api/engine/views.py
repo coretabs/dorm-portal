@@ -67,16 +67,12 @@ class DormViewSet(viewsets.ViewSet):
 
         filtered_dorms = models.Dormitory.objects\
             .superfilter(
-                category_id=deserialized_filters.data.get(
-                    'category_selected_option_id', None),
-                duration_option_id=deserialized_filters.data.get(
-                    'duration_option_id', None),
-                dorm_features_ids=deserialized_filters.data.get(
-                    'dorm_features', None),
-                radio_integeral_choices=deserialized_filters.data.get(
-                    'additional_filters', None),
-                room_features_ids=deserialized_filters.data.get(
-                    'room_features', None))\
+                category_id=deserialized_filters.data.get('category_selected_option_id', None),
+                duration_option_id=deserialized_filters.data.get('duration_option_id', None),
+                dorm_features_ids=deserialized_filters.data.get('dorm_features', None),
+                radio_integeral_choices=deserialized_filters.data.get('additional_filters', None),
+                room_features_ids=deserialized_filters.data.get('room_features', None),
+                to_currency=request.data.get('currency', 'USD'))\
             .with_reviews_statistics()\
 
         # print(filtered_dorms)
@@ -87,7 +83,7 @@ class DormViewSet(viewsets.ViewSet):
         activate_language(request.query_params.get('language', 'en'))
 
         dorm = models.Dormitory.objects.filter(id=pk)\
-            .superfilter()\
+            .superfilter(to_currency=request.data.get('currency', 'USD'))\
             .with_last_3_reviews()\
             .with_reviews_statistics()\
             .first()

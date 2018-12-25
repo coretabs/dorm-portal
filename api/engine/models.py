@@ -15,6 +15,9 @@ from polymorphic.models import PolymorphicModel
 from polymorphic.managers import PolymorphicManager
 from polymorphic.query import PolymorphicQuerySet
 
+from djmoney.money import Money
+from djmoney.contrib.exchange.models import convert_money
+
 from .exceptions import (NoEnoughQuotaException,
                          NonFinishedUserReservationsException,
                          NonUpdatableReservationException,
@@ -54,7 +57,33 @@ class ReservationQuerySet(django_models.QuerySet):
 
 
 class DormitoryQuerySet(django_models.QuerySet):
-    def apply_room_filters(self, filters):
+    def apply_room_filters(self, filters, to_currency=None):
+
+        def get_prices_converted_cases(filtered_rooms):
+            filtered_rooms_ids = filtered_rooms.values_list('id', flat=True)
+            original_prices = IntegralChoice.objects.filter(
+                related_filter__name__contains='Price', room_characteristics__id__in=filtered_rooms_ids).values_list('room_characteristics__id', 'selected_number')
+            price_whens = [django_models.When(id=k, then=v) for k, v in original_prices]
+            original_price_cases = django_models.Case(
+                *price_whens, default=0, output_field=django_models.IntegerField())
+            prices_to_convert = filtered_rooms.annotate(
+                original_price=original_price_cases).values_list('id', 'original_price', 'price_currency__code')
+
+            converted_prices = {}
+            for id, original_price, from_currency in prices_to_convert:
+                #print(id, original_price, from_currency)
+                converted_prices[id] = int(convert_money(
+                    Money(original_price, from_currency), to_currency).amount)
+
+            whens = [django_models.When(id=k, then=v) for k, v in converted_prices.items()]
+            new_prices_cases = django_models.Case(
+                *whens, default=0, output_field=django_models.IntegerField())
+
+            return new_prices_cases
+
+        if not to_currency or not Currency.objects.filter(code=to_currency).exists():
+            to_currency = 'USD'
+
         filtered_rooms = RoomCharacteristics.objects.filter(allowed_quota__gte=1)
 
         if filters:
@@ -62,6 +91,9 @@ class DormitoryQuerySet(django_models.QuerySet):
 
             for current_filter in filters:
                 filtered_rooms = filtered_rooms.filter(current_filter)
+
+            filtered_rooms = filtered_rooms.annotate(
+                price_converted=get_prices_converted_cases(filtered_rooms))
 
             filtered_rooms.prefetch_related('features', 'radio_choices', 'integral_choices',
                                             'radio_choices__related_filter',
@@ -74,6 +106,9 @@ class DormitoryQuerySet(django_models.QuerySet):
                         .prefetch_related(room_characteristics).distinct()
 
         else:
+            filtered_rooms = filtered_rooms.annotate(
+                price_converted=get_prices_converted_cases(filtered_rooms))
+
             room_characteristics = django_models.Prefetch(
                 'room_characteristics', queryset=filtered_rooms)
             dorms = self.prefetch_related(room_characteristics).distinct()
@@ -110,7 +145,8 @@ class DormitoryQuerySet(django_models.QuerySet):
         return self.annotate(number_of_reviews=reviews_count, stars_average=reviews_avg)
 
     def superfilter(self, category_id=None, duration_option_id=None,
-                    dorm_features_ids=None, radio_integeral_choices=None, room_features_ids=None):
+                    dorm_features_ids=None, radio_integeral_choices=None, room_features_ids=None,
+                    to_currency=None):
 
         result = self
 
@@ -147,7 +183,7 @@ class DormitoryQuerySet(django_models.QuerySet):
                 room_filters.append(current_filter.get_query_polymorphic(choice))
 
         result = result.apply_dorm_filters(dorm_filters)\
-                       .apply_room_filters(room_filters)\
+                       .apply_room_filters(room_filters, to_currency)\
                        .annotate(rooms_left_in_dorm=django_models.Sum(
                            'room_characteristics__allowed_quota'))
 
@@ -310,7 +346,7 @@ class Dormitory(django_models.Model):
         DormitoryCategory, related_name='dormitories', on_delete=django_models.CASCADE)
 
     features = django_models.ManyToManyField(
-        FeatureFilter, related_name='features')
+        FeatureFilter, related_name='dormitories')
 
     manager = django_models.ForeignKey(
         User, related_name='dormitories', on_delete=django_models.CASCADE)
@@ -359,10 +395,10 @@ class RoomCharacteristics(django_models.Model):
     room_confirmation_days = django_models.PositiveIntegerField(default=2)
 
     radio_choices = django_models.ManyToManyField(
-        RadioChoice, related_name='radio_choices')
+        RadioChoice, related_name='room_characteristics')
 
     integral_choices = django_models.ManyToManyField(
-        IntegralChoice, related_name='integral_choices')
+        IntegralChoice, related_name='room_characteristics')
 
     features = django_models.ManyToManyField(
         FeatureFilter, related_name='room_characteristics')
@@ -377,9 +413,14 @@ class RoomCharacteristics(django_models.Model):
 
     @property
     def price(self):
-        # we use contains as we have multiple langs names
-        return self.integral_choices.filter(related_filter__name__contains='Price')\
-                                    .first().selected_number
+        # maybe no price conversion required
+        try:
+            if self.price_converted:
+                return self.price_converted
+        except AttributeError:
+            # we use contains as we have multiple langs names
+            return self.integral_choices.filter(related_filter__name__contains='Price')\
+                .first().selected_number
 
     @property
     def room_type(self):
