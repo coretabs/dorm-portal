@@ -354,6 +354,9 @@ def act(context):
 def test(context):
     # print(context.response.data)
     assert context.response.status_code == status.HTTP_200_OK
+    assert str(Dormitory.objects.all()[0].about.data).count('Luxury Alfam') == 1
+    assert str(Dormitory.objects.all()[0].about.data).count('الفام الفخيم') == 1
+    assert str(Dormitory.objects.all()[0].about.data).count('Super Alfam') == 1
 
 
 @when('hitting PUT /manager/dorms/{alfam-id}/cover with new image')

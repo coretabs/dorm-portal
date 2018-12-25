@@ -694,6 +694,15 @@ class ClientDormManagementSerializer(serializers.Serializer):
     contact_fax = serializers.CharField(required=False)
 
     def update(self, instance, validated_data):
+        
+        abouts = validated_data.get('abouts', None)
+        if abouts:
+            for about in abouts:
+                about_data = about.data.items()
+                for language_code, text in about_data:
+                    #print(language_code, 'zzz', text)
+                    instance.about.data[language_code] = text
+            validated_data.pop('abouts', None)
 
         cover = validated_data.get('cover', None)
         if cover:
