@@ -96,5 +96,22 @@
       }
     }
   }
-  
+  .info-tab{
+    .v-tabs{
+      border: 1px solid #ccc;
+    }
+    .v-tabs__slider{
+      height: 3px;
+    }
+  }
+  .card-header{
+    background: #1c3a70;
+  }
+  .v-tabs__slider{
+    height: 3px;
+  }
+  .about{
+    font-size: 16px;
+    white-space: pre-line;
+  }
 }

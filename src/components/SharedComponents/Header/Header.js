@@ -46,9 +46,8 @@ export default {
     },
     switchDorms(id){
       localStorage.setItem('manageDormID', id)
-      if( this.$store.getters.adminActiveComponent == 'ManageReservations' ){
-        this.$store.dispatch("fetchManagerReservation", id)
-      }
+        this.$store.dispatch('fetchManagerReservation', id)
+        this.$store.dispatch('fetchManagerDorm', id)
     },
     closeSnackbar(){
       this.$store.state.snackbar.trigger = false

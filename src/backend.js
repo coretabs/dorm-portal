@@ -138,11 +138,27 @@ $backend.$fetchManagerReservation = (id) => {
         .then(response => response.data)
 }
 
+$backend.$fetchManagerDorm = (id) => {
+    return $backend.get(`/manager-dorms/${id}`)
+        .then(response => response.data)
+}
+
 $backend.$updateReservationStatus = (data) => {
     return $backend.put(`/manager-dorms/${data.dormID}/reservations/${data.reservationID}/`,{
         status: data.status,
         confirmation_deadline_date: data.deadline,
         follow_up_message: data.message
+    })
+    .then(response => response.data)
+}
+
+$backend.$updateDormInfo = (data) => {
+    return $backend.put(`/manager-dorms/${data.dormID}/`,{
+        abouts: data.abouts,
+        contact_name: data.contact_name,
+        contact_number: data.contact_number,
+        contact_fax: data.contact_fax,
+        contact_email: data.contact_email
     })
     .then(response => response.data)
 }
