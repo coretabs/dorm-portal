@@ -5,50 +5,50 @@
       <v-layout id="statistics-cards" wrap>
 
         <v-flex xs6 md2>
-          <div @click="filterStatus('')">
+          <div @click="filterByStatus()">
             <v-icon>fa-layer-group</v-icon>
             <h3>{{lang.manageResrevations.all}}</h3>
-            <span>{{allReservation}}</span>
+            <span>{{reservationCount}}</span>
           </div>
         </v-flex>
 
         <v-flex xs6 md2>
-          <div @click="filterStatus(3)">
+          <div @click="filterByStatus(3)">
             <v-icon>fa-hourglass-end</v-icon>
             <h3>{{lang.manageResrevations.wating}}</h3>
-            <span>{{reservations.waiting_for_manager_action_reservations}}</span>
+            <span>{{reservationData.waiting_for_manager_action_reservations}}</span>
           </div>
         </v-flex>
 
         <v-flex xs6 md2>
-          <div @click="filterStatus(lang.manageResrevations.pending)">
+          <div @click="filterByStatus(0)">
             <v-icon>fa-history</v-icon>
             <h3>{{lang.manageResrevations.pending}}</h3>
-            <span>{{reservations.pending_reservations}}</span>
+            <span>{{reservationData.pending_reservations}}</span>
           </div>
         </v-flex>
 
         <v-flex xs6 md2>
-          <div @click="filterStatus(lang.manageResrevations.confirmed)">
+          <div @click="filterByStatus(2)">
             <v-icon>fa-check</v-icon>
             <h3>{{lang.manageResrevations.confirmed}}</h3>
-            <span>{{reservations.confirmed_reservations}}</span>
+            <span>{{reservationData.confirmed_reservations}}</span>
           </div>
         </v-flex>
 
         <v-flex xs6 md2>
-          <div @click="filterStatus(lang.manageResrevations.rejected)">
+          <div @click="filterByStatus(1)">
             <v-icon>fa-ban</v-icon>
             <h3>{{lang.manageResrevations.rejected}}</h3>
-            <span>{{reservations.rejected_reservations}}</span>
+            <span>{{reservationData.rejected_reservations}}</span>
           </div>
         </v-flex>
 
         <v-flex xs6 md2>
-          <div @click="filterStatus(lang.manageResrevations.unpaid)">
+          <div @click="filterByStatus(5)">
             <v-icon>fa-calendar-times</v-icon>
             <h3>{{lang.manageResrevations.Expired}}</h3>
-            <span>{{reservations.expired_reservations}}</span>
+            <span>{{reservationData.expired_reservations}}</span>
           </div>
         </v-flex>
 
@@ -63,7 +63,7 @@
               <v-text-field v-model="search" prepend-icon="search" label="Search" single-line hide-details></v-text-field>
             </v-card-title>
 
-            <v-data-table :headers="headers" :items="reservations.reservations" :search="search" :rows-per-page-items="rowsPerPage" :pagination.sync="pagination">
+            <v-data-table :headers="headers" :items="reservations" :search="search" :rows-per-page-items="rowsPerPage" :pagination.sync="pagination">
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">{{ props.item.room_price_currency }}{{ props.item.room_price }}</td>
                 <td class="text-xs-left">

@@ -25,6 +25,7 @@ export default {
       followUpMessage: '',
       reservationID: null,
       statusIndex: null,
+      statusFilter: null,
       details:{
         roomType: '',
         duration:'',
@@ -46,15 +47,23 @@ export default {
   },
   computed: {
     lang() {
-      return this.$store.getters.lang;
+      return this.$store.getters.lang
+    },
+    reservationData(){
+      return this.$store.getters.manageReservation
+    },
+    reservationCount(){
+      const reservationRecords = this.$store.getters.manageReservation.reservations
+      if(reservationRecords){
+        return reservationRecords.length
+      }
     },
     reservations(){
-      return this.$store.getters.manageReservation;
-    },
-    allReservation(){
-      if(this.reservations.reservations){
-        return this.reservations.reservations.length
+      let reservationRecords = this.$store.getters.manageReservation.reservations
+      if(this.statusFilter != null){
+        return reservationRecords.filter(res => res.status == this.statusFilter)
       }
+      return this.$store.getters.manageReservation.reservations
     }
   },
   methods:{
@@ -62,9 +71,6 @@ export default {
       let arrLength = this.lang.manageResrevations.tableHeaders.length
       for(var i=0 ; i <= arrLength ; i++)
         this.headers[i].text = this.lang.manageResrevations.tableHeaders[i]
-    },
-    filterStatus(keyWord){
-      //this.search = this.status[keyWord]
     },
     showMoreDetails(item){
       this.showDetails = true
@@ -126,6 +132,9 @@ export default {
         })
       }
     },
+    filterByStatus(statusID){
+      this.statusFilter = statusID
+    }
   },
   mounted(){
     this.fetchManagerReservation()
