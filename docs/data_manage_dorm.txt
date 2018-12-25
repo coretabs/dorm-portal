@@ -9,9 +9,7 @@ dorms
 GET /manager/dorms/{id} returns
 ```
 name
-abouts
-    lang_code
-    about
+abouts [ {lang_code: about}, {lang_code: about} ]
 
 bank_accounts
 	id
