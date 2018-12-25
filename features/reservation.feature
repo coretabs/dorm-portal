@@ -31,11 +31,25 @@ Feature: Reservation
         and they can reject his application then he can create another application
         """
 
-		When retrieving an expired reservation
+        When retrieving an non-expired reservation (deadline tomorrow)
+        Then dont touch that non-expired reservation (deadline tomorrow)
+
+        When retrieving an non-expired reservation (deadline today)
+        Then dont touch that non-expired reservation (deadline today)
+
+        When retrieving an non-expired reservation (deadline yesterday)
+        Then dont touch that non-expired reservation (deadline yesterday)
+
+		When retrieving an expired reservation (deadline before yesterday)
         Then change its status into expired and increase room quota
 
-        Given cleanup all reservations
+        When retrieving an expired reservation (deadline before before yesterday)
+        Then change its status into expired and increase room quota
 
+
+
+
+        Given cleanup all reservations
         
         When hitting POST /reservations for room 1
         Then get 201 Created for creating that reservation

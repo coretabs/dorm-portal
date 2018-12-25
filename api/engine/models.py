@@ -29,10 +29,10 @@ class ReservationQuerySet(django_models.QuerySet):
     def update_expired_reservations(self):
         # We give the student one more day to upload his receipt
 
-        today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
+        yesterday = datetime.date.today() - datetime.timedelta(days=1)
 
         result = self.filter(status__in=Reservation.EXPIRABLE_STATUS_LIST,
-                             confirmation_deadline_date__lte=today_plus_one)\
+                             confirmation_deadline_date__lt=yesterday)\
             .update(status=Reservation.EXPIRED_STATUS)
 
         return result
@@ -489,8 +489,8 @@ class Reservation(django_models.Model):
 
     @property
     def is_past_confirmation_deadline(self):
-        today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
-        return self.confirmation_deadline_date < today_plus_one
+        yesterday = datetime.date.today() - datetime.timedelta(days=1)
+        return self.confirmation_deadline_date < yesterday
 
     @property
     def is_reviewable(self):

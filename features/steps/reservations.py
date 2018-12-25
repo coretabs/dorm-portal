@@ -120,9 +120,54 @@ def test(context):
     assert context.user1.reservations.filter(id=context.reservation3.id).count() == 1
 
 
-@when('retrieving an expired reservation')
+@when('retrieving an non-expired reservation (deadline tomorrow)')
+def act(context):
+    context.reservation2.confirmation_deadline_date = datetime.date.today() + datetime.timedelta(days=1)
+    context.reservation2.save()
+
+    context.previous_status = Reservation.objects.get(pk=context.reservation2.id).status
+    context.reservation2 = Reservation.objects.get(pk=context.reservation2.id).check_if_expired()
+
+
+@then('dont touch that non-expired reservation (deadline tomorrow)')
+def test(context):
+    context.reservation2 = Reservation.objects.get(pk=context.reservation2.id)
+    assert context.reservation2.status == context.previous_status
+
+
+@when('retrieving an non-expired reservation (deadline today)')
+def act(context):
+    context.reservation2.confirmation_deadline_date = datetime.date.today()
+    context.reservation2.save()
+
+    context.previous_status = Reservation.objects.get(pk=context.reservation2.id).status
+    context.reservation2 = Reservation.objects.get(pk=context.reservation2.id).check_if_expired()
+
+
+@then('dont touch that non-expired reservation (deadline today)')
+def test(context):
+    context.reservation2 = Reservation.objects.get(pk=context.reservation2.id)
+    assert context.reservation2.status == context.previous_status
+
+
+@when('retrieving an non-expired reservation (deadline yesterday)')
 def act(context):
     context.reservation2.confirmation_deadline_date = datetime.date.today() - datetime.timedelta(days=1)
+    context.reservation2.save()
+
+    context.previous_status = Reservation.objects.get(pk=context.reservation2.id).status
+    context.reservation2 = Reservation.objects.get(pk=context.reservation2.id).check_if_expired()
+
+
+@then('dont touch that non-expired reservation (deadline yesterday)')
+def test(context):
+    context.reservation2 = Reservation.objects.get(pk=context.reservation2.id)
+    assert context.reservation2.status == context.previous_status
+
+
+@when('retrieving an expired reservation (deadline before yesterday)')
+def act(context):
+    context.reservation2.confirmation_deadline_date = datetime.date.today() - datetime.timedelta(days=2)
     context.reservation2.save()
 
     context.reservation2 = Reservation.objects.get(pk=context.reservation2.id).check_if_expired()
@@ -130,7 +175,17 @@ def act(context):
 
 @then('change its status into expired and increase room quota')
 def test(context):
+    context.reservation2 = Reservation.objects.get(pk=context.reservation2.id)
     assert context.reservation2.status == Reservation.EXPIRED_STATUS
+
+
+@when('retrieving an expired reservation (deadline before before yesterday)')
+def act(context):
+    context.reservation2.confirmation_deadline_date = datetime.date.today() - datetime.timedelta(days=3)
+    context.reservation2.status = Reservation.CONFIRMED_STATUS
+    context.reservation2.save()
+
+    context.reservation2 = Reservation.objects.get(pk=context.reservation2.id).check_if_expired()
 
 
 @given('cleanup all reservations')
@@ -252,7 +307,7 @@ def test(context):
 
 @when('hitting GET /reservations/{res-id} for expired reservation')
 def act(context):
-    context.reservation1.confirmation_deadline_date = datetime.date.today() - datetime.timedelta(days=1)
+    context.reservation1.confirmation_deadline_date = datetime.date.today() - datetime.timedelta(days=2)
     context.reservation1.save()
 
     request = APIRequestFactory().get('')

@@ -31,6 +31,12 @@ def arrange(context):
     context.reservation1 = create_reservation(context.room1, context.user1)
     context.reservation2 = create_reservation(context.room2, context.user2)
 
+    context.reservation1.confirmation_deadline_date = datetime.date.today()
+    context.reservation1.save()
+
+    context.reservation2.confirmation_deadline_date = datetime.date.today() - datetime.timedelta(days=1)
+    context.reservation2.save()
+
 
 @given('two user have expired reservations for room2')
 def arrange(context):
@@ -40,10 +46,31 @@ def arrange(context):
     context.reservation3 = create_reservation(context.room2, context.user3)
     context.reservation4 = create_reservation(context.room2, context.user4)
 
-    context.reservation3.confirmation_deadline_date = datetime.date.today()
+    context.reservation3.confirmation_deadline_date = datetime.date.today() - datetime.timedelta(days=2)
     context.reservation3.save()
-    context.reservation4.confirmation_deadline_date = datetime.date.today()
+    context.reservation4.confirmation_deadline_date = datetime.date.today() - datetime.timedelta(days=2)
     context.reservation4.save()
+
+
+@when('updating expired reservations')
+def act(context):
+    context.reservations_statistics = models.Reservation.objects.update_expired_reservations()
+
+
+@then('res3 & res4 will get expired')
+def test(context):
+    context.reservation3 = models.Reservation.objects.get(pk=context.reservation3.id)
+    context.reservation4 = models.Reservation.objects.get(pk=context.reservation4.id)
+    assert context.reservation3.status == Reservation.EXPIRED_STATUS
+    assert context.reservation4.status == Reservation.EXPIRED_STATUS
+
+
+@then('res1 & res2 are not expired')
+def test(context):
+    context.reservation1 = models.Reservation.objects.get(pk=context.reservation1.id)
+    context.reservation2 = models.Reservation.objects.get(pk=context.reservation2.id)
+    assert context.reservation1.status == Reservation.PENDING_STATUS
+    assert context.reservation2.status == Reservation.PENDING_STATUS
 
 
 @when('changing reservation status into rejected')

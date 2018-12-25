@@ -13,13 +13,18 @@ Feature: Managing reservations
         available quota is generally 5 in factory.py
         """
 
+        When updating expired reservations
+        Then res3 & res4 will get expired
+        And res1 & res2 are not expired
+
+
+        
+
         When changing reservation status into rejected
         Then quota of that room should increase by 1
 
         When asking for reservations status statistics by dorm_id
         Then get the correct reservations status statistics
-
-
 
 
         When serializing all dorm reservations
