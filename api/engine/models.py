@@ -192,19 +192,12 @@ class DormitoryQuerySet(django_models.QuerySet):
 
 class FilterQuerySet(PolymorphicQuerySet):
 
-    def main_filters(self):
-        return self.filter(django_models.Q(name='Duration'))
-
     def radio_filters(self):
-
-        result = self.instance_of(RadioFilter).exclude(django_models.Q(name='Duration'))
-
+        result = self.instance_of(RadioFilter).exclude(django_models.Q(name__contains='Duration'))
         return result
 
     def integral_filters(self):
-
         result = self.instance_of(IntegralFilter)
-
         return result
 
     def additional_filters(self):

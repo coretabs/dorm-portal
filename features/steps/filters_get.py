@@ -51,7 +51,7 @@ def act(context):
 
 @then('will get main filters (duration and category)')
 def test(context):
-    assert Filter.objects.main_filters().count() == 1
+    assert Filter.objects.filter(name__contains='Duration').count() == 1
 
     print(context.all_filters_string)
 

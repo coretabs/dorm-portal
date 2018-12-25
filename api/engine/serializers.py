@@ -635,8 +635,18 @@ class RoomSerializer(serializers.ModelSerializer):
         return str(obj.duration)
 
     def get_choices(self, obj):
-        choices = models.Choice.objects.filter(django_models.Q(
-            id__in=obj.radio_choices.all()) | django_models.Q(id__in=obj.integral_choices.all()))
+        radio_choices = (
+            django_models.Q(id__in=obj.radio_choices.all().exclude(
+                django_models.Q(related_filter__name__contains='Duration') | 
+                django_models.Q(related_filter__name__contains='Room Type')))
+                )
+
+        integral_choices = (
+            django_models.Q(id__in=obj.integral_choices.all().exclude(
+                django_models.Q(related_filter__name__contains='Price') | 
+                django_models.Q(related_filter__name__contains='People Allowed Number')))
+                )
+        choices = models.Choice.objects.filter(radio_choices | integral_choices)
         return ChoiceSerializer(choices, many=True).data
 
     class Meta:
