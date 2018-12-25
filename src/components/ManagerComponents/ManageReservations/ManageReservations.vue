@@ -60,7 +60,7 @@
             <v-card-title>
               <h2>{{lang.manageResrevations.heading}}</h2>
               <v-spacer></v-spacer>
-              <v-text-field v-model="search" prepend-icon="search" label="Search" single-line hide-details></v-text-field>
+              <v-text-field v-model="search" prepend-icon="search" @input="filterByStatus()" label="Search" single-line hide-details></v-text-field>
             </v-card-title>
 
             <v-data-table :headers="headers" :items="reservations" :search="search" :rows-per-page-items="rowsPerPage" :pagination.sync="pagination">
