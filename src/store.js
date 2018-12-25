@@ -59,6 +59,11 @@ export default new Vuex.Store({
     snackbar : state => state.snackbar,
   },
   mutations: {
+    updateSnackbar(state , payload){
+      state.snackbar.trigger = true
+      state.snackbar.message = payload.message
+      state.snackbar.color = payload.color
+    },
     fetchLocale(state){
       $backend.$fetchLocale().then(responseDate => {
         state.currencies = responseDate.currencies;

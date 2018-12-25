@@ -12,6 +12,7 @@ export default {
       selectedFeatures: [1,2],
       selectedFeaturesId: [],
       isUpdating: false,
+      loadingBtn: false,
       Features: [
         { name: 'Free wifi', id: 1},
         { name: 'Free parking', id: 2},
@@ -79,13 +80,23 @@ export default {
         contact_fax: this.dorm.contact_fax,
         contact_email: this.dorm.contact_email
       }
-      console.log(data)
       if(this.$refs.form.validate()){
+        this.loadingBtn = true
         this.$store.dispatch("updateDormInfo", data).then(()=>{
-          this.$store.dispatch("fetchManagerDorm", data.dormID)
-          this.dialog['general'] = false
+          let snackbar = {
+            message: 'Updeated successfully',
+            color: 'success'
+          }
+          this.closeDialog('general')
+          this.$store.commit('updateSnackbar', snackbar)
         }).catch(()=>{
-
+          let snackbar = {
+            message: 'Something went wrong!, try again',
+            color: 'error'
+          }
+          this.$store.commit('updateSnackbar', snackbar)
+        }).then(()=>{
+          this.loadingBtn = false
         })
       }
     }

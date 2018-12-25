@@ -118,17 +118,21 @@ export default {
       if(this.$refs.form.validate()){
         this.loadingBtn = true
         this.$store.dispatch("updateReservationStatus", data).then(()=>{
-          this.loadingBtn = false
+          let snackbar = {
+            message: 'Status has been Updeated, successfully',
+            color: 'success'
+          }
           this.close()
           this.$store.dispatch("fetchManagerReservation", data.dormID)
-          this.$store.state.snackbar.trigger = true
-          this.$store.state.snackbar.message = 'Status has been Updeated, successfully'
-          this.$store.state.snackbar.color = 'success'
+          this.$store.commit('updateSnackbar', snackbar)
         }).catch(()=>{
+          let snackbar = {
+            message: 'Something went Wrong! Try again',
+            color: 'error'
+          }
+          this.$store.commit('updateSnackbar', snackbar)
+        }).then(()=>{
           this.loadingBtn = false
-          this.$store.state.snackbar.trigger = true
-          this.$store.state.snackbar.message = 'Something went Wrong! Try again'
-          this.$store.state.snackbar.color = 'error'
         })
       }
     },

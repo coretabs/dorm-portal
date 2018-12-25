@@ -121,7 +121,7 @@
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn class="elevation-0" @click="closeDialog('general')">Cancel</v-btn>
-                    <v-btn color="#feae25" class="elevation-0" @click="submitDormInfo">{{lang.DormGeneralinfo.button}}</v-btn>
+                    <v-btn color="#feae25" class="elevation-0" @click="submitDormInfo" :loading="loadingBtn">{{lang.DormGeneralinfo.button}}</v-btn>
                   </v-card-actions>
                 </v-flex>
 
