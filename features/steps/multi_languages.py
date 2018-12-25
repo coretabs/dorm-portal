@@ -201,23 +201,3 @@ def test(context):
 
     # print(context.response.render().data)
     assert str(context.response.render().data).count("('choice', 'Breakfast')") == 1
-
-
-@when('querying dorms with TL')
-def act(context):
-    pass
-
-
-@then('getting price in TL')
-def test(context):
-    pass
-
-
-@when('hitting POST /dorms endpoint in TL')
-def act(context):
-    pass
-
-
-@then('get 200 OK with TL prices')
-def test(context):
-    pass
