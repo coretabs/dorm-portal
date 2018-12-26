@@ -231,25 +231,26 @@
                 <v-form ref="form" lazy-validation>
                   <v-card-text>
                     <v-layout row wrap>
-                      <v-flex xs12 md12 pa-3>
-                        <h2 class="mb-5">Update Dorm Features</h2>
-                        <v-autocomplete v-model="selectedFeatures" :disabled="isUpdating" :items="dorm.all_features" box chips color="blue-grey lighten-2" label="Select" item-text="name" item-value="id" multiple>
-                          <template slot="selection" slot-scope="data">
-                            <v-chip :selected="data.selected" close class="chip--select-multi" @input="remove(data.item)">
-                              {{data.item.name}}
-                            </v-chip>
-                          </template>
-                          <template slot="item" slot-scope="data">
-
-                            <template>
-                              <v-list-tile-content>
-                                <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                              </v-list-tile-content>
+                      <v-flex xs12 md12 class="pa-3">
+                        <h2 class="mb-4">Update Dorm Features</h2>
+                        <v-form @submit.prevent>
+                          <v-autocomplete v-model="selectedFeatures" :disabled="isUpdating" :items="dorm.all_features" box chips color="blue-grey lighten-2" label="Select" item-text="name" item-value="id" multiple>
+                            <template slot="selection" slot-scope="data">
+                              <v-chip :selected="data.selected" close  dark class="chip--select-multi" @input="remove(data.item)">
+                                {{data.item.name}}
+                              </v-chip>
                             </template>
-                          </template>
+                            <template slot="item" slot-scope="data">
 
-                        </v-autocomplete>
+                              <template>
+                                <v-list-tile-content>
+                                  <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                                </v-list-tile-content>
+                              </template>
+                            </template>
 
+                          </v-autocomplete>
+                        </v-form>
                       </v-flex>
                       <v-flex xs12>
                         <v-card-actions>
