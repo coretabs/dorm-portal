@@ -233,7 +233,7 @@
                     <v-layout row wrap>
                       <v-flex xs12 md12 pa-3>
                         <h2 class="mb-5">Update Dorm Features</h2>
-                        <v-autocomplete v-model="selectedFeatures" :disabled="isUpdating" :items="dorm.features" box chips color="blue-grey lighten-2" label="Select" item-text="name" item-value="id" multiple>
+                        <v-autocomplete v-model="selectedFeatures" :disabled="isUpdating" :items="dorm.all_features" box chips color="blue-grey lighten-2" label="Select" item-text="name" item-value="id" multiple>
                           <template slot="selection" slot-scope="data">
                             <v-chip :selected="data.selected" close class="chip--select-multi" @input="remove(data.item)">
                               {{data.item.name}}
