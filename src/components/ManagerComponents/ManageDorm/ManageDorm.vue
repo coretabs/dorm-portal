@@ -168,7 +168,7 @@
                   <v-card-text>
                     <v-layout row wrap>
                       <v-flex xs12 pa-3>
-                         <h2 class="mb-4">Update Dorm Address</h2>
+                        <h2 class="mb-4">Update Dorm Address</h2>
                         <v-text-field v-model="dorm.address" prepend-icon="fa-map-marker-alt" :label="lang.DormGeneralinfo.DormAddress" type="text"></v-text-field>
                         <v-layout wrap row>
                           <v-flex xs12 sm6 pr-1>
@@ -177,9 +177,9 @@
                           <v-flex xs12 sm6 pl-1>
                             <v-text-field prepend-icon="fa-map-pin" v-model="dorm.geo_longitude" :label="lang.DormGeneralinfo.DormLongitude" type="text"></v-text-field>
                           </v-flex>
-                           <v-flex class="mt-4 text-sm-center" xs12>
-                             <p>You can get your dorm Latitude and Longitude from <a href="https://www.latlong.net" target="_blank">here</a> or just click on the following button</p>
-                             <v-btn color="success" @click="getGeolocation">Get my Location</v-btn>
+                          <v-flex class="mt-4 text-sm-center" xs12>
+                            <p>You can get your dorm Latitude and Longitude from <a href="https://www.latlong.net" target="_blank">here</a> or just click on the following button</p>
+                            <v-btn color="success" @click="getGeolocation">Get my Location</v-btn>
                           </v-flex>
                         </v-layout>
                       </v-flex>
@@ -278,15 +278,43 @@
               <v-card-actions class="card-header py-3 px-4">
                 <h2 class="white--text">Dorm Photos</h2>
                 <v-spacer></v-spacer>
-                <v-btn color="#ffa915" depressed>
-                  <v-icon small color="black" left>fa-pen</v-icon>
-                  Update Features
-                </v-btn>
               </v-card-actions>
             </v-flex>
 
+            <v-flex xs12 md6 class="pa-4">
+              <v-layout row wrap>
+                <v-flex>
+                  <h3 class="mb-4">Cover Photo</h3>
+                  <v-card>
+                    <v-img v-if="dorm.cover" gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)" :src="dorm.cover" height="350" width="100%">
+                      <v-layout class="update-cover__btn">
+                        <v-btn color="#ffa915" depressed>
+                          <v-icon small color="black" left>fa-pen</v-icon>
+                          Update Cover
+                        </v-btn>
+                      </v-layout>
+                      <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+                        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                      </v-layout>
+                    </v-img>
+                    <v-layout v-else class="cover-block" align-center justify-center row>
+                      <v-icon class="transition-fast-in-fast-out">fa-image</v-icon>
+                      <v-btn color="#ffa915" class="update-cover__btn" depressed>
+                        <v-icon small color="black" left>fa-pen</v-icon>
+                        Update Cover
+                      </v-btn>
+                    </v-layout>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-flex>
+
             <v-flex xs12 md6 pa-3>
-              das
+              <v-layout row wrap>
+                <v-flex>
+                  <h3 class="mb-4">Dorm Photos</h3>
+                </v-flex>
+              </v-layout>
             </v-flex>
 
             <!-- <v-flex xs12 md6 pa-3>
