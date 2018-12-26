@@ -31,9 +31,12 @@ class ReservationQuerySet(django_models.QuerySet):
 
         yesterday = datetime.date.today() - datetime.timedelta(days=1)
 
-        result = self.filter(status__in=Reservation.EXPIRABLE_STATUS_LIST,
-                             confirmation_deadline_date__lt=yesterday)\
-            .update(status=Reservation.EXPIRED_STATUS, last_update_date=datetime.date.today())
+        expired_reservations = self.filter(status__in=Reservation.EXPIRABLE_STATUS_LIST,
+                                           confirmation_deadline_date__lt=yesterday)
+        result = expired_reservations.count()
+
+        expired_reservations.update(status=Reservation.EXPIRED_STATUS,
+                                    last_update_date=datetime.date.today())
 
         return result
 
