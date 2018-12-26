@@ -167,6 +167,10 @@ $backend.$updateDormInfo = (data) => {
     .then(response => response.data)
 }
 
+$backend.$updateDormCover = (id,formData) => {
+    return $backend.put(`/manager-dorms/${id}/update-cover/`, formData)
+    .then(response => response.data)
+}
 
 
 $backend.$deleteMessage = (msgId) => {

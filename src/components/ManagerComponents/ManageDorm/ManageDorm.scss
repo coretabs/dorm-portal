@@ -139,8 +139,23 @@
     }
   }
   .update-cover__btn{
+    padding: 7px 20px;
+    background: #ffa915;
+    z-index: 1;
+    font-weight: 500;
+    font-size: 16px;
     position: absolute;
-    right: 0;
-    top: 0;
+    text-transform: uppercase;
+    right: 15px;
+    top: 15px;
+    @include radius(3px);
+    cursor: pointer;
+    .v-icon{
+      color: #000;
+      margin-right: 10px;
+    }
+    &:hover{
+      background: #ffb537;
+    }
   }
 }

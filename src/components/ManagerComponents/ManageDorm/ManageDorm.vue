@@ -284,26 +284,21 @@
             <v-flex xs12 md6 class="pa-4">
               <v-layout row wrap>
                 <v-flex>
-                  <h3 class="mb-4">Cover Photo</h3>
+                  <h3 class="mb-4">Cover Photo {{dorm.id}}</h3>
                   <v-card>
+                    <label class="update-cover__btn" for="cover-img">
+                      <v-icon small>fa-pen</v-icon>
+                      Update Cover
+                    </label>
                     <v-img v-if="dorm.cover" gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)" :src="dorm.cover" height="350" width="100%">
-                      <v-layout class="update-cover__btn">
-                        <v-btn color="#ffa915" depressed>
-                          <v-icon small color="black" left>fa-pen</v-icon>
-                          Update Cover
-                        </v-btn>
-                      </v-layout>
                       <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
                         <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                       </v-layout>
                     </v-img>
                     <v-layout v-else class="cover-block" align-center justify-center row>
-                      <v-icon class="transition-fast-in-fast-out">fa-image</v-icon>
-                      <v-btn color="#ffa915" class="update-cover__btn" depressed>
-                        <v-icon small color="black" left>fa-pen</v-icon>
-                        Update Cover
-                      </v-btn>
+                      <v-icon>fa-image</v-icon>
                     </v-layout>
+                    <input type="file" id="cover-img" @change="selectCover" ref="coverFile" v-show="false"></input>
                   </v-card>
                 </v-flex>
               </v-layout>

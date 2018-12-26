@@ -265,6 +265,16 @@ export default new Vuex.Store({
         })
       })
     },
+    uploadDormCover({commit}, data){
+      return new Promise((resolve, reject) => {
+        $backend.$updateDormCover(data.id, data.formData).then(response => {
+          resolve(response)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
+    },
     fetchManagerDorms(context){
       return new Promise((resolve, reject) => {
         $backend.$fetchManagerDorms().then(response => {

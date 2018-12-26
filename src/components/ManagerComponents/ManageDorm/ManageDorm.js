@@ -20,7 +20,7 @@ export default {
         { name: 'Hot water', id: 3},
         { name: 'Cold water', id: 4}
       ],
-      files: [],
+      file: '',
       dialog: {
         general: false,
         features: false,
@@ -48,6 +48,9 @@ export default {
     },
     dorm(){
       return this.$store.getters.manageDorm
+    },
+    dormId(){
+      return localStorage.getItem('manageDormID')
     }
   },
   methods: {
@@ -149,7 +152,45 @@ export default {
         address: this.dorm.address
       }
       this.UpdateDormInfo(data, dialog)
-    }
+    },
+    selectCover(){
+      const file = this.$refs.coverFile.files[0]
+      this.file = file
+      
+      const MAX_SIZE = 20000000
+      const allowedType = ['image/jpeg', 'image/png', 'image/gif']
+      const largeFile = file.size > MAX_SIZE
+      const isAllowedType = allowedType.includes(file.type)
+      const id = this.dormId
+      const formData = new FormData()
+      formData.append('cover', this.file)
+
+      if(isAllowedType && !largeFile){
+        this.$store.dispatch("uploadDormCover", {id,formData}).then(()=>{
+          let snackbar = {
+            message: 'Cover Updated Successfully',
+            color: 'success'
+          }
+          this.$store.commit('updateSnackbar', snackbar)
+          this.$store.dispatch("fetchManagerDorm", this.dormId)
+        }).catch((error)=>{
+          let snackbar = {
+            message: error,
+            color: 'error'
+          }
+          this.$store.commit('updateSnackbar', snackbar)
+        })
+      }else{
+        let message = isAllowedType ? `Max size is  ${MAX_SIZE/1000} KB` : 'Only images are allowed'
+        let snackbar = {
+          message: message,
+          color: 'error'
+        }
+        this.$store.commit('updateSnackbar', snackbar)
+      }
+
+      
+    },
   },
   watch: {
     isUpdating (val) {
