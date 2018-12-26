@@ -101,17 +101,8 @@
 .details-message{
   padding: 10px;
   @include radius(4px);
-  background: #fefccf;
-  border: 1px solid #f2c559
 }
-.details-room{
-  padding: 10px;
-  border: 1px solid #ccc;
-  @include radius(4px);
-  margin: 5px 5px 0;
 
-  
-}
 .v-list-files{
   > :nth-child(even){
     background: #fafafa !important;

@@ -64,79 +64,120 @@
             </v-card-title>
 
             <v-data-table :headers="headers" :items="reservations" :search="search" :rows-per-page-items="rowsPerPage" :pagination.sync="pagination">
+
               <template slot="items" slot-scope="props">
-                <td class="text-xs-left">{{ props.item.room_price_currency }}{{ props.item.room_price }}</td>
-                <td class="text-xs-left">
+                <tr>
+                  <td class="text-xs-left">{{ props.item.room_price_currency }}{{ props.item.room_price }}</td>
+                  <td class="text-xs-left">
+                    <v-menu :close-on-content-click="false" transition="slide-y-transition" :nudge-width="150" offset-y v-if="props.item.receipts.length">
+                      <v-btn class="receipts-btn" slot="activator" depressed flat>
+                        {{lang.manageResrevations.download}}
+                        <v-icon color="#999">expand_more</v-icon>
+                      </v-btn>
+                      <v-card class="v-list-files">
+                        <v-list v-for="(receipt,i) in props.item.receipts" :key="i">
+                          <v-list-tile avatar>
 
-                  <v-menu :close-on-content-click="false" transition="slide-y-transition" :nudge-width="150" offset-y v-if="props.item.receipts.length">
-                    <v-btn class="receipts-btn" slot="activator" depressed flat>
-                      {{lang.manageResrevations.download}}
-                      <v-icon color="#999">expand_more</v-icon>
-                    </v-btn>
+                            <v-list-tile-content>
+                              <v-list-tile-title>
+                                <a :href="receipt.url" download>{{lang.manageResrevations.receipt}} {{i+1}}</a>
+                              </v-list-tile-title>
+                              <v-list-tile-sub-title>
+                                {{receipt.upload_receipt_date}}
+                              </v-list-tile-sub-title>
+                            </v-list-tile-content>
 
-                    <v-card class="v-list-files">
-                      <v-list v-for="(receipt,i) in props.item.receipts" :key="i">
-                        <v-list-tile avatar>
-
-                          <v-list-tile-content>
-                            <v-list-tile-title>
-                              <a :href="receipt.url" download>{{lang.manageResrevations.receipt}} {{i+1}}</a>
-                            </v-list-tile-title>
-                            <v-list-tile-sub-title>
-                              {{receipt.upload_receipt_date}}
-                            </v-list-tile-sub-title>
-                          </v-list-tile-content>
-
-                          <v-list-tile-action>
-                            <a :href="receipt.url" download>
+                            <v-list-tile-action>
+                              <a :href="receipt.url" download>
                               <v-icon class="grey--text text--lighten-1">fa-file-download</v-icon>
                             </a>
-                          </v-list-tile-action>
+                            </v-list-tile-action>
 
-                        </v-list-tile>
+                          </v-list-tile>
 
-                      </v-list>
+                        </v-list>
 
-                    </v-card>
-                  </v-menu>
-                  <div v-else class="grey--text text--darken-5 ml-1">No Files</div>
+                      </v-card>
+                    </v-menu>
+                    <div v-else class="grey--text text--darken-5 ml-1">No Files</div>
 
-                </td>
-                <td class="text-xs-left">
-                  <span v-if="props.item.status == 0">Pending</span>
-                  <span v-else-if="props.item.status == 1">Rejected</span>
-                  <span v-else-if="props.item.status == 2">Confirmed</span>
-                  <span v-else-if="props.item.status == 3">Wating Action</span>
-                  <span v-else-if="props.item.status == 4">Updated</span>
-                  <span v-else>Expired</span>
-                </td>
-                <td class="text-xs-left">{{ props.item.last_update_date }}</td>
-                <td class="text-xs-left">{{ props.item.student_name }}</td>
-                <td class="text-xs-left">{{ props.item.student_email }}</td>
-                <td class="text-xs-left">{{ props.item.reservation_creation_date }}</td>
-                <td class="text-xs-left">{{ props.item.confirmation_deadline_date }}</td>
-                <td class="text-xs-left layout pl-3">
-                  <v-tooltip top>
-                    <v-btn slot="activator" @click="showMoreDetails(props.item)" flat icon>
+                  </td>
+                  <td class="text-xs-left">
+                    <span v-if="props.item.status == 0">Pending</span>
+                    <span v-else-if="props.item.status == 1">Rejected</span>
+                    <span v-else-if="props.item.status == 2">Confirmed</span>
+                    <span v-else-if="props.item.status == 3">Wating Action</span>
+                    <span v-else-if="props.item.status == 4">Updated</span>
+                    <span v-else>Expired</span>
+                  </td>
+                  <td class="text-xs-left">{{ props.item.last_update_date }}</td>
+                  <td class="text-xs-left">{{ props.item.student_name }}</td>
+                  <td class="text-xs-left">{{ props.item.student_email }}</td>
+                  <td class="text-xs-left">{{ props.item.reservation_creation_date }}</td>
+                  <td class="text-xs-left">{{ props.item.confirmation_deadline_date }}</td>
+                  <td class="text-xs-left layout pl-3">
+                    <v-tooltip top>
+                      <v-btn slot="activator" @click="props.expanded = !props.expanded" flat icon>
                         <v-icon color="#677889">fa-info-circle</v-icon>
+                      </v-btn>
+                      <span>More info</span>
+                    </v-tooltip>
+                    <v-btn depressed @click="updateStatus(props.item)" v-if="props.item.status != 2" color="green" dark>
+                      {{lang.manageResrevations.updateStatus}}
                     </v-btn>
-                    <span>More info</span>
-                  </v-tooltip>
-                  <v-btn depressed @click="updateStatus(props.item)" v-if="props.item.status != 2" color="green" dark>
-                    {{lang.manageResrevations.updateStatus}}
-                  </v-btn>
-                  <v-btn depressed v-if="props.item.status == 2">{{lang.manageResrevations.askForReview}}</v-btn>
-                  <v-tooltip top>
-                    <v-btn slot="activator" icon depressed @click="updateStatus(props.item)" v-if="props.item.status == 2">
-                      <v-icon small class="grey--text">fa-pen</v-icon>
-                    </v-btn>
-                    <span>Update Status</span>
-                  </v-tooltip>
-                </td>
+                    <v-btn depressed v-if="props.item.status == 2">{{lang.manageResrevations.askForReview}}</v-btn>
+                    <v-tooltip top>
+                      <v-btn slot="activator" icon depressed @click="updateStatus(props.item)" v-if="props.item.status == 2">
+                        <v-icon small class="grey--text">fa-pen</v-icon>
+                      </v-btn>
+                      <span>Update Status</span>
+                    </v-tooltip>
+                  </td>
+                </tr>
+              </template>
+              <template slot="expand" slot-scope="props">
+                <v-card flat>
+                  <v-card-text>
+                    <v-layout>
+                      <v-flex md6>
+                        <v-layout fill-height  class="details-room">
+                          <v-flex class="details-model__info">
+                            <h3>Room Type:</h3>
+                            <span>{{props.item.room_type}}</span>
+                          </v-flex>
+                          <v-flex class="details-model__info">
+                            <h3>Allowed people in room:</h3>
+                            <span v-if="props.item.room_people_allowed_number < 4">
+                              <v-icon v-for="n in props.item.room_people_allowed_number" small :key="n" class="mr-1">fa-user</v-icon>
+                            </span>
+                            <span v-else>
+                              <v-icon>fa-user</v-icon>
+                              X {{props.item.room_people_allowed_number}}
+                            </span>
+                          </v-flex>
+                          <v-flex class="details-model__info">
+                            <h3>Staying Duration:</h3>
+                            <span>{{props.item.room_duration}}</span>
+                          </v-flex>
+                        </v-layout >
+                      </v-flex>
+                      <v-flex md6>
+                        <v-layout fill-height column class="details-model__info">
+                          <h3>Status Message:</h3>
+                          <span v-if="props.item.follow_up_message">{{props.item.follow_up_message}}</span>
+                          <span v-else>No Comment</span>
+                        </v-layout>
+                      </v-flex>
+
+                    </v-layout>
+
+                  </v-card-text>
+                </v-card>
               </template>
               <v-alert slot="no-results" :value="true" color="error" icon="warning">
                 {{lang.manageResrevations.searchResults}} "{{ search }}".
               </v-alert>
+
             </v-data-table>
           </v-card>
         </v-flex>
@@ -144,45 +185,6 @@
 
     </v-card-text>
   </v-card>
-
-  <v-layout>
-    <v-dialog v-model="showDetails" max-width="400">
-      <v-card>
-        <v-card-text>
-          <div class="details-model__info details-message mb-3" v-if="details.message">
-            <h3>Status Message:</h3>
-            <span>{{details.message}}</span>
-          </div>
-          <div class="details-room">
-            <div class="details-model__info mb-3">
-              <h3>Room Type:</h3>
-              <span>{{details.roomType}}</span>
-            </div>
-            <div class="details-model__info mb-3">
-              <h3>Allowed people in room:</h3>
-              <span v-if="details.people < 4">
-              <v-icon v-for="n in details.people" small :key="n" class="mr-1">fa-user</v-icon>
-            </span>
-              <span v-else>
-              <v-icon>fa-user</v-icon>
-              X {{details.people}}
-            </span>
-            </div>
-            <div class="details-model__info">
-              <h3>Staying Duration:</h3>
-              <span>{{details.duration}}</span>
-            </div>
-          </div>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat="flat" @click="showDetails = false">
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-layout>
 
   <v-layout row justify-center>
     <v-dialog v-model="showUpdateStatus" persistent max-width="600px">

@@ -3,7 +3,6 @@ export default {
   name: "ManageReservations",
   data: function () {
     return {
-      showDetails: false,
       showUpdateStatus: false,
       date: null,
       menu: false,
@@ -26,12 +25,6 @@ export default {
       reservationID: null,
       statusIndex: null,
       statusFilter: null,
-      details:{
-        roomType: '',
-        duration:'',
-        people: null,
-        message: ''
-      },
       requiredRules:[
         v => !!v || 'This field is required'
       ],
@@ -73,13 +66,6 @@ export default {
       let arrLength = this.lang.manageResrevations.tableHeaders.length
       for(var i=0 ; i <= arrLength ; i++)
         this.headers[i].text = this.lang.manageResrevations.tableHeaders[i]
-    },
-    showMoreDetails(item){
-      this.showDetails = true
-      this.details.duration = item.room_duration
-      this.details.roomType =  item.room_type
-      this.details.people = item.room_people_allowed_number
-      this.details.message = item.follow_up_message
     },
     updateStatus(item){
       this.showUpdateStatus = true
