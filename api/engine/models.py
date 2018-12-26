@@ -124,7 +124,7 @@ class DormitoryQuerySet(django_models.QuerySet):
             for current_filter in filters:
                 dorms = dorms.filter(current_filter)
 
-            dorms.prefetch_related('features')
+            # dorms.prefetch_related('features')
         else:
             dorms = self
 
