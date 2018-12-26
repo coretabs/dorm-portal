@@ -23,7 +23,6 @@ export default {
         { text: 'IBAN', value: 'iban' },
         { text: 'Currency', value: 'currency_code' },
         { text: 'Actions', value: 'id' }
-
       ],
       Features: [
         { name: 'Free wifi', id: 1},
@@ -40,6 +39,8 @@ export default {
         currency: ''
       },
       dialog: {
+        idHolder: null,
+        isEdit: false,
         general: false,
         features: false,
         location: false,
@@ -110,13 +111,31 @@ export default {
         this.$store.state.snackbar.color = 'error'
       })
     },
-    updateDialog(dialogName){
+    formBind(dialogName,data){
+      this.dialog['isEdit'] = true
+      if(dialogName == 'addBanks'){
+        this.dialog.idHolder = data.id
+        this.bank.name = data.bank_name
+        this.bank.accountName = data.account_name
+        this.bank.accountNumber = data.account_number
+        this.bank.swift = data.swift
+        this.bank.currency = data.currency_code
+        this.bank.iban = data.iban        
+      }
+    },
+    updateDialog(dialogName, editAction, data){
+      if(editAction == true){
+        this.formBind(dialogName, data)
+      }else{
+        this.dialog['isEdit'] = false
+      }
       this.dialog[dialogName] = true
     },
     closeDialog(dialogName){
-      const dormID = localStorage.getItem('manageDormID')
       this.dialog[dialogName] = false
-      this.$store.dispatch("fetchManagerDorm", dormID)
+      if(dialogName == 'addBanks'){
+        this.$refs.form.reset()
+      }
     },
     UpdateDormInfo(data,dialog){
       if(this.$refs.form.validate()){
@@ -126,6 +145,7 @@ export default {
             message: 'Updeated successfully',
             color: 'success'
           }
+          this.$store.dispatch("fetchManagerDorm", this.dormId)
           this.closeDialog(dialog)
           this.$store.commit('updateSnackbar', snackbar)
         }).catch(()=>{
@@ -168,18 +188,14 @@ export default {
         navigator.geolocation.getCurrentPosition((position)=>{
           position.enableHighAccuracy = true
           console.log(position)
-
           const lng = position.coords.longitude
           const lat = position.coords.latitude
           this.dorm.geo_longitude = lng
           this.dorm.geo_latitude = lat
-
-         
         })
       } else {
         console.log('geolocation IS NOT available on your browser');
       }
-      
     },
     submitDormLocation(dialog){
       let data = {
@@ -226,7 +242,7 @@ export default {
         this.$store.commit('updateSnackbar', snackbar)
       }      
     },
-    submitNewBank(dialog){
+    submitNewBank(){
       const id = this.dormId
       let data = this.bank
       if(this.$refs.form.validate()){
@@ -236,8 +252,7 @@ export default {
             color: 'success'
           }
           this.$store.dispatch("fetchManagerDorm", this.dormId)
-          this.closeDialog(dialog)
-          this.$refs.form.reset()
+          this.closeDialog('addBanks')
           this.$store.commit('updateSnackbar', snackbar)
         }).catch(() => {
           let snackbar = {
@@ -270,6 +285,28 @@ export default {
     confirmDelete(id){
       this.deleteRecord.confirmDialog = true
       this.deleteRecord.id = id
+    },
+    updateBankAccount(){
+      const dormId = this.dormId
+      const accountId = this.dialog.idHolder
+      let data = this.bank
+      if(this.$refs.form.validate()){
+        this.$store.dispatch("updateBankAccount", {dormId, accountId, data}).then(() => {
+          let snackbar = {
+            message: 'Bank Account Updated Successfully',
+            color: 'success'
+          }
+          this.$store.dispatch("fetchManagerDorm", this.dormId)
+          this.closeDialog('addBanks')
+          this.$store.commit('updateSnackbar', snackbar)
+        }).catch(() => {
+          let snackbar = {
+            message: 'Some thing went wrong! try again',
+            color: 'error'
+          }
+          this.$store.commit('updateSnackbar', snackbar)
+        })
+      }
     }
   },
   watch: {

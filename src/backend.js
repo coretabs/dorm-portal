@@ -139,7 +139,7 @@ $backend.$fetchManagerReservation = (id) => {
 }
 
 $backend.$fetchManagerDorm = (id) => {
-    return $backend.get(`/manager-dorms/${id}`)
+    return $backend.get(`/manager-dorms/${id}/`)
         .then(response => response.data)
 }
 
@@ -188,6 +188,19 @@ $backend.$deleteBankAccount = (dormId, accountId) => {
     return $backend.delete(`/manager-dorms/${dormId}/bank-accounts/${accountId}`)
         .then(response => response.data)
 }
+
+$backend.$updateBankAccount = (dormId, accountId, data) => {
+    return $backend.put(`/manager-dorms/${dormId}/bank-accounts/${accountId}/`, {
+        bank_name: data.name,
+        account_name: data.accountName,
+        account_number: data.accountNumber,
+        swift: data.swift,
+        iban: data.iban,
+        currency_code: data.currency
+    })
+    .then(response => response.data)
+}
+
 
 $backend.$deleteMessage = (msgId) => {
     return $backend.delete(`messages/${msgId}`)

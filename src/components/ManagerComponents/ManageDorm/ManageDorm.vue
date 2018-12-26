@@ -229,10 +229,17 @@
             <v-dialog persistent v-if="dorm" v-model="dialog.features" width="800" lazy>
               <v-card>
                 <v-form ref="form" lazy-validation @submit.prevent>
-                  <v-card-text>
+                  <v-card-text class="pb-4">
                     <v-layout row wrap>
+                      <v-flex xs12 class="mb-4">
+                        <v-card-actions>
+                          <h2>Update Dorm Features</h2>
+                          <v-spacer></v-spacer>
+                          <v-btn class="elevation-0" @click="closeDialog('features')">Cancel</v-btn>
+                          <v-btn color="#feae25" class="elevation-0" @click="submitDormFeatures('features')" :loading="loadingBtn">{{lang.DormGeneralinfo.button}}</v-btn>
+                        </v-card-actions>
+                      </v-flex>
                       <v-flex xs12 md12 class="pa-3">
-                        <h2 class="mb-4">Update Dorm Features</h2>
                         <v-autocomplete v-model="selectedFeatures" :disabled="isUpdating" :items="dorm.all_features" box chips color="blue-grey lighten-2" label="Select" item-text="name" item-value="id" multiple>
                           <template slot="selection" slot-scope="data">
                             <v-chip :selected="data.selected" close dark class="chip--select-multi" @input="remove(data.item)">
@@ -240,22 +247,13 @@
                             </v-chip>
                           </template>
                           <template slot="item" slot-scope="data">
-
                             <template>
                               <v-list-tile-content>
                                 <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
                               </v-list-tile-content>
                             </template>
                           </template>
-
                         </v-autocomplete>
-                      </v-flex>
-                      <v-flex xs12>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn class="elevation-0" @click="closeDialog('features')">Cancel</v-btn>
-                          <v-btn color="#feae25" class="elevation-0" @click="submitDormFeatures('features')" :loading="loadingBtn">{{lang.DormGeneralinfo.button}}</v-btn>
-                        </v-card-actions>
                       </v-flex>
                     </v-layout>
                   </v-card-text>
@@ -370,7 +368,7 @@
                     <td class="text-xs-left">{{props.item.currency_code}}</td>
                     <td class="text-xs-left layout pl-3">
                       <v-tooltip top>
-                        <v-btn slot="activator" @click="showMoreDetails(props.item)" flat icon>
+                        <v-btn slot="activator" @click="updateDialog('addBanks', true, props.item)" flat icon>
                           <v-icon small color="#677889">fa-pen</v-icon>
                         </v-btn>
                         <span>Edit</span>
@@ -408,7 +406,7 @@
 
             </v-flex>
 
-            <v-dialog persistent v-if="dorm" v-model="dialog.addBanks" width="800" lazy>
+            <v-dialog persistent v-if="dorm" v-model="dialog.addBanks" width="600" lazy>
               <v-card>
                 <v-form ref="form" lazy-validation>
                   <v-card-text>
@@ -430,7 +428,8 @@
                         <v-card-actions>
                           <v-spacer></v-spacer>
                           <v-btn class="elevation-0" @click="closeDialog('addBanks')">Cancel</v-btn>
-                          <v-btn color="#feae25" class="elevation-0" @click="submitNewBank('addBanks')" :loading="loadingBtn">Add Bank</v-btn>
+                          <v-btn v-if="!dialog.isEdit" color="#feae25" class="elevation-0" @click="submitNewBank" :loading="loadingBtn">Add Bank</v-btn>
+                          <v-btn v-if="dialog.isEdit" color="#feae25" class="elevation-0" @click="updateBankAccount" :loading="loadingBtn">Update</v-btn>
                         </v-card-actions>
                       </v-flex>
                     </v-layout>

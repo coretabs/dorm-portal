@@ -346,6 +346,16 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    updateBankAccount(context, {dormId, accountId, data}){
+      return new Promise((resolve, reject) => {
+        $backend.$updateBankAccount(dormId,accountId,data).then(responseDate => {
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
     }
 
 
