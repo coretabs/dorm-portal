@@ -376,7 +376,7 @@
                         <span>Edit</span>
                       </v-tooltip>
                       <v-tooltip top>
-                        <v-btn slot="activator" @click="showMoreDetails(props.item)" flat icon>
+                        <v-btn slot="activator" @click="confirmDelete(props.item.id)" flat icon>
                           <v-icon small color="#677889">fa-trash</v-icon>
                         </v-btn>
                         <span>Delete</span>
@@ -389,6 +389,23 @@
                   </v-alert>
                 </v-data-table>
               </v-card>
+
+              <v-dialog v-model="deleteRecord.confirmDialog" width="500" lazy>
+                <v-card>
+                  <v-card-title class="headline text-uppercase font-weight-medium red accent-4 white--text">
+                    Confirm Delete
+                  </v-card-title>
+                  <v-card-text class="subheading my-3">
+                    Are You sure you want to delete this bank account?
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn class="elevation-0" @click="deleteRecord.confirmDialog = false">Cancel</v-btn>
+                    <v-btn color="red" class="elevation-0" @click="deleteBankAccount" :loading="loadingBtn">Delete</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+
             </v-flex>
 
             <v-dialog persistent v-if="dorm" v-model="dialog.addBanks" width="800" lazy>
@@ -400,7 +417,7 @@
                         <h2 class="mb-4">Add new Bank Account</h2>
                         <v-text-field v-model="bank.name" label="Bank Name" type="text" :rules="requiredRules" required></v-text-field>
                         <v-text-field v-model="bank.accountName" label="Account Name" type="text" :rules="requiredRules" required></v-text-field>
-                        <v-select class="shift-left"  v-model="bank.currency" :items="currencies" item-text="code" item-value="code" label="Currency" color="success" append-icon="expand_more" :menu-props="{
+                        <v-select class="shift-left" v-model="bank.currency" :items="currencies" item-text="code" item-value="code" label="Currency" color="success" append-icon="expand_more" :menu-props="{
                           offsetY: '',
                           transition: 'slide-y-transition',
                           bottom: ''

@@ -336,6 +336,16 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    deleteBankAccount(context, {dormId,accountId}){
+      return new Promise((resolve, reject) => {
+        $backend.$deleteBankAccount(dormId,accountId).then(responseDate => {
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
     }
 
 

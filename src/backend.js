@@ -184,7 +184,10 @@ $backend.$addBankAccount = (id,data) => {
     .then(response => response.data)
 }
 
-
+$backend.$deleteBankAccount = (dormId, accountId) => {
+    return $backend.delete(`/manager-dorms/${dormId}/bank-accounts/${accountId}`)
+        .then(response => response.data)
+}
 
 $backend.$deleteMessage = (msgId) => {
     return $backend.delete(`messages/${msgId}`)

@@ -45,6 +45,10 @@ export default {
         location: false,
         addBanks: false
       },
+      deleteRecord:{
+        confirmDialog: false,
+        id: null
+      },
       rowsPerPage: [10, 20, 30, 40],
       pagination: {
         rowsPerPage: 10,
@@ -243,6 +247,29 @@ export default {
           this.$store.commit('updateSnackbar', snackbar)
         })
       }
+    },
+    deleteBankAccount(){
+      const accountId= this.deleteRecord.id
+      const dormId = this.dormId
+      this.$store.dispatch('deleteBankAccount', {dormId,accountId}).then(()=>{
+        let snackbar = {
+          message: 'Bank Account Has been Deleted Successfully',
+          color: 'success'
+        }
+        this.$store.dispatch("fetchManagerDorm", this.dormId)
+        this.deleteRecord.confirmDialog = false
+        this.$store.commit('updateSnackbar', snackbar)
+      }).catch(()=>{
+        let snackbar = {
+          message: 'Some thing went wrong! try again',
+          color: 'error'
+        }
+        this.$store.commit('updateSnackbar', snackbar)
+      })
+    },
+    confirmDelete(id){
+      this.deleteRecord.confirmDialog = true
+      this.deleteRecord.id = id
     }
   },
   watch: {
