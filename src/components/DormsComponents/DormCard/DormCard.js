@@ -6,8 +6,8 @@ import DormFeatures from "../DormFeatures/DormFeatures.vue";
 export default {
   name: "DormCard",
   components: {
-    "dorm-map": DormMap,
-    "dorm-reviews": DormReviews,
+    'dorm-map': DormMap,
+    'dorm-reviews': DormReviews,
     'dorm-features': DormFeatures
   },
   props: {

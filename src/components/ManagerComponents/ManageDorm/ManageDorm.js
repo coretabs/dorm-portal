@@ -1,9 +1,11 @@
 import FileUpload from 'vue-upload-component/src'
+import DormMap from "../../SharedComponents/DormMap/DormMap.vue";
 
 export default {
   name: "ManageDorm",
   components: {
-    'file-upload': FileUpload
+    'file-upload': FileUpload,
+    'dorm-map': DormMap,
   },
   data: function () {
     return {
@@ -21,7 +23,8 @@ export default {
       files: [],
       dialog: {
         general: false,
-        features: false
+        features: false,
+        location: false
       },
       dormsAboutDesc:[1,2],
       requiredRules:[
@@ -29,7 +32,7 @@ export default {
       ],
       emailRules: [
         v => !!v || 'E-mail is required',
-        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v.trim()) || 'E-mail must be valid'
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
       ],
     };
   },
@@ -115,7 +118,35 @@ export default {
     },
     submitDormFeatures(dialog){
       let data = {
+        dormID: localStorage.getItem('manageDormID'),
         features: this.selectedFeatures
+      }
+      this.UpdateDormInfo(data, dialog)
+    },
+    getGeolocation(){
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((position)=>{
+          position.enableHighAccuracy = true
+          console.log(position)
+
+          const lng = position.coords.longitude
+          const lat = position.coords.latitude
+          this.dorm.geo_longitude = lng
+          this.dorm.geo_latitude = lat
+
+         
+        })
+      } else {
+        console.log('geolocation IS NOT available on your browser');
+      }
+      
+    },
+    submitDormLocation(dialog){
+      let data = {
+        dormID: localStorage.getItem('manageDormID'),
+        geo_longitude: this.dorm.geo_latitude,
+        geo_latitude: this.dorm.geo_longitude,
+        address: this.dorm.address
       }
       this.UpdateDormInfo(data, dialog)
     }

@@ -5,7 +5,7 @@
       {{lang.managerDormInfo[n-1]}}
     </v-tab>
     <!-- General Tab -->
-    <v-tab-item class="info-tab">
+    <v-tab-item class="info-tab" lazy>
       <v-card>
         <v-card-text class="pa-0">
           <v-layout wrap>
@@ -71,7 +71,7 @@
           </v-layout>
         </v-card-text>
       </v-card>
-      <v-dialog persistent v-if="dorm" v-model="dialog.general" width="1200">
+      <v-dialog persistent v-if="dorm" v-model="dialog.general" width="1200" lazy>
         <v-card>
           <v-form ref="form" lazy-validation>
             <v-card-text>
@@ -95,7 +95,7 @@
                   <v-text-field v-model="dorm.contact_email" prepend-icon="fa-envelope" :label="lang.DormGeneralinfo.DormEmail" type="text" :rules="emailRules" required></v-text-field>
                   <v-text-field v-model="dorm.contact_number" prepend-icon="fa-mobile-alt" :label="lang.DormGeneralinfo.DormPhone" type="text" :rules="requiredRules" required></v-text-field>
                   <v-text-field v-model="dorm.contact_fax" prepend-icon="fa-fax" :label="lang.DormGeneralinfo.DormFax" type="text" :rules="requiredRules" required></v-text-field>
-                  
+
                 </v-flex>
                 <v-flex xs12>
                   <v-card-actions>
@@ -112,74 +112,89 @@
     </v-tab-item>
 
     <!-- Location Tab -->
-    <v-tab-item class="location-tab">
+    <v-tab-item class="location-tab" lazy>
       <v-card>
         <v-card-text class="pa-0">
-          <v-layout wrap>
-
+          <v-layout wrap row>
             <v-flex xs12>
               <v-card-actions class="card-header py-3 px-4">
                 <h2 class="white--text">Dorm Location</h2>
                 <v-spacer></v-spacer>
-                <v-btn color="#ffa915" depressed>
+                <v-btn color="#ffa915" depressed @click="updateDialog('location')">
                   <v-icon small color="black" left>fa-pen</v-icon>
                   Update Address
                 </v-btn>
               </v-card-actions>
             </v-flex>
-
-            <v-flex xs12 md12 pa-3>
+            <v-flex xs12 md4 pa-3>
               <v-layout row wrap>
-
                 <v-flex xs12 pa-3>
                   <h3 class="heading">
                     <v-icon small class="pr-2">fa-map-marker-alt</v-icon>
                     Address
                   </h3>
                   <span class="title font-weight-regular">
-                    Next to Computer Department
+                    {{dorm.address}}
                   </span>
                 </v-flex>
-
                 <v-flex xs12 pa-3>
                   <h3 class="heading">
                     <v-icon small class="pr-2">fa-map-pin</v-icon>
                     Latitude
                   </h3>
                   <span class="title font-weight-regular">
-                    31.2255558
+                    {{dorm.geo_latitude}}
                   </span>
                 </v-flex>
-
                 <v-flex xs12 pa-3>
                   <h3 class="heading">
                     <v-icon class="pr-2">fa-map-pin</v-icon>
                     Longitude
                   </h3>
                   <span class="title font-weight-regular">
-                    31.2255558
+                    {{dorm.geo_longitude}}
                   </span>
                 </v-flex>
-
               </v-layout>
-
             </v-flex>
 
-            <!-- <v-flex xs12 md6 pa-3>
-              <v-text-field prepend-icon="fa-map-marker-alt" :label="lang.DormGeneralinfo.DormAddress" type="text"></v-text-field>
-              <v-layout>
-                <v-flex xs12 sm6 pr-1>
-                  <v-text-field prepend-icon="fa-map-pin" :label="lang.DormGeneralinfo.DormLatitude" type="text"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 pl-1>
-                  <v-text-field prepend-icon="fa-map-pin" :label="lang.DormGeneralinfo.DormLongitude" type="text"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-flex> -->
-
-            <v-flex xs12 md6 pa-3>
-
+            <v-flex xs12 md8 pa-3>
+              <dorm-map ref=map v-show="!dialog.location" style="z-index: 0" :longitude="dorm.geo_longitude" :latitude="dorm.geo_latitude"></dorm-map>
             </v-flex>
+
+            <v-dialog persistent v-if="dorm" v-model="dialog.location" width="800" lazy>
+              <v-card>
+                <v-form ref="form" lazy-validation>
+                  <v-card-text>
+                    <v-layout row wrap>
+                      <v-flex xs12 pa-3>
+                         <h2 class="mb-4">Update Dorm Address</h2>
+                        <v-text-field v-model="dorm.address" prepend-icon="fa-map-marker-alt" :label="lang.DormGeneralinfo.DormAddress" type="text"></v-text-field>
+                        <v-layout wrap row>
+                          <v-flex xs12 sm6 pr-1>
+                            <v-text-field prepend-icon="fa-map-pin" v-model="dorm.geo_latitude" :label="lang.DormGeneralinfo.DormLatitude" type="text"></v-text-field>
+                          </v-flex>
+                          <v-flex xs12 sm6 pl-1>
+                            <v-text-field prepend-icon="fa-map-pin" v-model="dorm.geo_longitude" :label="lang.DormGeneralinfo.DormLongitude" type="text"></v-text-field>
+                          </v-flex>
+                           <v-flex class="mt-4 text-sm-center" xs12>
+                             <p>You can get your dorm Latitude and Longitude from <a href="https://www.latlong.net" target="_blank">here</a> or just click on the following button</p>
+                             <v-btn color="success" @click="getGeolocation">Get my Location</v-btn>
+                          </v-flex>
+                        </v-layout>
+                      </v-flex>
+                      <v-flex xs12>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn class="elevation-0" @click="closeDialog('location')">Cancel</v-btn>
+                          <v-btn color="#feae25" class="elevation-0" @click="submitDormLocation('location')" :loading="loadingBtn">{{lang.DormGeneralinfo.button}}</v-btn>
+                        </v-card-actions>
+                      </v-flex>
+                    </v-layout>
+                  </v-card-text>
+                </v-form>
+              </v-card>
+            </v-dialog>
 
           </v-layout>
         </v-card-text>
@@ -211,7 +226,7 @@
               </div>
             </v-flex>
 
-            <v-dialog persistent v-if="dorm" v-model="dialog.features" width="800">
+            <v-dialog persistent v-if="dorm" v-model="dialog.features" width="800" lazy>
               <v-card>
                 <v-form ref="form" lazy-validation>
                   <v-card-text>
