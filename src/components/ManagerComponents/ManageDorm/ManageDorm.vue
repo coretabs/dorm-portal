@@ -359,7 +359,7 @@
                   </v-flex>
                 </v-card-title>
 
-                <v-data-table :headers="headers" :items="bankAccounts" :search="search" :rows-per-page-items="rowsPerPage" :pagination.sync="pagination">
+                <v-data-table :must-sort="bankAccounts.id" :headers="headers" :items="bankAccounts" :search="search" :rows-per-page-items="rowsPerPage" :pagination.sync="pagination">
                   <template slot="items" slot-scope="props">
                     <td class="text-xs-left">{{props.item.id}}</td>
                     <td class="text-xs-left">{{props.item.bank_name}}</td>

@@ -47,7 +47,9 @@ export default {
       },
       rowsPerPage: [10, 20, 30, 40],
       pagination: {
-        rowsPerPage: 10
+        rowsPerPage: 10,
+        sortBy: 'id',
+        descending : true
       },
       dormsAboutDesc:[1,2],
       requiredRules:[
