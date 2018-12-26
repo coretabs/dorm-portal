@@ -326,6 +326,16 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    addBankAccount(context, {id ,data}){
+      return new Promise((resolve, reject) => {
+        $backend.$addBankAccount(id,data).then(responseDate => {
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
     }
 
 

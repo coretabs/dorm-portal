@@ -10,6 +10,18 @@ export default {
       selectedFeatures:[],
       files: [],
       isUpdating: false,
+      filter: 2,
+      filters :[
+        {
+          id: 1,
+          choices:1
+        },
+        {
+          id: 2,
+          choices: 1
+        }
+      
+      ],
       rooms_data :{
         room_types :[
           {
@@ -61,6 +73,7 @@ export default {
         ],
         radio_filters :[
           {
+            id: 1,
             name: "Meals",
             choices: [
               {
@@ -71,9 +84,11 @@ export default {
                 id: 2,
                 name: "two meals"
               }
-            ]
+            ],
+            choosed: null
           },
           {
+            id: 2,
             name: "Parking",
             choices: [
               {
@@ -83,8 +98,13 @@ export default {
               {
                 id: 2,
                 name: "no"
+              },
+              {
+                id: 3,
+                name: "o"
               }
-            ]
+            ],
+            choosed: null
           }
         
         ],

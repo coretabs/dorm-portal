@@ -12,17 +12,42 @@ export default {
       selectedFeatures: [],
       isUpdating: false,
       loadingBtn: false,
+      file: '',
+      search: '',
+      headers: [
+        { text: 'id', value: 'id' },
+        { text: 'Bank Name', value: 'bank_name'  },
+        { text: 'Account Name', value: 'account_name' },
+        { text: 'Account Number', value: 'account_number' },
+        { text: 'Swift', value: 'swift' },
+        { text: 'IBAN', value: 'iban' },
+        { text: 'Currency', value: 'currency_code' },
+        { text: 'Actions', value: 'id' }
+
+      ],
       Features: [
         { name: 'Free wifi', id: 1},
         { name: 'Free parking', id: 2},
         { name: 'Hot water', id: 3},
         { name: 'Cold water', id: 4}
       ],
-      file: '',
+      bank:{
+        name:'',
+        accountName:'',
+        accountNumber: '',
+        swift:'',
+        iban: '',
+        currency: ''
+      },
       dialog: {
         general: false,
         features: false,
-        location: false
+        location: false,
+        addBanks: false
+      },
+      rowsPerPage: [10, 20, 30, 40],
+      pagination: {
+        rowsPerPage: 10
       },
       dormsAboutDesc:[1,2],
       requiredRules:[
@@ -49,12 +74,20 @@ export default {
     },
     dormId(){
       return localStorage.getItem('manageDormID')
+    },
+    bankAccounts(){
+      return this.dorm.bank_accounts
     }
   },
   methods: {
     remove (item) {
       const index = this.selectedFeatures.indexOf(item.id)
       if (index >= 0) this.selectedFeatures.splice(index, 1)
+    },
+    resetFields(obj) {
+      Object.keys(obj).forEach((key)=> {
+          obj[key] = null
+      })
     },
     fetchManagerDorm(){
       const dormID = localStorage.getItem('manageDormID')
@@ -171,9 +204,9 @@ export default {
           }
           this.$store.commit('updateSnackbar', snackbar)
           this.$store.dispatch("fetchManagerDorm", this.dormId)
-        }).catch((error)=>{
+        }).catch(()=>{
           let snackbar = {
-            message: error,
+            message: 'Some thing went wrong! try again',
             color: 'error'
           }
           this.$store.commit('updateSnackbar', snackbar)
@@ -185,10 +218,30 @@ export default {
           color: 'error'
         }
         this.$store.commit('updateSnackbar', snackbar)
-      }
-
-      
+      }      
     },
+    submitNewBank(dialog){
+      const id = this.dormId
+      let data = this.bank
+      if(this.$refs.form.validate()){
+        this.$store.dispatch("addBankAccount", {id, data}).then(() => {
+          let snackbar = {
+            message: 'Bank Account Added Successfully',
+            color: 'success'
+          }
+          this.$store.dispatch("fetchManagerDorm", this.dormId)
+          this.closeDialog(dialog)
+          this.$refs.form.reset()
+          this.$store.commit('updateSnackbar', snackbar)
+        }).catch(() => {
+          let snackbar = {
+            message: 'Some thing went wrong! try again',
+            color: 'error'
+          }
+          this.$store.commit('updateSnackbar', snackbar)
+        })
+      }
+    }
   },
   watch: {
     isUpdating (val) {

@@ -57,9 +57,9 @@
               </template>
             </template>
           </v-autocomplete>
-
+          {{filter}}
           <div v-for="(feature,i) in rooms_data.radio_filters" :key="i">
-            <v-select class="shift-left" :items="feature.choices" item-text="name" item-value="id" :label="feature.name"   append-icon="expand_more" :menu-props="{
+            <v-select v-model="feature.choosed" class="shift-left" :items="feature.choices" item-text="name" item-value="id" :label="feature.name"   append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''

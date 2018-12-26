@@ -85,9 +85,6 @@ export default {
       this.reservationID = item.id
     },
     close(){
-      this.currentStatus = null,
-      this.followUpMessage = null,
-      this.date = null,
       this.showUpdateStatus = false
     },
     fetchManagerReservation(){
@@ -122,6 +119,7 @@ export default {
             message: 'Status has been Updeated, successfully',
             color: 'success'
           }
+          this.$refs.form.reset()
           this.close()
           this.$store.dispatch("fetchManagerReservation", data.dormID)
           this.$store.commit('updateSnackbar', snackbar)

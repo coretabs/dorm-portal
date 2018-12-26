@@ -172,6 +172,19 @@ $backend.$updateDormCover = (id,formData) => {
     .then(response => response.data)
 }
 
+$backend.$addBankAccount = (id,data) => {
+    return $backend.post(`/manager-dorms/${id}/bank-accounts/`, {
+        bank_name: data.name,
+        account_name: data.accountName,
+        account_number: data.accountNumber,
+        swift: data.swift,
+        iban: data.iban,
+        currency_code: data.currency
+    })
+    .then(response => response.data)
+}
+
+
 
 $backend.$deleteMessage = (msgId) => {
     return $backend.delete(`messages/${msgId}`)

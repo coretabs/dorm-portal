@@ -228,29 +228,27 @@
 
             <v-dialog persistent v-if="dorm" v-model="dialog.features" width="800" lazy>
               <v-card>
-                <v-form ref="form" lazy-validation>
+                <v-form ref="form" lazy-validation @submit.prevent>
                   <v-card-text>
                     <v-layout row wrap>
                       <v-flex xs12 md12 class="pa-3">
                         <h2 class="mb-4">Update Dorm Features</h2>
-                        <v-form @submit.prevent>
-                          <v-autocomplete v-model="selectedFeatures" :disabled="isUpdating" :items="dorm.all_features" box chips color="blue-grey lighten-2" label="Select" item-text="name" item-value="id" multiple>
-                            <template slot="selection" slot-scope="data">
-                              <v-chip :selected="data.selected" close  dark class="chip--select-multi" @input="remove(data.item)">
-                                {{data.item.name}}
-                              </v-chip>
-                            </template>
-                            <template slot="item" slot-scope="data">
+                        <v-autocomplete v-model="selectedFeatures" :disabled="isUpdating" :items="dorm.all_features" box chips color="blue-grey lighten-2" label="Select" item-text="name" item-value="id" multiple>
+                          <template slot="selection" slot-scope="data">
+                            <v-chip :selected="data.selected" close dark class="chip--select-multi" @input="remove(data.item)">
+                              {{data.item.name}}
+                            </v-chip>
+                          </template>
+                          <template slot="item" slot-scope="data">
 
-                              <template>
-                                <v-list-tile-content>
-                                  <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                                </v-list-tile-content>
-                              </template>
+                            <template>
+                              <v-list-tile-content>
+                                <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                              </v-list-tile-content>
                             </template>
+                          </template>
 
-                          </v-autocomplete>
-                        </v-form>
+                        </v-autocomplete>
                       </v-flex>
                       <v-flex xs12>
                         <v-card-actions>
@@ -278,11 +276,11 @@
             <v-flex xs12>
               <v-card-actions class="card-header py-3 px-4">
                 <h2 class="white--text">Dorm Photos</h2>
-                <v-spacer></v-spacer>
+                <!-- <v-spacer></v-spacer>
                 <v-btn color="#ffa915" depressed @click="updateDialog('features')">
                   <v-icon small color="black" left>fa-pen</v-icon>
                   Add Photo
-                </v-btn>
+                </v-btn> -->
               </v-card-actions>
             </v-flex>
 
@@ -309,15 +307,27 @@
               </v-layout>
             </v-flex>
 
-            <v-flex xs12 md6 pa-3>
+            <v-flex xs12 md6 class="pa-4">
               <v-layout row wrap>
                 <v-flex>
-                  <h3 class="mb-4">Dorm Photos</h3>
+                  <v-layout class="mb-4">
+                    <h3 class="ma-0 pa-0">Dorm Photos</h3>
+                    <v-spacer></v-spacer>
+                    <!-- <v-btn color="#ffa915" depressed @click="updateDialog('features')">
+                      <v-icon small color="black" left>fa-pen</v-icon>
+                      Add Photo
+                    </v-btn> -->
+                  </v-layout>
+                  <v-layout v-if="dorm.photos.length">
+                    asd
+                  </v-layout>
+
+                  <v-layout v-else class="photos-block" align-center justify-center row>
+                    <p>You haven't uploaded any photos yet.</p>
+                  </v-layout>
                 </v-flex>
               </v-layout>
             </v-flex>
-
-            
 
           </v-layout>
         </v-card-text>
@@ -334,16 +344,83 @@
               <v-card-actions class="card-header py-3 px-4">
                 <h2 class="white--text">Bank Accounts</h2>
                 <v-spacer></v-spacer>
-                <v-btn color="#ffa915" depressed>
+                <v-btn color="#ffa915" depressed @click="updateDialog('addBanks')">
                   <v-icon small color="black" left>fa-pen</v-icon>
-                  Update Features
+                  Add new account
                 </v-btn>
               </v-card-actions>
             </v-flex>
 
-            <v-flex xs12 md6 pa-3>
-              das
+            <v-flex xs12>
+              <v-card class="elevation-0">
+                <v-card-title>
+                  <v-flex xs12 md3>
+                    <v-text-field v-model="search" prepend-icon="search" @input="filterByStatus()" label="Search" single-line hide-details></v-text-field>
+                  </v-flex>
+                </v-card-title>
+
+                <v-data-table :headers="headers" :items="bankAccounts" :search="search" :rows-per-page-items="rowsPerPage" :pagination.sync="pagination">
+                  <template slot="items" slot-scope="props">
+                    <td class="text-xs-left">{{props.item.id}}</td>
+                    <td class="text-xs-left">{{props.item.bank_name}}</td>
+                    <td class="text-xs-left">{{props.item.account_name}}</td>
+                    <td class="text-xs-left">{{props.item.account_number}}</td>
+                    <td class="text-xs-left">{{props.item.swift}}</td>
+                    <td class="text-xs-left">{{props.item.iban}}</td>
+                    <td class="text-xs-left">{{props.item.currency_code}}</td>
+                    <td class="text-xs-left layout pl-3">
+                      <v-tooltip top>
+                        <v-btn slot="activator" @click="showMoreDetails(props.item)" flat icon>
+                          <v-icon small color="#677889">fa-pen</v-icon>
+                        </v-btn>
+                        <span>Edit</span>
+                      </v-tooltip>
+                      <v-tooltip top>
+                        <v-btn slot="activator" @click="showMoreDetails(props.item)" flat icon>
+                          <v-icon small color="#677889">fa-trash</v-icon>
+                        </v-btn>
+                        <span>Delete</span>
+                      </v-tooltip>
+
+                    </td>
+                  </template>
+                  <v-alert slot="no-results" :value="true" color="error" icon="warning">
+                    {{lang.manageResrevations.searchResults}} "{{ search }}".
+                  </v-alert>
+                </v-data-table>
+              </v-card>
             </v-flex>
+
+            <v-dialog persistent v-if="dorm" v-model="dialog.addBanks" width="800" lazy>
+              <v-card>
+                <v-form ref="form" lazy-validation>
+                  <v-card-text>
+                    <v-layout row wrap>
+                      <v-flex xs12 md12 class="pa-3">
+                        <h2 class="mb-4">Add new Bank Account</h2>
+                        <v-text-field v-model="bank.name" label="Bank Name" type="text" :rules="requiredRules" required></v-text-field>
+                        <v-text-field v-model="bank.accountName" label="Account Name" type="text" :rules="requiredRules" required></v-text-field>
+                        <v-select class="shift-left"  v-model="bank.currency" :items="currencies" item-text="code" item-value="code" label="Currency" color="success" append-icon="expand_more" :menu-props="{
+                          offsetY: '',
+                          transition: 'slide-y-transition',
+                          bottom: ''
+                        }" :rules="requiredRules" required></v-select>
+                        <v-text-field v-model="bank.accountNumber" label="Account Number" type="text" :rules="requiredRules" required></v-text-field>
+                        <v-text-field v-model="bank.iban" label="IBAN" type="text" :rules="requiredRules" required></v-text-field>
+                        <v-text-field v-model="bank.swift" label="Swift" type="text"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn class="elevation-0" @click="closeDialog('addBanks')">Cancel</v-btn>
+                          <v-btn color="#feae25" class="elevation-0" @click="submitNewBank('addBanks')" :loading="loadingBtn">Add Bank</v-btn>
+                        </v-card-actions>
+                      </v-flex>
+                    </v-layout>
+                  </v-card-text>
+                </v-form>
+              </v-card>
+            </v-dialog>
 
           </v-layout>
         </v-card-text>
