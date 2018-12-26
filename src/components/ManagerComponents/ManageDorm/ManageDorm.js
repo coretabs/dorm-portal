@@ -1,11 +1,9 @@
-import FileUpload from 'vue-upload-component/src'
 import DormMap from "../../SharedComponents/DormMap/DormMap.vue";
 
 export default {
   name: "ManageDorm",
   components: {
-    'file-upload': FileUpload,
-    'dorm-map': DormMap,
+    'dorm-map': DormMap
   },
   data: function () {
     return {

@@ -279,6 +279,10 @@
               <v-card-actions class="card-header py-3 px-4">
                 <h2 class="white--text">Dorm Photos</h2>
                 <v-spacer></v-spacer>
+                <v-btn color="#ffa915" depressed @click="updateDialog('features')">
+                  <v-icon small color="black" left>fa-pen</v-icon>
+                  Add Photo
+                </v-btn>
               </v-card-actions>
             </v-flex>
 
@@ -313,54 +317,7 @@
               </v-layout>
             </v-flex>
 
-            <!-- <v-flex xs12 md6 pa-3>
-              <h3 class="heading">Dorm Photos:</h3>
-              <div class="drag-drop">
-                <div class="upload">
-                  <ul v-if="files.length">
-                    <li v-for="file in files" :key="file.id">
-                      <span>{{file.name}}</span> -
-                      <span>{{file.size | formatSize}}</span> -
-                      <span v-if="file.error">{{file.error}}</span>
-                      <span v-else-if="file.success">success</span>
-                      <span v-else-if="file.active">active</span>
-                      <span v-else-if="file.active">active</span>
-                      <span v-else></span>
-                    </li>
-                  </ul>
-                  <ul v-else>
-                    <div>
-                      <v-icon>fa-file-import</v-icon>
-                      <h4>{{lang.confirmPayment.dragMessage}}</h4>
-                      <label for="file">{{lang.confirmPayment.chooseFile}}</label>
-                    </div>
-                  </ul>
-
-                  <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
-                    <h3>{{lang.confirmPayment.dragMessage}}</h3>
-                  </div>
-                </div>
-
-                <v-flex class="action-btn">
-                  <file-upload class="select-btn" post-action="/upload/post" :multiple="true" :drop="true" :drop-directory="true" v-model="files" ref="upload">
-                    <v-icon color="#5472a6" small>fa-plus</v-icon>
-                    {{lang.confirmPayment.selectFile}}
-                  </file-upload>
-
-                  <v-btn color="#58b44e" dark class="elevation-0" v-if="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true">
-                    <v-icon color="#0e7426" left small>fa-arrow-up</v-icon>
-                    {{lang.confirmPayment.startUpload}}
-                  </v-btn>
-
-                  <v-btn color="red darken-1" dark class="elevation-0" v-else @click.prevent="$refs.upload.active = false">
-                    <v-icon left>fa-times-circle</v-icon>
-                    {{lang.confirmPayment.stopUpload}}
-                  </v-btn>
-
-                </v-flex>
-              </div>
-
-            </v-flex> -->
+            
 
           </v-layout>
         </v-card-text>
