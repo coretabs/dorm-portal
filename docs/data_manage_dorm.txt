@@ -6,6 +6,7 @@ dorms
     name
 ```
 
+
 GET /manager/dorms/{id} returns
 ```
 name
@@ -28,8 +29,6 @@ features
     id
     name
 
-cover
-
 photos
     url
     is_3d
@@ -44,6 +43,7 @@ contact_number
 contact_fax
 ```
 
+
 PUT /manager/dorms/{id} accepts
 ```
 name
@@ -52,8 +52,6 @@ abouts
     about
 
 features (array of ids)
-
-cover
 
 geo_longitude
 geo_latitude
@@ -65,10 +63,12 @@ contact_number
 contact_fax
 ```
 
-// Consider the need for this before adding it
-DELETE /manager/dorms/{id}/features/{id} accepts
+
+PUT /manager/dorms/{id}/update-cover accepts
 ```
+cover
 ```
+
 
 POST /manager/dorms/{id}/photos accepts
 ```
@@ -77,9 +77,11 @@ is_3d
 url
 ```
 
+
 DELETE /manager/dorms/{id}/photos/{id} accepts
 ```
 ```
+
 
 PUT /manager/dorms/{id}/bank-accounts/{id} accepts
 ```
@@ -138,6 +140,7 @@ integral_filters
     name
 ```
 
+
 GET /manager/dorms/{id}/rooms returns
 ```
 rooms
@@ -165,6 +168,7 @@ rooms
 		icon (default=fa-check)
 ```
 
+
 PUT /manager/dorms/{id}/rooms/{id} accepts
 ```
 total_quota
@@ -189,13 +193,19 @@ radio_choices
 integral_choices
     id
     number
-
-photos
 ```
+
+
+POST /manager/dorms/{id}/rooms/{id}/photos accepts
+```
+uploaded_photo
+```
+
 
 DELETE /manager/dorms/{id}/rooms/{id}/photos/{id} accepts
 ```
 ```
+
 
 DELETE /manager/dorms/{id}/rooms/{id} accepts
 ```
@@ -210,6 +220,7 @@ room confirmation days
 photos
 duration
 	select
+
 
 POST /manager/dorms/{id}/rooms accepts
 ```
@@ -235,9 +246,8 @@ radio_choices
 integral_choices
     id
     number
-
-photos
 ```
+
 
 GET /manager/dorms/{id}/reservations returns
 ```
@@ -280,6 +290,7 @@ reservations
 	    upload_receipt_date
 ```
 
+
 PUT /manager/dorms/{id}/reservations/{id} accepts
 ```
 status (pending=0, rejected=1, confirmed=2, waiting_for_manager_action=3 (student uploaded receipt), manager_updated=4)
@@ -287,9 +298,11 @@ confirmation_deadline_date(2018-12-15)
 follow_up_message
 ```
 
+
 POST /manager/dorms/{id}/reservations/{id}/ask-review
 ```
 ```
+
 
 POST /manager/dorms/{id}/reservations/{id}/ask-review sends email with url
 ```
