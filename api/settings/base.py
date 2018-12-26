@@ -1,4 +1,5 @@
 import os
+import i18n
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 SETTINGS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'api.middlewares.i18nCookiesMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'api.middlewares.CrossDomainSessionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -85,6 +87,12 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+# i18n Plugin Settings
+
+i18n.set('locale', 'en')
+i18n.set('fallback', 'en')
+i18n.load_path.append('locale')
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -110,7 +118,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Insert Whitenoise Middleware at top but below Security Middleware
 # MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware',)
 # http://whitenoise.evans.io/en/stable/django.html#make-sure-staticfiles-is-configured-correctly
-
 
 # Custom user
 

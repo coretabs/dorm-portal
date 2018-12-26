@@ -1,29 +1,50 @@
 {
-  "tr": {
-    "header":{
-      "logo": "yurtlar",
-      "button": "Rezervasyon durumu"
-    },
-    "dormSearch": {
-      "heading":"DAÜ'de Yurtları Bulun",
-      "button": "arama"
-    },
-    "dormFilter": {
-      "heading": "Tarafından filtre"
-    },
-    "login":{
-      "heading":"Rezervasyon durumu",
-      "password": "sefra",
-      "email": "Email",
-      "button": "Kontrol"
-    },
-    "dormCard": {
-      "roomsLeft": "Kalan odalar",
-      "popularFacilities": "Popüler Tesisler",
-      "popularActivities": "Popüler Etkinlikler",
-      "openMap": "haritayı aç",
-      "reviews": "yorumlar",
-      "more": "Daha"
+    "tr": {
+        "header": {
+            "logo": "yurtlar",
+            "button": "Rezervasyon durumu"
+        },
+        "dormSearch": {
+            "heading": "DAÜ'de Yurtları Bulun",
+            "button": "arama"
+        },
+        "dormFilter": {
+            "heading": "Tarafından filtre"
+        },
+        "login": {
+            "heading": "Rezervasyon durumu",
+            "password": "sefra",
+            "email": "Email",
+            "button": "Kontrol"
+        },
+        "dormCard": {
+            "roomsLeft": "Kalan odalar",
+            "popularFacilities": "Popüler Tesisler",
+            "popularActivities": "Popüler Etkinlikler",
+            "openMap": "haritayı aç",
+            "reviews": "yorumlar",
+            "more": "Daha"
+        },
+        "errorMessages": {
+            "manageDorm": {
+                "pleaseAddEitherURLorPhoto": "Lütfen url veya uploaded_photo ekleyin",
+                "urlOnlyWith3D": "Bir 3d resim eklemek istiyorsanız, lütfen URL'yi ekleyin ve bir fotoğraf yüklemeyin"
+            },
+            "manageReservation": {
+                "thisReservationIsNotReviewable": "Bu rezervasyon incelenemez",
+                "statusDoesntExist": "Seçilen durum mevcut değil!"
+            },
+            "auth": {
+                "emailAlreadyExists": "Bir kullanıcı bu e-posta adresine zaten kayıtlı",
+                "twoPasswordShouldMatch": "Girdiğiniz iki şifre eşleşmiyor, lütfen şifrenizi tekrar girin",
+                "noEmailFound": "E-posta adresi hiçbir kullanıcı hesabına atanmamış",
+                "invalidToken": "Belirteç geçersiz, lütfen şifrenizi tekrar sıfırlamayı deneyin"
+            },
+            "reservations": {
+                "noQuota": "Bu odada yeterli kota yok",
+                "cantCreateTwoReservations": "Bir öncekini bitirene kadar rezervasyon oluşturamazsın",
+                "cantUpdateFinishedReservation": "Bu rezervasyonu güncelleyemezsiniz, lütfen başka bir tane oluşturun",
+                "cantReviewNonReviewableReservation": "Bu gözden geçirilemez rezervasyonu gözden geçiremezsiniz"
+            }
+        }
     }
-  }
-}

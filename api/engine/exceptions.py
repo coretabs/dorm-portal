@@ -1,26 +1,29 @@
+import i18n
+
+
 class NoEnoughQuotaException(Exception):
     def __init__(self, msg=None):
         if msg is None:
-            msg = 'No enough quota in this room'
+            msg = i18n.t('student.errorMessages.reservations.noQuota')
         super().__init__(msg)
 
 
 class NonFinishedUserReservationsException(Exception):
     def __init__(self, msg=None):
         if msg is None:
-            msg = 'You cannot create a reservation till you finish the previous one'
+            msg = i18n.t('student.errorMessages.reservations.cantCreateTwoReservations')
         super().__init__(msg)
 
 
 class NonUpdatableReservationException(Exception):
     def __init__(self, msg=None):
         if msg is None:
-            msg = 'You cannot update this reservation, please create another one'
+            msg = i18n.t('student.errorMessages.reservations.cantUpdateFinishedReservation')
         super().__init__(msg)
 
 
 class NonReviewableReservation(Exception):
     def __init__(self, msg=None):
         if msg is None:
-            msg = 'You cannot review this non-reviewable reservation'
+            msg = i18n.t('student.errorMessages.reservations.cantReviewNonReviewableReservation')
         super().__init__(msg)

@@ -1,114 +1,136 @@
 {
-  "en": {
-    "header":{
-      "logo": "Dorms",
-      "button": "Reservation Status"
-    },
-    "login":{
-      "heading": "Login to You Account",
-      "password": "Password",
-      "email": "Email",
-      "button": "Check",
-      "button2": "Login"
-    },
-    "dormSearch": {
-      "heading": "Find Dormitories in EMU",
-      "button": "Search"
-    },
-    "dormFilter": {
-      "heading": "Filter Rooms by"
-    },
-    "dormCard": {
-      "roomsLeft": "Rooms left",
-      "dormFeatures": "Dorm Features",
-      "openMap": "open map",
-      "reviews": "reviews",
-      "more": "More",
-      "features": "Features"
-    },
-    "signup":{
-      "heading": "Create an Account",
-      "password": "Password",
-      "email": "Email",
-      "firstName": "First Name",
-      "passport": "Passport Number",
-      "lastName": "Last Name",
-      "button": "Signup",
-      "haveAccount": "Do You Have an Account?"
-    },
-    "confirmPayment":{
-      "instruction": "Please make a transiction to one of our bank accounts, then upload the receipt below.",
-      "dragMessage": "Drag and Drop files to upload",
-      "chooseFile": "Choose files",
-      "selectFile": "Select files",
-      "startUpload": "Start Upload",
-      "stopUpload": "Stop Upload",
-      "confirmButton": "Next step"
-    },
-    "reservationStatus":{
-      "uploadedDocuments": "Uploaded Documents",
-      "newUpload": "New receipt",
-      "statusHeading": "Reservation Status",
-      "commentHeading": "comment",
-      "submittedHeading": "Submitted on"
-    },
-    "managerMenuItems": [
-      "Reservations",
-      "Rooms",
-      "Dormitory"
-    ],
-    "managerDormInfo": [
-      "General",
-      "Location",
-      "Features",
-      "Photos",
-      "Bank Accounts"
-    ],
-    "DormGeneralinfo": {
-      "DormName": "Dorm Name",
-      "DormDescription": "Write a short description for the selected language",
-      "DormAddress": "Dorm Address",
-      "DormLatitude": "Latitude (x)",
-      "DormLongitude" : "Longitude (y)",
-      "DormPhone": "Dorm Phone",
-      "DormMobile": "Dorm Mobile",
-      "DormFax": "Dorm Fax",
-      "DormEmail": "Dorm Email",
-      "button": "Update"
-    },
-    "manageResrevations":{
-      "heading": "Reservation records",
-      "all": "All",
-      "wating": "Wating",
-      "pending": "Pending",
-      "confirmed": "Confirmed",
-      "rejected": "Rejected",
-      "Expired": "Expired",
-      "searchResults": "No record found for ",
-      "updateStatus": "Update Status",
-      "askForReview": "Ask for review",
-      "receipt": "Receipt",
-      "download": "Download",
-      "tableHeaders": [
-        "Amount",
-        "Receipts",
-        "Status",
-        "Last Updated On",
-        "Student Name",
-        "Student Email",
-        "Created On",
-        "Deadline",
-        "Actions"        
-      ],
-      "status":[
-        "Update",
-        "Rejected",
-        "Confirm"
-      ]
-    },
-    "manageRoom": [
-      "Quota",
-      "Room Card"
-    ]
-  }
+    "en": {
+        "header": {
+            "logo": "Dorms",
+            "button": "Reservation Status"
+        },
+        "login": {
+            "heading": "Login to You Account",
+            "password": "Password",
+            "email": "Email",
+            "button": "Check",
+            "button2": "Login"
+        },
+        "dormSearch": {
+            "heading": "Find Dormitories in EMU",
+            "button": "Search"
+        },
+        "dormFilter": {
+            "heading": "Filter Rooms by"
+        },
+        "dormCard": {
+            "roomsLeft": "Rooms left",
+            "dormFeatures": "Dorm Features",
+            "openMap": "open map",
+            "reviews": "reviews",
+            "more": "More",
+            "features": "Features"
+        },
+        "signup": {
+            "heading": "Create an Account",
+            "password": "Password",
+            "email": "Email",
+            "firstName": "First Name",
+            "passport": "Passport Number",
+            "lastName": "Last Name",
+            "button": "Signup",
+            "haveAccount": "Do You Have an Account?"
+        },
+        "confirmPayment": {
+            "instruction": "Please make a transiction to one of our bank accounts, then upload the receipt below.",
+            "dragMessage": "Drag and Drop files to upload",
+            "chooseFile": "Choose files",
+            "selectFile": "Select files",
+            "startUpload": "Start Upload",
+            "stopUpload": "Stop Upload",
+            "confirmButton": "Next step"
+        },
+        "reservationStatus": {
+            "uploadedDocuments": "Uploaded Documents",
+            "newUpload": "New receipt",
+            "statusHeading": "Reservation Status",
+            "commentHeading": "comment",
+            "submittedHeading": "Submitted on"
+        },
+        "managerMenuItems": [
+            "Reservations",
+            "Rooms",
+            "Dormitory"
+        ],
+        "managerDormInfo": [
+            "General",
+            "Location",
+            "Features",
+            "Photos",
+            "Bank Accounts"
+        ],
+        "DormGeneralinfo": {
+            "DormName": "Dorm Name",
+            "DormDescription": "Write a short description for the selected language",
+            "DormAddress": "Dorm Address",
+            "DormLatitude": "Latitude (x)",
+            "DormLongitude": "Longitude (y)",
+            "DormPhone": "Dorm Phone",
+            "DormMobile": "Dorm Mobile",
+            "DormFax": "Dorm Fax",
+            "DormEmail": "Dorm Email",
+            "button": "Update"
+        },
+        "manageResrevations": {
+            "heading": "Reservation records",
+            "all": "All",
+            "wating": "Wating",
+            "pending": "Pending",
+            "confirmed": "Confirmed",
+            "rejected": "Rejected",
+            "Expired": "Expired",
+            "searchResults": "No record found for ",
+            "updateStatus": "Update Status",
+            "askForReview": "Ask for review",
+            "receipt": "Receipt",
+            "download": "Download",
+            "tableHeaders": [
+                "Amount",
+                "Receipts",
+                "Status",
+                "Last Updated On",
+                "Student Name",
+                "Student Email",
+                "Created On",
+                "Deadline",
+                "Actions"
+            ],
+            "status": [
+                "Pending",
+                "Rejected",
+                "Confirm"
+            ]
+        },
+        "manageRoom": [
+            "Quota",
+            "Room Card"
+        ],
+        "errorMessages": {
+            "manageDorm": {
+                "pleaseAddEitherURLorPhoto": "Please add either url or uploaded_photo",
+                "urlOnlyWith3D": "If you want to add a 3d image, please add the url and DONT upload a photo"
+            },
+            "manageReservation": {
+                "thisReservationIsNotReviewable": "This reservation is not reviewable",
+                "statusDoesntExist": "Selected status doesn't exist!"
+            },
+            "auth": {
+                "emailAlreadyExists": "A user is already registered with this e-mail address",
+                "twoPasswordShouldMatch": "The two passwords you entered do NOT match, please enter your password again",
+                "noEmailFound": "The e-mail address is not assigned to any user account",
+                "invalidToken": "Token is invalid, please try to reset your password again"
+            },
+            "reservations": {
+                "noQuota": "No enough quota in this room",
+                "cantCreateTwoReservations": "You cannot create a reservation till you finish the previous one",
+                "cantUpdateFinishedReservation": "You cannot update this reservation, please create another one",
+                "cantReviewNonReviewableReservation": "You cannot review this non-reviewable reservation"
+            }
+        }
+    }
 }

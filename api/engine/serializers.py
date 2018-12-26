@@ -18,6 +18,7 @@ from i18nfield.rest_framework import I18nField
 
 from rest_polymorphic.serializers import PolymorphicSerializer
 
+import i18n
 
 from . import models
 
@@ -51,7 +52,7 @@ class AskForReviewSerializer(serializers.Serializer):
 
         reservation = models.Reservation.objects.get(pk=reservation_id)
         if not reservation.is_reviewable:
-            raise serializers.ValidationError('This reservation is not reviewable')
+            raise serializers.ValidationError(i18n.t('student.errorMessages.manageReservation.thisReservationIsNotReviewable'))
 
         user = reservation.user
 
@@ -200,7 +201,7 @@ class ClientReservationManagementSerializer(serializers.ModelSerializer):
         status=str(status)
         if status:
             if status not in models.Reservation.STATUS_CHARS_LIST:
-                raise serializers.ValidationError("Status doesn't exist!")
+                raise serializers.ValidationError(i18n.t('student.errorMessages.manageReservation.statusDoesntExist'))
             validated_data['status']=status
 
         instance.last_update_date=datetime.date.today()
@@ -278,8 +279,8 @@ class RegisterSerializer(serializers.Serializer):
         email=get_adapter().clean_email(email)
         if allauth_settings.UNIQUE_EMAIL:
             if email and email_address_exists(email):
-                raise serializers.ValidationError(
-                    "A user is already registered with this e-mail address.")
+                raise serializers.ValidationError(i18n.t('student.errorMessages.auth.emailAlreadyExists'))
+
         return email
 
     def validate_password1(self, password):
@@ -287,7 +288,7 @@ class RegisterSerializer(serializers.Serializer):
 
     def validate(self, data):
         if data['password1'] != data['password2']:
-            raise serializers.ValidationError("The two password fields didn't match.")
+            raise serializers.ValidationError(i18n.t('student.errorMessages.auth.twoPasswordShouldMatch'))
         return data
 
     def get_cleaned_data(self):
@@ -313,8 +314,7 @@ class PasswordResetSerializer(serializers.Serializer):
     def validate_email(self, email):
         email = get_adapter().clean_email(email)
         if not email_address_exists(email):
-            raise serializers.ValidationError('The e-mail address is not assigned '
-                                              'to any user account')
+            raise serializers.ValidationError(i18n.t('student.errorMessages.auth.noEmailFound'))
         return email
 
     def save(self, *args, **kwargs):
@@ -357,11 +357,10 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
             data={'uidb36': attrs['uid'], 'key': attrs['key']})
 
         if not self.user_token_form.is_valid():
-            raise serializers.ValidationError('Invalid token')
+            raise serializers.ValidationError(i18n.t('student.errorMessages.auth.invalidToken'))
 
         if attrs['new_password1'] != attrs['new_password2']:
-            raise serializers.ValidationError(
-                'The two password fields did not match.')
+            raise serializers.ValidationError(i18n.t('student.errorMessages.auth.twoPasswordShouldMatch'))
 
         self.password = attrs['new_password1']
 
@@ -599,11 +598,11 @@ class ClientPhotoDormSerializer(serializers.Serializer):
         url = validated_data.get('url', None)
         
         if not url and not uploaded_photo:
-            raise serializers.ValidationError('please add either url or uploaded_photo')
+            raise serializers.ValidationError(i18n.t('student.errorMessages.manageDorm.pleaseAddEitherURLorPhoto'))
 
         if url:
             if not validated_data['is_3d']:
-                raise serializers.ValidationError('url only for is_3d')
+                raise serializers.ValidationError(i18n.t('student.errorMessages.pleaseAddEitherURLorPhoto.urlOnlyWith3D'))
             instance = models.DormitoryPhoto(photo=url, is_3d=True, dormitory=dormitory)
 
         else:
