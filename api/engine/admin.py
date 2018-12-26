@@ -91,4 +91,5 @@ admin.site.register(models.RoomCharacteristics)
 admin.site.register(models.RoomPhoto)
 
 admin.site.register(models.Reservation)
+admin.site.register(models.Review)
 admin.site.register(models.ReceiptPhoto)
