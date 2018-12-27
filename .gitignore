@@ -4,6 +4,7 @@ venv
 __pycache__
 db.sqlite3
 /dist
+media/*
 
 ./activate.bat
 
