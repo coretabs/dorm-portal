@@ -1,9 +1,21 @@
 <template>
 <v-layout row wrap>
+
   <v-flex v-if="date" xs12 class="my-4 mx-3  confirmation-countdown">
-    <h1>Confirmation Deadline</h1>
+    
+    <h1>Receipt Submition Deadline</h1>
+
+    <div class="hint">
+      <v-tooltip bottom max-width="200">
+        <v-icon color="#ccc" slot="activator">fa-question-circle</v-icon>
+        <span>If you don't upload the receipt before the deadline your reservation will be canceled</span>
+      </v-tooltip>
+    </div>
+    
+
     <flip-countdown :deadline="date"></flip-countdown>
   </v-flex>
+
   <v-flex xs12 md4 px-3 v-if="reservation.room_characteristics">
     <div id="amount">
       <h3>Amount to pay:</h3>
@@ -93,7 +105,7 @@
                 </v-layout>
 
               </v-flex>
-              <v-btn type="submit" class="upload-btn mt-3" v-show="this.files.length" color="#1c3a70" :dark="!disabled" :disabled="disabled"  :loading="loadingBtn">Submit</v-btn>
+              <v-btn type="submit" class="upload-btn mt-3" v-show="this.files.length" color="#1c3a70" :dark="!disabled" :disabled="disabled" :loading="loadingBtn">Submit</v-btn>
             </v-form>
 
           </div>
