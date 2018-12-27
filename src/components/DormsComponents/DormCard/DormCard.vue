@@ -52,7 +52,7 @@
                 <span>{{feature.name}}</span>
               </v-tooltip>
 
-              <v-tooltip top>
+              <v-tooltip v-if="dorm.features.length > 10" top>
                 <v-icon class="facility-icon" slot="activator" @click.stop.prevent="showFeatures">more_horiz</v-icon>
                 <span>{{lang.dormCard.more}}</span>
               </v-tooltip>

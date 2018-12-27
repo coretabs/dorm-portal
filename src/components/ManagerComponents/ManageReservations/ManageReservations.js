@@ -34,7 +34,7 @@ export default {
       rowsPerPage: [10, 20, 30, 40],
       pagination: {
         rowsPerPage: 10,
-        sortBy: 'last_update_date',
+        sortBy: 'reservation_creation_date',
         descending : true
       }
 
@@ -93,6 +93,9 @@ export default {
       this.statusIndex = this.status.indexOf(this.currentStatus)
     },
     submit(){
+      if(this.statusIndex == 0){
+        this.statusIndex = 4
+      }
       let data = {
         reservationID: this.reservationID,
         dormID: localStorage.getItem('manageDormID'),
