@@ -7,7 +7,6 @@ export default {
   data: function () {
     return {
       progress: 0,
-      complated: false,
       contactDialog: false,
       contact: {}
     };
@@ -40,7 +39,11 @@ export default {
         return isReserved? true : false
       }
       return false
-    }   
+    },
+    reservationComplated(){
+      let reservation = this.$store.getters.reservationData
+      return reservation.status == 2 ? true : false
+    }
   },
   methods:{
     checkAuth(){
