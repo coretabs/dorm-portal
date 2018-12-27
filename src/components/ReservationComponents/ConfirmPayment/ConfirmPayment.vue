@@ -13,14 +13,12 @@
     <div id="bank-accounts">
       <h3>Our Bank Accounts:</h3>
       <v-expansion-panel>
-        <!-- TODO: Add bank to DB -->
         <v-expansion-panel-content v-for="(account,i) in reservation.room_characteristics.dormitory.bank_accounts" :key="i">
           <div slot="header">
             <v-icon class="v-icon__bank" small>fa-university</v-icon> {{account.bank_name}}
           </div>
           <v-card>
             <v-card-text>
-
               <table>
                 <tr>
                   <td><strong>Account name:</strong></td>
@@ -43,7 +41,6 @@
                   <td>{{account.iban}}</td>
                 </tr>
               </table>
-
             </v-card-text>
           </v-card>
         </v-expansion-panel-content>

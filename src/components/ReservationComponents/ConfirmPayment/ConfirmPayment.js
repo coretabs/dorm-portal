@@ -41,16 +41,16 @@ export default {
       return ''
     },
     submit(id){
-      const formData = new FormData()
-      _.forEach(this.uploadFiles, file=>{
-        if(this.validate(file) === ''){
-          setTimeout(()=>{
-            formData.set('uploaded_photo', file)
-            this.$store.dispatch("uploadReceipt", {id,formData})
-          }, 5000)
-        }
-      })
-     
+      
+
+      for (const file of this.uploadFiles) {
+        const formData = new FormData()
+        formData.set('uploaded_photo', file)
+        this.$store.dispatch("uploadReceipt", {id,formData}).then(()=>{
+          console.log(formData.get('uploaded_photo'))
+        })
+      }
+
       // this.files = []
       // this.uploadFiles = []
     },
