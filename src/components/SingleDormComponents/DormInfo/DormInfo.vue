@@ -18,8 +18,9 @@
           <v-tab-item lazy>
             <v-card flat>
               <v-card-text>
-                <div class="dorm-feature" v-for="(feature,index) in dorm.features" :key="index">
-                  <v-icon>{{feature.icon}}</v-icon>
+                <div class="dorm-feature" v-for="(feature,index) in dorm.main_info.features" :key="index">
+                  <v-icon v-if="feature.icon">{{feature.icon}}</v-icon>
+                  <v-icon v-else>fa-check</v-icon>
                   <span>{{feature.name}}</span>
                 </div>
               </v-card-text>
