@@ -79,9 +79,6 @@ export default {
     dorm(){
       return this.$store.getters.manageDorm
     },
-    dormId(){
-      return localStorage.getItem('manageDormID')
-    },
     bankAccounts(){
       return this.dorm.bank_accounts
     }
@@ -97,14 +94,9 @@ export default {
       })
     },
     fetchManagerDorm(){
+      //  
       const dormID = localStorage.getItem('manageDormID')
-      this.$store.dispatch("fetchManagerDorm", dormID).then((response)=>{
-        let dormFeatures = []
-        for(const feature of response.features){
-          dormFeatures.push(feature.id)
-        }
-        this.selectedFeatures = dormFeatures
-      })
+      this.$store.dispatch("fetchManagerDorm", dormID)
       .catch(()=>{
         this.$store.state.snackbar.trigger = true
         this.$store.state.snackbar.message = 'Can\'t load dorm'
@@ -129,6 +121,9 @@ export default {
       }else{
         this.dialog['isEdit'] = false
       }
+      if(dialogName == 'features'){
+        this.selectedFeatures = this.$store.state.dormFeatures
+      }
       this.dialog[dialogName] = true
     },
     closeDialog(dialogName){
@@ -145,7 +140,8 @@ export default {
             message: 'Updeated successfully',
             color: 'success'
           }
-          this.$store.dispatch("fetchManagerDorm", this.dormId)
+          const dormID = localStorage.getItem('manageDormID')
+          this.$store.dispatch("fetchManagerDorm", dormID)
           this.closeDialog(dialog)
           this.$store.commit('updateSnackbar', snackbar)
         }).catch(()=>{
@@ -214,7 +210,7 @@ export default {
       const allowedType = ['image/jpeg', 'image/png', 'image/gif']
       const largeFile = file.size > MAX_SIZE
       const isAllowedType = allowedType.includes(file.type)
-      const id = this.dormId
+      const id = localStorage.getItem('manageDormID')
       const formData = new FormData()
       formData.append('cover', this.file)
 
@@ -224,8 +220,9 @@ export default {
             message: 'Cover Updated Successfully',
             color: 'success'
           }
+          const dormID = localStorage.getItem('manageDormID')
           this.$store.commit('updateSnackbar', snackbar)
-          this.$store.dispatch("fetchManagerDorm", this.dormId)
+          this.$store.dispatch("fetchManagerDorm", dormID)
         }).catch(()=>{
           let snackbar = {
             message: 'Some thing went wrong! try again',
@@ -243,7 +240,7 @@ export default {
       }      
     },
     submitNewBank(){
-      const id = this.dormId
+      const id = localStorage.getItem('manageDormID')
       let data = this.bank
       if(this.$refs.form.validate()){
         this.$store.dispatch("addBankAccount", {id, data}).then(() => {
@@ -251,7 +248,7 @@ export default {
             message: 'Bank Account Added Successfully',
             color: 'success'
           }
-          this.$store.dispatch("fetchManagerDorm", this.dormId)
+          this.$store.dispatch("fetchManagerDorm", id)
           this.closeDialog('addBanks')
           this.$store.commit('updateSnackbar', snackbar)
         }).catch(() => {
@@ -265,13 +262,13 @@ export default {
     },
     deleteBankAccount(){
       const accountId= this.deleteRecord.id
-      const dormId = this.dormId
+      const dormId = localStorage.getItem('manageDormID')
       this.$store.dispatch('deleteBankAccount', {dormId,accountId}).then(()=>{
         let snackbar = {
           message: 'Bank Account Has been Deleted Successfully',
           color: 'success'
         }
-        this.$store.dispatch("fetchManagerDorm", this.dormId)
+        this.$store.dispatch("fetchManagerDorm", dormId)
         this.deleteRecord.confirmDialog = false
         this.$store.commit('updateSnackbar', snackbar)
       }).catch(()=>{
@@ -287,7 +284,7 @@ export default {
       this.deleteRecord.id = id
     },
     updateBankAccount(){
-      const dormId = this.dormId
+      const dormId = localStorage.getItem('manageDormID')
       const accountId = this.dialog.idHolder
       let data = this.bank
       if(this.$refs.form.validate()){
@@ -296,7 +293,7 @@ export default {
             message: 'Bank Account Updated Successfully',
             color: 'success'
           }
-          this.$store.dispatch("fetchManagerDorm", this.dormId)
+          this.$store.dispatch("fetchManagerDorm", dormId)
           this.closeDialog('addBanks')
           this.$store.commit('updateSnackbar', snackbar)
         }).catch(() => {

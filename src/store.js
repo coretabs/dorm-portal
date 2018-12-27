@@ -37,6 +37,7 @@ export default new Vuex.Store({
     manageReservation: [],
     manageDorm: {},
     authStatus: '',
+    dormFeatures: [],
     isAuth: localStorage.getItem('auth'),
     isAdmin: localStorage.getItem('admin')
   },
@@ -133,6 +134,11 @@ export default new Vuex.Store({
     },
     fetchManagerDorm(state, responseDate){
       state.manageDorm = responseDate
+      let selectFeaturesHolder = []
+      for(const feature of responseDate.features){
+        selectFeaturesHolder.push(feature.id)
+      }
+      state.dormFeatures = selectFeaturesHolder
     }
   },
   actions: {
