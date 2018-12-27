@@ -35,8 +35,7 @@ class ReservationQuerySet(django_models.QuerySet):
                                            confirmation_deadline_date__lt=yesterday)
         result = expired_reservations.count()
 
-        expired_reservations.update(status=Reservation.EXPIRED_STATUS,
-                                    last_update_date=datetime.date.today())
+        expired_reservations.update(status=Reservation.EXPIRED_STATUS)
 
         return result
 
@@ -467,14 +466,14 @@ class Reservation(django_models.Model):
         (EXPIRED_STATUS, 'expired-dont-choose-this'),
     )
 
-    reservation_creation_date = django_models.DateField(auto_now=True)
+    reservation_creation_date = django_models.DateField(auto_now_add=True)
     is_reviewed = django_models.BooleanField(default=False)
 
     status = django_models.CharField(
         max_length=2, choices=STATUS_CHOICES, default=PENDING_STATUS)
     confirmation_deadline_date = django_models.DateField()
 
-    last_update_date = django_models.DateField(blank=True, null=True)
+    last_update_date = django_models.DateField(auto_now=True)
     follow_up_message = django_models.CharField(max_length=300)
 
     user = django_models.ForeignKey(
@@ -571,7 +570,6 @@ class Reservation(django_models.Model):
 
     def update_status(self, new_status):
         self.status = new_status
-        self.last_update_date = datetime.date.today()
 
         if new_status == Reservation.REJECTED_STATUS or new_status == Reservation.EXPIRED_STATUS:
             self.room_characteristics.increase_quota()
@@ -615,7 +613,7 @@ class Reservation(django_models.Model):
 
 
 class Review(django_models.Model):
-    review_creation_date = django_models.DateField(auto_now=True)
+    review_creation_date = django_models.DateField(auto_now_add=True)
     stars = django_models.DecimalField(decimal_places=1, max_digits=2,
                                        validators=[MinValueValidator(Decimal('0.0')),
                                                    MaxValueValidator(Decimal('5.0'))])
@@ -671,7 +669,7 @@ post_delete.connect(file_cleanup, sender=DormitoryPhoto, dispatch_uid="gallery.i
 
 
 class ReceiptPhoto(UploadablePhoto):
-    upload_receipt_date = django_models.DateField(auto_now=True)
+    upload_receipt_date = django_models.DateField(auto_now_add=True)
 
     @property
     def url(self):
