@@ -1,8 +1,14 @@
 <template>
-<v-layout row wrap>
+<v-layout row wrap class="mt-4">
+  <v-flex v-if="isNewUpload" xs12 class="mx-3 pa-0 text-xs-right">
+    <v-spacer></v-spacer>
+    <v-btn color="#feae25" depressed class="upload-btn mb-4 mx-0" @click="nextStep">
+      Back to status page
+      <v-icon small right>fa-arrow-right</v-icon>
+    </v-btn>
+  </v-flex>
+  <v-flex v-if="date  && thereIsDeadline" xs12 class="mb-4 mx-3  confirmation-countdown">
 
-  <v-flex v-if="date" xs12 class="my-4 mx-3  confirmation-countdown">
-    
     <h1>Receipt Submition Deadline</h1>
 
     <div class="hint">
@@ -11,13 +17,12 @@
         <span>If you don't upload the receipt before the deadline your reservation will be canceled</span>
       </v-tooltip>
     </div>
-    
 
     <flip-countdown :deadline="date"></flip-countdown>
   </v-flex>
 
   <v-flex xs12 md4 px-3 v-if="reservation.room_characteristics">
-    <div id="amount">
+    <div id="amount" v-if="!isNewAmount">
       <h3>Amount to pay:</h3>
       <span>{{reservation.room_characteristics.price_currency}}{{reservation.room_characteristics.price}}</span>
       <v-icon>fa-money-bill-alt</v-icon>
@@ -105,7 +110,7 @@
                 </v-layout>
 
               </v-flex>
-              <v-btn type="submit" class="upload-btn mt-3" v-show="this.files.length" color="#1c3a70" :dark="!disabled" :disabled="disabled" :loading="loadingBtn">Submit</v-btn>
+              <v-btn type="submit" class="upload-btn mt-3" depressed v-show="this.files.length" color="#1c3a70" :dark="!disabled" :disabled="disabled" :loading="loadingBtn">Submit</v-btn>
             </v-form>
 
           </div>

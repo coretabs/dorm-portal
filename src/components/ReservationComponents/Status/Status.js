@@ -3,23 +3,7 @@ export default {
   data: function(){
     return{
       status: "",
-      statusIcon: "",
-      items: [{
-        iconClass: 'grey lighten-1 white--text',
-        title: 'Receipt01',
-        subtitle: 'Jan 9, 2014'
-        },
-        {
-          iconClass: 'grey lighten-1 white--text',
-          title: 'Receipt02',
-          subtitle: 'Jan 17, 2014'
-        },
-        {
-          iconClass: 'grey lighten-1 white--text',
-          title: 'Receipt03',
-          subtitle: 'Jan 28, 2014'
-        }
-      ]
+      statusIcon: ""
     }
   },
   computed: {
@@ -30,6 +14,7 @@ export default {
       switch(this.$store.getters.reservationData.status){
         case '0':
           this.status = "pending"
+          this.statusIcon = "fa-clock"
           break;
         case '1':
           this.status = "rejected"
@@ -41,7 +26,6 @@ export default {
           break;
           case '3':
           this.status = "Wating"
-          this.statusIcon = "fa-clock"
           break;
         case '4':
           this.status = "Updated"
@@ -56,6 +40,18 @@ export default {
           break;
       }
       return this.$store.getters.reservationData
+    }
+  },
+  methods: {
+    previousStep(state){
+      this.$store.state.reservationStepperState.receiptUploaded = false
+      this.$store.state.reservationStepperState.uploadNewReceipt = true
+      if(state == 'required'){
+        this.$store.state.reservationStepperState.newAmount = true
+        this.$store.state.reservationStepperState.uploadDeadline = true
+      }else{
+        this.$store.state.reservationStepperState.uploadDeadline = false
+      }
     }
   }
 };

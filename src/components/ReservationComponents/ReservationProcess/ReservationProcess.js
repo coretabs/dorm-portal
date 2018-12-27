@@ -21,9 +21,15 @@ export default {
       return this.$store.getters.lang;
     },
     reservationStep(){
-      if(this.$store.getters.isLoggedIn){
+      if(this.$store.getters.reservationStepperState.receiptUploaded){
+        this.progress = 3;
+      }
+      else if(this.$store.getters.reservationStepperState.uploadNewReceipt){
+        this.progress = 2;
+      }
+      else if(this.$store.getters.isLoggedIn){
         const step = JSON.parse(localStorage.getItem('auth'));
-        this.progress = step.current_step || 1;
+        this.progress = step.current_step;
       }else{
         this.progress = 1;
       }

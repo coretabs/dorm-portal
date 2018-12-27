@@ -32,6 +32,12 @@ export default new Vuex.Store({
       room_features: [],
       additional_filters: []
     },
+    reservationStepperState:{
+      receiptUploaded: false,
+      uploadNewReceipt: false,
+      uploadDeadline: true,
+      newAmount: false
+    },
     managerDorms: [],
     reservation: {},
     manageReservation: [],
@@ -57,7 +63,8 @@ export default new Vuex.Store({
     drawer: state => state.drawer,
     manageReservation: state => state.manageReservation,
     manageDorm: state => state.manageDorm,
-    snackbar : state => state.snackbar
+    snackbar : state => state.snackbar,
+    reservationStepperState: state => state.reservationStepperState
   },
   mutations: {
     updateSnackbar(state , payload){

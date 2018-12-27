@@ -12,7 +12,7 @@ export default {
       password: '',
       nameRules: [
         v => !!v || 'Name is required',
-        v => v.length >= 3 && v.length <=20 || 'Name must be less than 10 characters'
+        v => v.length >= 3 && v.length <=20 || 'Name must be more than 3 and less than 20 characters'
       ],
       emailRules: [
         v => !!v || 'E-mail is required',

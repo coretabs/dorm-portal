@@ -71,6 +71,10 @@ export default {
           color: 'success'
         }
         this.$store.commit('updateSnackbar', snackbar)
+        setTimeout(() => {
+          this.$store.dispatch('fetchReservation', this.reservation.id)
+          this.$store.state.reservationStepperState.receiptUploaded = true
+        }, 1000);
       }else{
         let snackbar = {
           message: 'Something went Wrong!',
@@ -92,6 +96,10 @@ export default {
         }
         this.disabled = false
       }
+    },
+    nextStep(){
+      this.$store.state.reservationStepperState.receiptUploaded = true
+      this.$store.state.reservationStepperState.uploadNewReceipt = false
     }
   },
   computed: {
@@ -103,6 +111,15 @@ export default {
     },
     date(){
       return this.$store.state.reservation.confirmation_deadline_date
+    },
+    thereIsDeadline(){
+      return this.$store.getters.reservationStepperState.uploadDeadline
+    },
+    isNewUpload(){
+      return this.$store.getters.reservationStepperState.uploadNewReceipt
+    },
+    isNewAmount(){
+      return this.$store.getters.reservationStepperState.newAmount
     }
   }
 };
