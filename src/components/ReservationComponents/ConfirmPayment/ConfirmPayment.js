@@ -1,6 +1,5 @@
 import FlipCountdown from 'vue2-flip-countdown'
 import _ from 'lodash'
-import Axios from 'axios';
 
 export default {
   name: "ConfirmPayment",
@@ -18,7 +17,7 @@ export default {
   methods:{
     selectFile(){
       const files = this.$refs.files.files
-      this.uploadFiles = [...this.files, ...files]
+      this.uploadFiles = [...this.uploadFiles, ...files]
       this.files = [
         ...this.files,
         ..._.map(files, file=>({
@@ -29,6 +28,9 @@ export default {
         }))
       ]
       this.isValid()
+      // console.log(files)
+      console.log(this.uploadFiles)
+      
     },
     validate(file){
       const MAX_SIZE = 200000
@@ -52,16 +54,18 @@ export default {
         if(this.validate(file) === ''){
           formData.set('uploaded_photo', file)
           await this.uploadFile(id, formData).then(()=>{
-            console.log(formData.get('uploaded_photo'))
             this.files.shift()
-          }).catch((err)=>{
-            console.log(err)
+          }).catch(()=>{
             success = false
+          }).then(()=>{
+            this.loadingBtn = false
           })
         }
       }
-      this.loadingBtn = false
+      
       if(success){
+        this.files = []
+        this.uploadFiles = []
         let snackbar = {
           message: 'Files Uploaded successfully',
           color: 'success'
@@ -74,9 +78,6 @@ export default {
         }
         this.$store.commit('updateSnackbar', snackbar)
       }
-
-      // this.files = []
-      // this.uploadFiles = []
     },
     removeFile(index){
       this.files.splice(index, 1)
