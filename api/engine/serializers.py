@@ -918,6 +918,36 @@ class ChoiceSerializer(PolymorphicSerializer):
     }
 
 
+class ClientPhotoRoomSerializer(serializers.Serializer):
+    uploaded_photo = serializers.ImageField(required=False)
+    url = serializers.URLField(required=False)
+    is_3d = serializers.BooleanField(default=False)
+
+    def create(self, validated_data):
+        room_characteristics = models.RoomCharacteristics.objects.get(pk=self.context.get('view').kwargs.get('room_pk'),
+                                                      dormitory_id=self.context.get('view').kwargs.get('dorm_pk'))
+        uploaded_photo = validated_data.get('uploaded_photo', None)
+        
+        url = validated_data.get('url', None)
+        
+        if not url and not uploaded_photo:
+            raise serializers.ValidationError(i18n.t('student.errorMessages.manageDorm.pleaseAddEitherURLorPhoto'))
+
+        if url:
+            if not validated_data['is_3d']:
+                raise serializers.ValidationError(i18n.t('student.errorMessages.pleaseAddEitherURLorPhoto.urlOnlyWith3D'))
+            instance = models.RoomPhoto(photo=url, is_3d=True, room_characteristics=room_characteristics)
+
+        else:
+            instance = models.RoomPhoto(photo=uploaded_photo, room_characteristics=room_characteristics)
+
+        instance.save()
+
+        return instance
+
+    class Meta:
+        fields = ('uploaded_photo', 'url', 'is_3d')
+
 class ClientPhotoDormSerializer(serializers.Serializer):
     uploaded_photo = serializers.ImageField(required=False)
     url = serializers.URLField(required=False)

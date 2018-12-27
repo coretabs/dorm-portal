@@ -384,3 +384,63 @@ def act(context):
 @then('get 200 OK with for updating that room')
 def test(context):
     assert context.response.status_code == status.HTTP_200_OK
+
+
+@when('hitting POST /manager/dorms/{alfma-id}/rooms/{room2-id}/photos')
+def act(context):
+    uploaded_file = create_uploaded_file(context, 'room-photo.jpeg')
+    photo_json = {'uploaded_photo': uploaded_file}
+
+    client = APIClient()
+    client.force_authenticate(context.john)
+
+    url = reverse('engine.manager-dorms.rooms:photos-list', kwargs={'dorm_pk': context.alfam.id,
+                                                                    'room_pk': context.room2.id})
+    context.response = client.post(url, photo_json, format='multipart')
+
+
+@then('get 201 created for adding a photo in room2')
+def test(context):
+    assert context.response.status_code == status.HTTP_201_CREATED
+
+    assert RoomCharacteristics.objects.get(pk=context.room2.id).photos.count() == 1
+
+    assert os.path.exists(context.expected_file_path) == True
+    # os.remove(context.expected_file_path)
+
+
+@when('hitting POST /manager/dorms/{alfma-id}/rooms/{room2-id}/photos for non-owned dorm')
+def act(context):
+    uploaded_file = create_uploaded_file(context, 'room-photo.jpeg')
+    photo_json = {'uploaded_photo': uploaded_file}
+
+    client = APIClient()
+    client.force_authenticate(context.scott)
+
+    url = reverse('engine.manager-dorms.rooms:photos-list', kwargs={'dorm_pk': context.alfam.id,
+                                                                    'room_pk': context.room2.id})
+    context.response = client.post(url, photo_json, format='multipart')
+
+
+@then('get 403 forbidden for adding a photo in room2 in non-owned dorm')
+def test(context):
+    assert context.response.status_code == status.HTTP_403_FORBIDDEN
+
+
+@when('hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id}/photos/{alfam-photo-id}')
+def act(context):
+    room_photo = RoomCharacteristics.objects.get(pk=context.room2.id).photos.first()
+
+    request = APIRequestFactory().delete('')
+    force_authenticate(request, context.john)
+    view = PhotoRoomManagementViewSet.as_view(actions={'delete': 'destroy'})
+    context.response = view(request, dorm_pk=context.alfam.id,
+                            room_pk=context.room2.pk,
+                            pk=room_photo.id)
+
+
+@then('get 204 noContent for deleting the photo from the second room')
+def test(context):
+    assert context.response.status_code == status.HTTP_204_NO_CONTENT
+    assert RoomCharacteristics.objects.get(pk=context.room2.id).photos.count() == 0
+    assert os.path.exists(context.expected_file_path) == False

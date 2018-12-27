@@ -31,6 +31,13 @@ manager_dorms_router.register('photos', engine_views.PhotoDormManagementViewSet,
                               base_name='photos')
 manager_dorms_router.register('reservations', engine_views.ReservationManagementViewSet,
                               base_name='reservations')
+manager_dorms_router.register('rooms', engine_views.RoomManagementViewSet,
+                              base_name='rooms')
+
+manager_rooms_router = routers.NestedSimpleRouter(
+    manager_dorms_router, 'rooms', lookup='room')
+manager_rooms_router.register('photos', engine_views.PhotoRoomManagementViewSet,
+                              base_name='photos')
 
 urlpatterns = [
 
@@ -42,6 +49,7 @@ urlpatterns = [
     #path('api/manager', include((manager_router.urls, 'engine'), namespace='engine')),
     path('api/', include((reservations_router.urls, 'engine'), namespace='engine.reservations')),
     path('api/', include((manager_dorms_router.urls, 'engine'), namespace='engine.manager-dorms')),
+    path('api/', include((manager_rooms_router.urls, 'engine'), namespace='engine.manager-dorms.rooms')),
 
     path('api/auth/', include('rest_auth.urls')),
     #path(r'^', include('django.contrib.auth.urls')),

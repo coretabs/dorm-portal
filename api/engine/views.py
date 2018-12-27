@@ -105,6 +105,15 @@ class HisOwnDormitoryChildObjects(BasePermission):
         return models.Dormitory.objects.get(pk=view.kwargs['dorm_pk']).manager == request.user
 
 
+class PhotoRoomManagementViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated, HisOwnDormitoryChildObjects)
+    serializer_class = serializers.ClientPhotoRoomSerializer
+
+    def get_queryset(self):
+        return models.RoomPhoto.objects.filter(room_characteristics=self.kwargs['room_pk'],
+                                               room_characteristics__dormitory=self.kwargs['dorm_pk'])
+
+
 class RoomManagementViewSet(viewsets.ViewSet):
     permission_classes = (IsAuthenticated, HisOwnDormitoryChildObjects)
 

@@ -79,3 +79,15 @@ Feature: Managing room data
 
         When hitting PUT /manager/dorms/{alfam-id}/rooms/{room2-id}
         Then get 200 OK with for updating that room
+
+
+
+
+        When hitting POST /manager/dorms/{alfma-id}/rooms/{room2-id}/photos
+        Then get 201 created for adding a photo in room2
+
+        When hitting POST /manager/dorms/{alfma-id}/rooms/{room2-id}/photos for non-owned dorm
+        Then get 403 forbidden for adding a photo in room2 in non-owned dorm
+
+        When hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id}/photos/{alfam-photo-id}
+        Then get 204 noContent for deleting the photo from the second room
