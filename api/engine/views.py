@@ -149,13 +149,9 @@ class RoomManagementViewSet(viewsets.ViewSet):
         return Response(status=status.HTTP_200_OK)
 
     def destroy(self, request, dorm_pk, pk):
-        """reservation = self.get_queryset().get(pk=pk)
-
-        serializer = serializers.ClientReservationManagementSerializer(
-            reservation, data=request.data, partial=True)
-        serializer.is_valid()
-        serializer.save()
-        return Response(serializer.data)"""
+        room = self.get_queryset().get(pk=pk)
+        room.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class ReservationManagementViewSet(viewsets.ViewSet):

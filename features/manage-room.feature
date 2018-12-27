@@ -91,3 +91,12 @@ Feature: Managing room data
 
         When hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id}/photos/{alfam-photo-id}
         Then get 204 noContent for deleting the photo from the second room
+
+
+
+
+        When hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id} not-owned dorm
+        Then get 403 forbidden for deleting non-owned dorm
+		
+        When hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id}
+        Then get 204 noContent for deleting room2 from alfam

@@ -444,3 +444,32 @@ def test(context):
     assert context.response.status_code == status.HTTP_204_NO_CONTENT
     assert RoomCharacteristics.objects.get(pk=context.room2.id).photos.count() == 0
     assert os.path.exists(context.expected_file_path) == False
+
+
+@when('hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id} not-owned dorm')
+def act(context):
+    request = APIRequestFactory().delete('')
+    force_authenticate(request, context.scott)
+    view = RoomManagementViewSet.as_view(actions={'delete': 'destroy'})
+    context.response = view(request, dorm_pk=context.alfam.id,
+                            pk=context.room2.pk)
+
+
+@then('get 403 forbidden for deleting non-owned dorm')
+def test(context):
+    assert context.response.status_code == status.HTTP_403_FORBIDDEN
+
+
+@when('hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id}')
+def act(context):
+    request = APIRequestFactory().delete('')
+    force_authenticate(request, context.john)
+    view = RoomManagementViewSet.as_view(actions={'delete': 'destroy'})
+    context.response = view(request, dorm_pk=context.alfam.id,
+                            pk=context.room2.pk)
+
+
+@then('get 204 noContent for deleting room2 from alfam')
+def test(context):
+    assert context.response.status_code == status.HTTP_204_NO_CONTENT
+    assert RoomCharacteristics.objects.filter(pk=context.room2.id).first() == None
