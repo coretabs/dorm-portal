@@ -93,7 +93,7 @@
                 </v-layout>
 
               </v-flex>
-              <v-btn type="submit" class="upload-btn mt-3" v-show="this.files.length" color="#1c3a70" :dark="!disabled" :disabled="disabled">Submit</v-btn>
+              <v-btn type="submit" class="upload-btn mt-3" v-show="this.files.length" color="#1c3a70" :dark="!disabled" :disabled="disabled"  :loading="loadingBtn">Submit</v-btn>
             </v-form>
 
           </div>

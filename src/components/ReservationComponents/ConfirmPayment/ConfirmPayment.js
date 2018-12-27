@@ -6,6 +6,7 @@ export default {
   name: "ConfirmPayment",
   data: function() {
     return {
+      loadingBtn: false,
       files: [],
       uploadFiles: [],
       disabled: false
@@ -40,15 +41,38 @@ export default {
       }
       return ''
     },
-    submit(id){
-      
-
+    uploadFile(id, formData){
+      return this.$store.dispatch("uploadReceipt", {id,formData});
+    },
+    async submit(id){
+      let success = true
       for (const file of this.uploadFiles) {
+        this.loadingBtn = true
         const formData = new FormData()
-        formData.set('uploaded_photo', file)
-        this.$store.dispatch("uploadReceipt", {id,formData}).then(()=>{
-          console.log(formData.get('uploaded_photo'))
-        })
+        if(this.validate(file) === ''){
+          formData.set('uploaded_photo', file)
+          await this.uploadFile(id, formData).then(()=>{
+            console.log(formData.get('uploaded_photo'))
+            this.files.shift()
+          }).catch((err)=>{
+            console.log(err)
+            success = false
+          })
+        }
+      }
+      this.loadingBtn = false
+      if(success){
+        let snackbar = {
+          message: 'Files Uploaded successfully',
+          color: 'success'
+        }
+        this.$store.commit('updateSnackbar', snackbar)
+      }else{
+        let snackbar = {
+          message: 'Something went Wrong!',
+          color: 'error'
+        }
+        this.$store.commit('updateSnackbar', snackbar)
       }
 
       // this.files = []

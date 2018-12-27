@@ -104,6 +104,7 @@
 }
 
 .v-list-files{
+  max-height: 250px;
   > :nth-child(even){
     background: #fafafa !important;
   }
