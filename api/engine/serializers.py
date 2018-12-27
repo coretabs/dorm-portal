@@ -482,6 +482,17 @@ class DormitoryCategorySerializer(serializers.ModelSerializer):
         model = models.DormitoryCategory
         fields = ('id', 'name')
 
+class DormManagementRoomStatisticsSerializer(serializers.ModelSerializer):
+    room_type = serializers.SerializerMethodField()
+    reserved_rooms_number = serializers.IntegerField()
+
+    def get_room_type(self, obj):
+        return str(obj.room_type)
+
+    class Meta:
+        model = models.RoomCharacteristics
+        fields = ('id', 'room_type', 'total_quota', 'allowed_quota', 'reserved_rooms_number')
+
 class DormManagementRoomIntegralChoiceSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     selected_number = serializers.IntegerField()

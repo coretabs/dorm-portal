@@ -95,18 +95,57 @@ class DormViewSet(viewsets.ViewSet):
         return Response(serializers.ReviewSerializer(reviews, many=True).data)
 
 
-class HisOwnDormitory(BasePermission):
+class HisOwnDormitoryObject(BasePermission):
     def has_object_permission(self, request, view, obj):
         return obj.is_owner(request.user)
 
 
-class HisOwnDormitoryReservation(BasePermission):
+class HisOwnDormitoryChildObjects(BasePermission):
     def has_permission(self, request, view):
         return models.Dormitory.objects.get(pk=view.kwargs['dorm_pk']).manager == request.user
 
 
+class RoomManagementViewSet(viewsets.ViewSet):
+    permission_classes = (IsAuthenticated, HisOwnDormitoryChildObjects)
+
+    def get_queryset(self):
+        return models.RoomCharacteristics.objects.filter(dormitory__id=self.kwargs['dorm_pk'])
+
+    def list(self, request, dorm_pk):
+        rooms = self.get_queryset().with_reserved_rooms_number()
+
+        return Response(serializers.DormManagementRoomStatisticsSerializer(rooms, many=True).data)
+
+    def create(self, request, dorm_pk):
+        serializer = serializers.DormManagemenNewRoomSerializer(
+            data=request.data, context={'dorm_pk': dorm_pk})
+
+        serializer.is_valid()
+        serializer.save()
+
+        return Response(status=status.HTTP_201_CREATED)
+
+    def update(self, request, dorm_pk, pk):
+        """reservation = self.get_queryset().get(pk=pk)
+
+        serializer = serializers.ClientReservationManagementSerializer(
+            reservation, data=request.data, partial=True)
+        serializer.is_valid()
+        serializer.save()
+        return Response(serializer.data)"""
+
+    def destroy(self, request, dorm_pk, pk):
+        """reservation = self.get_queryset().get(pk=pk)
+
+        serializer = serializers.ClientReservationManagementSerializer(
+            reservation, data=request.data, partial=True)
+        serializer.is_valid()
+        serializer.save()
+        return Response(serializer.data)"""
+
+
 class ReservationManagementViewSet(viewsets.ViewSet):
-    permission_classes = (IsAuthenticated, HisOwnDormitoryReservation)
+    permission_classes = (IsAuthenticated, HisOwnDormitoryChildObjects)
     serializer_class = serializers.ClientReservationManagementSerializer
 
     def get_queryset(self):
@@ -142,7 +181,7 @@ class ReservationManagementViewSet(viewsets.ViewSet):
 
 
 class BankAccountManagementViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated, HisOwnDormitory)
+    permission_classes = (IsAuthenticated, HisOwnDormitoryChildObjects)
     serializer_class = serializers.ClientBankAccountSerializer
 
     def get_queryset(self):
@@ -150,7 +189,7 @@ class BankAccountManagementViewSet(viewsets.ModelViewSet):
 
 
 class PhotoDormManagementViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated, HisOwnDormitory)
+    permission_classes = (IsAuthenticated, HisOwnDormitoryChildObjects)
     serializer_class = serializers.ClientPhotoDormSerializer
 
     def get_queryset(self):
@@ -165,7 +204,7 @@ class DormManagementViewSet(viewsets.ViewSet):
         if self.action == 'list':
             self.permission_classes = (IsAuthenticated, )
         else:
-            self.permission_classes = (IsAuthenticated, HisOwnDormitory, )
+            self.permission_classes = (IsAuthenticated, HisOwnDormitoryObject, )
 
         return super().get_permissions()
 

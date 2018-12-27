@@ -58,6 +58,12 @@ class ReservationQuerySet(django_models.QuerySet):
         return result
 
 
+class RoomCharacteristicsQuerySet(django_models.QuerySet):
+
+    def with_reserved_rooms_number(self):
+        return self.annotate(reserved_rooms_number=django_models.Count('reservations', reservations__status=Reservation.CONFIRMED_STATUS))
+
+
 class DormitoryQuerySet(django_models.QuerySet):
     def apply_room_filters(self, filters, to_currency=None):
 
@@ -435,6 +441,8 @@ class RoomCharacteristics(django_models.Model):
             raise NoEnoughQuotaException()
 
         self.allowed_quota -= 1
+
+    objects = RoomCharacteristicsQuerySet.as_manager()
 
     def __str__(self):
         return f'Room id {self.id} in {self.dormitory.name}'
