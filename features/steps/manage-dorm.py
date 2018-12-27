@@ -69,23 +69,6 @@ def arrange(context):
     context.one_person = create_integral_choice(context.people_allowed_number_filter, 1)
     context.two_persons = create_integral_choice(context.people_allowed_number_filter, 2)
 
-    context.meal_options = [RadioOption(name=LazyI18nString({'tr': 'Kahvaltı', 'en': 'Breakfast'})),
-                            RadioOption(name=LazyI18nString(
-                                {'tr': 'Akşam Yemegi', 'en': 'Dinner'})),
-                            RadioOption(name=LazyI18nString({'tr': 'Her Ikisi de', 'en': 'Both'}))]
-    context.meals = create_radio_filter(
-        context.meal_options, LazyI18nString({'tr': 'Yemekler', 'en': 'Meals'}))
-    context.meals_choice_breakfast = create_radio_choice(context.meal_options[0], context.meals)
-    context.meals_choice_dinner = create_radio_choice(context.meal_options[1], context.meals)
-
-    context.bathrooms = IntegralFilter(name=LazyI18nString({'tr': 'Banyo', 'en': 'Bathroom'}))
-    context.bathrooms.save()
-
-    context.luxury_shower = create_room_feature(
-        LazyI18nString({'tr': 'Lüks Duş', 'en': 'Luxury shower'}))
-    context.air_conditioner = create_room_feature(
-        LazyI18nString({'tr': 'Klima', 'en': 'Air Conditioner'}))
-
     context.room1 = create_room_with_radio_integral_features(
         context.alfam,
         [context.room_type_single_choice, context.duration_choice_spring],

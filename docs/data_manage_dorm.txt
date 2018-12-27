@@ -191,28 +191,32 @@ rooms
 
 GET /manager/dorms/{id}/rooms/{id} returns
 ```
-photos
-    id
-	url
-	
 price
 price_currency
 room_type
 people_allowed_number
 duration
 
+photos
+    id
+	url
+
+
+
 room_types
     id
     name
 
+durations
+    id
+    name
+	
 currencies
     id
     symbol
     code
 
-durations
-    id
-    name
+
 
 radio_filters
 	id

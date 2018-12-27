@@ -63,6 +63,22 @@ class RoomCharacteristicsQuerySet(django_models.QuerySet):
     def with_reserved_rooms_number(self):
         return self.annotate(reserved_rooms_number=django_models.Count('reservations', reservations__status=Reservation.CONFIRMED_STATUS))
 
+    def with_all_filters_and_choices(self, room_pk):
+        room_characteristics = self.get(pk=room_pk)
+
+        room_characteristics.radio_filters = Filter.objects.room_radio_filters(
+            room_characteristics.id)
+
+        room_characteristics.integral_filters = Filter.objects.room_integral_filters(
+            room_characteristics.id)
+
+        room_characteristics.integral_filters = Filter.objects.room_integral_filters(
+            room_characteristics.id)
+
+        room_characteristics.all_features = Filter.objects.room_features()
+
+        return room_characteristics
+
 
 class DormitoryQuerySet(django_models.QuerySet):
     def apply_room_filters(self, filters, to_currency=None):
@@ -216,6 +232,34 @@ class FilterQuerySet(PolymorphicQuerySet):
 
     def room_features(self):
         return self.instance_of(FeatureFilter).filter(featurefilter__is_dorm_feature=False)
+
+    def room_radio_filters(self, room_pk):
+        room_related_filter_with_choice = RoomCharacteristics.objects.get(
+            pk=room_pk).radio_choices.all().values_list('related_filter_id', 'id')
+
+        chosen_when = [django_models.When(id=related_filter_id, then=choice_id)
+                       for related_filter_id, choice_id in room_related_filter_with_choice]
+        chosen_case = django_models.Case(*chosen_when, default=-1,
+                                         output_field=django_models.IntegerField())
+
+        return self.instance_of(RadioFilter).exclude(
+            django_models.Q(name__contains='Duration') |
+            django_models.Q(name__contains='Room Type'))\
+            .annotate(chosen_option_id=chosen_case)
+
+    def room_integral_filters(self, room_pk):
+        room_related_filter_with_choice = RoomCharacteristics.objects.get(
+            pk=room_pk).integral_choices.all().values_list('related_filter_id', 'selected_number')
+
+        chosen_when = [django_models.When(id=related_filter_id, then=selected_number)
+                       for related_filter_id, selected_number in room_related_filter_with_choice]
+        chosen_case = django_models.Case(*chosen_when, default=-1,
+                                         output_field=django_models.IntegerField())
+
+        return self.instance_of(IntegralFilter).exclude(
+            django_models.Q(name__contains='Price') |
+            django_models.Q(name__contains='People Allowed Number'))\
+            .annotate(selected_number=chosen_case)
 
 
 class Filter(PolymorphicModel):

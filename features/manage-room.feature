@@ -11,6 +11,10 @@ Feature: Managing room data
         Implemented already in manager-dorm.py
         """
 
+        Given we have radio filters (meals, balcony-size)
+        Given we have integral filters (bathrooms, cookers)
+        Given we have feature filters (shower, air-conditioner)
+
 
         When getting manager filters to add to a room from serializer
         Then get valid serialized room filters
@@ -51,3 +55,27 @@ Feature: Managing room data
 
         When hitting GET /manager/dorms/{alfam-id}/rooms for non-owned dorm
         Then get 403 forbidden for getting rooms statistics in non-owned dorm
+
+
+
+
+        Given second room in alfam has (big-balcony, 2-bathrooms, shower)
+
+        When asking for second room with its filters and choices
+        Then get second room with its filters and choices
+
+        When serialize second room with its filters and choices
+        Then get serialized second room with its filters and choices
+
+        When hitting GET /manager/dorms/{alfam-id}/rooms/{room2-id}
+        Then get 200 OK with second room (filters and choices as well)
+
+
+
+
+        When deserializing data to update second room in alfam
+        Then validate the deserialized data to update room in alfam
+        And update the second room in alfam successfully
+
+        When hitting PUT /manager/dorms/{alfam-id}/rooms/{room2-id}
+        Then get 200 OK with for updating that room

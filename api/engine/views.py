@@ -116,8 +116,13 @@ class RoomManagementViewSet(viewsets.ViewSet):
 
         return Response(serializers.DormManagementRoomStatisticsSerializer(rooms, many=True).data)
 
+    def retrieve(self, request, dorm_pk, pk):
+        room = models.RoomCharacteristics.objects.with_all_filters_and_choices(pk)
+
+        return Response(serializers.DormManagementRoomDetailsSerializer(room).data)
+
     def create(self, request, dorm_pk):
-        serializer = serializers.DormManagemenNewRoomSerializer(
+        serializer = serializers.DormManagementNewRoomSerializer(
             data=request.data, context={'dorm_pk': dorm_pk})
 
         serializer.is_valid()
@@ -126,13 +131,13 @@ class RoomManagementViewSet(viewsets.ViewSet):
         return Response(status=status.HTTP_201_CREATED)
 
     def update(self, request, dorm_pk, pk):
-        """reservation = self.get_queryset().get(pk=pk)
+        room = self.get_queryset().get(pk=pk)
 
-        serializer = serializers.ClientReservationManagementSerializer(
-            reservation, data=request.data, partial=True)
+        serializer = serializers.DormManagementEditRoomSerializer(
+            room, data=request.data, partial=True)
         serializer.is_valid()
         serializer.save()
-        return Response(serializer.data)"""
+        return Response(status=status.HTTP_200_OK)
 
     def destroy(self, request, dorm_pk, pk):
         """reservation = self.get_queryset().get(pk=pk)
