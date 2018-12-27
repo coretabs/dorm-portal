@@ -129,6 +129,17 @@ room_features
     id
     name
 
+additional_filters
+    id
+    name
+    (is_checkbox true) (is_integral false)
+        options {id, name}
+    (is_checkbox false) (is_integral true)
+        min_value max_value value=[min_value,max_value]
+```
+
+alternative suggested format for additional_filters field
+```
 radio_filters
     name
     choices
@@ -141,31 +152,87 @@ integral_filters
 ```
 
 
+
+POST /manager/dorms/{id}/rooms accepts
+```
+total_quota
+allowed_quota
+
+room_type_id
+people_allowed_number
+
+price
+currency_id
+
+room_confirmation_days
+
+duration_id
+
+room_features (array of ids)
+
+radio_choices (array of ids)
+
+integral_choices
+    id
+    selected_number
+```
+
+
 GET /manager/dorms/{id}/rooms returns
 ```
 rooms
     id
     room_type
     total_quota
+	allowed_quota
     reserved_rooms_number
-    available_rooms_number
-    allowed_quota
+```
 
-    photos
-        id
-		url
-		
+
+GET /manager/dorms/{id}/rooms/{id} returns
+```
+photos
+    id
+	url
 	
-    price
-    room_type
-    people_allowed_number
-	
-	choices
-		filter_name
-		choice
-	features
+price
+price_currency
+room_type
+people_allowed_number
+duration
+
+room_types
+    id
+    name
+
+currencies
+    id
+    symbol
+    code
+
+durations
+    id
+    name
+
+radio_filters
+	id
+	name
+	options
+		id
 		name
-		icon (default=fa-check)
+	chosen_option_id
+
+integral_filters
+	id
+	name
+	selected_number
+
+all_features
+	id
+	name
+	icon (default=fa-check)
+
+chosen_features (array of ids)
 ```
 
 
@@ -180,7 +247,7 @@ people_allowed_number
 price
 currency_id
 
-confirmation_days
+room_confirmation_days
 
 duration_id
 
@@ -190,7 +257,7 @@ radio_choices (array of ids)
 
 integral_choices
     id
-    number
+    selected_number
 ```
 
 
@@ -209,40 +276,6 @@ DELETE /manager/dorms/{id}/rooms/{id} accepts
 ```
 ```
 
-
-TODO adapt those
-radio select box
-int input
-room confirmation days
-	input
-photos
-duration
-	select
-
-
-POST /manager/dorms/{id}/rooms accepts
-```
-total_quota
-allowed_quota
-
-room_type_id
-people_allowed_number
-
-price
-currency_id
-
-confirmation_days
-
-duration_id
-
-room_features (array of ids)
-
-radio_choices (array of ids)
-
-integral_choices
-    id
-    number
-```
 
 
 GET /manager/dorms/{id}/reservations returns

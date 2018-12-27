@@ -1,7 +1,7 @@
-Feature: Managing dormitory and room data
+Feature: Managing dormitory data
 
     Scenario: As a manager 
-              I want to manage my dorms and its rooms
+              I want to manage my dorms
               So that I can offer them for students
 
         Given two managers (one for alfam&dovec and one for homedorm)

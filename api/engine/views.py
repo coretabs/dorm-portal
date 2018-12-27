@@ -194,6 +194,10 @@ class DormManagementViewSet(viewsets.ViewSet):
     def update_cover(self, request, pk=None):
         return self.update(request, pk)
 
+    @action(detail=False, methods=['get'], url_path='filters')
+    def filters(self, request):
+        return Response(serializers.DormManagementRoomFiltersSerializer([]).data)
+
 
 class HisOwnReservation(BasePermission):
     def has_object_permission(self, request, view, obj):

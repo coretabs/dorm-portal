@@ -30,7 +30,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     student_name = serializers.CharField(read_only=True, source='user.first_name')
 
     def save(self, *args, **kwargs):
-        print('qoooq', self.context.get('reservation_id'))
+        #print('qoooq', self.context.get('reservation_id'))
         reservation = models.Reservation.objects.get(pk=self.context.get('reservation_id'))
         #print(**self.validated_data)
         reservation.create_review(**self.validated_data)
@@ -482,6 +482,143 @@ class DormitoryCategorySerializer(serializers.ModelSerializer):
         model = models.DormitoryCategory
         fields = ('id', 'name')
 
+class DormManagementRoomIntegralChoiceSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    selected_number = serializers.IntegerField()
+
+    class Meta:
+        fields = ('id', 'selected_number')
+
+class DormManagemenNewRoomSerializer(serializers.Serializer):
+    total_quota = serializers.IntegerField()
+    allowed_quota = serializers.IntegerField()
+
+    room_type_id = serializers.IntegerField()
+    people_allowed_number = serializers.IntegerField()
+
+    price = serializers.IntegerField()
+    currency_id = serializers.IntegerField()
+
+    room_confirmation_days = serializers.IntegerField()
+    duration_id = serializers.IntegerField()
+
+    room_features = serializers.ListField(child=serializers.IntegerField(), required=False)
+    radio_choices = serializers.ListField(child=serializers.IntegerField(), required=False)
+    integral_choices = DormManagementRoomIntegralChoiceSerializer(many=True, required=False)
+
+    def create(self, validated_data):
+
+        dormitory = models.Dormitory.objects.get(pk=self.context.get('dorm_pk'))
+
+        features_objects = []
+        radio_choices_objects = []
+        integral_choices_objects = []
+
+        price_currency = models.Currency.objects.get(pk=validated_data['currency_id'])
+        validated_data.pop('currency_id', None)
+
+        room_features = validated_data.get('room_features', None)
+        if room_features:
+            features_objects = list(models.FeatureFilter.objects.filter(id__in=room_features).all())
+            validated_data.pop('room_features', None)
+
+        radio_choices = validated_data.get('radio_choices', None)
+        if radio_choices:
+            radio_choices_objects = list(models.RadioChoice.objects.filter(id__in=radio_choices).all())
+            validated_data.pop('radio_choices', None)
+
+        integral_choices = validated_data.get('integral_choices', None)
+        if integral_choices:
+            for integral_choice in integral_choices:
+                integral_choice_object = (
+                    models.IntegralChoice(selected_number=integral_choice['selected_number'], 
+                                          related_filter=models.IntegralFilter.objects.get(pk=integral_choice['id'])))
+                integral_choice_object.save()
+                #integral_choice_object = models.IntegralChoice.objects.get(pk=integral_choice_object.id)
+                integral_choices_objects.append(integral_choice_object)
+            validated_data.pop('integral_choices', None)
+
+
+        room_type = models.RadioChoice.objects.get(pk=validated_data['room_type_id'])
+        radio_choices_objects.append(room_type)
+        validated_data.pop('room_type_id', None)
+
+        duration = models.RadioChoice.objects.get(pk=validated_data['duration_id'])
+        radio_choices_objects.append(duration)
+        validated_data.pop('duration_id', None)
+
+
+        people_allowed_number = models.IntegralChoice(selected_number=validated_data['people_allowed_number'], 
+                                          related_filter=models.IntegralFilter.objects.get(name__contains='People Allowed Number'))
+        people_allowed_number.save()
+        #people_allowed_number = models.IntegralChoice.objects.get(pk=people_allowed_number.id)
+        integral_choices_objects.append(people_allowed_number)
+        validated_data.pop('people_allowed_number', None)
+
+
+        price = models.IntegralChoice(selected_number=validated_data['price'], 
+                                          related_filter=models.IntegralFilter.objects.get(name__contains='Price'))
+        price.save()
+        #price = models.IntegralChoice.objects.get(pk=price.id)
+        integral_choices_objects.append(price)
+        validated_data.pop('price', None)
+
+        instance = models.RoomCharacteristics(dormitory=dormitory, 
+                                              price_currency=price_currency,
+                                              **validated_data)
+
+        instance.save()
+        instance = models.RoomCharacteristics.objects.get(pk=instance.id)
+
+        instance.features.set(features_objects)
+        instance.radio_choices.set(radio_choices_objects)
+        instance.integral_choices.set(integral_choices_objects)
+
+        #instance.save()
+        
+
+        return instance
+
+
+    class Meta:
+        fields = ('id', 
+                  'total_quota', 'allowed_quota',
+                  'room_type_id', 'people_allowed_number',
+                  'price', 'currency_id',
+                  'confirmation_days',
+                  'duration_id',
+                  'room_features', 'radio_choices', 'integral_choices')
+
+class DormManagementRoomFiltersSerializer(serializers.Serializer):
+    room_types = serializers.SerializerMethodField()
+    currencies = serializers.SerializerMethodField()
+    durations = serializers.SerializerMethodField()
+    room_features = serializers.SerializerMethodField()
+    additional_filters = serializers.SerializerMethodField()
+
+    def get_room_types(self, obj):
+        room_type_filter = models.Filter.objects.filter(name__contains='Room Type').first()
+        return RadioOptionSerializer(room_type_filter.options, many=True).data
+
+    def get_currencies(self, obj):
+        currencies = models.Currency.objects.all()
+        return CurrencySerializer(currencies, many=True).data
+
+    def get_durations(self, obj):
+        duration_filter = models.Filter.objects.filter(name__contains='Duration').first()
+        return RadioOptionSerializer(duration_filter.options, many=True).data
+
+    def get_room_features(self, obj):
+        filters = models.Filter.objects.room_features()
+        return FeatureFilterSerializer(filters, many=True).data
+
+    def get_additional_filters(self, obj):
+        filters = (
+            models.Filter.objects.additional_filters().exclude(
+                django_models.Q(name__contains='Duration') | 
+                django_models.Q(name__contains='Room Type'))
+        )
+        return AddtionalFiltersSerializer(filters, many=True).data
 
 class ClientReturnedFiltersSerializer(serializers.Serializer):
     category_options = serializers.SerializerMethodField()
