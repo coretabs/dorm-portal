@@ -309,7 +309,10 @@
                     <h3 class="ma-0 pa-0">Dorm Photos</h3>
                   </v-layout>
                   <v-layout v-if="dorm.photos.length" row wrap>
-                    <v-flex class="px-2 pb-3" md3 xs6 v-for="(photo,i) in dorm.photos" :key="i">
+                    <v-flex class="px-2 pb-3 manage-dorm__photos" md3 xs6 v-for="(photo,i) in dorm.photos" :key="i">
+                      <v-btn icon @click="confirmDelete('1')" class="pa-0">
+                        <v-icon>fa-times</v-icon>
+                      </v-btn>
                       <template v-if="!photo.is_3d">
                         <v-img gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)" :src="photo.url" height="110" width="100%" @click="openPhotosDialog(photo.url, photo.is_3d)">
                           <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
@@ -320,6 +323,7 @@
                       <template v-else>
                         <img src="../../../assets/images/dormprofile/360.png" width="100%" height="110" @click="openPhotosDialog(photo.url, photo.is_3d)">
                       </template>
+                     
                     </v-flex>
                   </v-layout>
                   <v-layout v-else class="photos-block" align-center justify-center row>
