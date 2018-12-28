@@ -310,7 +310,7 @@
                   </v-layout>
                   <v-layout v-if="dorm.photos.length" row wrap>
                     <v-flex class="px-2 pb-3 manage-dorm__photos" md3 xs6 v-for="(photo,i) in dorm.photos" :key="i">
-                      <v-btn icon @click="confirmDelete('1')" class="pa-0">
+                      <v-btn icon @click="confirmDelete(photo.id, 'dormPhoto')" class="pa-0">
                         <v-icon>fa-times</v-icon>
                       </v-btn>
                       <template v-if="!photo.is_3d">
@@ -329,7 +329,7 @@
                   <v-layout v-else class="photos-block" align-center justify-center row>
                     <p>You haven't uploaded any photos yet.</p>
                   </v-layout>
-                  <v-dialog v-model="dialog.photos" lazy width="800px">
+                  <v-dialog persistent v-model="dialog.photos" lazy width="800px">
                       <v-card>
                         <v-card-text>
                           <v-layout wrap v-if="lightBox.isAdd" class="pa-3">
@@ -451,7 +451,7 @@
                         <span>Edit</span>
                       </v-tooltip>
                       <v-tooltip top>
-                        <v-btn slot="activator" @click="confirmDelete(props.item.id)" flat icon>
+                        <v-btn slot="activator" @click="confirmDelete(props.item.id, 'bankAccount')" flat icon>
                           <v-icon small color="#677889">fa-trash</v-icon>
                         </v-btn>
                         <span>Delete</span>
@@ -471,12 +471,18 @@
                     Confirm Delete
                   </v-card-title>
                   <v-card-text class="subheading my-3">
-                    Are You sure you want to delete this bank account?
+                    <span v-if="!deleteRecord.photoBtn">
+                      Are You sure you want to delete this bank account?
+                    </span>
+                    <span v-if="deleteRecord.photoBtn">
+                      Are You sure you want to delete this Photo?
+                    </span>
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn class="elevation-0" @click="deleteRecord.confirmDialog = false">Cancel</v-btn>
-                    <v-btn color="red" class="elevation-0" @click="deleteBankAccount" :loading="loadingBtn">Delete</v-btn>
+                    <v-btn color="red" v-if="!deleteRecord.photoBtn" class="elevation-0" @click="deleteBankAccount" :loading="loadingBtn">Delete acount</v-btn>
+                    <v-btn color="red" v-if="deleteRecord.photoBtn" class="elevation-0" @click="deleteDormPhoto" :loading="loadingBtn">Delete photo</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>

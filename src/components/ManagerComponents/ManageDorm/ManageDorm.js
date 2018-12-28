@@ -53,7 +53,8 @@ export default {
       },
       deleteRecord:{
         confirmDialog: false,
-        id: null
+        id: null,
+        photoBtn: false
       },
       rowsPerPage: [10, 20, 30, 40],
       pagination: {
@@ -135,10 +136,12 @@ export default {
       this.dialog[dialogName] = true
     },
     closeDialog(dialogName){
+      const dormID = localStorage.getItem('manageDormID')
       this.dialog[dialogName] = false
       if(dialogName == 'addBanks'){
         this.$refs.form.reset()
       }
+      this.$store.dispatch("fetchManagerDorm", dormID)
     },
     UpdateDormInfo(data,dialog){
       if(this.$refs.form.validate()){
@@ -287,9 +290,33 @@ export default {
         this.$store.commit('updateSnackbar', snackbar)
       })
     },
-    confirmDelete(id){
-      this.deleteRecord.confirmDialog = true
+    confirmDelete(id, record){
+      if(record == 'dormPhoto'){
+        this.deleteRecord.photoBtn = true
+      }else{
+        this.deleteRecord.photoBtn = false
+      }
       this.deleteRecord.id = id
+      this.deleteRecord.confirmDialog = true
+    },
+    deleteDormPhoto(){
+      const photoId= this.deleteRecord.id
+      const dormId = localStorage.getItem('manageDormID')
+      this.$store.dispatch('deleteDormPhoto', {dormId,photoId}).then(()=>{
+        let snackbar = {
+          message: 'Photo has been Deleted Successfully',
+          color: 'success'
+        }
+        this.$store.dispatch("fetchManagerDorm", dormId)
+        this.deleteRecord.confirmDialog = false
+        this.$store.commit('updateSnackbar', snackbar)
+      }).catch(()=>{
+        let snackbar = {
+          message: 'Some thing went wrong! try again',
+          color: 'error'
+        }
+        this.$store.commit('updateSnackbar', snackbar)
+      })
     },
     updateBankAccount(){
       const dormId = localStorage.getItem('manageDormID')

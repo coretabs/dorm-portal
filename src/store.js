@@ -385,6 +385,16 @@ export default new Vuex.Store({
         })
       })
     },
+    deleteDormPhoto(context, {dormId,photoId}){
+      return new Promise((resolve, reject) => {
+        $backend.$deleteDormPhoto(dormId,photoId).then(responseDate => {
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
+    },
     updateBankAccount(context, {dormId, accountId, data}){
       return new Promise((resolve, reject) => {
         $backend.$updateBankAccount(dormId,accountId,data).then(responseDate => {
