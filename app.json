@@ -44,7 +44,7 @@
         },
         "DEFAULT_FROM_EMAIL": {
             "description": "Email sender that shows when sending emails to users",
-            "value": "en=English;tr=Türkçe"
+            "value": "John from example.com <no-reply@example.com>"
         },
         "EMAIL_HOST": {
             "description": "Email host",
