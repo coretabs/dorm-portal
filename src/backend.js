@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let $backend = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api',
+    baseURL: 'https://dorm-portal.herokuapp.com/api',
     timeout: 5000,
     headers: {
         'Content-Type': 'application/json'
@@ -118,18 +118,18 @@ $backend.$resetPasswordConfirm = (data) => {
         new_password1: data.password,
         new_password2: data.password
     })
-    .then(response => response.data)
+        .then(response => response.data)
 }
 
 
 $backend.$uploadReceipt = (id, formData) => {
     return $backend.post(`/reservations/${id}/receipts/`, formData)
-    .then(response => response.data)
+        .then(response => response.data)
 }
 
 $backend.$uploadPhotos = (id, formData) => {
     return $backend.post(`/manager-dorms/${id}/photos/`, formData)
-    .then(response => response.data)
+        .then(response => response.data)
 }
 
 $backend.$upload360Photos = (id, data) => {
@@ -137,7 +137,7 @@ $backend.$upload360Photos = (id, data) => {
         is_3d: data.is360Photo,
         url: data.url
     })
-    .then(response => response.data)
+        .then(response => response.data)
 }
 
 
@@ -157,16 +157,16 @@ $backend.$fetchManagerDorm = (id) => {
 }
 
 $backend.$updateReservationStatus = (data) => {
-    return $backend.put(`/manager-dorms/${data.dormID}/reservations/${data.reservationID}/`,{
+    return $backend.put(`/manager-dorms/${data.dormID}/reservations/${data.reservationID}/`, {
         status: data.status,
         confirmation_deadline_date: data.deadline,
         follow_up_message: data.message
     })
-    .then(response => response.data)
+        .then(response => response.data)
 }
 
 $backend.$updateDormInfo = (data) => {
-    return $backend.put(`/manager-dorms/${data.dormID}/`,{
+    return $backend.put(`/manager-dorms/${data.dormID}/`, {
         abouts: data.abouts,
         contact_name: data.contact_name,
         contact_number: data.contact_number,
@@ -177,15 +177,15 @@ $backend.$updateDormInfo = (data) => {
         geo_latitude: data.geo_latitude,
         address: data.address
     })
-    .then(response => response.data)
+        .then(response => response.data)
 }
 
-$backend.$updateDormCover = (id,formData) => {
+$backend.$updateDormCover = (id, formData) => {
     return $backend.put(`/manager-dorms/${id}/update-cover/`, formData)
-    .then(response => response.data)
+        .then(response => response.data)
 }
 
-$backend.$addBankAccount = (id,data) => {
+$backend.$addBankAccount = (id, data) => {
     return $backend.post(`/manager-dorms/${id}/bank-accounts/`, {
         bank_name: data.name,
         account_name: data.accountName,
@@ -194,7 +194,7 @@ $backend.$addBankAccount = (id,data) => {
         iban: data.iban,
         currency_code: data.currency
     })
-    .then(response => response.data)
+        .then(response => response.data)
 }
 
 $backend.$deleteBankAccount = (dormId, accountId) => {
@@ -211,7 +211,7 @@ $backend.$updateBankAccount = (dormId, accountId, data) => {
         iban: data.iban,
         currency_code: data.currency
     })
-    .then(response => response.data)
+        .then(response => response.data)
 }
 
 
