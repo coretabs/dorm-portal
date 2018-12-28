@@ -28,7 +28,7 @@ class PhotoSerializer(serializers.Serializer):
     is_3d = serializers.BooleanField(default=False)
 
     class Meta:
-        fields = ('url', 'is_3d')
+        fields = ('id', 'url', 'is_3d')
 
 
 class ReviewSerializer(serializers.ModelSerializer):
