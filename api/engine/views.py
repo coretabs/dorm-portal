@@ -19,7 +19,7 @@ index_view = never_cache(TemplateView.as_view(template_name='index.html'))
 
 
 def activate_language(language):
-    if language not in settings.LANGUAGES_DICT:
+    if language not in dict(settings.LANGUAGES):
         language = 'en'
     translation.activate(language)
 
