@@ -1,4 +1,5 @@
 import DormMap from "../../SharedComponents/DormMap/DormMap.vue";
+import _ from 'lodash'
 
 export default {
   name: "ManageDorm",

@@ -89,7 +89,7 @@
                   </v-flex>
                 </v-layout>
 
-                <input type="file" id="file" multiple @change="selectFile" ref="files" v-show="false"></input>
+                <input type="file" id="file" multiple @change="selectFile" ref="files" v-show="false">
 
               </div>
               <v-flex :class="`files-list ${file.invalidMessage && 'file-invalid'}`" v-for="(file,index) in files" :key="index" md12>

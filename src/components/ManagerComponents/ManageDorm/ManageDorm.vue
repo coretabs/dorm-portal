@@ -297,7 +297,7 @@
                     <v-layout v-else class="cover-block" align-center justify-center row>
                       <v-icon>fa-image</v-icon>
                     </v-layout>
-                    <input type="file" id="cover-img" @change="selectCover" ref="coverFile" v-show="false"></input>
+                    <input type="file" id="cover-img" @change="selectCover" ref="coverFile" v-show="false">
                   </v-card>
                 </v-flex>
               </v-layout>
@@ -321,7 +321,11 @@
                         <img src="../../../assets/images/dormprofile/360.png" width="100%" height="110" @click="openPhotosDialog(photo.url, photo.is_3d)">
                       </template>
                     </v-flex>
-                    <v-dialog v-model="dialog.photos" lazy width="800px">
+                  </v-layout>
+                  <v-layout v-else class="photos-block" align-center justify-center row>
+                    <p>You haven't uploaded any photos yet.</p>
+                  </v-layout>
+                  <v-dialog v-model="dialog.photos" lazy width="800px">
                       <v-card>
                         <v-card-text>
                           <v-layout wrap v-if="lightBox.isAdd" class="pa-3">
@@ -344,7 +348,7 @@
                                         <p>Allowed documents: JEPG, PNG, GIF and PDF</p>
                                       </v-flex>
                                     </v-layout>
-                                    <input type="file" id="file" multiple @change="selectFile" ref="files" v-show="false"></input>
+                                    <input type="file" id="file" multiple @change="selectFile" ref="files" v-show="false">
                                   </div>
                                   <v-flex :class="`files-list ${file.invalidMessage && 'file-invalid'}`" v-for="(file,index) in files" :key="index" md12>
                                     <v-layout>
@@ -393,10 +397,6 @@
                         </v-card-text>
                       </v-card>
                     </v-dialog>
-                  </v-layout>
-                  <v-layout v-else class="photos-block" align-center justify-center row>
-                    <p>You haven't uploaded any photos yet.</p>
-                  </v-layout>
                 </v-flex>
               </v-layout>
             </v-flex>
