@@ -283,7 +283,10 @@ export default {
   computed: {
     lang() {
       return this.$store.getters.lang;
-    }    
+    },
+    rooms(){
+      return this.$store.getters.managerDormRooms
+    }
   },
   methods:{
     loadComponent(componentName){
@@ -319,6 +322,15 @@ export default {
     editRoom(room){
       this.roomDetails = room;
       this.showEditRoomDialog = true;
+    },
+    fetchManagerDormRooms(){
+      const dormID = localStorage.getItem('manageDormID')
+      this.$store.dispatch('fetchManagerDormRooms',dormID).then(()=>{
+        console.log(this.$store.getters.managerDormRooms)
+      })
     }
+  },
+  mounted(){
+    this.fetchManagerDormRooms()
   }
 };

@@ -156,6 +156,13 @@ $backend.$fetchManagerDorm = (id) => {
         .then(response => response.data)
 }
 
+$backend.$fetchManagerDormRooms = (id) => {
+    return $backend.get(`/manager-dorms/${id}/rooms/`)
+        .then(response => response.data)
+}
+
+
+
 $backend.$updateReservationStatus = (data) => {
     return $backend.put(`/manager-dorms/${data.dormID}/reservations/${data.reservationID}/`, {
         status: data.status,

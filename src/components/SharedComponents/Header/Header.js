@@ -48,6 +48,7 @@ export default {
       localStorage.setItem('manageDormID', id)
         this.$store.dispatch('fetchManagerReservation', id)
         this.$store.dispatch('fetchManagerDorm', id)
+        this.$store.dispatch('fetchManagerDormRooms', id)
     },
     closeSnackbar(){
       this.$store.state.snackbar.trigger = false

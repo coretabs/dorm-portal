@@ -5,8 +5,8 @@
       <v-icon>add</v-icon>
     </v-btn>
 
-    <v-flex xs12 v-for="(room,i) in room_cards" :key="i">
-      <v-card id="room-card">
+    <v-flex xs12 v-for="(room,i) in rooms" :key="i">
+      <v-card id="room-card" class="mb-3">
         <v-menu bottom left class="room-card__actions absolute-menu">
           <v-btn slot="activator" icon>
             <v-icon>more_vert</v-icon>
@@ -23,9 +23,9 @@
               <v-flex class="room-card__title" xs12>
                 <h3>Room Type:</h3>
                 <span>{{ room.room_type }}</span>
-                <v-btn slot="activator" @click="showRoomDetails(room)" icon>
+                <!-- <v-btn slot="activator" @click="showRoomDetails(room)" icon>
                   <v-icon>fa-info</v-icon>
-                </v-btn>
+                </v-btn> -->
               </v-flex>
             </v-layout>
           </v-flex>
@@ -36,10 +36,10 @@
                 <h3>Reserved Rooms:</h3>
                 <v-layout row wrap>
                   <v-flex xs12 md2>
-                    <span>{{ room.reserved_rooms }}<sub>/{{ room.total_rooms }}</sub></span>
+                    <span>{{ room.reserved_rooms_number }}<sub>/{{ room.total_quota }}</sub></span>
                   </v-flex>
                   <v-flex xs12 md10>
-                    <v-progress-linear class="room-card__progress" :color="progressColor(room.allowed_quota, room.total_rooms,  room.reserved_rooms)" height="25" :value="progressValue(room.reserved_rooms, room.total_rooms)"></v-progress-linear>
+                    <v-progress-linear class="room-card__progress" :color="progressColor(room.allowed_quota, room.total_quota,  room.reserved_rooms_number)" height="25" :value="progressValue(room.reserved_rooms_number, room.total_quota)"></v-progress-linear>
                   </v-flex>
                 </v-layout>
                 <!-- <span>0<sub>/50</sub></span> -->
@@ -48,8 +48,8 @@
               <v-flex xs12 sm6 md2>
                 <h3>Quota:</h3>
                 <v-layout row>
-                  <span :class="quotaTextColor(room.allowed_quota, room.total_rooms, room.reserved_rooms)">{{ room.allowed_quota }}</span>
-                  <v-btn icon class="quota-update" dark @click="showQuotaUpdate(room.reserved_rooms, room.total_rooms, room.allowed_quota, room.id)">
+                  <span :class="quotaTextColor(room.allowed_quota, room.total_quota, room.reserved_rooms_number)">{{ room.allowed_quota }}</span>
+                  <v-btn icon class="quota-update" dark @click="showQuotaUpdate(room.reserved_rooms_number, room.total_quota, room.allowed_quota, room.id)">
                     <v-icon small>fa-pencil-alt</v-icon>
                   </v-btn>
                 </v-layout>

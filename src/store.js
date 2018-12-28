@@ -39,6 +39,7 @@ export default new Vuex.Store({
       newAmount: false
     },
     managerDorms: [],
+    managerDormRooms: [],
     reservation: {},
     manageReservation: [],
     manageDorm: {},
@@ -59,6 +60,7 @@ export default new Vuex.Store({
     authStatus: state => state.authStatus,
     reservationData: state => state.reservation,
     managerDorms: state => state.managerDorms,
+    managerDormRooms: state => state.managerDormRooms,
     adminActiveComponent: state => state.adminActiveComponent,
     drawer: state => state.drawer,
     manageReservation: state => state.manageReservation,
@@ -135,6 +137,9 @@ export default new Vuex.Store({
     },
     fetchManagerDorms(state, responseDate){
       state.managerDorms = responseDate
+    },
+    fetchManagerDormRooms(state, responseDate){
+      state.managerDormRooms = responseDate
     },
     fetchManagerReservation(state, responseDate){
       state.manageReservation = responseDate
@@ -389,7 +394,17 @@ export default new Vuex.Store({
           reject(err)
         })
       })
-    }
+    },
+    fetchManagerDormRooms(context, id){
+      return new Promise((resolve, reject) => {
+        $backend.$fetchManagerDormRooms(id).then(response => {
+          context.commit('fetchManagerDormRooms', response)
+          resolve(response)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
 
 
   }

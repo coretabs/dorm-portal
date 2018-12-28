@@ -103,9 +103,8 @@ export default {
       })
     },
     fetchManagerDorm(){
-      //  
       const dormID = localStorage.getItem('manageDormID')
-      this.$store.dispatch("fetchManagerDorm", dormID)
+      this.$store.dispatch('fetchManagerDorm', dormID)
       .catch(()=>{
         this.$store.state.snackbar.trigger = true
         this.$store.state.snackbar.message = 'Can\'t load dorm'
