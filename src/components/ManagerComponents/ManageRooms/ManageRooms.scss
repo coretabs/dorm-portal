@@ -40,7 +40,6 @@
       }
     }
     .room-card__quantity{
-      margin: 5px 0 15px;
       background: #fafafa;
       border: 1px solid #f0f0f0;
       @include radius(5px);
@@ -90,7 +89,10 @@
       border-right: none;
     }
   }
-  
+  .v-card__title--primary{
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 }
 .v-carousel{
   box-shadow: none !important;

@@ -1,12 +1,12 @@
 <template>
-<div id="manage-rooms">
+<div id="manage-rooms" class="mb-5">
   <v-layout wrap>
     <v-btn color="success" dark medium fixed bottom right fab @click="loadComponent('AddNewRoom')">
       <v-icon>add</v-icon>
     </v-btn>
 
     <v-flex xs12 v-for="(room,i) in rooms" :key="i">
-      <v-card id="room-card" class="mb-3">
+      <v-card id="room-card" class="mb-2">
         <v-menu bottom left class="room-card__actions absolute-menu">
           <v-btn slot="activator" icon>
             <v-icon>more_vert</v-icon>
@@ -20,7 +20,7 @@
         <v-card-title primary-title>
           <v-flex class="room-card__title" xs12 md3 px-3>
             <v-layout wrap>
-              <v-flex class="room-card__title" xs12>
+              <v-flex class="room-card__title mb-2" xs12>
                 <h3>Room Type:</h3>
                 <span>{{ room.room_type }}</span>
                 <!-- <v-btn slot="activator" @click="showRoomDetails(room)" icon>
