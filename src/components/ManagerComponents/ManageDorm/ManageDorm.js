@@ -335,7 +335,7 @@ export default {
       this.isValid()
     },
     validate(file){
-      const MAX_SIZE = 200000
+      const MAX_SIZE = 8000000
       const allowedType = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
       if(file.size > MAX_SIZE){
         return `Max size: ${MAX_SIZE/1000}KB`
