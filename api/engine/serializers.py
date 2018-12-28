@@ -24,6 +24,7 @@ from . import models
 
 
 class PhotoSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     url = serializers.URLField()
     is_3d = serializers.BooleanField(default=False)
 
