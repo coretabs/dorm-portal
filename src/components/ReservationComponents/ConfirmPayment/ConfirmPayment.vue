@@ -85,7 +85,7 @@
                     </label>
                   </v-flex>
                   <v-flex md9 xs12 class="text-md-left">
-                    <p>Allowed documents: JEPG, PNG, GIF and PDF</p>
+                    <p>Allowed documents: JEPG, PNG, GIF</p>
                   </v-flex>
                 </v-layout>
 

@@ -62,7 +62,7 @@
           <v-list-tile v-for="(file,i) in reservation.receipts" :key="i" v-if="reservation.receipts.length > 0">
             <v-list-tile-content>
               <v-list-tile-title>
-                <a :href="file.url" target="_blank" download class="grey--text text--darken-2">Reciept {{i}}</a>
+                <a :href="file.url" target="_blank" download class="grey--text text--darken-2">Reciept {{i+1}}</a>
               </v-list-tile-title>
               <v-list-tile-sub-title>{{ file.upload_receipt_date }}</v-list-tile-sub-title>
             </v-list-tile-content>
