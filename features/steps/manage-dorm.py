@@ -301,6 +301,9 @@ def test(context):
     assert context.response.status_code == status.HTTP_201_CREATED
     assert Dormitory.objects.filter(name='Alfam').first().photos.count() == 1
 
+    assert Dormitory.objects.filter(name='Alfam').first()\
+        .photos.first().url == 'https://momento360.com/e/u/a9b53aa8f8b0403ba7a4e18243aabc66'
+
 
 @when('hitting DELETE /manager/dorms/{alfam-id}/photos/{alfam-3d-photo-id}')
 def act(context):

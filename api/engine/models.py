@@ -5,7 +5,6 @@ from decimal import Decimal
 from django.db import (models as django_models, DatabaseError, transaction)
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_delete
-
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
@@ -689,7 +688,7 @@ class UploadablePhoto(django_models.Model):
     @property
     def url(self):
         if self.is_3d:
-            return self.photo.url.replace('/media/', '')
+            return self.photo
         else:
             return self.photo.path
 
