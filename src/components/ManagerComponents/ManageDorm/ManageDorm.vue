@@ -270,22 +270,20 @@
       <v-card>
         <v-card-text class="pa-0">
           <v-layout wrap>
-
             <v-flex xs12>
               <v-card-actions class="card-header py-3 px-4">
                 <h2 class="white--text">Dorm Photos</h2>
-                <!-- <v-spacer></v-spacer>
-                <v-btn color="#ffa915" depressed @click="updateDialog('features')">
+                <v-spacer></v-spacer>
+                <v-btn color="#ffa915" depressed @click="openPhotosDialog(null, null, true)">
                   <v-icon small color="black" left>fa-pen</v-icon>
                   Add Photo
-                </v-btn> -->
+                </v-btn>
               </v-card-actions>
             </v-flex>
-
             <v-flex xs12 md6 class="pa-4">
               <v-layout row wrap>
                 <v-flex>
-                  <h3 class="mb-4">Cover Photo {{dorm.id}}</h3>
+                  <h3 class="mb-4">Cover Photo</h3>
                   <v-card>
                     <label class="update-cover__btn" for="cover-img">
                       <v-icon small>fa-pen</v-icon>
@@ -304,29 +302,104 @@
                 </v-flex>
               </v-layout>
             </v-flex>
-
             <v-flex xs12 md6 class="pa-4">
               <v-layout row wrap>
                 <v-flex>
                   <v-layout class="mb-4">
                     <h3 class="ma-0 pa-0">Dorm Photos</h3>
-                    <v-spacer></v-spacer>
-                    <!-- <v-btn color="#ffa915" depressed @click="updateDialog('features')">
-                      <v-icon small color="black" left>fa-pen</v-icon>
-                      Add Photo
-                    </v-btn> -->
                   </v-layout>
-                  <v-layout v-if="dorm.photos.length">
-                    asd
+                  <v-layout v-if="dorm.photos.length" row wrap>
+                    <v-flex class="px-2 pb-3" md3 xs6 v-for="(photo,i) in dorm.photos" :key="i">
+                      <template v-if="!photo.is_3d">
+                        <v-img gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)" :src="photo.url" height="110" width="100%" @click="openPhotosDialog(photo.url, photo.is_3d)">
+                          <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+                            <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                          </v-layout>
+                        </v-img>
+                      </template>
+                      <template v-else>
+                        <img src="../../../assets/images/dormprofile/360.png" width="100%" height="110" @click="openPhotosDialog(photo.url, photo.is_3d)">
+                      </template>
+                    </v-flex>
+                    <v-dialog v-model="dialog.photos" lazy width="800px">
+                      <v-card>
+                        <v-card-text>
+                          <v-layout wrap v-if="lightBox.isAdd" class="pa-3">
+                            <v-flex xs12>
+                              <v-form ref="form" lazy-validation>
+                                <v-checkbox v-model="lightBox.is360" label="360 image"></v-checkbox>
+                                <v-text-field prepend-icon="fa-link" v-if="lightBox.is360" v-model="lightBox.url" label="360 Image URL" type="text" :required="lightBox.is360" :rules="urlRules"></v-text-field>
+                              </v-form>
+                              <div class="files-uploader" v-if="!lightBox.is360">
+                                <v-form enctype="multipart/form-data">
+                                  <div class="upload">
+                                    <v-layout align-center wrap>
+                                      <v-flex md3 xs12>
+                                        <label for="file">
+                                          <v-icon>fa-plus</v-icon>
+                                          {{lang.confirmPayment.chooseFile}}
+                                        </label>
+                                      </v-flex>
+                                      <v-flex md9 xs12 class="text-md-left">
+                                        <p>Allowed documents: JEPG, PNG, GIF and PDF</p>
+                                      </v-flex>
+                                    </v-layout>
+                                    <input type="file" id="file" multiple @change="selectFile" ref="files" v-show="false"></input>
+                                  </div>
+                                  <v-flex :class="`files-list ${file.invalidMessage && 'file-invalid'}`" v-for="(file,index) in files" :key="index" md12>
+                                    <v-layout>
+                                      <v-flex class="text-truncate" md4>
+                                        <span>{{file.name}}</span>
+                                      </v-flex>
+                                      <v-flex class="text-md-center" md2>
+                                        <span>{{file.size/1000}} KB</span>
+                                      </v-flex>
+                                      <v-flex class="text-md-center" md5>
+                                        <span>{{file.invalidMessage}}</span>
+                                      </v-flex>
+                                      <v-flex class="text-md-right" md1>
+                                        <v-icon small @click="removeFile(index)">fa-times-circle</v-icon>
+                                      </v-flex>
+                                    </v-layout>
+                                  </v-flex>
+                                  <v-btn class="upload-btn mt-3 mr-2" depressed @click="resetFiles" v-show="this.files.length">reset</v-btn>
+                                </v-form>
+                              </div>
+                            </v-flex>
+                            <v-flex xs12>
+                              <v-card-actions class="pa-0 mt-5">
+                                <v-spacer></v-spacer>
+                                <v-btn class="elevation-0" @click="closeDialog('photos')">Colse</v-btn>
+                                <v-btn depressed v-if="this.files.length && !lightBox.is360" color="#feae25" @click="submitPhotos" :disabled="uploaderDisabled" :loading="loadingBtn">Upload</v-btn>
+                                <v-btn depressed v-if="lightBox.is360" color="#feae25" @click="submit360Photos" :disabled="uploaderDisabled" :loading="loadingBtn">Submit</v-btn>
+                              </v-card-actions>
+                            </v-flex>
+                          </v-layout>
+                          <template v-if="!lightBox.isAdd">
+                            <div v-if="lightBox.isIframe">
+                              <div class="iframe-loader">
+                                <v-progress-circular :size="50" color="grey" indeterminate></v-progress-circular>
+                              </div>
+                              <iframe class="iframe-holder" height="450px" width="100%" allowfullscreen="true" :src="lightBox.url" frameBorder="0"></iframe>
+                            </div>
+                            <div v-else>
+                              <v-img :src="lightBox.url" height="100%" width="100%">
+                                <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+                                  <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                                </v-layout>
+                              </v-img>
+                            </div>
+                          </template>
+                        </v-card-text>
+                      </v-card>
+                    </v-dialog>
                   </v-layout>
-
                   <v-layout v-else class="photos-block" align-center justify-center row>
                     <p>You haven't uploaded any photos yet.</p>
                   </v-layout>
                 </v-flex>
               </v-layout>
             </v-flex>
-
           </v-layout>
         </v-card-text>
       </v-card>

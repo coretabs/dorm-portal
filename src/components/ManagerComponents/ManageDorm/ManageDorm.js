@@ -10,6 +10,9 @@ export default {
       active: null,
       items: ['Streaming', 'Eating'],
       selectedFeatures: [],
+      files: [],
+      uploadFiles: [],
+      uploaderDisabled: false,
       isUpdating: false,
       loadingBtn: false,
       file: '',
@@ -24,12 +27,12 @@ export default {
         { text: 'Currency', value: 'currency_code' },
         { text: 'Actions', value: 'id' }
       ],
-      Features: [
-        { name: 'Free wifi', id: 1},
-        { name: 'Free parking', id: 2},
-        { name: 'Hot water', id: 3},
-        { name: 'Cold water', id: 4}
-      ],
+      lightBox:{
+        url: '',
+        isIframe: false,
+        isAdd: false,
+        is360: false
+      },
       bank:{
         name:'',
         accountName:'',
@@ -44,7 +47,8 @@ export default {
         general: false,
         features: false,
         location: false,
-        addBanks: false
+        addBanks: false,
+        photos: false
       },
       deleteRecord:{
         confirmDialog: false,
@@ -64,17 +68,21 @@ export default {
         v => !!v || 'E-mail is required',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
       ],
+      urlRules:[
+        v => !!v || 'URL is required',
+        v => /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(v) || 'URL must be valid, Ex: https://emu.edu.tr'
+      ]
     };
   },
   computed: {
     lang() {
-      return this.$store.getters.lang;
+      return this.$store.getters.lang
     },
     languages(){
-      return this.$store.state.languages;
+      return this.$store.state.languages
     },
     currencies(){
-      return this.$store.state.currencies;
+      return this.$store.state.currencies
     },
     dorm(){
       return this.$store.getters.manageDorm
@@ -299,6 +307,117 @@ export default {
         }).catch(() => {
           let snackbar = {
             message: 'Some thing went wrong! try again',
+            color: 'error'
+          }
+          this.$store.commit('updateSnackbar', snackbar)
+        })
+      }
+    },
+    openPhotosDialog(url,is_3d,isAdd = false){
+      this.lightBox.url = url
+      this.lightBox.isIframe = is_3d
+      this.lightBox.isAdd = isAdd
+      this.dialog.photos = true
+    },
+    selectFile(){
+      const files = this.$refs.files.files
+      this.uploadFiles = [...this.uploadFiles, ...files]
+      this.files = [
+        ...this.files,
+        ..._.map(files, file=>({
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          invalidMessage: this.validate(file)
+        }))
+      ]
+      this.isValid()
+    },
+    validate(file){
+      const MAX_SIZE = 200000
+      const allowedType = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf']
+      if(file.size > MAX_SIZE){
+        return `Max size: ${MAX_SIZE/1000}KB`
+      }
+      if(!allowedType.includes(file.type)){
+        return 'File type is not allowed'
+      }
+      return ''
+    },
+    removeFile(index){
+      this.files.splice(index, 1)
+      this.uploadFiles.splice(index, 1)
+      this.isValid()
+    },
+    isValid(){
+      for(var file of this.uploadFiles) {
+        if(this.validate(file) != ''){
+          this.uploaderDisabled = true
+          break;
+        }
+        this.uploaderDisabled = false
+      }
+    },
+    resetFiles(){
+      this.files = []
+      this.uploadFiles = []
+    },
+    uploadFile(id, formData){
+      return this.$store.dispatch("uploadPhotos", {id,formData});
+    },
+    async submitPhotos(){
+      const dormId = localStorage.getItem('manageDormID')
+      let success = true
+      for (const file of this.uploadFiles) {
+        this.loadingBtn = true
+        const formData = new FormData()
+        if(this.validate(file) === ''){
+          formData.set('uploaded_photo', file)
+          await this.uploadFile(dormId, formData).then(()=>{
+            this.files.shift()
+          }).catch(()=>{
+            success = false
+          }).then(()=>{
+            this.loadingBtn = false
+          })
+        }
+      }
+      if(success){
+        this.files = []
+        this.uploadFiles = []
+        let snackbar = {
+          message: 'Files Uploaded successfully',
+          color: 'success'
+        }
+        this.$store.commit('updateSnackbar', snackbar)
+        this.$store.dispatch('fetchManagerDorm', dormId)
+        this.closeDialog('photos')
+      }else{
+        let snackbar = {
+          message: 'Something went Wrong!',
+          color: 'error'
+        }
+        this.$store.commit('updateSnackbar', snackbar)
+      }
+    },
+    submit360Photos(){
+      if(this.$refs.form.validate()){
+        const dormId = localStorage.getItem('manageDormID')
+        let data = {
+          is360Photo: true,
+          url: this.lightBox.url
+        }
+        this.$store.dispatch('upload360Photos',{dormId,data}).then(()=>{
+          let snackbar = {
+            message: 'Files Uploaded successfully',
+            color: 'success'
+          }
+          this.$store.commit('updateSnackbar', snackbar)
+          this.$store.dispatch('fetchManagerDorm', dormId)
+          this.closeDialog('photos')
+        }).catch(()=>{
+          let snackbar = {
+            message: 'Something went Wrong!',
             color: 'error'
           }
           this.$store.commit('updateSnackbar', snackbar)

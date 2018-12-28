@@ -278,6 +278,26 @@ export default new Vuex.Store({
         })
       })
     },
+    uploadPhotos({commit}, data){
+      return new Promise((resolve, reject) => {
+        $backend.$uploadPhotos(data.id, data.formData).then(response => {
+          resolve(response)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
+    },
+    upload360Photos({commit}, {dormId,data}){
+      return new Promise((resolve, reject) => {
+        $backend.$upload360Photos(dormId, data).then(response => {
+          resolve(response)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
+    },
     uploadDormCover({commit}, data){
       return new Promise((resolve, reject) => {
         $backend.$updateDormCover(data.id, data.formData).then(response => {

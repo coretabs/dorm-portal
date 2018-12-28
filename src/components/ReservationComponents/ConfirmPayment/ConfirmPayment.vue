@@ -72,7 +72,7 @@
             <v-icon small>fa-exclamation-triangle</v-icon> {{lang.confirmPayment.instruction}}
           </p>
 
-          <div class="drag-drop">
+          <div class="files-uploader">
             <v-form enctype="multipart/form-data" @submit.prevent="submit(reservation.id)">
 
               <div class="upload">

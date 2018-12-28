@@ -127,6 +127,19 @@ $backend.$uploadReceipt = (id, formData) => {
     .then(response => response.data)
 }
 
+$backend.$uploadPhotos = (id, formData) => {
+    return $backend.post(`/manager-dorms/${id}/photos/`, formData)
+    .then(response => response.data)
+}
+
+$backend.$upload360Photos = (id, data) => {
+    return $backend.post(`/manager-dorms/${id}/photos/`, {
+        is_3d: data.is360Photo,
+        url: data.url
+    })
+    .then(response => response.data)
+}
+
 
 $backend.$fetchManagerDorms = () => {
     return $backend.get(`/manager-dorms/`)
