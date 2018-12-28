@@ -14,13 +14,53 @@
             "description": "Set Django Settings to Production",
             "value": "production"
         },
+        "DEBUG": {
+            "description": "Debug django settings",
+            "value": "false"
+        },
         "SECRET_KEY": {
             "description": "Your Django Secret Key",
             "value": "123456"
         },
         "ALLOWED_HOSTS": {
             "description": "Allowing Your app URL",
-            "value": "YOUR_APP_NAME.herokuapp.com"
+            "value": "YOUR_APP_NAME.herokuapp.com;www.example.com;.example.com"
+        },
+        "BASE_URL": {
+            "description": "Base url for emails and photos",
+            "value": "https://www.example.com"
+        },
+        "COOKIE_DOMAINS": {
+            "description": "Domain to share cookies with",
+            "value": "https://www.example.com=.example.com;https://example.com=.example.com"
+        },
+        "DATABASE_URL": {
+            "description": "Database url",
+            "value": "postgres://user:password@db/table"
+        },
+        "LANGUAGES": {
+            "description": "Languages",
+            "value": "en=English;tr=Türkçe"
+        },
+        "DEFAULT_FROM_EMAIL": {
+            "description": "Email sender that shows when sending emails to users",
+            "value": "en=English;tr=Türkçe"
+        },
+        "EMAIL_HOST": {
+            "description": "Email host",
+            "value": "smtp.mailgun.org"
+        },
+        "EMAIL_HOST_USER": {
+            "description": "Email user",
+            "value": "no-reply@example.com"
+        },
+        "EMAIL_HOST_PASSWORD": {
+            "description": "Email passwrod",
+            "value": "123456"
+        },
+        "IS_ALWAYS_REVIEWABLE": {
+            "description": "Reservations will always be reviewable if true",
+            "value": "false"
         }
     },
     "engines": {

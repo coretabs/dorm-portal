@@ -2,8 +2,8 @@ import ptvsd
 from .base import *
 
 
-SECRET_KEY = 'z-+$tyr)mif-dsjx)vd#pkay86u_((ut^8(_0)283#bus5k&he'
 DEBUG = True
+SECRET_KEY = 'z-+$tyr)mif-dsjx)vd#pkay86u_((ut^8(_0)283#bus5k&he'
 
 # Hosts
 ALLOWED_HOSTS = ['*']

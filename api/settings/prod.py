@@ -4,9 +4,8 @@ from urllib.parse import quote_plus
 from .base import *
 
 
+DEBUG = bool(os.environ.get('DEBUG'))
 SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = False
-
 
 # Hosts
 # ALLOWED_HOSTS sample env var: 'www.dorm-portal.com;.dorm-portal.com'
@@ -20,9 +19,14 @@ CORS_ALLOW_CREDENTIALS = False
 
 
 # CSRF & Session Domains
-# Sample env var: 'coretabs.net = .coretabs.net; 127.0.0.1 = 127.0.0.1'
-COOKIE_DOMAINS = dict((host, target) for host, target in (a.split('=')
-                                                          for a in os.environ.get('COOKIE_DOMAINS').split(';')))
+# Sample env var: 'https://www.example.com=.example.com;https://example.com=.example.com'
+try:
+    COOKIE_DOMAINS = dict(
+        (host, target) for host, target in (
+            a.split('=') for a in os.environ.get('COOKIE_DOMAINS').split(';'))
+    )
+except:
+    COOKIE_DOMAINS = {}
 
 
 # Database
@@ -34,7 +38,7 @@ DATABASES = {
 
 
 # Languages
-# Sample env var: 'en=English;tr=Turkce'
+# Sample env var: 'en=English;tr=Türkçe'
 LANGUAGES = list((host, target) for host, target in (a.split('=')
                                                      for a in os.environ.get('LANGUAGES').split(';')))
 
@@ -44,8 +48,8 @@ LANGUAGES = list((host, target) for host, target in (a.split('=')
 Sample env vars:
 DEFAULT_FROM_EMAIL = Dorm Portal <no-reply@dorm-portal.com>
 EMAIL_HOST = smtp.mailgun.org
-EMAIL_HOST_PASSWORD = MySuperPassword
 EMAIL_HOST_USER = no-reply@dorm-portal.com
+EMAIL_HOST_PASSWORD = MySuperPassword
 """
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
@@ -57,4 +61,5 @@ EMAIL_USE_TLS = True
 
 
 # Reservations settings
-IS_ALWAYS_REVIEWABLE = False
+# Sample env var: 'false'
+IS_ALWAYS_REVIEWABLE = bool(os.environ.get('IS_ALWAYS_REVIEWABLE'))
