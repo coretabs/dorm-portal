@@ -7,26 +7,26 @@
 
           <v-flex xs12 sm6 md4 pa-3>
             <h3 class="heading">General Spec:</h3>
-            <v-select class="shift-left" :items="roomFilters.room_types" item-text="name" item-value="id" label="Room Type" append-icon="expand_more" :menu-props="{
+            <v-select class="shift-left" :items="roomFilters.room_types" :rules="requiredRules" item-text="name" item-value="id" label="Room Type" append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
           }" v-model="room.roomTypeId"></v-select>
 
-            <v-select class="shift-left" :items="roomFilters.durations" item-text="name" item-value="id" label="Duration" append-icon="expand_more" :menu-props="{
+            <v-select class="shift-left" :items="roomFilters.durations" :rules="requiredRules" item-text="name" item-value="id" label="Duration" append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
           }" v-model="room.durationId"></v-select>
 
-            <v-text-field label="Number of people" type="number" v-model="room.peopleAllowedNumber"></v-text-field>
+            <v-text-field label="Number of people" type="number" :rules="requiredRules" v-model="room.peopleAllowedNumber"></v-text-field>
 
             <v-layout wrap>
               <v-flex xs12 sm8>
-                <v-text-field label="price" type="number" v-model="room.price"></v-text-field>
+                <v-text-field label="price" type="number" :rules="requiredRules" v-model="room.price"></v-text-field>
               </v-flex>
               <v-flex xs12 sm4 pl-2>
-                <v-select class="shift-left" :items="roomFilters.currencies" v-model="room.currencyId" item-text="code" item-value="id" label="Currency" color="success" append-icon="expand_more" :menu-props="{
+                <v-select class="shift-left" :rules="requiredRules" :items="roomFilters.currencies" v-model="room.currencyId" item-text="code" item-value="id" label="Currency" color="success" append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
@@ -34,9 +34,9 @@
               </v-flex>
             </v-layout>
 
-            <v-text-field label="Total Rooms in Dorm" type="number" v-model="room.totalQuota"></v-text-field>
-            <v-text-field label="Quota" type="number" v-model="room.allowedQuota"></v-text-field>
-            <v-text-field label="Confirmation Duration in Days" type="number" v-model="room.confirmationDays"></v-text-field>
+            <v-text-field label="Total Rooms in Dorm" :rules="requiredRules" type="number" v-model="room.totalQuota"></v-text-field>
+            <v-text-field label="Quota" type="number" :rules="requiredRules" v-model="room.allowedQuota"></v-text-field>
+            <v-text-field label="Confirmation Duration in Days" :rules="requiredRules" type="number" v-model="room.confirmationDays"></v-text-field>
           </v-flex>
 
           <v-flex xs12 sm6 md4 pa-3>
@@ -78,7 +78,41 @@
           <v-flex xs12 sm6 md4 pa-3>
             <h3 class="heading">Room Photos:</h3>
 
-            <!-- upload files -->
+            <div class="files-uploader">
+              <v-form enctype="multipart/form-data">
+                <div class="upload">
+                  <v-layout align-center wrap>
+                    <v-flex md4 xs12>
+                      <label for="file">
+                        <v-icon>fa-plus</v-icon>
+                        {{lang.confirmPayment.chooseFile}}
+                      </label>
+                    </v-flex>
+                    <v-flex md8 xs12 class="text-md-left">
+                      <p>Allowed documents: JEPG, PNG, GIF</p>
+                    </v-flex>
+                  </v-layout>
+                  <input type="file" id="file" multiple @change="selectFile" ref="files" v-show="false">
+                </div>
+                  <v-flex :class="`files-list ${file.invalidMessage && 'file-invalid'}`" v-for="(file,index) in files" :key="index" md12>
+                    <v-layout>
+                      <v-flex class="text-truncate" md4>
+                        <span>{{file.name}}</span>
+                      </v-flex>
+                      <v-flex class="text-md-center" md2>
+                        <span>{{file.size/1000}} KB</span>
+                      </v-flex>
+                      <v-flex class="text-md-center" md5>
+                        <span>{{file.invalidMessage}}</span>
+                      </v-flex>
+                      <v-flex class="text-md-right" md1>
+                        <v-icon small @click="removeFile(index)">fa-times-circle</v-icon>
+                      </v-flex>
+                    </v-layout>
+                  </v-flex>
+                  <v-btn class="upload-btn mt-3 mr-2" depressed @click="resetFiles" v-show="this.files.length">reset</v-btn>
+              </v-form>
+            </div>
 
           </v-flex>
 

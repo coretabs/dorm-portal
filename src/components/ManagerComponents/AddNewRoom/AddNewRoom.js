@@ -1,4 +1,5 @@
 import FileUpload from 'vue-upload-component/src'
+import _ from 'lodash'
 
 export default {
   name: "ManageDorm",
@@ -9,6 +10,7 @@ export default {
     return {
       selectedFeatures:[],
       files: [],
+      uploadFiles: [],
       isUpdating: false,
       loadingBtn: false,
       roomFilters:{},
@@ -25,7 +27,10 @@ export default {
         roomFeatures: [],
         radioChoices:[],
         integralChoices: []
-      }
+      },
+      requiredRules: [
+        v => !!v || 'This field is required'
+      ]
     };
   },
   computed: {
@@ -53,7 +58,7 @@ export default {
           continue;
         }
       }
-      if(objectUpdated != -1){
+      if(objectUpdated != -1 && value){
         this.room.integralChoices.push({
           id: id,
           selected_number: value
@@ -65,10 +70,72 @@ export default {
       let roomData = this.room
       if(this.$refs.form.validate()){
         this.loadingBtn = true
+        let snackbar
         this.$store.dispatch('addNewRoom', {dormID,roomData}).then(()=>{
-          console.log('done')
+          snackbar = {
+            message: 'Room has been Add successfully',
+            color: 'success'
+          }
+          this.$refs.form.reset()
+        }).catch((err)=>{
+          if(err.response.status == 403 || err.response.status == 500){
+            snackbar = {
+              message: 'error occured, please try again',
+              color: 'error'
+            }
+          }else{
+            snackbar = {
+              message: err,
+              color: 'error'
+            }
+          }
+        }).then(()=>{
+          this.$store.commit('updateSnackbar', snackbar)
         })
       }
+    },
+    selectFile(){
+      const files = this.$refs.files.files
+      this.uploadFiles = [...this.uploadFiles, ...files]
+      this.files = [
+        ...this.files,
+        ..._.map(files, file=>({
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          invalidMessage: this.validate(file)
+        }))
+      ]
+      this.isValid()
+    },
+    validate(file){
+      const MAX_SIZE = 8000000
+      const allowedType = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+      if(file.size > MAX_SIZE){
+        return `Max size: ${MAX_SIZE/1000}KB`
+      }
+      if(!allowedType.includes(file.type)){
+        return 'File type is not allowed'
+      }
+      return ''
+    },
+    removeFile(index){
+      this.files.splice(index, 1)
+      this.uploadFiles.splice(index, 1)
+      this.isValid()
+    },
+    isValid(){
+      for(var file of this.uploadFiles) {
+        if(this.validate(file) != ''){
+          this.uploaderDisabled = true
+          break;
+        }
+        this.uploaderDisabled = false
+      }
+    },
+    resetFiles(){
+      this.files = []
+      this.uploadFiles = []
     }
   },
   watch: {
