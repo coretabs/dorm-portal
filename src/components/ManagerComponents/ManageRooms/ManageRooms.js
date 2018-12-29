@@ -1,4 +1,6 @@
 
+import _ from 'lodash'
+
 export default {
   name: "ManageRooms",
   components:{
@@ -30,7 +32,7 @@ export default {
       return this.$store.getters.lang;
     },
     rooms(){
-      return this.$store.getters.managerDormRooms
+      return _.reverse(_.orderBy(this.$store.getters.managerDormRooms, 'id', ['desc']))
     }
   },
   methods:{
