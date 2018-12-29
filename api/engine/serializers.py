@@ -1183,7 +1183,7 @@ class DormDetailsSerializer(serializers.ModelSerializer):
 class CurrencySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Currency
-        fields = ('symbol', 'code',)
+        fields = ('id', 'symbol', 'code',)
 
 
 class LanguageSerailizer(serializers.Serializer):
