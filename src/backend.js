@@ -247,4 +247,19 @@ $backend.$addNewRoom = (id, data) => {
         .then(response => response.data)
 }
 
+$backend.$askForReview = (dormId,reservationId) => {
+    return $backend.post(`/manager-dorms/${dormId}/reservations/${reservationId}/ask-review/`)
+        .then(response => response.data)
+}
+
+$backend.$submitReview = (dormId,data) => {
+    return $backend.post(`/dorms/${dormId}/reviews/`,{
+        stars: data.stars,
+        description: data.comment
+    })
+        .then(response => response.data)
+}
+
+
+
 export default $backend

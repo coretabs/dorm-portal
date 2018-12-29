@@ -432,6 +432,24 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    askForReview(context, {dormID,reservationId}){
+      return new Promise((resolve, reject) => {
+        $backend.$askForReview(dormID, reservationId).then(response => {
+          resolve(response)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    submitReview(context, {dormId,data}){
+      return new Promise((resolve, reject) => {
+        $backend.$submitReview(dormId, data).then(response => {
+          resolve(response)
+        }).catch(err => {
+          reject(err)
+        })
+      })
     }
 
   }

@@ -127,6 +127,12 @@ export default {
     },
     filterByStatus(statusID){
       this.statusFilter = statusID
+    },
+    askForReview(reservationId){
+      const dormID = localStorage.getItem('manageDormID')
+      this.$store.dispatch('askForReview', {dormID,reservationId}).then(()=>{
+        alert('done')
+      })
     }
   },
   mounted(){
