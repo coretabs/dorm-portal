@@ -4,7 +4,7 @@ from django.contrib.auth.views import PasswordResetConfirmView
 from django.conf.urls.static import static
 from django.conf import settings
 
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from rest_framework_nested import routers
 
@@ -40,10 +40,6 @@ manager_rooms_router.register('photos', engine_views.PhotoRoomManagementViewSet,
                               base_name='photos')
 
 urlpatterns = [
-
-    # http://localhost:8000/
-    path('', engine_views.index_view, name='index'),
-
     # http://localhost:8000/api/<router-viewsets>
     path('api/', include((router.urls, 'engine'), namespace='engine')),
     #path('api/manager', include((manager_router.urls, 'engine'), namespace='engine')),
@@ -60,6 +56,9 @@ urlpatterns = [
 
     # http://localhost:8000/api/admin/
     path('api/admin/', admin.site.urls),
+
+    # http://localhost:8000/
+    re_path('^.*$', engine_views.index_view, name='index'),
 ]
 
 if settings.DEBUG:
