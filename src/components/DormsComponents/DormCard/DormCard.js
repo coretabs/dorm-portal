@@ -2,6 +2,7 @@
 import DormMap from "../../SharedComponents/DormMap/DormMap.vue";
 import DormReviews from "../DormReviews/DormReviews.vue";
 import DormFeatures from "../DormFeatures/DormFeatures.vue";
+import _ from 'lodash'
 
 export default {
   name: "DormCard",
@@ -61,6 +62,9 @@ export default {
     },
     lang() {
       return this.$store.getters.lang;
+    },
+    orderedRooms(){
+      return _.orderBy(this.dorm.room_characteristics, 'price')
     }
   }
 };

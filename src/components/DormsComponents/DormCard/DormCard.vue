@@ -68,12 +68,10 @@
       </v-layout>
 
       <v-divider light></v-divider>
-
       <v-layout>
         <v-card-actions justify-center align-center>
           <div class="rooms-price-bar">
-
-            <div class="room-price" v-for="(room,index) in dorm.room_characteristics" :key="index">
+            <div class="room-price" v-for="(room,index) in orderedRooms" :key="index">
               <v-tooltip top>
                 <div @click="showRooms(room)" class="bar" slot="activator"></div>
                 <span @click="showRooms(room)" class="price" slot="activator">{{$store.getters.activeCurrency}}{{room.price}}</span>
