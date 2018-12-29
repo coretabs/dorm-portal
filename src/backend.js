@@ -253,7 +253,7 @@ $backend.$askForReview = (dormId,reservationId) => {
 }
 
 $backend.$submitReview = (dormId,data) => {
-    return $backend.post(`/dorms/${dormId}/reviews/`,{
+    return $backend.post(`/reservations/${dormId}/reviews/`,{
         stars: data.stars,
         description: data.comment
     })

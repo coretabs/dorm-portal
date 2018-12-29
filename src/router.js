@@ -26,8 +26,8 @@ let router = new Router({
     },
     {
       path: '/reservations/:id/review',
-      component: ReviewDorm
-      //beforeEnter: (to, from, next) => { (store.getters.isLoggedIn) ? next() : next('/login') }
+      component: ReviewDorm,
+      beforeEnter: (to, from, next) => { (store.getters.isLoggedIn) ? next() : next('/login') }
     },
     {
       path: '/reservation',

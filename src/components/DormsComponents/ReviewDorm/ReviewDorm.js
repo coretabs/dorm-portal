@@ -31,9 +31,17 @@ export default {
           this.showForm = false
           this.$store.commit('updateSnackbar', snackbar)
         }).catch((err)=>{
-          let snackbar = {
-            message: err,
-            color: 'error'
+          let snackbar
+          if(err.response.status == 403 || err.response.status == 500){
+            snackbar = {
+              message: 'You don\'t have the permissions to make the review',
+              color: 'error'
+            }
+          }else{
+            snackbar = {
+              message: err,
+              color: 'error'
+            }
           }
           this.$store.commit('updateSnackbar', snackbar)
           this.loadingBtn = false

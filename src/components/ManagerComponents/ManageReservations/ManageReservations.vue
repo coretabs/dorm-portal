@@ -125,8 +125,8 @@
                     <v-btn depressed @click="updateStatus(props.item)" v-if="props.item.status != 2" color="green" dark>
                       {{lang.manageResrevations.updateStatus}}
                     </v-btn>
-                    <v-btn depressed :disabled="is_reviewed" v-if="props.item.status == 2 && props.item.is_reviewable" @click="askForReview(props.item.id)">
-                      <span v-if="!is_reviewed">{{lang.manageResrevations.askForReview}}</span>
+                    <v-btn depressed :disabled="props.item.is_reviewed" v-if="props.item.status == 2 && props.item.is_reviewable" @click="askForReview(props.item.id)">
+                      <span v-if="!props.item.is_reviewed">{{lang.manageResrevations.askForReview}}</span>
                       <span v-else>Reviewd</span>
                     </v-btn>
                     <v-tooltip top>
