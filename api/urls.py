@@ -42,13 +42,11 @@ manager_rooms_router.register('photos', engine_views.PhotoRoomManagementViewSet,
 urlpatterns = [
     # http://localhost:8000/api/<router-viewsets>
     path('api/', include((router.urls, 'engine'), namespace='engine')),
-    #path('api/manager', include((manager_router.urls, 'engine'), namespace='engine')),
     path('api/', include((reservations_router.urls, 'engine'), namespace='engine.reservations')),
     path('api/', include((manager_dorms_router.urls, 'engine'), namespace='engine.manager-dorms')),
     path('api/', include((manager_rooms_router.urls, 'engine'), namespace='engine.manager-dorms.rooms')),
 
     path('api/auth/', include('rest_auth.urls')),
-    #path(r'^', include('django.contrib.auth.urls')),
     path('password-reset/<uidb64>/<token>/', PasswordResetConfirmView, name='password_reset_confirm'),
     path('api/auth/registration/', include('rest_auth.registration.urls')),
     path('api/auth/resend-confirmation/',
