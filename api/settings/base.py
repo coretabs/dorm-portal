@@ -27,6 +27,7 @@ INSTALLED_APPS = [
 
     'behave_django',
     'polymorphic',
+    'adminsortable2',
     'djmoney.contrib.exchange',
     'api.engine',
 ]

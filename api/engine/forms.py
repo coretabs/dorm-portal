@@ -8,7 +8,7 @@ from api.engine import models
 class FeatureFilterForm(forms.ModelForm):
     class Meta:
         name = models.FeatureFilter
-        fields = ['name', 'icon', 'is_dorm_feature']
+        fields = ['name', 'order', 'icon', 'is_dorm_feature']
         widgets = {
             'name': i18nforms.I18nTextInput,
         }
@@ -17,7 +17,7 @@ class FeatureFilterForm(forms.ModelForm):
 class IntegralFilterForm(forms.ModelForm):
     class Meta:
         name = models.IntegralFilter
-        fields = ['name', 'is_optional']
+        fields = ['name', 'order', 'is_optional']
         widgets = {
             'name': i18nforms.I18nTextInput,
         }
@@ -26,7 +26,7 @@ class IntegralFilterForm(forms.ModelForm):
 class RadioFilterForm(forms.ModelForm):
     class Meta:
         name = models.RadioFilter
-        fields = ['name', 'is_optional']
+        fields = ['name', 'order', 'is_optional']
         widgets = {
             'name': i18nforms.I18nTextInput,
         }

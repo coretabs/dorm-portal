@@ -263,11 +263,15 @@ class FilterQuerySet(PolymorphicQuerySet):
 
 class Filter(PolymorphicModel):
     name = I18nCharField(max_length=60)
+    order = django_models.PositiveIntegerField(default=0)
 
     objects = PolymorphicManager.from_queryset(FilterQuerySet)()
 
     def __str__(self):
         return f'{self.name} filter'
+
+    class Meta:
+        ordering = ['order']
 
 
 class RadioFilter(Filter):

@@ -3,6 +3,8 @@ from django.contrib import admin
 
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 
+from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
+
 from api.engine import models, forms
 
 
@@ -27,7 +29,7 @@ class ModelRadioFilterAdmin(PolymorphicChildModelAdmin):
 
 
 @admin.register(models.Filter)
-class ModelFilterAdmin(PolymorphicParentModelAdmin):
+class ModelFilterAdmin(SortableAdminMixin, PolymorphicParentModelAdmin):
     child_models = (models.FeatureFilter, models.IntegralFilter, models.RadioFilter)
 
 # Choice models
