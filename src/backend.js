@@ -241,7 +241,7 @@ $backend.$addNewRoom = (id, data) => {
         room_confirmation_days: data.confirmationDays,
         duration_id: data.durationId,
         room_features: data.roomFeatures,
-        radio_choices: data.radioChoices,
+        radio_options: data.radioChoices,
         integral_choices: data.integralChoices
     })
         .then(response => response.data)

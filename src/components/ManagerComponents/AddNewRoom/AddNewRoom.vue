@@ -37,10 +37,7 @@
             <v-text-field label="Total Rooms in Dorm" :rules="requiredRules" type="number" v-model="room.totalQuota"></v-text-field>
             <v-text-field label="Quota" type="number" :rules="requiredRules" v-model="room.allowedQuota"></v-text-field>
             <v-text-field label="Confirmation Duration in Days" :rules="requiredRules" type="number" v-model="room.confirmationDays"></v-text-field>
-          </v-flex>
 
-          <v-flex xs12 sm6 md4 pa-3>
-            <h3 class="heading">Room Features:</h3>
             <v-autocomplete v-model="room.roomFeatures" :disabled="isUpdating" :items="roomFilters.room_features" box chips color="blue-grey lighten-2" label="Select features" item-text="name" item-value="id" multiple>
               <template slot="selection" slot-scope="data">
                 <v-chip :selected="data.selected" close class="chip--select-multi" @input="remove(data.item)">
@@ -56,6 +53,11 @@
                 </template>
               </template>
             </v-autocomplete>
+          </v-flex>
+
+          <v-flex xs12 sm6 md4 pa-3>
+            <h3 class="heading">Room Features:</h3>
+            
 
             <div v-for="(filter,i) in roomFilters.additional_filters" :key="i">
 

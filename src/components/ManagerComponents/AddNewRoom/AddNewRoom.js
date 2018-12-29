@@ -25,7 +25,7 @@ export default {
         durationId: null,
         integralChoicesHolder: [],
         roomFeatures: [],
-        radioChoices:[],
+        radioChoices: [],
         integralChoices: []
       },
       requiredRules: [

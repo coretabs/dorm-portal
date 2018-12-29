@@ -6,7 +6,7 @@ Vue.prototype.$backend = $backend;
 Vue.use(Vuex);
 
 const clean = (data) => {
-  Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
+  Object.keys(data).forEach((key) => (data[key] == null || data[key].length == 0) && delete data[key]);
 }
 
 export default new Vuex.Store({
@@ -425,6 +425,7 @@ export default new Vuex.Store({
       })
     },
     addNewRoom(context, {dormID, roomData}){
+      clean(roomData)
       return new Promise((resolve, reject) => {
         $backend.$addNewRoom(dormID, roomData).then(response => {
           resolve(response)
