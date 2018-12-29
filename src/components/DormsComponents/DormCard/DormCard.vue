@@ -13,7 +13,6 @@
           </v-img>
 
         </v-flex>
-
         <v-flex class="dorm-details" xs12 sm8>
 
           <v-card-title class="pa-0">
@@ -23,7 +22,7 @@
           </v-card-title>
 
           <v-layout class="dorm-rating" row>
-            <v-rating v-model="dorm.stars" length="5" readonly background-color="rgba(0,0,0,0.2)" color="yellow accent-4" empty-icon="$vuetify.icons.ratingFull" half-increments dense>
+            <v-rating v-model="dorm.stars_average" length="5" readonly background-color="rgba(0,0,0,0.2)" color="yellow accent-4" empty-icon="$vuetify.icons.ratingFull" half-increments dense>
             </v-rating>
             <a href="#" @click.stop.prevent="showReviews">{{dorm.number_of_reviews}} {{lang.dormCard.reviews}}</a>
           </v-layout>
