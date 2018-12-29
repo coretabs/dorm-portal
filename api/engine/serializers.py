@@ -815,7 +815,9 @@ class DormManagementRoomFiltersSerializer(serializers.Serializer):
         filters = (
             models.Filter.objects.additional_filters().exclude(
                 django_models.Q(name__contains='Duration') | 
-                django_models.Q(name__contains='Room Type'))
+                django_models.Q(name__contains='Room Type') |
+                django_models.Q(name__contains='Price') | 
+                django_models.Q(name__contains='People Allowed Number'))
         )
         return AddtionalFiltersSerializer(filters, many=True).data
 
