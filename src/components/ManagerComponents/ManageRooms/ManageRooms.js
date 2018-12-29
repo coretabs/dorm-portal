@@ -326,7 +326,6 @@ export default {
     fetchManagerDormRooms(){
       const dormID = localStorage.getItem('manageDormID')
       this.$store.dispatch('fetchManagerDormRooms',dormID).then(()=>{
-        console.log(this.$store.getters.managerDormRooms)
       })
     }
   },

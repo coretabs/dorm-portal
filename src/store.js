@@ -415,7 +415,24 @@ export default new Vuex.Store({
         })
       })
     },
-
+    fetchRoomFilters(context){
+      return new Promise((resolve, reject) => {
+        $backend.$fetchRoomFilters().then(response => {
+          resolve(response)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    addNewRoom(context, {dormID, roomData}){
+      return new Promise((resolve, reject) => {
+        $backend.$addNewRoom(dormID, roomData).then(response => {
+          resolve(response)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    }
 
   }
 });
