@@ -67,11 +67,11 @@ Feature: Reviews
         Then get validated deserialized review
         And save that review successfully
 
-        When hitting POST /reservations/{res-id}/add-review
+        When hitting POST /reservations/{res-id}/reviews
         Then get 201 Created for creating the review
 
-        When hitting POST /reservations/{res-id}/add-review for non-reviewable dorm
+        When hitting POST /reservations/{res-id}/reviews for non-reviewable dorm
         Then get 400 Bad Request for not creating the review
 
-        When hitting POST /reservations/{res-id}/add-review for non-owned reservation
+        When hitting POST /reservations/{res-id}/reviews for non-owned reservation
         Then get 403 forbidden for not creating the review

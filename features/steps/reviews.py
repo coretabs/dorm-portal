@@ -278,7 +278,7 @@ def test(context):
         assert Review.objects.count() == 1
 
 
-@when('hitting POST /reservations/{res-id}/add-review')
+@when('hitting POST /reservations/{res-id}/reviews')
 def act(context):
     Review.objects.all().delete()
     assert Review.objects.count() == 0
@@ -301,7 +301,7 @@ def test(context):
     assert Review.objects.count() == 1
 
 
-@when('hitting POST /reservations/{res-id}/add-review for non-reviewable dorm')
+@when('hitting POST /reservations/{res-id}/reviews for non-reviewable dorm')
 def act(context):
     Review.objects.all().delete()
     assert Review.objects.count() == 0
@@ -324,7 +324,7 @@ def test(context):
     assert Review.objects.count() == 0
 
 
-@when('hitting POST /reservations/{res-id}/add-review for non-owned reservation')
+@when('hitting POST /reservations/{res-id}/reviews for non-owned reservation')
 def act(context):
     Review.objects.all().delete()
     assert Review.objects.count() == 0

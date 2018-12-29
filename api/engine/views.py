@@ -303,7 +303,7 @@ class ReservationViewSet(viewsets.ViewSet):
 
         return Response(serializers.ReservationDetailsSerializer(reservation).data)
 
-    @action(detail=True, methods=['post'], url_path='add-review')
+    @action(detail=True, methods=['post'], url_path='reviews')
     def add_review(self, request, pk):
         reservation = models.Reservation.objects.get(pk=pk)
         self.check_object_permissions(request, reservation)
