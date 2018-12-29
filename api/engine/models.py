@@ -322,7 +322,7 @@ class RadioOption(django_models.Model):
         RadioFilter, related_name='options', on_delete=django_models.CASCADE)
 
     def __str__(self):
-        return f'{self.name} option'
+        return f'{self.name} option id: {self.id}'
 
 
 class Choice(PolymorphicModel):
