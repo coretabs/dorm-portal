@@ -602,7 +602,7 @@ class DormManagementEditRoomSerializer(serializers.Serializer):
     duration_id = serializers.IntegerField(required=False)
 
     room_features = serializers.ListField(child=serializers.IntegerField(), required=False)
-    radio_choices = serializers.ListField(child=serializers.IntegerField(), required=False)
+    radio_options = serializers.ListField(child=serializers.IntegerField(), required=False)
     integral_choices = DormManagementRoomIntegralChoiceSerializer(many=True, required=False)
 
     def update(self, instance, validated_data):
@@ -622,16 +622,51 @@ class DormManagementEditRoomSerializer(serializers.Serializer):
             features_objects = list(models.FeatureFilter.objects.filter(id__in=room_features).all())
             instance.features.set(features_objects)
 
-        radio_choices = validated_data.get('radio_choices', None)
-        if radio_choices:
-            radio_choices_objects = list(models.RadioChoice.objects.filter(id__in=radio_choices).all())
+
+
+
+        radio_options = validated_data.get('radio_options', [])
+
+        room_type_id = validated_data.get('room_type_id', None)
+        if room_type_id:
+            radio_options.append(room_type_id)
+
+        duration_id = validated_data.get('duration_id', None)
+        if duration_id:
+            radio_options.append(duration_id)
+
+
+        if radio_options:
+            radio_choices_objects = []
+
+            for radio_option in radio_options:
+                radio_option_object = models.RadioOption.objects.get(pk=radio_option)
+                radio_choice_object, _ = (
+                    models.RadioChoice.objects.get_or_create(selected_option=radio_option_object, 
+                                          related_filter=radio_option_object.related_filter))
+                radio_choices_objects.append(radio_choice_object)
+
             for radio_choice_object in radio_choices_objects:
                 previous_radio_choice = instance.radio_choices.filter(related_filter_id=radio_choice_object.related_filter.id).first()
                 if previous_radio_choice:
                     instance.radio_choices.remove(previous_radio_choice)
                 instance.radio_choices.add(radio_choice_object)
 
-        integral_choices = validated_data.get('integral_choices', None)
+
+
+
+        integral_choices = validated_data.get('integral_choices', [])
+
+        people_allowed_number = validated_data.get('people_allowed_number', None)
+        if people_allowed_number:
+            integral_choices.append({'selected_number': people_allowed_number, 
+                                     'id': models.IntegralFilter.objects.get(name__contains='People Allowed Number')})
+
+        price = validated_data.get('price', None)
+        if price:
+            integral_choices.append({'selected_number': price, 
+                                     'id': models.IntegralFilter.objects.get(name__contains='Price')})
+
         if integral_choices:
             for integral_choice in integral_choices:
                 integral_choice_object, _ = (
@@ -643,43 +678,7 @@ class DormManagementEditRoomSerializer(serializers.Serializer):
                     instance.integral_choices.remove(previous_integral_choice)
                 instance.integral_choices.add(integral_choice_object)
 
-        
-        room_type_id = validated_data.get('room_type_id', None)
-        if room_type_id:
-            new_room_type = models.RadioChoice.objects.get(pk=room_type_id)
-            previous_room_type = instance.radio_choices.get(related_filter__name__contains='Room Type')
-            instance.radio_choices.remove(previous_room_type)
-            instance.radio_choices.add(new_room_type)
 
-        duration_id = validated_data.get('duration_id', None)
-        if duration_id:
-            new_duration = models.RadioChoice.objects.get(pk=duration_id)
-            previous_duration = instance.radio_choices.get(related_filter__name__contains='Duration')
-            instance.radio_choices.remove(previous_duration)
-            instance.radio_choices.add(new_duration)
-
-
-        people_allowed_number = validated_data.get('people_allowed_number', None)
-        if people_allowed_number:
-            new_people_allowed_number, _ = (
-                models.IntegralChoice.objects.get_or_create(selected_number=people_allowed_number, 
-                                          related_filter=models.IntegralFilter.objects.get(name__contains='People Allowed Number'))
-            )
-
-            previous_people_allowed_number = instance.integral_choices.get(related_filter__name__contains='People Allowed Number')
-            instance.integral_choices.remove(previous_people_allowed_number)
-            instance.integral_choices.add(new_people_allowed_number)
-
-        price = validated_data.get('price', None)
-        if price:
-            new_price, _ = (
-                models.IntegralChoice.objects.get_or_create(selected_number=price, 
-                                          related_filter=models.IntegralFilter.objects.get(name__contains='Price'))
-            )
-
-            previous_price = instance.integral_choices.get(related_filter__name__contains='Price')
-            instance.integral_choices.remove(previous_price)
-            instance.integral_choices.add(new_price)
 
         instance.save()
 
@@ -708,7 +707,7 @@ class DormManagementNewRoomSerializer(serializers.Serializer):
     duration_id = serializers.IntegerField()
 
     room_features = serializers.ListField(child=serializers.IntegerField(), required=False)
-    radio_choices = serializers.ListField(child=serializers.IntegerField(), required=False)
+    radio_options = serializers.ListField(child=serializers.IntegerField(), required=False)
     integral_choices = DormManagementRoomIntegralChoiceSerializer(many=True, required=False)
 
     def create(self, validated_data):
@@ -727,43 +726,45 @@ class DormManagementNewRoomSerializer(serializers.Serializer):
             features_objects = list(models.FeatureFilter.objects.filter(id__in=room_features).all())
             validated_data.pop('room_features', None)
 
-        radio_choices = validated_data.get('radio_choices', None)
-        if radio_choices:
-            radio_choices_objects = list(models.RadioChoice.objects.filter(id__in=radio_choices).all())
-            validated_data.pop('radio_choices', None)
-
-        integral_choices = validated_data.get('integral_choices', None)
-        if integral_choices:
-            for integral_choice in integral_choices:
-                integral_choice_object, _ = (
-                    models.IntegralChoice.objects.get_or_create(selected_number=integral_choice['selected_number'], 
-                                          related_filter=models.IntegralFilter.objects.get(pk=integral_choice['id'])))
-                integral_choices_objects.append(integral_choice_object)
-            validated_data.pop('integral_choices', None)
 
 
-        room_type, _ = models.RadioChoice.objects.get_or_create(selected_option=models.RadioOption.objects.get(pk=validated_data['room_type_id']),
-                                                                related_filter=models.RadioFilter.objects.get(name__contains='Room Type'))
-        radio_choices_objects.append(room_type)
+
+        radio_options = validated_data.get('radio_options', [])
+        if radio_options:
+            validated_data.pop('radio_options', None)
+
+        radio_options.append(validated_data['room_type_id'])
         validated_data.pop('room_type_id', None)
 
-
-        duration, _ = models.RadioChoice.objects.get_or_create(selected_option=models.RadioOption.objects.get(pk=validated_data['duration_id']),
-                                                               related_filter=models.RadioFilter.objects.get(name__contains='Duration'))
-        radio_choices_objects.append(duration)
+        radio_options.append(validated_data['duration_id'])
         validated_data.pop('duration_id', None)
 
+        for radio_option in radio_options:
+            radio_option_object = models.RadioOption.objects.get(pk=radio_option)
+            radio_choice_object, _ = (
+                models.RadioChoice.objects.get_or_create(selected_option=radio_option_object, 
+                                      related_filter=radio_option_object.related_filter))
+            radio_choices_objects.append(radio_choice_object)
+        
 
-        people_allowed_number, _ = models.IntegralChoice.objects.get_or_create(selected_number=validated_data['people_allowed_number'], 
-                                          related_filter=models.IntegralFilter.objects.get(name__contains='People Allowed Number'))
-        integral_choices_objects.append(people_allowed_number)
+
+        integral_choices = validated_data.get('integral_choices', [])
+        if integral_choices:
+            validated_data.pop('integral_choices', None)
+        
+        integral_choices.append({'selected_number': validated_data['people_allowed_number'], 'id': models.IntegralFilter.objects.get(name__contains='People Allowed Number')})
         validated_data.pop('people_allowed_number', None)
 
-
-        price, _ = models.IntegralChoice.objects.get_or_create(selected_number=validated_data['price'], 
-                                          related_filter=models.IntegralFilter.objects.get(name__contains='Price'))
-        integral_choices_objects.append(price)
+        integral_choices.append({'selected_number': validated_data['price'], 'id': models.IntegralFilter.objects.get(name__contains='Price')})
         validated_data.pop('price', None)
+
+        for integral_choice in integral_choices:
+            integral_choice_object, _ = (
+                models.IntegralChoice.objects.get_or_create(selected_number=integral_choice['selected_number'], 
+                                      related_filter=models.IntegralFilter.objects.get(pk=integral_choice['id'])))
+            integral_choices_objects.append(integral_choice_object)
+
+
 
         instance = models.RoomCharacteristics(dormitory=dormitory, 
                                               price_currency=price_currency,
@@ -775,9 +776,6 @@ class DormManagementNewRoomSerializer(serializers.Serializer):
         instance.features.set(features_objects)
         instance.radio_choices.set(radio_choices_objects)
         instance.integral_choices.set(integral_choices_objects)
-
-        #instance.save()
-        
 
         return instance
 

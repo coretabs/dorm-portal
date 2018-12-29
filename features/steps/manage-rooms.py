@@ -95,7 +95,7 @@ def act(context):
         'room_confirmation_days': 5,
         'duration_id': context.duration_choice_spring.selected_option.id,
         'room_features': [context.luxury_shower.id],
-        'radio_choices': [context.meals_choice_breakfast.id],
+        'radio_options': [context.meals_choice_breakfast.selected_option.id],
         'integral_choices': [{'id': context.bathrooms.id, 'selected_number': 3}]
     }
 
@@ -313,14 +313,15 @@ def act(context):
     context.second_room_new_data = {
         'total_quota': 20,
         'allowed_quota': 9,
-        'room_type_id': context.room_type_double_choice.id,
+        'room_type_id': context.room_type_double_choice.selected_option.id,
         'people_allowed_number': 3,
         'price': 3000,
         'currency_id': context.usd.id,
         'room_confirmation_days': 6,
-        'duration_id': context.duration_choice_spring.id,
+        'duration_id': context.duration_choice_spring.selected_option.id,
         'room_features': [context.luxury_shower.id, context.air_conditioner.id],
-        'radio_choices': [context.meals_choice_dinner.id, context.balcony_size_choice_small.id],
+        'radio_options': [context.meals_choice_dinner.selected_option.id,
+                          context.balcony_size_choice_small.selected_option.id],
         'integral_choices': [{'id': context.bathrooms.id, 'selected_number': 5},
                              {'id': context.cookers.id, 'selected_number': 2}]
     }

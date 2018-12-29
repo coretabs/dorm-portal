@@ -170,7 +170,7 @@ duration_id
 
 room_features (array of ids)
 
-radio_choices (array of ids)
+radio_options (array of ids)
 
 integral_choices
     id
@@ -257,7 +257,7 @@ duration_id
 
 room_features (array of ids)
 
-radio_choices (array of ids)
+radio_options (array of ids)
 
 integral_choices
     id
