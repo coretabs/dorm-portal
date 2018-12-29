@@ -211,7 +211,7 @@ class DormManagementViewSet(viewsets.ViewSet):
     permission_classes = (IsAuthenticated, )
 
     def get_permissions(self):
-        if self.action == 'list':
+        if self.action == 'list' or self.action == 'filters' or self.action == None:
             self.permission_classes = (IsAuthenticated, )
         else:
             self.permission_classes = (IsAuthenticated, HisOwnDormitoryObject, )
