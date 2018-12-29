@@ -21,7 +21,7 @@ from .exceptions import (NoEnoughQuotaException,
                          NonFinishedUserReservationsException,
                          NonUpdatableReservationException,
                          NonReviewableReservation)
-from .utils import file_cleanup
+from .signals import file_cleanup
 
 
 class ReservationQuerySet(django_models.QuerySet):
