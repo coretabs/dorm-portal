@@ -86,7 +86,7 @@ $backend.$reserveRoom = (roomId) => {
 }
 
 $backend.$fetchReservation = (id) => {
-    return $backend.get(`/reservations/${id}`)
+    return $backend.get(`/reservations/${id}/`)
         .then(response => response.data)
 }
 
