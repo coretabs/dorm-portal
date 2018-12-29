@@ -11,6 +11,7 @@ export default {
       selectedFeatures:[],
       files: [],
       uploadFiles: [],
+      btnDisabled: false,
       isUpdating: false,
       loadingBtn: false,
       roomFilters:{},
@@ -65,17 +66,47 @@ export default {
         })
        }
     },
+
+    //uploadRoomPhotos
+    uploadFile(dormId,roomId,formData){
+      return this.$store.dispatch("uploadRoomPhotos", {roomId,dormId,formData});
+    },
+    async submitPhotos(roomId){
+      const dormId = localStorage.getItem('manageDormID')
+      let success = true
+      for (const file of this.uploadFiles) {
+        this.loadingBtn = true
+        const formData = new FormData()
+        if(this.validate(file) === ''){
+          formData.set('uploaded_photo', file)
+          await this.uploadFile(dormId, roomId, formData).then(()=>{
+            this.files.shift()
+          }).catch(()=>{
+            success = false
+          }).then(()=>{
+            this.loadingBtn = false
+          })
+        }
+      }
+      if(success){
+        this.files = []
+        this.uploadFiles = []
+        this.$store.dispatch('fetchManagerDormRooms',dormId)
+      }
+    },
     submitNewRoom(){
       const dormID = localStorage.getItem('manageDormID')
       let roomData = this.room
       if(this.$refs.form.validate()){
         this.loadingBtn = true
         let snackbar
-        this.$store.dispatch('addNewRoom', {dormID,roomData}).then(()=>{
+        this.$store.dispatch('addNewRoom', {dormID,roomData}).then((response)=>{
           snackbar = {
             message: 'Room has been Add successfully',
             color: 'success'
           }
+          const roomId = response.id
+          this.submitPhotos(roomId)
           this.$refs.form.reset()
         }).catch((err)=>{
           if(err.response.status == 403 || err.response.status == 500){
@@ -99,7 +130,7 @@ export default {
       this.uploadFiles = [...this.uploadFiles, ...files]
       this.files = [
         ...this.files,
-        ..._.map(files, file=>({
+        ..._.map(files, file => ({
           name: file.name,
           size: file.size,
           type: file.type,
@@ -119,19 +150,19 @@ export default {
       }
       return ''
     },
+    isValid(){
+      for(var file of this.uploadFiles) {
+        if(this.validate(file) != ''){
+          this.btnDisabled = true
+          break;
+        }
+        this.btnDisabled = false
+      }
+    },
     removeFile(index){
       this.files.splice(index, 1)
       this.uploadFiles.splice(index, 1)
       this.isValid()
-    },
-    isValid(){
-      for(var file of this.uploadFiles) {
-        if(this.validate(file) != ''){
-          this.uploaderDisabled = true
-          break;
-        }
-        this.uploaderDisabled = false
-      }
     },
     resetFiles(){
       this.files = []

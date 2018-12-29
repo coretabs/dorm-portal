@@ -293,6 +293,16 @@ export default new Vuex.Store({
         })
       })
     },
+    uploadRoomPhotos({commit}, data){
+      return new Promise((resolve, reject) => {
+        $backend.$uploadRoomPhotos(data.dormId, data.roomId ,data.formData).then(response => {
+          resolve(response)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
+    },
     upload360Photos({commit}, {dormId,data}){
       return new Promise((resolve, reject) => {
         $backend.$upload360Photos(dormId, data).then(response => {

@@ -132,6 +132,11 @@ $backend.$uploadPhotos = (id, formData) => {
         .then(response => response.data)
 }
 
+$backend.$uploadRoomPhotos = (dormId, roomId, formData) => {
+    return $backend.post(`/manager-dorms/${dormId}/rooms/${roomId}/photos/`, formData)
+        .then(response => response.data)
+}
+
 $backend.$upload360Photos = (id, data) => {
     return $backend.post(`/manager-dorms/${id}/photos/`, {
         is_3d: data.is360Photo,
@@ -160,8 +165,6 @@ $backend.$fetchManagerDormRooms = (id) => {
     return $backend.get(`/manager-dorms/${id}/rooms/`)
         .then(response => response.data)
 }
-
-
 
 $backend.$updateReservationStatus = (data) => {
     return $backend.put(`/manager-dorms/${data.dormID}/reservations/${data.reservationID}/`, {

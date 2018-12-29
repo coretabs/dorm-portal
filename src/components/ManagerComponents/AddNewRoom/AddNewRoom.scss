@@ -18,7 +18,11 @@
   .v-input__slot{
     background: #fff;
   }
-  
+  .features-input{
+    .v-input__slot{
+      padding: 0;
+    }
+  }
   .drag-drop {
     .upload {
       padding: 40px 20px;

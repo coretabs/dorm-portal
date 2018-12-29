@@ -38,9 +38,9 @@
             <v-text-field label="Quota" type="number" :rules="requiredRules" v-model="room.allowedQuota"></v-text-field>
             <v-text-field label="Confirmation Duration in Days" :rules="requiredRules" type="number" v-model="room.confirmationDays"></v-text-field>
 
-            <v-autocomplete v-model="room.roomFeatures" :disabled="isUpdating" :items="roomFilters.room_features" box chips color="blue-grey lighten-2" label="Select features" item-text="name" item-value="id" multiple>
+            <v-autocomplete class="features-input" v-model="room.roomFeatures" :disabled="isUpdating" :items="roomFilters.room_features" box chips color="blue-grey lighten-2" label="Select features" item-text="name" item-value="id" multiple>
               <template slot="selection" slot-scope="data">
-                <v-chip :selected="data.selected" close class="chip--select-multi" @input="remove(data.item)">
+                <v-chip  :selected="data.selected" close class="chip--select-multi" @input="remove(data.item)">
                   {{data.item.name}}
                 </v-chip>
               </template>
@@ -121,7 +121,7 @@
           <v-flex xs12>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="#feae25" large class="elevation-0" @click="submitNewRoom">Add Room</v-btn>
+              <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" @click="submitNewRoom">Add Room</v-btn>
             </v-card-actions>
           </v-flex>
 
