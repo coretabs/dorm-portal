@@ -15,6 +15,9 @@
             <v-list-tile @click="editRoom(room)">
               <v-list-tile-title>Edit</v-list-tile-title>
             </v-list-tile>
+            <v-list-tile @click="deleteRoom(room.id)">
+              <v-list-tile-title>Delete</v-list-tile-title>
+            </v-list-tile>
           </v-list>
         </v-menu>
         <v-card-title primary-title>
@@ -60,7 +63,23 @@
         </v-card-title>
       </v-card>
     </v-flex>
-
+    <v-dialog v-model="deleteDialog.show" width="500" lazy>
+      <v-card>
+        <v-card-title class="headline text-uppercase font-weight-medium red accent-4 white--text">
+          Confirm Delete
+        </v-card-title>
+        <v-card-text class="subheading my-3">
+          <span>
+            Are You sure you want to delete this room?
+          </span>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="elevation-0" @click="deleteDialog.show = false">Cancel</v-btn>
+          <v-btn color="red" class="elevation-0" @click="confirmDeleteRoom" :loading="loadingBtn">Delete Room</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-dialog v-model="showQuotaUpdatedialog" persistent max-width="350" lazy>
       <v-card>
         <v-card-text>
@@ -104,7 +123,7 @@
 
             <v-flex xs12 md4>
               <v-layout row wrap class="pa-4">
-                
+
                 <v-flex xs12 class="mb-4">
                   <span class="display-1">{{ roomDetails.room_type }}</span>
                 </v-flex>
@@ -149,7 +168,6 @@
                   </v-layout>
                 </v-flex>
 
-
               </v-layout>
             </v-flex>
 
@@ -190,7 +208,6 @@
       </v-card>
     </v-dialog>
 
-
     <v-dialog v-model="showEditRoomDialog" fullscreen hide-overlay transition="dialog-bottom-transition" scrollable lazy>
 
       <v-card>
@@ -202,15 +219,14 @@
           <v-toolbar-title>Edit Room</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-              <v-btn dark flat @click="showEditRoomDialog = false">Save</v-btn>
-            </v-toolbar-items>
+            <v-btn dark flat @click="showEditRoomDialog = false">Save</v-btn>
+          </v-toolbar-items>
         </v-toolbar>
         <v-card-text>
           <edit-room :roomData="roomDetails"></edit-room>
         </v-card-text>
       </v-card>
     </v-dialog>
-
 
   </v-layout>
   <v-layout row justify-center>

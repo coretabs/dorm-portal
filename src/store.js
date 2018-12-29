@@ -434,6 +434,16 @@ export default new Vuex.Store({
         })
       })
     },
+    deleteDormRoom(context, {dormId,roomId}){
+      return new Promise((resolve, reject) => {
+        $backend.$deleteDormRoom(dormId,roomId).then(responseDate => {
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
+    },
     askForReview(context, {dormID,reservationId}){
       return new Promise((resolve, reject) => {
         $backend.$askForReview(dormID, reservationId).then(response => {

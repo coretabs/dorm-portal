@@ -8,6 +8,11 @@ export default {
       showQuotaUpdatedialog: false,
       showRoomDetailsdialog: false,
       showEditRoomDialog: false,
+      deleteDialog:{
+        show: false,
+        roomId: null
+      },
+      loadingBtn: false,
       reservedRoomsNumber: null,
       totalRoomsNumber: null,
       allowedQuotaNumber: null,
@@ -17,266 +22,6 @@ export default {
       items: [
         { title: 'Edit' },
         { title: 'Delete' }
-      ],
-      room_cards:[
-        {
-          id:1,
-          room_type: "Single room",
-          total_rooms: 100,
-          reserved_rooms: 50,
-          allowed_quota: 10,
-          price: 1500,
-          people: 2,
-          currency: "$",
-          features1: [
-            {
-              name: "free wifi",
-              icon: "fa-wifi"
-            },
-            {
-              name: "Parking",
-              icon: "fa-check"
-            }
-          ],
-          features2:[
-            {
-              name: "meals",
-              choice: "One meal"
-            },
-            {
-              name: "another feature",
-              choice: "24/7 reception"
-            }
-          ],
-          photos:[
-            {
-              id: 1,
-              url: "https://images.pexels.com/photos/1082326/pexels-photo-1082326.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            },
-            {
-              id: 1,
-              url: "https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            }
-          ]
-        },
-        {
-          id:2,
-          room_type: "Single room",
-          total_rooms: 20,
-          reserved_rooms: 3,
-          allowed_quota: 15,
-          price: 1500,
-          people: 2,
-          currency: "$",
-          features1: [
-            {
-              name: "free wifi",
-              icon: "fa-wifi"
-            },
-            {
-              name: "Parking",
-              icon: "fa-check"
-            }
-          ],
-          features2:[
-            {
-              name: "meals",
-              choice: "One meal"
-            },
-            {
-              name: "another feature",
-              choice: "24/7 reception"
-            }
-          ],
-          photos:[
-            {
-              id: 1,
-              url: "https://images.pexels.com/photos/1082326/pexels-photo-1082326.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            },
-            {
-              id: 1,
-              url: "https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            }
-          ]
-        },
-        {
-          id:3,
-          room_type: "Double room",
-          total_rooms: 60,
-          reserved_rooms: 55,
-          allowed_quota: 1,
-          price: 1500,
-          currency: "$",
-          people: 2,
-          features1: [
-            {
-              name: "free wifi",
-              icon: "fa-wifi"
-            },
-            {
-              name: "Parking",
-              icon: "fa-check"
-            }
-          ],
-          features2:[
-            {
-              name: "meals",
-              choice: "One meal"
-            },
-            {
-              name: "another feature",
-              choice: "24/7 reception"
-            }
-          ],
-          photos:[
-            {
-              id: 1,
-              url: "https://images.pexels.com/photos/1082326/pexels-photo-1082326.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            },
-            {
-              id: 1,
-              url: "https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            }
-          ]
-        },
-        {
-          id:4,
-          room_type: "Double room",
-          total_rooms: 60,
-          reserved_rooms: 45,
-          allowed_quota: 5,
-          price: 1500,
-          people: 2,
-          currency: "$",
-          features1: [
-            {
-              name: "free wifi",
-              icon: "fa-wifi"
-            },
-            {
-              name: "Parking",
-              icon: "fa-check"
-            }
-          ],
-          features2:[
-            {
-              name: "meals",
-              choice: "One meal"
-            },
-            {
-              name: "another feature",
-              choice: "24/7 reception"
-            }
-          ],
-          photos:[
-            {
-              id: 1,
-              url: "https://images.pexels.com/photos/1082326/pexels-photo-1082326.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            },
-            {
-              id: 1,
-              url: "https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            }
-          ]
-        },
-        {
-          id:4,
-          room_type: "Double room",
-          total_rooms: 20,
-          reserved_rooms: 20,
-          allowed_quota: 0,
-          price: 1500,
-          people: 2,
-          currency: "$",
-          features1: [
-            {
-              name: "free Wifi",
-              icon: "fa-wifi"
-            },
-            {
-                name: "Restaurant",
-                icon: "fa-utensils"
-            },
-            {
-                name: "Laundry",
-                icon: "local_laundry_service"
-            },
-            {
-              name: "Market",
-              icon: "fa-shopping-cart"
-            },
-            {
-              name: "Elevator",
-              icon: "fa-check"
-            },
-            {
-              name: "Air condition",
-              icon: "fa-wind"
-            },
-            {
-              name: "Fire alarm",
-              icon: "fa-fire"
-            },
-            {
-              name: "Barber",
-              icon: "fa-cut"
-            },
-            {
-              name: "free Wifi",
-              icon: "fa-wifi"
-            },
-            {
-                name: "Restaurant",
-                icon: "fa-utensils"
-            },
-            {
-                name: "Laundry",
-                icon: "local_laundry_service"
-            },
-            {
-              name: "Market",
-              icon: "fa-shopping-cart"
-            },
-            {
-              name: "Elevator",
-              icon: "fa-check"
-            },
-            {
-              name: "Air condition",
-              icon: "fa-wind"
-            },
-            {
-              name: "Fire alarm",
-              icon: "fa-fire"
-            },
-            {
-              name: "Barber",
-              icon: "fa-cut"
-            }
-          ],
-          features2:[
-            {
-              name: "Campus",
-              choice: "Northern campus"
-            },{
-              name: "Meals",
-              choice: "Breakfast & Dinner"
-            },{
-              name: "Dorm Activities",
-              choice: "Free sport/fitness"
-            }
-          ],
-          photos:[
-            {
-              id: 1,
-              url: "https://images.pexels.com/photos/1082326/pexels-photo-1082326.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            },
-            {
-              id: 1,
-              url: "https://images.pexels.com/photos/97904/pexels-photo-97904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            }
-          ]
-        }
       ]
     };
   },
@@ -322,6 +67,32 @@ export default {
     editRoom(room){
       this.roomDetails = room;
       this.showEditRoomDialog = true;
+    },
+    deleteRoom(roomId){
+      this.deleteDialog.show = true
+      this.deleteDialog.roomId = roomId
+    },
+    confirmDeleteRoom(){
+      const dormId = localStorage.getItem('manageDormID')
+      const roomId = this.deleteDialog.roomId
+      this.loadingBtn = true
+      let snackbar
+      this.$store.dispatch('deleteDormRoom',{dormId,roomId}).then(()=>{
+        snackbar = {
+          message: 'Room has been deleted successfully',
+          color: 'success'
+        }
+        this.fetchManagerDormRooms()
+        this.deleteDialog.show = false
+      }).catch(()=>{
+        snackbar = {
+          message: 'Something went wrong! try again',
+          color: 'error'
+        }
+      }).then(()=>{
+        this.$store.commit('updateSnackbar', snackbar)
+        this.loadingBtn = false
+      })
     },
     fetchManagerDormRooms(){
       const dormID = localStorage.getItem('manageDormID')

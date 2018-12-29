@@ -212,7 +212,10 @@ $backend.$deleteDormPhoto = (dormId, photoId) => {
     return $backend.delete(`/manager-dorms/${dormId}/photos/${photoId}`)
         .then(response => response.data)
 }
-
+$backend.$deleteDormRoom = (dormId, roomId) => {
+    return $backend.delete(`/manager-dorms/${dormId}/rooms/${roomId}`)
+        .then(response => response.data)
+}
 $backend.$updateBankAccount = (dormId, accountId, data) => {
     return $backend.put(`/manager-dorms/${dormId}/bank-accounts/${accountId}/`, {
         bank_name: data.name,
