@@ -2,6 +2,8 @@ import os
 from django.core.files.storage import default_storage
 from django.db.models import FileField
 
+from allauth.account.models import EmailAddress
+
 
 def file_cleanup(sender, **kwargs):
     """
@@ -23,3 +25,16 @@ def file_cleanup(sender, **kwargs):
                 pass
     except:
         pass
+
+
+def create_user_email(sender, instance, **kwargs):
+    if instance.is_manager:
+
+        email_address_object = EmailAddress.objects.filter(user=instance).first()
+        if email_address_object:
+            email_address_object.email = instance.email
+        else:
+            email_address_object = EmailAddress(
+                user=instance, email=instance.email, verified=True, primary=True)
+
+        email_address_object.save()

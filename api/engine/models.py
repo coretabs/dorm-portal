@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from django.db import (models as django_models, DatabaseError, transaction)
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, post_save
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
@@ -21,7 +21,7 @@ from .exceptions import (NoEnoughQuotaException,
                          NonFinishedUserReservationsException,
                          NonUpdatableReservationException,
                          NonReviewableReservation)
-from .signals import file_cleanup
+from .signals import file_cleanup, create_user_email
 
 
 class ReservationQuerySet(django_models.QuerySet):
@@ -373,6 +373,9 @@ class DormitoryCategory(django_models.Model):
 
 class User(AbstractUser):
     is_manager = django_models.BooleanField(default=False)
+
+
+post_save.connect(create_user_email, sender=User, dispatch_uid="user.create_email")
 
 
 class Dormitory(django_models.Model):
