@@ -208,15 +208,15 @@ $backend.$addBankAccount = (id, data) => {
 }
 
 $backend.$deleteBankAccount = (dormId, accountId) => {
-    return $backend.delete(`/manager-dorms/${dormId}/bank-accounts/${accountId}`)
+    return $backend.delete(`/manager-dorms/${dormId}/bank-accounts/${accountId}/`)
         .then(response => response.data)
 }
 $backend.$deleteDormPhoto = (dormId, photoId) => {
-    return $backend.delete(`/manager-dorms/${dormId}/photos/${photoId}`)
+    return $backend.delete(`/manager-dorms/${dormId}/photos/${photoId}/`)
         .then(response => response.data)
 }
 $backend.$deleteDormRoom = (dormId, roomId) => {
-    return $backend.delete(`/manager-dorms/${dormId}/rooms/${roomId}`)
+    return $backend.delete(`/manager-dorms/${dormId}/rooms/${roomId}/`)
         .then(response => response.data)
 }
 $backend.$updateBankAccount = (dormId, accountId, data) => {
