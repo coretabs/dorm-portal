@@ -120,7 +120,7 @@ def test(context):
     assert context.all_serialized_dorms.count("'student_name', 'Mako'") == 1
 
 
-@when('hitting GET /manager/dorms/{alfam-id}/reservations')
+@when('hitting GET /manager-dorms/{alfam-id}/reservations')
 def act(context):
     request = APIRequestFactory().get('')
     force_authenticate(request, context.john)
@@ -137,7 +137,7 @@ def test(context):
     assert str(context.response.render().data).count("'student_name', 'Mako'") == 1
 
 
-@when('hitting GET /manager/dorms/{homedorm-id}/reservations non-owned dorm')
+@when('hitting GET /manager-dorms/{homedorm-id}/reservations non-owned dorm')
 def act(context):
     request = APIRequestFactory().get('')
     force_authenticate(request, context.john)
@@ -175,7 +175,7 @@ def test(context):
     assert context.deserialized_data.is_valid() == True
 
 
-@when('hitting PUT /manager/dorms/{alfam-id}/reservations/{res1-id} into manager_updated')
+@when('hitting PUT /manager-dorms/{alfam-id}/reservations/{res1-id} into manager_updated')
 def act(context):
     request = APIRequestFactory().put('', context.reservation_new_data, format='json')
     force_authenticate(request, context.john)

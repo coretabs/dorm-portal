@@ -30,10 +30,10 @@ Feature: Managing reservations
         When serializing all dorm reservations
         Then get valid serialized reservations
 
-        When hitting GET /manager/dorms/{alfam-id}/reservations
+        When hitting GET /manager-dorms/{alfam-id}/reservations
         Then get 200 OK with all the reservations
 
-        When hitting GET /manager/dorms/{homedorm-id}/reservations non-owned dorm
+        When hitting GET /manager-dorms/{homedorm-id}/reservations non-owned dorm
         Then get 403 forbidden for homedorm reservations
         And the other manager can get his homedorm reservations
 
@@ -42,7 +42,7 @@ Feature: Managing reservations
         When deserializing reservation new data
         Then get valid deserialized reservation data
 
-        When hitting PUT /manager/dorms/{alfam-id}/reservations/{res1-id} into manager_updated
+        When hitting PUT /manager-dorms/{alfam-id}/reservations/{res1-id} into manager_updated
         Then get 200 OK for updating that reservation into manager_updated
 
         When hitting PUT non-owned reservation into manager_updated

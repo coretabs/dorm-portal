@@ -7,7 +7,7 @@ dorms
 ```
 
 
-GET /manager/dorms/{id} returns
+GET /manager-dorms/{id} returns
 ```
 name
 abouts [ {lang_code: about}, {lang_code: about} ]
@@ -44,7 +44,7 @@ contact_fax
 ```
 
 
-PUT /manager/dorms/{id} accepts
+PUT /manager-dorms/{id} accepts
 ```
 name
 abouts
@@ -64,13 +64,13 @@ contact_fax
 ```
 
 
-PUT /manager/dorms/{id}/update-cover accepts
+PUT /manager-dorms/{id}/update-cover accepts
 ```
 cover
 ```
 
 
-POST /manager/dorms/{id}/photos accepts
+POST /manager-dorms/{id}/photos accepts
 ```
 uploaded_photo
 is_3d
@@ -78,12 +78,12 @@ url
 ```
 
 
-DELETE /manager/dorms/{id}/photos/{id} accepts
+DELETE /manager-dorms/{id}/photos/{id} accepts
 ```
 ```
 
 
-PUT /manager/dorms/{id}/bank-accounts/{id} accepts
+PUT /manager-dorms/{id}/bank-accounts/{id} accepts
 ```
 bank_name
 account_name
@@ -93,7 +93,7 @@ iban
 currency_code
 ```
 
-POST /manager/dorms/{id}/bank-accounts accepts
+POST /manager-dorms/{id}/bank-accounts accepts
 ```
 bank_name
 account_name
@@ -103,7 +103,7 @@ iban
 currency_code
 ```
 
-DELETE /manager/dorms/{id}/bank-accounts/{id} accepts
+DELETE /manager-dorms/{id}/bank-accounts/{id} accepts
 ```
 ```
 
@@ -153,7 +153,7 @@ integral_filters
 
 
 
-POST /manager/dorms/{id}/rooms accepts
+POST /manager-dorms/{id}/rooms accepts
 ```
 total_quota
 allowed_quota
@@ -178,7 +178,7 @@ integral_choices
 ```
 
 
-GET /manager/dorms/{id}/rooms returns
+GET /manager-dorms/{id}/rooms returns
 ```
 rooms
     id
@@ -189,7 +189,7 @@ rooms
 ```
 
 
-GET /manager/dorms/{id}/rooms/{id} returns
+GET /manager-dorms/{id}/rooms/{id} returns
 ```
 price
 price_currency
@@ -240,7 +240,7 @@ chosen_features (array of ids)
 ```
 
 
-PUT /manager/dorms/{id}/rooms/{id} accepts
+PUT /manager-dorms/{id}/rooms/{id} accepts
 ```
 total_quota
 allowed_quota
@@ -265,24 +265,24 @@ integral_choices
 ```
 
 
-POST /manager/dorms/{id}/rooms/{id}/photos accepts
+POST /manager-dorms/{id}/rooms/{id}/photos accepts
 ```
 uploaded_photo
 ```
 
 
-DELETE /manager/dorms/{id}/rooms/{id}/photos/{id} accepts
+DELETE /manager-dorms/{id}/rooms/{id}/photos/{id} accepts
 ```
 ```
 
 
-DELETE /manager/dorms/{id}/rooms/{id} accepts
+DELETE /manager-dorms/{id}/rooms/{id} accepts
 ```
 ```
 
 
 
-GET /manager/dorms/{id}/reservations returns
+GET /manager-dorms/{id}/reservations returns
 ```
 pending_reservations
 rejected_reservations
@@ -324,7 +324,7 @@ reservations
 ```
 
 
-PUT /manager/dorms/{id}/reservations/{id} accepts
+PUT /manager-dorms/{id}/reservations/{id} accepts
 ```
 status (pending=0, rejected=1, confirmed=2, waiting_for_manager_action=3 (student uploaded receipt), manager_updated=4)
 confirmation_deadline_date(2018-12-15)
@@ -332,12 +332,12 @@ follow_up_message
 ```
 
 
-POST /manager/dorms/{id}/reservations/{id}/ask-review
+POST /manager-dorms/{id}/reservations/{id}/ask-review
 ```
 ```
 
 
-POST /manager/dorms/{id}/reservations/{id}/ask-review sends email with url
+POST /manager-dorms/{id}/reservations/{id}/ask-review sends email with url
 ```
 {domain}/reservations/{id}/review
 ```

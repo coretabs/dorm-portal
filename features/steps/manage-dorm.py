@@ -121,7 +121,7 @@ def test(context):
     assert context.all_serialized_dorms.count("'name', 'Alfam'") == 1
 
 
-@when('hitting GET /manager/dorms/{alfam-id}')
+@when('hitting GET /manager-dorms/{alfam-id}')
 def act(context):
     request = APIRequestFactory().get('')
     force_authenticate(request, context.john)
@@ -139,7 +139,7 @@ def test(context):
     assert number_of_returned_json_filters == 14
 
 
-@when('hitting GET /manager/dorms/{homedorm-id} for non-owned dorm')
+@when('hitting GET /manager-dorms/{homedorm-id} for non-owned dorm')
 def act(context):
     request = APIRequestFactory().get('')
     force_authenticate(request, context.scott)
@@ -177,7 +177,7 @@ def test(context):
     # print(context.deserialized_data)
 
 
-@when('hitting PUT /manager/dorms/{alfam-id}/bank-accounts/{isbank-id}')
+@when('hitting PUT /manager-dorms/{alfam-id}/bank-accounts/{isbank-id}')
 def act(context):
     request = APIRequestFactory().put('', context.isbank_new_account, format='json')
     force_authenticate(request, context.john)
@@ -209,7 +209,7 @@ def test(context):
     assert isbank_instance.swift == 'IN123456'
 
 
-@when('hitting POST /manager/dorms/{alfam-id}/bank-accounts')
+@when('hitting POST /manager-dorms/{alfam-id}/bank-accounts')
 def act(context):
     ziraat_new_account = {'bank_name': 'ziraat',
                           'account_name': 'Murat', 'account_number': '777777',
@@ -230,7 +230,7 @@ def test(context):
     assert BankAccount.objects.filter(bank_name='ziraat').first().iban == 'TR000000'
 
 
-@when('hitting DELETE /manager/dorms/{alfam-id}/bank-accounts/{ziraat-id}')
+@when('hitting DELETE /manager-dorms/{alfam-id}/bank-accounts/{ziraat-id}')
 def act(context):
     ziraat = BankAccount.objects.filter(bank_name='ziraat').first()
 
@@ -246,7 +246,7 @@ def test(context):
     assert BankAccount.objects.filter(bank_name='ziraat').first() == None
 
 
-@when('hitting POST /manager/dorms/{alfam-id}/photos for non-3d-image')
+@when('hitting POST /manager-dorms/{alfam-id}/photos for non-3d-image')
 def act(context):
     uploaded_file = create_uploaded_file(context, 'alfam-photo.jpeg')
     photo_json = {'uploaded_photo': uploaded_file}
@@ -267,7 +267,7 @@ def test(context):
     # os.remove(context.expected_file_path)
 
 
-@when('hitting DELETE /manager/dorms/{alfam-id}/photos/{alfam-photo-id}')
+@when('hitting DELETE /manager-dorms/{alfam-id}/photos/{alfam-photo-id}')
 def act(context):
     alfam_photo = Dormitory.objects.filter(name='Alfam').first().photos.first()
 
@@ -284,7 +284,7 @@ def test(context):
     assert os.path.exists(context.expected_file_path) == False
 
 
-@when('hitting POST /manager/dorms/{alfam-id}/photos for 3d-image')
+@when('hitting POST /manager-dorms/{alfam-id}/photos for 3d-image')
 def act(context):
     photo_json = {'url': 'https://momento360.com/e/u/a9b53aa8f8b0403ba7a4e18243aabc66', 'is_3d': True}
 
@@ -305,7 +305,7 @@ def test(context):
         .photos.first().url == 'https://momento360.com/e/u/a9b53aa8f8b0403ba7a4e18243aabc66'
 
 
-@when('hitting DELETE /manager/dorms/{alfam-id}/photos/{alfam-3d-photo-id}')
+@when('hitting DELETE /manager-dorms/{alfam-id}/photos/{alfam-3d-photo-id}')
 def act(context):
     alfam_photo = Dormitory.objects.filter(name='Alfam').first().photos.first()
 
@@ -345,7 +345,7 @@ def test(context):
     assert context.deserialized_data.is_valid() == True
 
 
-@when('hitting PUT /manager/dorms/{alfam-id}')
+@when('hitting PUT /manager-dorms/{alfam-id}')
 def act(context):
     request = APIRequestFactory().put('', context.updating_alfam_json, format='json')
     force_authenticate(request, context.john)
@@ -362,7 +362,7 @@ def test(context):
     assert str(Dormitory.objects.all()[0].about.data).count('Super Alfam') == 1
 
 
-@when('hitting PUT /manager/dorms/{alfam-id}/cover with new image')
+@when('hitting PUT /manager-dorms/{alfam-id}/cover with new image')
 def act(context):
     uploaded_file = create_uploaded_file(context, 'alfam-photo.jpeg')
     cover_json = {'cover': uploaded_file}

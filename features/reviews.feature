@@ -31,10 +31,10 @@ Feature: Reviews
         When asking for review and saving
         Then validate data and send email for review asking
 
-        When hitting POST /manager/dorms/{alfam-id}/reservations/{res-id}/ask-review
+        When hitting POST /manager-dorms/{alfam-id}/reservations/{res-id}/ask-review
         Then get 200 OK for sending review email
 
-        When hitting POST /manager/dorms/{alfam-id}/reservations/{res-id}/ask-review for non-reviewable
+        When hitting POST /manager-dorms/{alfam-id}/reservations/{res-id}/ask-review for non-reviewable
         Then get 400 Bad Request for reviewing non-reviewable
 
     Scenario: As a student

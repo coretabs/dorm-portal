@@ -127,7 +127,7 @@ def test(context):
     Dormitory.objects.get(name='Alfam').room_characteristics.all()[2].delete()
 
 
-@when('hitting POST /manager/dorms/{alfam-id}/rooms')
+@when('hitting POST /manager-dorms/{alfam-id}/rooms')
 def act(context):
     request = APIRequestFactory().post('', context.third_room_json, format='json')
     force_authenticate(request, context.john)
@@ -141,7 +141,7 @@ def test(context):
     assert Dormitory.objects.get(name='Alfam').room_characteristics.count() == 3
 
 
-@when('hitting POST /manager/dorms/{alfam-id}/rooms for non-owned dorm')
+@when('hitting POST /manager-dorms/{alfam-id}/rooms for non-owned dorm')
 def act(context):
     request = APIRequestFactory().post('', context.third_room_json, format='json')
     force_authenticate(request, context.scott)
@@ -213,7 +213,7 @@ def test(context):
     assert context.rooms_string.count("'allowed_quota', 3") == 1
 
 
-@when('hitting GET /manager/dorms/{alfam-id}/rooms')
+@when('hitting GET /manager-dorms/{alfam-id}/rooms')
 def act(context):
     request = APIRequestFactory().get('')
     force_authenticate(request, context.john)
@@ -229,7 +229,7 @@ def test(context):
     assert str(context.response.render().data).count("'allowed_quota', 3") == 1
 
 
-@when('hitting GET /manager/dorms/{alfam-id}/rooms for non-owned dorm')
+@when('hitting GET /manager-dorms/{alfam-id}/rooms for non-owned dorm')
 def act(context):
     request = APIRequestFactory().get('')
     force_authenticate(request, context.scott)
@@ -292,7 +292,7 @@ def test(context):
     assert context.room_string.count("'chosen_option_id', -1") == 1
 
 
-@when('hitting GET /manager/dorms/{alfam-id}/rooms/{room2-id}')
+@when('hitting GET /manager-dorms/{alfam-id}/rooms/{room2-id}')
 def act(context):
     request = APIRequestFactory().get('')
     force_authenticate(request, context.john)
@@ -374,7 +374,7 @@ def test(context):
         related_filter__name__contains='Cooker').selected_number == 2
 
 
-@when('hitting PUT /manager/dorms/{alfam-id}/rooms/{room2-id}')
+@when('hitting PUT /manager-dorms/{alfam-id}/rooms/{room2-id}')
 def act(context):
     request = APIRequestFactory().put('', context.second_room_new_data, format='json')
     force_authenticate(request, context.john)
@@ -387,7 +387,7 @@ def test(context):
     assert context.response.status_code == status.HTTP_200_OK
 
 
-@when('hitting POST /manager/dorms/{alfma-id}/rooms/{room2-id}/photos')
+@when('hitting POST /manager-dorms/{alfma-id}/rooms/{room2-id}/photos')
 def act(context):
     uploaded_file = create_uploaded_file(context, 'room-photo.jpeg')
     photo_json = {'uploaded_photo': uploaded_file}
@@ -410,7 +410,7 @@ def test(context):
     # os.remove(context.expected_file_path)
 
 
-@when('hitting POST /manager/dorms/{alfma-id}/rooms/{room2-id}/photos for non-owned dorm')
+@when('hitting POST /manager-dorms/{alfma-id}/rooms/{room2-id}/photos for non-owned dorm')
 def act(context):
     uploaded_file = create_uploaded_file(context, 'room-photo.jpeg')
     photo_json = {'uploaded_photo': uploaded_file}
@@ -428,7 +428,7 @@ def test(context):
     assert context.response.status_code == status.HTTP_403_FORBIDDEN
 
 
-@when('hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id}/photos/{alfam-photo-id}')
+@when('hitting DELETE /manager-dorms/{alfam-id}/rooms/{room2-id}/photos/{alfam-photo-id}')
 def act(context):
     room_photo = RoomCharacteristics.objects.get(pk=context.room2.id).photos.first()
 
@@ -447,7 +447,7 @@ def test(context):
     assert os.path.exists(context.expected_file_path) == False
 
 
-@when('hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id} not-owned dorm')
+@when('hitting DELETE /manager-dorms/{alfam-id}/rooms/{room2-id} not-owned dorm')
 def act(context):
     request = APIRequestFactory().delete('')
     force_authenticate(request, context.scott)
@@ -461,7 +461,7 @@ def test(context):
     assert context.response.status_code == status.HTTP_403_FORBIDDEN
 
 
-@when('hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id}')
+@when('hitting DELETE /manager-dorms/{alfam-id}/rooms/{room2-id}')
 def act(context):
     request = APIRequestFactory().delete('')
     force_authenticate(request, context.john)

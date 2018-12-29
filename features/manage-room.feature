@@ -30,10 +30,10 @@ Feature: Managing room data
         And save the third room to alfam
         Then delete that third room in alfam
 
-        When hitting POST /manager/dorms/{alfam-id}/rooms
+        When hitting POST /manager-dorms/{alfam-id}/rooms
         Then get 201 created for adding a third room in alfam
 
-        When hitting POST /manager/dorms/{alfam-id}/rooms for non-owned dorm
+        When hitting POST /manager-dorms/{alfam-id}/rooms for non-owned dorm
         Then get 403 forbidden for adding a third room in non-owned dorm
 
 
@@ -50,10 +50,10 @@ Feature: Managing room data
         When serializing all rooms with statistics for alfam dorm
         Then get serialized rooms with statistics for alfam dorm
 
-        When hitting GET /manager/dorms/{alfam-id}/rooms
+        When hitting GET /manager-dorms/{alfam-id}/rooms
         Then get 200 OK with rooms statistics for alfam
 
-        When hitting GET /manager/dorms/{alfam-id}/rooms for non-owned dorm
+        When hitting GET /manager-dorms/{alfam-id}/rooms for non-owned dorm
         Then get 403 forbidden for getting rooms statistics in non-owned dorm
 
 
@@ -67,7 +67,7 @@ Feature: Managing room data
         When serialize second room with its filters and choices
         Then get serialized second room with its filters and choices
 
-        When hitting GET /manager/dorms/{alfam-id}/rooms/{room2-id}
+        When hitting GET /manager-dorms/{alfam-id}/rooms/{room2-id}
         Then get 200 OK with second room (filters and choices as well)
 
 
@@ -77,26 +77,26 @@ Feature: Managing room data
         Then validate the deserialized data to update room in alfam
         And update the second room in alfam successfully
 
-        When hitting PUT /manager/dorms/{alfam-id}/rooms/{room2-id}
+        When hitting PUT /manager-dorms/{alfam-id}/rooms/{room2-id}
         Then get 200 OK with for updating that room
 
 
 
 
-        When hitting POST /manager/dorms/{alfma-id}/rooms/{room2-id}/photos
+        When hitting POST /manager-dorms/{alfma-id}/rooms/{room2-id}/photos
         Then get 201 created for adding a photo in room2
 
-        When hitting POST /manager/dorms/{alfma-id}/rooms/{room2-id}/photos for non-owned dorm
+        When hitting POST /manager-dorms/{alfma-id}/rooms/{room2-id}/photos for non-owned dorm
         Then get 403 forbidden for adding a photo in room2 in non-owned dorm
 
-        When hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id}/photos/{alfam-photo-id}
+        When hitting DELETE /manager-dorms/{alfam-id}/rooms/{room2-id}/photos/{alfam-photo-id}
         Then get 204 noContent for deleting the photo from the second room
 
 
 
 
-        When hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id} not-owned dorm
+        When hitting DELETE /manager-dorms/{alfam-id}/rooms/{room2-id} not-owned dorm
         Then get 403 forbidden for deleting non-owned dorm
 		
-        When hitting DELETE /manager/dorms/{alfam-id}/rooms/{room2-id}
+        When hitting DELETE /manager-dorms/{alfam-id}/rooms/{room2-id}
         Then get 204 noContent for deleting room2 from alfam

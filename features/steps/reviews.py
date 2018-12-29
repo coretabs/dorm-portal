@@ -136,7 +136,7 @@ def test(context):
         #assert len(mail.outbox) == 1
 
 
-@when('hitting POST /manager/dorms/{alfam-id}/reservations/{res-id}/ask-review')
+@when('hitting POST /manager-dorms/{alfam-id}/reservations/{res-id}/ask-review')
 def act(context):
     #request = APIRequestFactory().post('')
     #force_authenticate(request, context.john)
@@ -157,7 +157,7 @@ def test(context):
     assert context.response.status_code == status.HTTP_200_OK
 
 
-@when('hitting POST /manager/dorms/{alfam-id}/reservations/{res-id}/ask-review for non-reviewable')
+@when('hitting POST /manager-dorms/{alfam-id}/reservations/{res-id}/ask-review for non-reviewable')
 def act(context):
     #request = APIRequestFactory().post('')
     #force_authenticate(request, context.john)
