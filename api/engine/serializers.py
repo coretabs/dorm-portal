@@ -735,36 +735,33 @@ class DormManagementNewRoomSerializer(serializers.Serializer):
         integral_choices = validated_data.get('integral_choices', None)
         if integral_choices:
             for integral_choice in integral_choices:
-                integral_choice_object = (
-                    models.IntegralChoice(selected_number=integral_choice['selected_number'], 
+                integral_choice_object, _ = (
+                    models.IntegralChoice.objects.get_or_create(selected_number=integral_choice['selected_number'], 
                                           related_filter=models.IntegralFilter.objects.get(pk=integral_choice['id'])))
-                integral_choice_object.save()
-                #integral_choice_object = models.IntegralChoice.objects.get(pk=integral_choice_object.id)
                 integral_choices_objects.append(integral_choice_object)
             validated_data.pop('integral_choices', None)
 
 
-        room_type = models.RadioChoice.objects.get(pk=validated_data['room_type_id'])
+        room_type, _ = models.RadioChoice.objects.get_or_create(selected_option=models.RadioOption.objects.get(pk=validated_data['room_type_id']),
+                                                                related_filter=models.RadioFilter.objects.get(name__contains='Room Type'))
         radio_choices_objects.append(room_type)
         validated_data.pop('room_type_id', None)
 
-        duration = models.RadioChoice.objects.get(pk=validated_data['duration_id'])
+
+        duration, _ = models.RadioChoice.objects.get_or_create(selected_option=models.RadioOption.objects.get(pk=validated_data['duration_id']),
+                                                               related_filter=models.RadioFilter.objects.get(name__contains='Duration'))
         radio_choices_objects.append(duration)
         validated_data.pop('duration_id', None)
 
 
-        people_allowed_number = models.IntegralChoice(selected_number=validated_data['people_allowed_number'], 
+        people_allowed_number, _ = models.IntegralChoice.objects.get_or_create(selected_number=validated_data['people_allowed_number'], 
                                           related_filter=models.IntegralFilter.objects.get(name__contains='People Allowed Number'))
-        people_allowed_number.save()
-        #people_allowed_number = models.IntegralChoice.objects.get(pk=people_allowed_number.id)
         integral_choices_objects.append(people_allowed_number)
         validated_data.pop('people_allowed_number', None)
 
 
-        price = models.IntegralChoice(selected_number=validated_data['price'], 
+        price, _ = models.IntegralChoice.objects.get_or_create(selected_number=validated_data['price'], 
                                           related_filter=models.IntegralFilter.objects.get(name__contains='Price'))
-        price.save()
-        #price = models.IntegralChoice.objects.get(pk=price.id)
         integral_choices_objects.append(price)
         validated_data.pop('price', None)
 
