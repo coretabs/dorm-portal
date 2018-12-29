@@ -88,12 +88,12 @@ def act(context):
     context.third_room_json = {
         'total_quota': 5,
         'allowed_quota': 2,
-        'room_type_id': context.room_type_single_choice.id,
+        'room_type_id': context.room_type_single_choice.selected_option.id,
         'people_allowed_number': 2,
         'price': 2000,
         'currency_id': context.usd.id,
         'room_confirmation_days': 5,
-        'duration_id': context.duration_choice_spring.id,
+        'duration_id': context.duration_choice_spring.selected_option.id,
         'room_features': [context.luxury_shower.id],
         'radio_choices': [context.meals_choice_breakfast.id],
         'integral_choices': [{'id': context.bathrooms.id, 'selected_number': 3}]
