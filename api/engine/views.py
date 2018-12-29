@@ -135,9 +135,9 @@ class RoomManagementViewSet(viewsets.ViewSet):
             data=request.data, context={'dorm_pk': dorm_pk})
 
         serializer.is_valid()
-        serializer.save()
+        room = serializer.save()
 
-        return Response(status=status.HTTP_201_CREATED)
+        return Response(room.id, status=status.HTTP_201_CREATED)
 
     def update(self, request, dorm_pk, pk):
         room = self.get_queryset().get(pk=pk)
