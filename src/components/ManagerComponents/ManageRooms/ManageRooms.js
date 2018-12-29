@@ -32,7 +32,7 @@ export default {
       return this.$store.getters.lang;
     },
     rooms(){
-      return _.reverse(_.orderBy(this.$store.getters.managerDormRooms, 'id', ['desc']))
+      return _.reverse(_.orderBy(this.$store.getters.managerDormRooms, 'id', ['asn']))
     }
   },
   methods:{
