@@ -1,11 +1,7 @@
-import FileUpload from 'vue-upload-component/src'
 import _ from 'lodash'
 
 export default {
-  name: "ManageDorm",
-  components: {
-    'file-upload': FileUpload
-  },
+  name: "AddNewRoom",
   data: function () {
     return {
       selectedFeatures:[],
@@ -92,6 +88,12 @@ export default {
         this.files = []
         this.uploadFiles = []
         this.$store.dispatch('fetchManagerDormRooms',dormId)
+        let snackbar = {
+          message: 'Room has been Add successfully',
+          color: 'success'
+        }
+        this.$refs.form.reset()
+        this.$store.commit('updateSnackbar', snackbar)
       }
     },
     submitNewRoom(){
@@ -99,29 +101,27 @@ export default {
       let roomData = this.room
       if(this.$refs.form.validate()){
         this.loadingBtn = true
-        let snackbar
+        
         this.$store.dispatch('addNewRoom', {dormID,roomData}).then((response)=>{
-          snackbar = {
-            message: 'Room has been Add successfully',
-            color: 'success'
-          }
           const roomId = response.id
           this.submitPhotos(roomId)
-          this.$refs.form.reset()
         }).catch((err)=>{
+          let snackbar
           if(err.response.status == 403 || err.response.status == 500){
             snackbar = {
               message: 'error occured, please try again',
               color: 'error'
             }
+            this.$store.commit('updateSnackbar', snackbar)
           }else{
             snackbar = {
               message: err,
               color: 'error'
             }
+            this.$store.commit('updateSnackbar', snackbar)
           }
         }).then(()=>{
-          this.$store.commit('updateSnackbar', snackbar)
+          
         })
       }
     },

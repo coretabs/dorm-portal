@@ -6,7 +6,7 @@
         <v-layout wrap>
 
           <v-flex xs12 sm6 md4 pa-3>
-            <h3 class="heading">General Spec:</h3>
+            <h2 class="heading">General Properties:</h2>
             <v-select class="shift-left" :items="roomFilters.room_types" :rules="requiredRules" item-text="name" item-value="id" label="Room Type" append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
@@ -27,16 +27,16 @@
               </v-flex>
               <v-flex xs12 sm4 pl-2>
                 <v-select class="shift-left" :rules="requiredRules" :items="roomFilters.currencies" v-model="room.currencyId" item-text="code" item-value="id" label="Currency" color="success" append-icon="expand_more" :menu-props="{
-            offsetY: '',
-            transition: 'slide-y-transition',
-            bottom: ''
-          }"></v-select>
+                  offsetY: '',
+                  transition: 'slide-y-transition',
+                  bottom: ''
+                }"></v-select>
               </v-flex>
             </v-layout>
 
-            <v-text-field label="Total Rooms in Dorm" :rules="requiredRules" type="number" v-model="room.totalQuota"></v-text-field>
-            <v-text-field label="Quota" type="number" :rules="requiredRules" v-model="room.allowedQuota"></v-text-field>
-            <v-text-field label="Confirmation Duration in Days" :rules="requiredRules" type="number" v-model="room.confirmationDays"></v-text-field>
+            <v-text-field label="Total Rooms in Dorm" hint="Number of all rooms of this type in your dorm" :rules="requiredRules" type="number" v-model="room.totalQuota"></v-text-field>
+            <v-text-field label="Quota" hint="Number of rooms you want to open for online reservation" type="number" :rules="requiredRules" v-model="room.allowedQuota"></v-text-field>
+            <v-text-field label="Confirmation Duration in Days" hint="Give students a deadline to upload payment receipts" :rules="requiredRules" type="number" v-model="room.confirmationDays"></v-text-field>
 
             <v-autocomplete class="features-input" v-model="room.roomFeatures" :disabled="isUpdating" :items="roomFilters.room_features" box chips color="blue-grey lighten-2" label="Select features" item-text="name" item-value="id" multiple>
               <template slot="selection" slot-scope="data">
@@ -56,7 +56,7 @@
           </v-flex>
 
           <v-flex xs12 sm6 md4 pa-3>
-            <h3 class="heading">Room Features:</h3>
+            <h2 class="heading">Room Features:</h2>
             
 
             <div v-for="(filter,i) in roomFilters.additional_filters" :key="i">
@@ -78,7 +78,7 @@
           </v-flex>
 
           <v-flex xs12 sm6 md4 pa-3>
-            <h3 class="heading">Room Photos:</h3>
+            <h2 class="heading">Room Photos:</h2>
 
             <div class="files-uploader">
               <v-form enctype="multipart/form-data">
