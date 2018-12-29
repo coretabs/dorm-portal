@@ -1149,7 +1149,6 @@ class DormDetailsSerializer(serializers.ModelSerializer):
     main_info = serializers.SerializerMethodField()
     photos = PhotoSerializer(many=True)
     about = serializers.SerializerMethodField()
-    features = serializers.SerializerMethodField()
     room_characteristics = RoomSerializer(many=True)
     number_of_reviews = serializers.IntegerField()
     stars_average = serializers.DecimalField(decimal_places=1, max_digits=2)
