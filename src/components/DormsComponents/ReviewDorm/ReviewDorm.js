@@ -6,7 +6,7 @@ export default {
       rating: null,
       comment: '',
       loadingBtn: false
-    };
+    }
   },
   computed: {
     lang() {

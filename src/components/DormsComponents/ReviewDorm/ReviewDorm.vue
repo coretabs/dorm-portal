@@ -1,14 +1,14 @@
 <template>
-<v-content id="login">
+<v-content id="review">
   <v-container fluid fill-height>
     <v-layout  mt-5 justify-center>
       <v-flex xs12 sm8 md4>
         <v-card v-if="showForm" class="elevation-3">
           <v-form ref="form" lazy-validation>
-            <v-card-text>
+            <v-card-text class="pa-5">
               <v-layout column class="text-xs-center">
-                <h1 class="mb-3">Rate Our Dormitory</h1>
-                <p class="heading">If you enjoy staing in our Dormitory, please take a few seconds to rate your experience with us.</p>
+                <h1 class="mb-3 pt-2">Rate Our Dormitory</h1>
+                <p class="review-desc">If you enjoy staing in our Dormitory, please take a few seconds to rate your experience with us.</p>
               </v-layout>
               <v-layout column>
                 <v-flex class="text-xs-center">
@@ -21,7 +21,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="#feae25" large class="elevation-0" @click.prevent="submitReview" :loading="loadingBtn">submit</v-btn>
+              <v-btn color="#feae25" :disabled="!rating" large class="elevation-0" @click.prevent="submitReview" :loading="loadingBtn">submit</v-btn>
             </v-card-actions>
           </v-form>
         </v-card>
