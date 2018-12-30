@@ -71,7 +71,8 @@ def create_dorm(name, category, manager=None):
     if manager:
         result.manager = manager
     else:
-        manager = User(first_name=fake.name(), username=fake.name())
+        name = fake.name().replace(' ', '')
+        manager = User(first_name=name, username=name, email=f'{name}@gmail.com')
         manager.is_manager = True
         manager.save()
         result.manager = manager
@@ -203,7 +204,7 @@ def create_room_with_radio_integral_features(dorm, radio_choices, integral_choic
 
 
 def create_manager(context, name):
-    result = User(first_name=name, username=name)
+    result = User(first_name=name, username=name, email=f'{name}@gmail.com')
     result.is_manager = True
 
     result.save()
@@ -212,7 +213,7 @@ def create_manager(context, name):
 
 
 def create_student(context, name):
-    result = User(first_name=name, username=name)
+    result = User(first_name=name, username=name, email=f'{name}@gmail.com')
 
     result.save()
 

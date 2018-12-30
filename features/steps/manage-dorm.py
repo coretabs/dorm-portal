@@ -19,7 +19,7 @@ from features.steps.factory import *
 @given('two managers (one for alfam&dovec and one for homedorm)')
 def arrange(context):
     context.john = create_manager(context, 'John')
-    context.scott = create_manager(context, 'Doe')
+    context.scott = create_manager(context, 'Scott')
 
 
 @given('we have dorms(alfam & dovec & homedorm) + 2 rooms in alfam')
