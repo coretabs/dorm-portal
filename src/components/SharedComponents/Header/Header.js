@@ -39,6 +39,10 @@ export default {
         this.$router.push('/reservation')
       }
     },
+    dormProfile(){
+      const dormId = localStorage.getItem('manageDormID')
+      this.$router.push(`/dorms/${dormId}`)
+    },
     getUserName(){
       const user = JSON.parse(localStorage.getItem('auth'))
       if(user){

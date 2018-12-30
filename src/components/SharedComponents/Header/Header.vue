@@ -83,6 +83,11 @@
               </span>
             </v-list-tile-title>
           </v-list-tile>
+          <v-list-tile v-if="isAdmin" @click="dormProfile">
+            <v-list-tile-title>
+              Dorm Profile
+            </v-list-tile-title>
+          </v-list-tile>
           <v-list-tile @click="logout">
             <v-list-tile-title>
               Logout
