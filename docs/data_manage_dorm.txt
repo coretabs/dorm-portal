@@ -136,6 +136,7 @@ additional_filters
         options {id, name}
     (is_checkbox false) (is_integral true)
         min_value max_value value=[min_value,max_value]
+	is_optional
 ```
 
 alternative suggested format for additional_filters field
@@ -225,11 +226,13 @@ radio_filters
 		id
 		name
 	chosen_option_id
+	is_optional
 
 integral_filters
 	id
 	name
 	selected_number
+	is_optional
 
 all_features
 	id

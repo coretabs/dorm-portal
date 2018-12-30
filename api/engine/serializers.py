@@ -426,6 +426,7 @@ class IntegralFilterSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     is_checkbox = serializers.BooleanField(default=False)
     is_integral = serializers.BooleanField(default=True)
+    is_optional = serializers.BooleanField()
     value = serializers.SerializerMethodField()
     min_value = serializers.SerializerMethodField()
     max_value = serializers.SerializerMethodField()
@@ -450,7 +451,8 @@ class IntegralFilterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.IntegralFilter
-        fields = ('id', 'name', 'is_checkbox', 'is_integral', 'value', 'min_value', 'max_value')
+        fields = ('id', 'name', 'is_checkbox', 'is_integral', 'is_optional',
+                  'value', 'min_value', 'max_value')
 
 
 class RadioOptionSerializer(serializers.ModelSerializer):
@@ -470,13 +472,14 @@ class RadioFilterSerializer(serializers.ModelSerializer):
     is_checkbox = serializers.BooleanField(default=True)
     is_integral = serializers.BooleanField(default=False)
     options = RadioOptionSerializer(many=True)
+    is_optional = serializers.BooleanField()
 
     def get_name(self, obj):
         return str(obj.name)
 
     class Meta:
         model = models.RadioFilter
-        fields = ('id', 'name', 'is_checkbox', 'is_integral', 'options')
+        fields = ('id', 'name', 'is_checkbox', 'is_integral', 'options', 'is_optional')
 
 
 class AddtionalFiltersSerializer(PolymorphicSerializer):
@@ -502,25 +505,27 @@ class DormManagementRoomDetailsRadioFilterSerializer(serializers.ModelSerializer
     name = serializers.SerializerMethodField()
     options = RadioOptionSerializer(many=True)
     chosen_option_id = serializers.IntegerField()
+    is_optional = serializers.BooleanField()
 
     def get_name(self, obj):
         return str(obj.name)
 
     class Meta:
         model = models.RadioFilter
-        fields = ('id', 'name', 'options', 'chosen_option_id')
+        fields = ('id', 'name', 'options', 'chosen_option_id', 'is_optional')
 
 class DormManagementRoomDetailsIntegralFilterSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()
     name = serializers.SerializerMethodField()
     selected_number = serializers.IntegerField()
+    is_optional = serializers.BooleanField()
 
     def get_name(self, obj):
         return str(obj.name)
 
     class Meta:
         model = models.IntegralFilter
-        fields = ('id', 'name', 'selected_number')
+        fields = ('id', 'name', 'selected_number', 'is_optional')
 
 class DormManagementRoomDetailsSerializer(serializers.ModelSerializer):
     price_currency = serializers.CharField(source='price_currency.symbol')
