@@ -20,7 +20,7 @@
       
     </v-card-text>
     <v-card-actions>
-      <a href="#" @click.stop="redirectToLogin" class="grey--text text--darken-2 signup-link">{{lang.signup.haveAccount}}</a>
+      <a href="#" @click.stop.prevent="redirectToLogin" class="grey--text text--darken-2 signup-link">{{lang.signup.haveAccount}}</a>
       <v-spacer></v-spacer>
       <v-btn color="#feae25" :disabled="!valid" large class="elevation-0" @click="submit">{{lang.signup.button}}</v-btn>
     </v-card-actions>
