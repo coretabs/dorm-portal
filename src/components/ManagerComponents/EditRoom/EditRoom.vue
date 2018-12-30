@@ -25,7 +25,7 @@
                 <v-text-field label="price" type="number" :rules="requiredRules" v-model="roomData.price"></v-text-field>
               </v-flex>
               <v-flex xs12 sm4 pl-2>
-                <v-select class="shift-left" :rules="requiredRules" :items="roomData.currencies" v-model="roomData.price_currency_id"  item-text="code" item-value="id" label="Currency" color="success" append-icon="expand_more" :menu-props="{
+                <v-select class="shift-left" :rules="requiredRules" :items="roomData.currencies" v-model="roomData.price_currency_id" item-text="code" item-value="id" label="Currency" color="success" append-icon="expand_more" :menu-props="{
                   offsetY: '',
                   transition: 'slide-y-transition',
                   bottom: ''
@@ -55,7 +55,7 @@
 
           <v-flex xs12 sm6 md4 pa-3>
             <h2 class="heading">Room Features:</h2>
-    
+
             <div v-for="radioFilter in roomData.radio_filters" :key="radioFilter.id">
               <v-select class="shift-left" :items="radioFilter.options" v-model="radioFilter.chosen_option_id" item-text="name" item-value="id" :label="radioFilter.name" append-icon="expand_more" :menu-props="{
                 offsetY: '',
@@ -79,7 +79,7 @@
               </v-flex>
               <template v-if="roomData.photos.length">
                 <v-flex class="px-2 pb-3" md3 xs6 v-for="(photo,i) in roomData.photos" :key="i">
-                  <v-btn icon class="pa-0">
+                  <v-btn icon class="pa-0" @click="confirmDelete(photo.id)">
                     <v-icon>fa-times</v-icon>
                   </v-btn>
                   <v-img gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)" :src="photo.url" height="110" width="100%">
@@ -142,7 +142,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn large class="elevation-0" @click="closeEditDialog">Cancel</v-btn>
-              
+
               <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" :loading="loadingBtn" @click="submitChanges">Save Changes</v-btn>
             </v-card-actions>
           </v-flex>
@@ -151,6 +151,21 @@
       </v-form>
     </v-card-text>
   </v-card>
+  <v-dialog v-model="deletePhoto.confirmDialog" width="500" lazy>
+    <v-card>
+      <v-card-title class="headline text-uppercase font-weight-medium red accent-4 white--text">
+        Confirm Delete
+      </v-card-title>
+      <v-card-text class="subheading my-3">
+        Are You sure you want to delete this Photo?
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn class="elevation-0" @click="deletePhoto.confirmDialog = false">Cancel</v-btn>
+        <v-btn color="red" class="elevation-0" @click="deleteRoomPhoto" :loading="loadingBtn">Delete photo</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </div>
 </template>
 

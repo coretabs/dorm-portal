@@ -18,6 +18,10 @@ export default {
         radioChoices: [],
         integralChoices: []
       },
+      deletePhoto:{
+        id: null,
+        confirmDialog: false
+      },
       requiredRules: [
         v => !!v || 'This field is required'
       ]
@@ -179,6 +183,27 @@ export default {
           selected_number: optionId
         })
       }
+    },
+    confirmDelete(id){
+      this.deletePhoto.id = id
+      this.deletePhoto.confirmDialog = true
+    },
+    deleteRoomPhoto(){
+      const dormId = localStorage.getItem('manageDormID')
+      const roomId = this.roomId
+      const photoId = this.deletePhoto.id
+      this.$store.dispatch('deleteRoomPhoto',{dormId, roomId,photoId }).then(()=>{
+        this.deletePhoto.confirmDialog = false
+        return this.$store.dispatch('fetchEditRoomFilters', {dormId, roomId})
+      }).then((response)=>{
+        this.roomData = response
+      }).catch((err)=>{
+        let snackbar = {
+          message: err,
+          color: 'error'
+        }
+        this.$store.commit('updateSnackbar', snackbar)
+      })
     }
   },
   watch: {
