@@ -18,7 +18,7 @@ from i18nfield.rest_framework import I18nField
 
 from rest_polymorphic.serializers import PolymorphicSerializer
 
-import i18n
+from .utils import i18n
 
 from . import models
 
@@ -947,7 +947,7 @@ class ClientPhotoRoomSerializer(serializers.Serializer):
 
         if url:
             if not validated_data['is_3d']:
-                raise serializers.ValidationError(i18n.t('student.errorMessages.pleaseAddEitherURLorPhoto.urlOnlyWith3D'))
+                raise serializers.ValidationError(i18n.t('student.errorMessages.manageDorm.urlOnlyWith3D'))
             instance = models.RoomPhoto(photo=url, is_3d=True, room_characteristics=room_characteristics)
 
         else:
@@ -976,7 +976,7 @@ class ClientPhotoDormSerializer(serializers.Serializer):
 
         if url:
             if not validated_data['is_3d']:
-                raise serializers.ValidationError(i18n.t('student.errorMessages.pleaseAddEitherURLorPhoto.urlOnlyWith3D'))
+                raise serializers.ValidationError(i18n.t('student.errorMessages.manageDorm.urlOnlyWith3D'))
             instance = models.DormitoryPhoto(photo=url, is_3d=True, dormitory=dormitory)
 
         else:
