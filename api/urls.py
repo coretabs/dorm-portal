@@ -54,11 +54,13 @@ urlpatterns = [
 
     # http://localhost:8000/api/admin/
     path('api/admin/', admin.site.urls),
-
-    # http://localhost:8000/
-    re_path('^.*$', engine_views.index_view, name='index'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    # http://localhost:8000/
+    re_path('^.*$', engine_views.index_view, name='index'),
+]

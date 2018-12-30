@@ -23,9 +23,17 @@ from .utils import i18n
 from . import models
 
 
+class LocalRemoteURLField(serializers.URLField):
+    def to_representation(self, value):
+        result = super().to_representation(value)
+        if not settings.IS_PRODUCTION:
+            result = result[result.find(r'\media'):]
+        return result
+
+
 class PhotoSerializer(serializers.Serializer):
     id = serializers.IntegerField()
-    url = serializers.URLField()
+    url = LocalRemoteURLField()
     is_3d = serializers.BooleanField(default=False)
 
     class Meta:
@@ -132,7 +140,7 @@ class ReservationDormitorySerializer(serializers.ModelSerializer):
                   'bank_accounts')
 
 class ReceiptSerializer(serializers.ModelSerializer):
-    url=serializers.URLField(read_only = True)
+    url=LocalRemoteURLField(read_only = True)
     upload_receipt_date=serializers.DateField(format = '%Y-%m-%d', required = False, read_only = True)
     uploaded_photo=serializers.ImageField(required = False)
 
@@ -1116,7 +1124,7 @@ class ClientDormManagementSerializer(serializers.Serializer):
 
 
 class DormManagementSerializer(serializers.ModelSerializer):
-    cover = serializers.URLField(source='cover.path')
+    cover = LocalRemoteURLField(source='cover.path')
 
     class Meta:
         model = models.Dormitory
@@ -1124,7 +1132,7 @@ class DormManagementSerializer(serializers.ModelSerializer):
 
 
 class DormManagementDetailsSerializer(serializers.ModelSerializer):
-    cover = serializers.URLField(source='cover.path')
+    cover = LocalRemoteURLField(source='cover.path')
 
     bank_accounts = BankAccountSerializer(many=True)
     features = FeatureFilterSerializer(many=True)
@@ -1148,7 +1156,7 @@ class DormManagementDetailsSerializer(serializers.ModelSerializer):
 
 
 class DormSerializer(serializers.ModelSerializer):
-    cover = serializers.URLField(source='cover.path')
+    cover = LocalRemoteURLField(source='cover.path')
 
     rooms_left_in_dorm = serializers.IntegerField()
 
