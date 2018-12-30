@@ -117,7 +117,7 @@ export default {
       }
     },
     selectNewFile(){
-      const files = this.$refs.files.files
+      const files = this.$refs.editRoomfiles.files
       this.uploadFiles = [...this.uploadFiles, ...files]
       this.files = [
         ...this.files,

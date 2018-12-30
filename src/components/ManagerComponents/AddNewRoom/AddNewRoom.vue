@@ -1,6 +1,6 @@
 <template>
 <div id="manage-dorm">
-  <v-card>
+  <v-card class="mb-5">
     <v-card-text>
       <v-form ref="form" lazy-validation>
         <v-layout wrap>
@@ -40,7 +40,7 @@
 
             <v-autocomplete class="features-input" v-model="room.roomFeatures" :disabled="isUpdating" :items="roomFilters.room_features" box chips color="blue-grey lighten-2" label="Select features" item-text="name" item-value="id" multiple>
               <template slot="selection" slot-scope="data">
-                <v-chip  :selected="data.selected" close class="chip--select-multi" @input="remove(data.item)">
+                <v-chip :selected="data.selected" close class="chip--select-multi" @input="remove(data.item)">
                   {{data.item.name}}
                 </v-chip>
               </template>
@@ -57,7 +57,6 @@
 
           <v-flex xs12 sm6 md4 pa-3>
             <h2 class="heading">Room Features:</h2>
-            
 
             <div v-for="(filter,i) in roomFilters.additional_filters" :key="i">
 
@@ -120,8 +119,18 @@
 
           <v-flex xs12>
             <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" @click="submitNewRoom">Add Room</v-btn>
+              <v-layout wrap row>
+
+                <v-flex xs12 md6 class="pl-2">
+                  <v-switch label="switch off to hide room from search results" color="success" v-model="room.isReady"></v-switch>
+                </v-flex>
+                
+                <v-flex xs12 md6 class="text-xs-right">
+                  <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" @click="submitNewRoom">Add Room</v-btn>
+                </v-flex>
+
+              </v-layout>
+
             </v-card-actions>
           </v-flex>
 

@@ -113,7 +113,7 @@
                           <p>Allowed documents: JEPG, PNG, GIF</p>
                         </v-flex>
                       </v-layout>
-                      <input type="file" id="file" multiple @change="selectNewFile" ref="files" v-show="false">
+                      <input type="file" id="file" multiple @change="selectNewFile" ref="editRoomfiles" v-show="false">
                     </div>
                       <v-flex :class="`files-list ${file.invalidMessage && 'file-invalid'}`" v-for="(file,index) in files" :key="index" md12>
                         <v-layout>

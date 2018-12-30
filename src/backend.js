@@ -260,7 +260,7 @@ $backend.$addNewRoom = (id, data) => {
         room_features: data.roomFeatures,
         radio_options: data.radioChoices,
         integral_choices: data.integralChoices,
-        is_ready: true
+        is_ready: data.isReady
     })
         .then(response => response.data)
 },

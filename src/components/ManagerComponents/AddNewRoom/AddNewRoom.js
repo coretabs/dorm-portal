@@ -12,6 +12,7 @@ export default {
       loadingBtn: false,
       roomFilters:{},
       room:{
+        isReady: true,
         totalQuota: null,
         allowedQuota: null,
         roomTypeId: null,
