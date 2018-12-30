@@ -281,7 +281,8 @@ def test(context):
 @then('confirmation_deadline_date form is 2018-12-15')
 def test(context):
     # print(context.serialized_reservation['confirmation_deadline_date'].value)
-    expected_date = (datetime.date.today() + datetime.timedelta(days=2)).strftime('%Y-%m-%d')
+    expected_date = (datetime.date.today() + datetime.timedelta(days=3)).strftime('%Y-%m-%d')
+    # print(expected_date)
     assert context.serialized_reservation['confirmation_deadline_date'].value == expected_date
 
 

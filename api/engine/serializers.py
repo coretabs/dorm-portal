@@ -170,12 +170,18 @@ class ReservationRoomCharacteristicsSerializer(serializers.ModelSerializer):
 
 class ReservationDetailsSerializer(serializers.ModelSerializer):
     reservation_creation_date=serializers.DateField(format = '%Y-%m-%d')
-    confirmation_deadline_date=serializers.DateField(format = '%Y-%m-%d')
+    confirmation_deadline_date=serializers.SerializerMethodField()
     last_update_date=serializers.DateField(format = '%Y-%m-%d')
 
     user=UserSerializer()
     room_characteristics=ReservationRoomCharacteristicsSerializer()
     receipts=ReceiptSerializer(many = True)
+
+    def get_confirmation_deadline_date(self, obj):
+        # we show an extra day for the client
+
+        confirmation_deadline_date = obj.confirmation_deadline_date + datetime.timedelta(days=1)
+        return (confirmation_deadline_date).strftime('%Y-%m-%d')
 
     class Meta:
         model=models.Reservation
