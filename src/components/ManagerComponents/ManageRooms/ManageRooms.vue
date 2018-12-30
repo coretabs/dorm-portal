@@ -212,13 +212,10 @@
 
       <v-card>
         <v-toolbar card dark color="#1c3a70">
-          <v-btn icon dark @click="showEditRoomDialog = false">
-            <v-icon>close</v-icon>
-          </v-btn>
           <v-toolbar-title>Edit Room</v-toolbar-title>
         </v-toolbar>
-        <v-card-text>
-          <edit-room :roomData="roomDetails" :roomId="roomEditId"></edit-room>
+        <v-card-text class="pa-0">
+          <edit-room :roomData="roomDetails" :roomId="roomEditId" @closeEditDialog="closeEditDialog($event)"></edit-room>
         </v-card-text>
       </v-card>
     </v-dialog>

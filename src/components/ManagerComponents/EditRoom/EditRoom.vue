@@ -1,7 +1,7 @@
 <template>
 <div id="manage-dorm">
-  <v-card>
-    <v-card-text>
+  <v-card class="elevation-0">
+    <v-card-text class="pa-3">
       <v-form ref="form" lazy-validation>
         <v-layout wrap>
           <v-flex xs12 sm6 md4 pa-3>
@@ -55,8 +55,8 @@
 
           <v-flex xs12 sm6 md4 pa-3>
             <h2 class="heading">Room Features:</h2>
-
-            <div v-for="(radioFilter,i) in roomData.radio_filters" :key="i">
+    
+            <div v-for="radioFilter in roomData.radio_filters" :key="radioFilter.id">
               <v-select class="shift-left" :items="radioFilter.options" v-model="radioFilter.chosen_option_id" item-text="name" item-value="id" :label="radioFilter.name" append-icon="expand_more" :menu-props="{
                 offsetY: '',
                 transition: 'slide-y-transition',
@@ -65,7 +65,7 @@
 
             </div>
 
-            <div v-for="(integralFilter,i) in roomData.integral_filters" :key="i">
+            <div v-for="integralFilter in roomData.integral_filters" :key="integralFilter.id">
               <v-text-field :label="integralFilter.name" v-model="integralFilter.selected_number" @change="addFilter(integralFilter.id, integralFilter.selected_number, 'integral')" type="number"></v-text-field>
             </div>
 
@@ -113,8 +113,8 @@
                           <p>Allowed documents: JEPG, PNG, GIF</p>
                         </v-flex>
                       </v-layout>
-                      <input type="file" id="file" multiple @change="selectFile" ref="files" v-show="false">
-                </div>
+                      <input type="file" id="file" multiple @change="selectNewFile" ref="files" v-show="false">
+                    </div>
                       <v-flex :class="`files-list ${file.invalidMessage && 'file-invalid'}`" v-for="(file,index) in files" :key="index" md12>
                         <v-layout>
                           <v-flex class="text-truncate" md4>
@@ -141,8 +141,9 @@
           <v-flex xs12>
             <v-card-actions>
               <v-spacer></v-spacer>
+              <v-btn large class="elevation-0" @click="closeEditDialog">Cancel</v-btn>
               
-              <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" @click="submitChanges">Save Changes</v-btn>
+              <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" :loading="loadingBtn" @click="submitChanges">Save Changes</v-btn>
             </v-card-actions>
           </v-flex>
 

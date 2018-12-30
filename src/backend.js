@@ -51,7 +51,7 @@ $backend.$fetchDorms = (lang, currency) => {
     }
 
 $backend.$fetchDorm = (dormId, lang, currencyCode) => {
-    return $backend.get(`/dorms/${dormId}/?language=${lang}&currency=${currencyCode}`)
+    return $backend.get(`/dorms/${dormId}/?language=${lang}&currency=${currencyCode}/`)
         .then(response => response.data)
 }
 
@@ -253,7 +253,8 @@ $backend.$addNewRoom = (id, data) => {
         duration_id: data.durationId,
         room_features: data.roomFeatures,
         radio_options: data.radioChoices,
-        integral_choices: data.integralChoices
+        integral_choices: data.integralChoices,
+        is_ready: true
     })
         .then(response => response.data)
 },

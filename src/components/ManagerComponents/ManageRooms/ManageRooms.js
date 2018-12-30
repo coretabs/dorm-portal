@@ -110,6 +110,9 @@ export default {
         this.roomEditId = roomId
         this.roomDetails = response
       })
+    },
+    closeEditDialog(dialogStatus){
+      this.showEditRoomDialog = dialogStatus
     }
   },
   mounted(){

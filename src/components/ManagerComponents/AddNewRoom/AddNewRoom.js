@@ -157,6 +157,9 @@ export default {
         }
         this.btnDisabled = false
       }
+      if(!this.uploadFiles.length){
+        this.btnDisabled = false
+      }
     },
     removeFile(index){
       this.files.splice(index, 1)
