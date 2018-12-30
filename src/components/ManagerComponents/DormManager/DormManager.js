@@ -46,8 +46,18 @@ export default {
           this.$store.state.adminActiveComponent = 'ManageDorm' //'ManageReservations'
         }
       })
-      
-    }
+    },
+    checkAuth(){
+      if(this.$store.getters.isLoggedIn){
+        this.$store.dispatch('auth')
+        .catch(() => {
+          this.$store.dispatch('logout')
+          .then(() => {
+            this.$router.push('/login')
+          })
+        })
+     }
+    },
   },
   computed: {
     lang() {
@@ -63,6 +73,7 @@ export default {
   created() {
   },
   mounted(){
+    this.checkAuth()
     this.$root.$on('currentTabComponent',(componentName) => {
       this.$store.state.adminActiveComponent = componentName;
     })

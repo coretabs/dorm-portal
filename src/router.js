@@ -44,7 +44,7 @@ let router = new Router({
     {
       path: '/manage',
       component: DormManager,
-      beforeEnter: (to, from, next) => { (store.getters.isAdmin) ? next() : next('/login/user') }
+      beforeEnter: (to, from, next) => { (store.getters.isAdmin) ? next() : next('/login') }
     },
     {
       path: '/reset-password/:id/:key',
