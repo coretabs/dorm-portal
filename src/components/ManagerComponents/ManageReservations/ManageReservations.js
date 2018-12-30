@@ -7,6 +7,7 @@ export default {
       date: null,
       menu: false,
       loadingBtn: false,
+      isReviewRequestSent: false,
       search: '',
       headers: [
         { text: '', value: 'room_price' },
@@ -131,7 +132,7 @@ export default {
     askForReview(reservationId){
       const dormID = localStorage.getItem('manageDormID')
       this.$store.dispatch('askForReview', {dormID,reservationId}).then(()=>{
-        alert('done')
+        this.isReviewRequestSent = true
       })
     }
   },
