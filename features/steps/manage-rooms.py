@@ -269,7 +269,7 @@ def test(context):
     assert context.second_room_with_filters.radio_filters.get(
         name__contains='Meals').chosen_option_id == -1
     assert context.second_room_with_filters.radio_filters.get(
-        name__contains='Baclony Size').chosen_option_id == context.balcony_size_choice_big.id
+        name__contains='Baclony Size').chosen_option_id == context.balcony_size_choice_big.selected_option.id
 
     assert context.second_room_with_filters.integral_filters.count() == 2
     assert context.second_room_with_filters.integral_filters.get(

@@ -234,7 +234,7 @@ class FilterQuerySet(PolymorphicQuerySet):
 
     def room_radio_filters(self, room_pk):
         room_related_filter_with_choice = RoomCharacteristics.objects.get(
-            pk=room_pk).radio_choices.all().values_list('related_filter_id', 'id')
+            pk=room_pk).radio_choices.all().values_list('related_filter_id', 'selected_option_id')
 
         chosen_when = [django_models.When(id=related_filter_id, then=choice_id)
                        for related_filter_id, choice_id in room_related_filter_with_choice]
