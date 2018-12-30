@@ -143,7 +143,7 @@
                   <v-card-text>
                     <v-layout>
                       <v-flex md6>
-                        <v-layout fill-height  class="details-room">
+                        <v-layout fill-height class="details-room">
                           <v-flex class="details-model__info">
                             <h3>Room Type:</h3>
                             <span>{{props.item.room_type}}</span>
@@ -162,7 +162,7 @@
                             <h3>Staying Duration:</h3>
                             <span>{{props.item.room_duration}}</span>
                           </v-flex>
-                        </v-layout >
+                        </v-layout>
                       </v-flex>
                       <v-flex md6>
                         <v-layout fill-height column class="details-model__info">
@@ -226,6 +226,20 @@
     </v-dialog>
   </v-layout>
 
+  <v-dialog v-model="isReviewRequestSent" width="500" lazy>
+    <v-card >
+      <v-card-text class="text-xs-center subheading pt-5 pb-4">
+        <v-icon large color="success" class="mb-4 ">fa-check-circle</v-icon>
+        <h3>
+          Review request has been sent to the student
+        </h3>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn class="elevation-0" @click="isReviewRequestSent = false">close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </div>
 </template>
 

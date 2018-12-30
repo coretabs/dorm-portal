@@ -1,9 +1,11 @@
 
+import EditRoom from '../EditRoom/EditRoom.vue'
 import _ from 'lodash'
 
 export default {
   name: "ManageRooms",
   components:{
+    EditRoom
   },
   data: function () {
     return {
@@ -20,6 +22,7 @@ export default {
       allowedQuotaNumber: null,
       availableRoomsNumber: null,
       quotaRoomID: null,
+      roomEditId: null,
       roomDetails: {},
       items: [
         { title: 'Edit' },
@@ -66,8 +69,8 @@ export default {
     quotaTextColor(quota, totalRooms, reservedRooms){
       return (quota < 5 && totalRooms-reservedRooms > quota ) ? "red--text" : "black--text";
     },
-    editRoom(room){
-      this.roomDetails = room;
+    editRoom(roomId){
+      this.fetchEditRoomFilters(roomId)
       this.showEditRoomDialog = true;
     },
     deleteRoom(roomId){
@@ -99,6 +102,13 @@ export default {
     fetchManagerDormRooms(){
       const dormID = localStorage.getItem('manageDormID')
       this.$store.dispatch('fetchManagerDormRooms',dormID).then(()=>{
+      })
+    },
+    fetchEditRoomFilters(roomId){
+      const dormId = localStorage.getItem('manageDormID')
+      this.$store.dispatch('fetchEditRoomFilters', {dormId, roomId}).then((response)=>{
+        this.roomDetails = response
+        console.log(response)
       })
     }
   },

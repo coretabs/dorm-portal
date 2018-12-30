@@ -207,7 +207,6 @@ export default new Vuex.Store({
       });
     },
     reserveRoom(context,room){
-
       return new Promise((resolve, reject) => {
         $backend.$reserveRoom(room.id).then(responseDate => {
           context.commit('reserveRoom', {room, responseDate})
@@ -217,7 +216,6 @@ export default new Vuex.Store({
           reject(err)
         })
       });
-      
     },
     fetchReservation(context, id){
       context.commit('fetchReservation', id)
@@ -428,6 +426,15 @@ export default new Vuex.Store({
     fetchRoomFilters(context){
       return new Promise((resolve, reject) => {
         $backend.$fetchRoomFilters().then(response => {
+          resolve(response)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    fetchEditRoomFilters(context, {dormId, roomId}){
+      return new Promise((resolve, reject) => {
+        $backend.$fetchEditRoomFilters(dormId, roomId).then(response => {
           resolve(response)
         }).catch(err => {
           reject(err)

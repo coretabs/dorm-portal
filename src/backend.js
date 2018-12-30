@@ -236,6 +236,11 @@ $backend.$fetchRoomFilters = () => {
         .then(response => response.data)
 }
 
+$backend.$fetchEditRoomFilters = (dormId, roomId) => {
+    return $backend.get(`/manager-dorms/${dormId}/rooms/${roomId}/`)
+        .then(response => response.data)
+}
+
 $backend.$addNewRoom = (id, data) => {
     return $backend.post(`/manager-dorms/${id}/rooms/`, {
         total_quota: data.totalQuota,

@@ -63,7 +63,6 @@ export default {
        }
     },
 
-    //uploadRoomPhotos
     uploadFile(dormId,roomId,formData){
       return this.$store.dispatch("uploadRoomPhotos", {roomId,dormId,formData});
     },
