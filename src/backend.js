@@ -256,7 +256,25 @@ $backend.$addNewRoom = (id, data) => {
         integral_choices: data.integralChoices
     })
         .then(response => response.data)
-}
+},
+
+$backend.$updateRoomData = (dormId, roomId, data) => {
+    return $backend.put(`/manager-dorms/${dormId}/rooms/${roomId}/`, {
+        total_quota: data.totalQuota,
+        allowed_quota: data.allowedQuota,
+        room_type_id: data.roomTypeId,
+        people_allowed_number: data.peopleAllowedNumber,
+        price: data.price,
+        currency_id: data.currencyId,
+        room_confirmation_days: data.confirmationDays,
+        duration_id: data.durationId,
+        room_features: data.roomFeatures,
+        radio_options: data.radioChoices,
+        integral_choices: data.integralChoices
+    })
+        .then(response => response.data)
+},
+
 
 $backend.$askForReview = (dormId,reservationId) => {
     return $backend.post(`/manager-dorms/${dormId}/reservations/${reservationId}/ask-review/`)

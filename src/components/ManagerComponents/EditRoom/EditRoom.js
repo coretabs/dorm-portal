@@ -3,7 +3,8 @@ import _ from 'lodash'
 export default {
   name: "EditRoom",
   props:{
-    'roomData': Object
+    'roomData': Object,
+    'roomId': Number
   },
   data: function () {
     return {
@@ -14,18 +15,7 @@ export default {
       btnDisabled: false,
       isUpdating: false,
       loadingBtn: false,
-      roomFilters:{},
-      room:{
-        totalQuota: null,
-        allowedQuota: null,
-        roomTypeId: null,
-        peopleAllowedNumber: null,
-        price: null,
-        currencyId: null,
-        confirmationDays: null,
-        durationId: null,
-        integralChoicesHolder: [],
-        roomFeatures: [],
+      roomFilters:{
         radioChoices: [],
         integralChoices: []
       },
@@ -44,8 +34,8 @@ export default {
   },
   methods: {
     remove (item) {
-      const index = this.room.roomFeatures.indexOf(item.id)
-      if (index >= 0) this.room.roomFeatures.splice(index, 1)
+      const index = this.roomData.chosen_features.indexOf(item.id)
+      if (index >= 0) this.roomData.chosen_features.splice(index, 1)
     },
     async submitPhotos(roomId){
       const dormId = localStorage.getItem('manageDormID')
@@ -76,7 +66,47 @@ export default {
         this.$store.commit('updateSnackbar', snackbar)
         }
       },
-      //submit room
+      submitChanges(){
+        const dormId = localStorage.getItem('manageDormID')
+        const roomId = this.roomId
+        let getRadioArray =  this.roomFilters.radioChoices.map(radioChoices => radioChoices.selected_number);
+        let roomData = {
+          totalQuota: this.roomData.total_quota,
+          allowedQuota: this.roomData.allowed_quota,
+          roomTypeId: this.roomData.room_type_id,
+          peopleAllowedNumber: this.roomData.people_allowed_number,
+          price: this.roomData.price,
+          currencyId: this.roomData.price_currency_id,
+          confirmationDays: this.roomData.room_confirmation_days,
+          durationId: this.roomData.duration_id,
+          roomFeatures: this.roomData.chosen_features,
+          radioChoices: getRadioArray,
+          integralChoices: this.roomFilters.integralChoices
+        }
+
+        if(this.$refs.form.validate()){
+          this.loadingBtn = true
+          
+          this.$store.dispatch('updateRoomData', {dormId,roomId,roomData}).then(()=>{
+            this.submitPhotos()
+          }).catch((err)=>{
+            let snackbar
+            if(err.response.status == 403 || err.response.status == 500){
+              snackbar = {
+                message: 'error occured, please try again',
+                color: 'error'
+              }
+              this.$store.commit('updateSnackbar', snackbar)
+            }else{
+              snackbar = {
+                message: err,
+                color: 'error'
+              }
+              this.$store.commit('updateSnackbar', snackbar)
+            }
+          })
+        }
+      },
       selectFile(){
         const files = this.$refs.files.files
         this.uploadFiles = [...this.uploadFiles, ...files]
@@ -119,6 +149,30 @@ export default {
       resetFiles(){
         this.files = []
         this.uploadFiles = []
+      },
+      addFilter(filterId, optionId, type){
+        let filtersArray
+
+        if(type == 'radio'){
+          filtersArray = this.roomFilters.radioChoices
+        }else{
+          filtersArray = this.roomFilters.integralChoices
+        }
+
+        let objectUpdated = 0;
+        for(const filter of filtersArray){
+          if(filter.id == filterId){
+            filter.selected_number = optionId
+            objectUpdated = -1;
+            continue;
+          }
+        }
+        if(objectUpdated == 0){
+          filtersArray.push({
+            id: filterId,
+            selected_number: optionId
+          })
+        }
       }
   },
   watch: {

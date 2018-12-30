@@ -107,8 +107,8 @@ export default {
     fetchEditRoomFilters(roomId){
       const dormId = localStorage.getItem('manageDormID')
       this.$store.dispatch('fetchEditRoomFilters', {dormId, roomId}).then((response)=>{
+        this.roomEditId = roomId
         this.roomDetails = response
-        console.log(response)
       })
     }
   },

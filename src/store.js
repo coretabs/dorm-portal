@@ -451,6 +451,16 @@ export default new Vuex.Store({
         })
       })
     },
+    updateRoomData(context, {dormId, roomId, roomData}){
+      clean(roomData)
+      return new Promise((resolve, reject) => {
+        $backend.$updateRoomData(dormId, roomId, roomData).then(response => {
+          resolve(response)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
     deleteDormRoom(context, {dormId,roomId}){
       return new Promise((resolve, reject) => {
         $backend.$deleteDormRoom(dormId,roomId).then(responseDate => {

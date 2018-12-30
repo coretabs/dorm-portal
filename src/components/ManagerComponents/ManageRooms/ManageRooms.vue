@@ -218,7 +218,7 @@
           <v-toolbar-title>Edit Room</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
-          <edit-room :roomData="roomDetails"></edit-room>
+          <edit-room :roomData="roomDetails" :roomId="roomEditId"></edit-room>
         </v-card-text>
       </v-card>
     </v-dialog>
