@@ -215,12 +215,7 @@
           <v-btn icon dark @click="showEditRoomDialog = false">
             <v-icon>close</v-icon>
           </v-btn>
-
           <v-toolbar-title>Edit Room</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-toolbar-items>
-            <v-btn dark flat @click="showEditRoomDialog = false">Save</v-btn>
-          </v-toolbar-items>
         </v-toolbar>
         <v-card-text>
           <edit-room :roomData="roomDetails"></edit-room>

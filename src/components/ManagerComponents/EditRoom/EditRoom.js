@@ -37,6 +37,9 @@ export default {
   computed: {
     lang() {
       return this.$store.getters.lang;
+    },
+    currencyId(){
+      return this.roomData.price_currency * 1
     }
   },
   methods: {

@@ -10,13 +10,13 @@
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
-          }" v-model="room_types"></v-select>
+          }" v-model="roomData.room_type_id"></v-select>
 
             <v-select class="shift-left" :items="roomData.durations" :rules="requiredRules" item-text="name" item-value="id" label="Duration" append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
-          }" v-model="roomFilters.durations"></v-select>
+          }" v-model="roomData.duration_id"></v-select>
 
             <v-text-field label="Number of people" type="number" :rules="requiredRules" v-model="roomData.people_allowed_number"></v-text-field>
 
@@ -25,7 +25,7 @@
                 <v-text-field label="price" type="number" :rules="requiredRules" v-model="roomData.price"></v-text-field>
               </v-flex>
               <v-flex xs12 sm4 pl-2>
-                <v-select class="shift-left" :rules="requiredRules" :items="roomFilters.currencies" v-model="room.currencyId" item-text="code" item-value="id" label="Currency" color="success" append-icon="expand_more" :menu-props="{
+                <v-select class="shift-left" :rules="requiredRules" :items="roomData.currencies" v-model="currencyId" item-text="code" item-value="id" label="Currency" color="success" append-icon="expand_more" :menu-props="{
                   offsetY: '',
                   transition: 'slide-y-transition',
                   bottom: ''
@@ -33,9 +33,9 @@
               </v-flex>
             </v-layout>
 
-            <v-text-field label="Total Rooms in Dorm" hint="Number of all rooms of this type in your dorm" :rules="requiredRules" type="number" v-model="roomData.totalQuota"></v-text-field>
-            <v-text-field label="Quota" hint="Number of rooms you want to open for online reservation" type="number" :rules="requiredRules" v-model="room.allowedQuota"></v-text-field>
-            <v-text-field label="Confirmation Duration in Days" hint="Give students a deadline to upload payment receipts" :rules="requiredRules" type="number" v-model="room.confirmationDays"></v-text-field>
+            <v-text-field label="Total Rooms in Dorm" hint="Number of all rooms of this type in your dorm" :rules="requiredRules" type="number" v-model="roomData.total_quota"></v-text-field>
+            <v-text-field label="Quota" hint="Number of rooms you want to open for online reservation" type="number" :rules="requiredRules" v-model="roomData.allowed_quota"></v-text-field>
+            <v-text-field label="Confirmation Duration in Days" hint="Give students a deadline to upload payment receipts" :rules="requiredRules" type="number" v-model="roomData.room_confirmation_days"></v-text-field>
 
             <v-autocomplete class="features-input" v-model="roomData.chosen_features" :disabled="isUpdating" :items="roomData.all_features" box chips color="blue-grey lighten-2" label="Select features" item-text="name" item-value="id" multiple>
               <template slot="selection" slot-scope="data">
@@ -143,7 +143,7 @@
           <v-flex xs12>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" @click="submitNewRoom">Add Room</v-btn>
+              <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" @click="submitNewRoom">Save Changes</v-btn>
             </v-card-actions>
           </v-flex>
 
