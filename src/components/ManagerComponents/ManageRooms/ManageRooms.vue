@@ -27,7 +27,7 @@
           </v-list>
         </v-menu>
         <v-card-title primary-title>
-          <v-flex class="room-card__title" xs12 md3 px-3>
+          <v-flex class="room-card__title" xs12 md4 px-3>
             <v-layout wrap>
               <v-flex class="room-card__title mb-2" xs12 md8>
                 <h3>Room Type:</h3>
@@ -95,7 +95,7 @@
           <h2>Update Quota:</h2>
           <p v-if=" availableRooms(reservedRoomsNumber, totalRoomsNumber) > 0 " class="avaliable-quota__info">You can add upto <strong>{{  availableRoomsNumber }}</strong> room</p>
           <p v-else class="avaliable-quota__warning">You have <strong>0</strong> room to add</p>
-          <v-text-field v-model="allowedQuotaNumber" type="number" min="0" :max="availableRoomsNumber" required :disabled="availableRoomsNumber == 0"></v-text-field>
+          <v-text-field :rules="quotaRules" v-model="allowedQuotaNumber" type="number" min="0" :max="availableRoomsNumber" required :disabled="availableRoomsNumber == 0"></v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>

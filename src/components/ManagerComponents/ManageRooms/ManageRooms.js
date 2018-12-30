@@ -17,14 +17,21 @@ export default {
         roomId: null
       },
       loadingBtn: false,
+      reservedRoomsNumber: null,
+      totalRoomsNumber: null,
+      allowedQuotaNumber: null,
+      availableRoomsNumber: null,
       quotaRoomID: null,
       roomEditId: null,
       roomDetails: {},
       items: [
         { title: 'Edit' },
         { title: 'Delete' }
+      ],
+      quotaRules: [
+        v => v <= this.availableRoomsNumber || 'You exceeds the allowed number'
       ]
-    };
+    }
   },
   computed: {
     lang() {
