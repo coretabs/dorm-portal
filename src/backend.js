@@ -271,6 +271,13 @@ $backend.$submitReview = (dormId,data) => {
         .then(response => response.data)
 }
 
+$backend.$fetchDormReviews = (dormId) => {
+    return $backend.get(`/dorms/${dormId}/reviews/`)
+        .then(response => response.data)
+}
+
+
+
 
 
 export default $backend

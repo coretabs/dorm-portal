@@ -478,6 +478,15 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    fetchDormReviews(context, dormId){
+      return new Promise((resolve, reject) => {
+        $backend.$fetchDormReviews(dormId).then(response => {
+          resolve(response)
+        }).catch(err => {
+          reject(err)
+        })
+      })
     }
 
   }

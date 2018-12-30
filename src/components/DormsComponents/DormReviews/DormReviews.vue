@@ -7,8 +7,8 @@
 
     <v-flex xs12>
       <div id="review" v-for="(review,index) in reviews" :key="index">
-        <span class="review-name">{{review.name}}</span>
-        <span class="review-date"> on {{review.date}}</span>
+        <span class="review-name">{{review.student_name}}</span>
+        <span class="review-date"> on {{review.review_creation_date}}</span>
 
         <v-rating v-model="review.stars" length="5" readonly background-color="rgba(0,0,0,0.2)" color="yellow accent-4" empty-icon="$vuetify.icons.ratingFull" half-increments dense>
         </v-rating>

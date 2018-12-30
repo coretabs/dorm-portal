@@ -24,7 +24,12 @@
           <v-layout class="dorm-rating" row>
             <v-rating v-model="dorm.stars_average" length="5" readonly background-color="rgba(0,0,0,0.2)" color="yellow accent-4" empty-icon="$vuetify.icons.ratingFull" half-increments dense>
             </v-rating>
-            <a href="#" @click.stop.prevent="showReviews">{{dorm.number_of_reviews}} {{lang.dormCard.reviews}}</a>
+            <template v-if="dorm.number_of_reviews">
+              <a href="#" @click.stop.prevent="showReviews(dorm.id)">{{dorm.number_of_reviews}} {{lang.dormCard.reviews}}</a>
+            </template>
+            <template v-else>
+              <span>{{dorm.number_of_reviews}} {{lang.dormCard.reviews}}</span>
+            </template>
           </v-layout>
 
           <v-layout class="dorm-address">
@@ -186,7 +191,7 @@
 
   <!-- Reviews Model -->
   <v-dialog v-model="reviewsModel" lazy width="800px">
-    <dorm-reviews :dormName="dorm.name"></dorm-reviews>
+    <dorm-reviews :dormName="dorm.name" :reviews="dormReviews"></dorm-reviews>
   </v-dialog>
 
   <!-- Features Model -->

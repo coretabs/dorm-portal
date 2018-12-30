@@ -21,15 +21,19 @@ export default {
       mapModel: false,
       reviewsModel: false,
       featuresModel: false,
-      roomsLeft: this.dorm.number_of_found_rooms
-    };
+      roomsLeft: this.dorm.number_of_found_rooms,
+      dormReviews: []
+    }
   },
   methods: {
     showMap() {
       this.mapModel = !this.mapModel;
     },
-    showReviews() {
-      this.reviewsModel = !this.reviewsModel;
+    showReviews(dormId) {
+      this.$store.dispatch('fetchDormReviews',dormId).then((response)=>{
+        this.dormReviews = response
+      })
+      this.reviewsModel = true;
     },
     showFeatures(){
       this.featuresModel = !this.featuresModel;
