@@ -14,6 +14,16 @@ Feature: Retrieving dormitory data
         When asking for reviews statistics
         Then get 4 reviews and 3.175 avg rating
 
+
+
+        Given first room in alfam has (is_ready=False)
+        When getting alfam alfam with its rooms
+        Then get only second room with (is_ready=True)
+        And return the first room (is_ready=True)
+
+
+
+
         When serializing alfam to get its all data
         Then get valid serialized alfam data with 2 rooms
 

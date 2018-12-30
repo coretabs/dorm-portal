@@ -576,7 +576,7 @@ class DormManagementRoomDetailsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.RoomCharacteristics
-        fields = ('total_quota', 'allowed_quota', 'room_confirmation_days',
+        fields = ('total_quota', 'allowed_quota', 'room_confirmation_days', 'is_ready',
                   'price', 'price_currency', 'room_type_id', 'people_allowed_number', 'duration_id',
                   'photos',
                   'room_types', 'durations', 'currencies',
@@ -591,7 +591,8 @@ class DormManagementRoomStatisticsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.RoomCharacteristics
-        fields = ('id', 'room_type', 'total_quota', 'allowed_quota', 'reserved_rooms_number')
+        fields = ('id', 'room_type', 'total_quota', 'allowed_quota', 'is_ready',
+                  'reserved_rooms_number')
 
 class DormManagementRoomIntegralChoiceSerializer(serializers.Serializer):
     id = serializers.IntegerField()
@@ -603,6 +604,8 @@ class DormManagementRoomIntegralChoiceSerializer(serializers.Serializer):
 class DormManagementEditRoomSerializer(serializers.Serializer):
     total_quota = serializers.IntegerField(required=False)
     allowed_quota = serializers.IntegerField(required=False)
+    room_confirmation_days = serializers.IntegerField(required=False)
+    is_ready = serializers.BooleanField(required=False)
 
     room_type_id = serializers.IntegerField(required=False)
     people_allowed_number = serializers.IntegerField(required=False)
@@ -610,7 +613,6 @@ class DormManagementEditRoomSerializer(serializers.Serializer):
     price = serializers.IntegerField(required=False)
     currency_id = serializers.IntegerField(required=False)
 
-    room_confirmation_days = serializers.IntegerField(required=False)
     duration_id = serializers.IntegerField(required=False)
 
     room_features = serializers.ListField(child=serializers.IntegerField(), required=False)
@@ -618,7 +620,8 @@ class DormManagementEditRoomSerializer(serializers.Serializer):
     integral_choices = DormManagementRoomIntegralChoiceSerializer(many=True, required=False)
 
     def update(self, instance, validated_data):
-        direct_assignment_attributes = ['total_quota', 'allowed_quota', 'room_confirmation_days']
+        direct_assignment_attributes = ['total_quota', 'allowed_quota', 
+                                        'room_confirmation_days', 'is_ready']
         for attr in direct_assignment_attributes:
             value = validated_data.get(attr, None)
             if value:
@@ -698,7 +701,7 @@ class DormManagementEditRoomSerializer(serializers.Serializer):
 
 
     class Meta:
-        fields = ('total_quota', 'allowed_quota', 'confirmation_days',
+        fields = ('total_quota', 'allowed_quota', 'confirmation_days', 'is_ready',
                   'room_type_id', 'people_allowed_number',
                   'price', 'currency_id',
                   'duration_id',
@@ -707,6 +710,8 @@ class DormManagementEditRoomSerializer(serializers.Serializer):
 class DormManagementNewRoomSerializer(serializers.Serializer):
     total_quota = serializers.IntegerField()
     allowed_quota = serializers.IntegerField()
+    room_confirmation_days = serializers.IntegerField()
+    is_ready = serializers.BooleanField()
 
     room_type_id = serializers.IntegerField()
     people_allowed_number = serializers.IntegerField()
@@ -714,7 +719,6 @@ class DormManagementNewRoomSerializer(serializers.Serializer):
     price = serializers.IntegerField()
     currency_id = serializers.IntegerField()
 
-    room_confirmation_days = serializers.IntegerField()
     duration_id = serializers.IntegerField()
 
     room_features = serializers.ListField(child=serializers.IntegerField(), required=False)
@@ -792,10 +796,9 @@ class DormManagementNewRoomSerializer(serializers.Serializer):
 
 
     class Meta:
-        fields = ('total_quota', 'allowed_quota',
+        fields = ('total_quota', 'allowed_quota', 'confirmation_days', 'is_ready',
                   'room_type_id', 'people_allowed_number',
                   'price', 'currency_id',
-                  'confirmation_days',
                   'duration_id',
                   'room_features', 'radio_choices', 'integral_choices')
 

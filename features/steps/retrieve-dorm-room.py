@@ -79,6 +79,29 @@ def test(context):
     assert context.alfam_with_statsitics.stars_average == 3.175
 
 
+@given('first room in alfam has (is_ready=False)')
+def arrange(context):
+    context.room1.is_ready = False
+    context.room1.save()
+
+
+@when('getting alfam alfam with its rooms')
+def act(context):
+    context.alfam_with_rooms = Dormitory.objects.filter(name='Alfam').superfilter().first()
+
+
+@then('get only second room with (is_ready=True)')
+def test(context):
+    assert context.alfam_with_rooms.room_characteristics.count() == 1
+    assert context.alfam_with_rooms.room_characteristics.first().is_ready == True
+
+
+@then('return the first room (is_ready=True)')
+def test(context):
+    context.room1.is_ready = True
+    context.room1.save()
+
+
 @when('serializing alfam to get its all data')
 def act(context):
     context.serialized_dorms = DormDetailsSerializer(

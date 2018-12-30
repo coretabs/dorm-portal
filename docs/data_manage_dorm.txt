@@ -159,6 +159,7 @@ POST /manager-dorms/{id}/rooms accepts
 total_quota
 allowed_quota
 room_confirmation_days
+is_ready
 
 room_type_id
 people_allowed_number
@@ -185,6 +186,7 @@ rooms
     room_type
     total_quota
 	allowed_quota
+	is_ready
     reserved_rooms_number
 ```
 
@@ -194,6 +196,8 @@ GET /manager-dorms/{id}/rooms/{id} returns
 total_quota
 allowed_quota
 room_confirmation_days
+is_ready
+
 price
 price_currency
 room_type_id
@@ -249,14 +253,14 @@ PUT /manager-dorms/{id}/rooms/{id} accepts
 ```
 total_quota
 allowed_quota
+room_confirmation_days
+is_ready
 
 room_type_id
 people_allowed_number
 
 price
 currency_id
-
-room_confirmation_days
 
 duration_id
 

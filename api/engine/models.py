@@ -107,7 +107,7 @@ class DormitoryQuerySet(django_models.QuerySet):
         if not to_currency or not Currency.objects.filter(code=to_currency).exists():
             to_currency = 'USD'
 
-        filtered_rooms = RoomCharacteristics.objects.filter(allowed_quota__gte=1)
+        filtered_rooms = RoomCharacteristics.objects.filter(allowed_quota__gte=1, is_ready=True)
 
         if filters:
             # print(filtered_rooms)
@@ -444,6 +444,8 @@ class RoomCharacteristics(django_models.Model):
         Currency, related_name='room_characteristics', on_delete=django_models.CASCADE)
 
     room_confirmation_days = django_models.PositiveIntegerField(default=2)
+
+    is_ready = django_models.BooleanField(default=True)
 
     radio_choices = django_models.ManyToManyField(
         RadioChoice, related_name='room_characteristics')
