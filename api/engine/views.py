@@ -90,6 +90,7 @@ class DormViewSet(viewsets.ViewSet):
 
         return Response(serializers.DormDetailsSerializer(dorm).data)
 
+    @action(detail=True, methods=['get'], url_path='reviews')
     def reviews(self, request, pk):
         reviews = models.Dormitory.objects.get(pk=pk).reviews
         return Response(serializers.ReviewSerializer(reviews, many=True).data)
