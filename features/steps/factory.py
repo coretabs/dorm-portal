@@ -65,7 +65,7 @@ def create_category(name):
 
 
 def create_dorm(name, category, manager=None):
-    result = Dormitory(name=name)
+    result = Dormitory(name=name, cover='alfam.jpg')
     result.category = category
 
     if manager:

@@ -1116,12 +1116,16 @@ class ClientDormManagementSerializer(serializers.Serializer):
 
 
 class DormManagementSerializer(serializers.ModelSerializer):
+    cover = serializers.URLField(source='cover.path')
+
     class Meta:
         model = models.Dormitory
         fields = ('id', 'name', 'cover')
 
 
 class DormManagementDetailsSerializer(serializers.ModelSerializer):
+    cover = serializers.URLField(source='cover.path')
+
     bank_accounts = BankAccountSerializer(many=True)
     features = FeatureFilterSerializer(many=True)
     photos = PhotoSerializer(many=True)
@@ -1144,6 +1148,8 @@ class DormManagementDetailsSerializer(serializers.ModelSerializer):
 
 
 class DormSerializer(serializers.ModelSerializer):
+    cover = serializers.URLField(source='cover.path')
+
     rooms_left_in_dorm = serializers.IntegerField()
 
     number_of_reviews = serializers.IntegerField()
