@@ -35,8 +35,13 @@
   #filters-body {
     background: #fcfcfc;
     padding: 20px 0px 20px;
+    min-height: 100%;
     @media (max-width: 600px) {
       padding-bottom: 60px;
+    }
+    .loading-progress{
+      text-align: center;
+      padding-top: 50px;
     }
     .filter {
       margin-bottom: 15px;

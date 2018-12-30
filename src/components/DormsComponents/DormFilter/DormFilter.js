@@ -13,7 +13,8 @@ export default {
       roomSelectedFeatures: [],
       roomIntegralFilters:[],
       optionsHolder: [],
-      minValue: null
+      minValue: null,
+      loadingFilters: false
     };
   },
   watch: {
@@ -24,7 +25,10 @@ export default {
   },
   methods: {
     fetchFilters() {
-      this.$store.dispatch('fetchFilters')
+      this.loadingFilters = true
+      this.$store.dispatch('fetchFilters', this.currentCurrency).then(()=>{
+        this.loadingFilters = false
+      })
     },
     fetchDorms() {
       this.$store.dispatch('fetchDorms')

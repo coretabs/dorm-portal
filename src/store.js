@@ -82,10 +82,8 @@ export default new Vuex.Store({
         localStorage.setItem("currency-symbol", responseDate.currencies[0].symbol);
       });
     },
-    fetchFilters(state){
-      $backend.$fetchFilters(state.currencyCode).then(responseDate => {
-        state.filters = responseDate;
-      });
+    fetchFilters(state, responseDate){
+      state.filters = responseDate;
     },
     fetchDorms(state) {
       $backend.$fetchDorms(state.currencyCode).then(responseDate => {
@@ -156,8 +154,16 @@ export default new Vuex.Store({
     fetchLocale(context){
       context.commit('fetchLocale');
     },
-    fetchFilters(context){
-      context.commit('fetchFilters');
+    fetchFilters(context, currentCurrency){
+      return new Promise((resolve, reject) => {
+        $backend.$fetchFilters(currentCurrency).then(responseDate => {
+          context.commit('fetchFilters', responseDate);
+          resolve(responseDate)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
     },
     fetchDorms(context) {
       context.commit('fetchDorms');

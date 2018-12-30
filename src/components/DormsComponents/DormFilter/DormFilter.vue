@@ -7,9 +7,14 @@
         <v-icon left>fa-filter</v-icon>{{lang.dormFilter.heading}} :
       </div>
       <div id="filters-body">
-
-        <div class="filter">
-
+        <div class="loading-progress" v-if="loadingFilters">
+          <v-progress-circular
+            :size="50"
+            color="grey"
+            indeterminate
+          ></v-progress-circular>
+        </div>
+        <div v-if="!loadingFilters" class="filter">
           <div class="filter-title">Dorm Features:</div>
           <template>
             <ul>
@@ -18,7 +23,6 @@
               </li>
             </ul>
           </template>
-
           <div class="filter-title">Room Features:</div>
           <template>
             <ul>
@@ -27,7 +31,6 @@
               </li>
             </ul>
           </template>
-
           <div v-for="(additionalFilters, i) in filters.additional_filters" :key="i">
             <div class="filter-title">{{additionalFilters.name}}</div>
             <template v-if="additionalFilters.is_checkbox">
@@ -37,9 +40,7 @@
                 </li>
               </ul>
             </template>
-
             <template v-if="additionalFilters.is_integral">
-
               <div>
                 <v-layout class="integral-filter" row wrap>
                   <v-flex xs12 class="px-2">
@@ -59,9 +60,7 @@
                 </v-layout>
               </div>
             </template>
-
           </div>
-
         </div>
       </div>
     </template>
@@ -85,7 +84,6 @@
             <v-icon small>fa-exclamation-circle</v-icon>
             Sorry, no dorm matches your search
           </div>
-
         </v-flex>
 
         <v-flex xs12>
@@ -97,7 +95,5 @@
   </v-content>
 </div>
 </template>
-
 <script src="./DormFilter.js"></script>
-
 <style src="./DormFilter.scss" lang="scss"></style>
