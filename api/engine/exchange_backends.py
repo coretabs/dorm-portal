@@ -10,3 +10,12 @@ def get_rates():
     for exchange in exchanges:
         print(exchange.span)
 """
+from djmoney.contrib.exchange.backends.base import SimpleExchangeBackend
+
+
+class ExchangeRatesIOBackend(SimpleExchangeBackend):
+    name = 'exchangeratesapi.io'
+    url = 'https://api.exchangeratesapi.io/latest?base=USD'
+
+    def __init__(self, url='https://api.exchangeratesapi.io/latest?base=USD'):
+        self.url = url

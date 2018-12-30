@@ -160,6 +160,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 EMAIL_SUBJECT_PREFIX = ''
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 
+
 # Currency Exchange Settings
 
-#EXCHANGE_BACKEND = 'djmoney.contrib.exchange.backends.FixerBackend'
+EXCHANGE_BACKEND = 'api.engine.exchange_backends.ExchangeRatesIOBackend'
