@@ -528,9 +528,9 @@ class DormManagementRoomDetailsIntegralFilterSerializer(serializers.ModelSeriali
         fields = ('id', 'name', 'selected_number', 'is_optional')
 
 class DormManagementRoomDetailsSerializer(serializers.ModelSerializer):
-    price_currency = serializers.CharField(source='price_currency.symbol')
-    room_type = serializers.SerializerMethodField()
-    duration = serializers.SerializerMethodField()
+    price_currency = serializers.CharField(source='price_currency.id')
+    room_type_id = serializers.SerializerMethodField()
+    duration_id = serializers.SerializerMethodField()
 
     photos = PhotoSerializer(many=True)
 
@@ -543,11 +543,11 @@ class DormManagementRoomDetailsSerializer(serializers.ModelSerializer):
     all_features = serializers.SerializerMethodField()
     chosen_features = serializers.SerializerMethodField()
 
-    def get_room_type(self, obj):
-        return str(obj.room_type)
+    def get_room_type_id(self, obj):
+        return obj.radio_choices.get(related_filter__name__contains='Room Type').selected_option.id
 
-    def get_duration(self, obj):
-        return str(obj.duration)
+    def get_duration_id(self, obj):
+        return obj.radio_choices.get(related_filter__name__contains='Duration').selected_option.id
 
     def get_room_types(self, obj):
         duration_filter = models.Filter.objects.filter(name__contains='Room Type').first()
@@ -576,7 +576,8 @@ class DormManagementRoomDetailsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.RoomCharacteristics
-        fields = ('price', 'price_currency', 'room_type', 'people_allowed_number', 'duration',
+        fields = ('total_quota', 'allowed_quota', 'room_confirmation_days',
+                  'price', 'price_currency', 'room_type_id', 'people_allowed_number', 'duration_id',
                   'photos',
                   'room_types', 'durations', 'currencies',
                   'radio_filters', 'integral_filters', 'all_features', 'chosen_features')
@@ -697,10 +698,9 @@ class DormManagementEditRoomSerializer(serializers.Serializer):
 
 
     class Meta:
-        fields = ('total_quota', 'allowed_quota',
+        fields = ('total_quota', 'allowed_quota', 'confirmation_days',
                   'room_type_id', 'people_allowed_number',
                   'price', 'currency_id',
-                  'confirmation_days',
                   'duration_id',
                   'room_features', 'radio_choices', 'integral_choices')
 
