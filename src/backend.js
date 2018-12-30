@@ -25,33 +25,33 @@ $backend.$fetchLocale = () => {
         .then(response => response.data)
 }
 
-$backend.$fetchFilters = (lang, currencyCode) => {
-    return $backend.get(`/filters/?language=${lang}&currency=${currencyCode}`)
+$backend.$fetchFilters = (currencyCode) => {
+    return $backend.get(`/filters/?currency=${currencyCode}`)
         .then(response => response.data)
 }
 
-$backend.$fetchDorms = (lang, currency) => {
+$backend.$fetchDorms = (currency) => {
     return $backend.post(`/dorms/`, {
-        currency: currency,
-        language: lang
+        currency: currency
     })
         .then(response => response.data)
-},
-    $backend.$searchDorms = (filters) => {
-        return $backend.post(`/dorms/`, {
-            currency: filters.currency,
-            language: filters.lang,
-            category_selected_option_id: filters.category,
-            duration_option_id: filters.duration,
-            dorm_features: filters.dormFeatures,
-            room_features: filters.roomFeatures,
-            additional_filters: filters.additionalFilters
-        })
-            .then(response => response.data)
-    }
+}
 
-$backend.$fetchDorm = (dormId, lang, currencyCode) => {
-    return $backend.get(`/dorms/${dormId}/?language=${lang}&currency=${currencyCode}/`)
+$backend.$searchDorms = (filters) => {
+    return $backend.post(`/dorms/`, {
+        currency: filters.currency,
+        language: filters.lang,
+        category_selected_option_id: filters.category,
+        duration_option_id: filters.duration,
+        dorm_features: filters.dormFeatures,
+        room_features: filters.roomFeatures,
+        additional_filters: filters.additionalFilters
+    })
+        .then(response => response.data)
+}
+
+$backend.$fetchDorm = (dormId, currencyCode) => {
+    return $backend.get(`/dorms/${dormId}/?currency=${currencyCode}/`)
         .then(response => response.data)
 }
 

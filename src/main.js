@@ -5,12 +5,13 @@ import App from '@/App.vue'
 import router from '@/router'
 import store from "@/store"
 import $backend from '@/backend'
+import VueCookie from 'vue-cookie'
+import Vuetify from 'vuetify'
 Vue.prototype.$backend = $backend
 Vue.config.productionTip = false
-
-import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css' 
 Vue.use(Vuetify)
+Vue.use(VueCookie)
 
 const vue = new Vue({
   router,

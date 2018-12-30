@@ -51,7 +51,7 @@ export default new Vuex.Store({
   getters:{
     lang: state => {
       const currentLang = state.language
-      const lang = require(`../locale/student.${currentLang}.json`);
+      const lang = require(`../locale/${currentLang}.json`);
       return lang[currentLang]
     },
     activeCurrency: state => state.currencySymbol,
@@ -78,18 +78,17 @@ export default new Vuex.Store({
       $backend.$fetchLocale().then(responseDate => {
         state.currencies = responseDate.currencies;
         state.languages = responseDate.languages;
-        localStorage.setItem("lang", responseDate.languages[0].code);
         localStorage.setItem("currency-code", responseDate.currencies[0].code);
         localStorage.setItem("currency-symbol", responseDate.currencies[0].symbol);
       });
     },
     fetchFilters(state){
-      $backend.$fetchFilters(state.language, state.currencyCode).then(responseDate => {
+      $backend.$fetchFilters(state.currencyCode).then(responseDate => {
         state.filters = responseDate;
       });
     },
     fetchDorms(state) {
-      $backend.$fetchDorms(state.language, state.currencyCode).then(responseDate => {
+      $backend.$fetchDorms(state.currencyCode).then(responseDate => {
         state.dorms = responseDate;
       });
     },

@@ -42,6 +42,11 @@ export default {
       return localStorage.getItem("room") != null;
     }
   },
+  watch: {
+    lang: function () {
+      this.fetchDorm()
+    }
+  },
   methods:{
     sendPhotoUrl(url,is_3d){
       this.lightboxPhotoUrl = url

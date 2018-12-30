@@ -16,12 +16,18 @@ export default {
       minValue: null
     };
   },
+  watch: {
+    lang: function () {
+      this.fetchFilters()
+      this.fetchDorms()
+    }
+  },
   methods: {
     fetchFilters() {
-      this.$store.dispatch('fetchFilters');
+      this.$store.dispatch('fetchFilters')
     },
     fetchDorms() {
-      this.$store.dispatch('fetchDorms');
+      this.$store.dispatch('fetchDorms')
     },
     dormFeatiresFilter(){
       this.$store.state.userFilters.dorm_features = this.dormSelectedFeatures

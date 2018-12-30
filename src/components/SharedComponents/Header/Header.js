@@ -9,9 +9,11 @@ export default {
   },
   methods: {
     changeLang(lang) {
-      this.$store.state.language = lang
       localStorage.setItem("lang", lang)
-      this.$store.dispatch('fetchFilters')
+      this.$store.state.language = lang
+      var date = new Date;
+      date.setDate(date.getDate() + 21);
+      this.$cookie.set('django_language', lang, { expires: '1Y' });
     },
     changeCurrency(code,symbol){
       this.$store.state.currencyCode = code
@@ -75,6 +77,9 @@ export default {
     },
     snackbar(){
       return this.$store.getters.snackbar
+    },
+    isSelectDormComponent(){
+      return this.$store.getters.adminActiveComponent == 'SelectDorm'
     }
   },
   updated(){

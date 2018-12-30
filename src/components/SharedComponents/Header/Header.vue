@@ -10,7 +10,7 @@
     <!-- <v-toolbar-side-icon  @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
     <v-toolbar-title>
       <v-layout>
-        <v-flex class="text-xs-center" v-if="$route.path === '/manage' || $route.path === '/'">
+        <v-flex class="text-xs-center" v-if="!isSelectDormComponent && $route.path === '/manage' || $route.path === '/'">
           <v-btn flat class="mr-2 my-0" icon @click="toggleDrawer">
             <v-icon>menu</v-icon>
           </v-btn>
