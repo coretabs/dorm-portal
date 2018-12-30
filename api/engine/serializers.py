@@ -43,7 +43,7 @@ class PhotoSerializer(serializers.Serializer):
 class ReviewSerializer(serializers.ModelSerializer):
     review_creation_date = serializers.DateField(read_only=True, format = '%Y-%m-%d')
     stars = serializers.DecimalField(decimal_places=1, max_digits=2)
-    description = serializers.CharField()
+    description = serializers.CharField(required=False)
     student_name = serializers.CharField(read_only=True, source='user.first_name')
 
     def save(self, *args, **kwargs):
