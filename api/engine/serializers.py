@@ -624,7 +624,7 @@ class DormManagementEditRoomSerializer(serializers.Serializer):
                                         'room_confirmation_days', 'is_ready']
         for attr in direct_assignment_attributes:
             value = validated_data.get(attr, None)
-            if value:
+            if value is not None:
                 setattr(instance, attr, value)
 
         price_cuurency_id = validated_data.get('currency_id', None)
