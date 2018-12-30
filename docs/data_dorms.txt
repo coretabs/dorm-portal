@@ -1,4 +1,4 @@
-GET /dorms/{id}? currency=USD & language=EN returns
+GET /dorms/{id}? currency=USD returns
 ```
 main_info
 	name

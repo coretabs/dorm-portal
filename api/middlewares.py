@@ -24,21 +24,3 @@ class CrossDomainSessionMiddleware:
                 pass
 
         return response
-
-
-class i18nCookiesMiddleware:
-
-    def __init__(self, process_request):
-        self.process_request = process_request
-
-    def __call__(self, request):
-        response = self.process_request(request)
-        language_cookie = request.COOKIES.get('language', None)
-
-        if not language_cookie:
-            expires = datetime.datetime.now() + datetime.timedelta(seconds=31536000)
-            response.set_cookie('language', 'en', expires=expires.utctimetuple())
-
-        i18n.set('locale', language_cookie)
-
-        return response

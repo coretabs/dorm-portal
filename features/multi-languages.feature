@@ -25,6 +25,3 @@ Feature: Multiple locale (language & currency)
 
         When hitting POST /dorms endpoint in Turkish
         Then get 200 OK with Turkish rooms characteristics
-
-        When hitting POST /dorms endpoint in non registered language
-        Then get 200 OK with Default language (EN) rooms characteristics

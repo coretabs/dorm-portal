@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.utils import translation
 
 from rest_framework.test import APIRequestFactory
 from rest_framework import status
@@ -115,7 +116,9 @@ def arrange(context):
 
 @when('hitting GET /filters endpoint in English')
 def act(context):
-    request = APIRequestFactory().get(reverse('engine:filters-list'), {'language': 'en'})
+    translation.activate('en')
+
+    request = APIRequestFactory().get(reverse('engine:filters-list'))
     view = FiltersListViewSet.as_view(actions={'get': 'list'})
     context.response = view(request)
 
@@ -129,7 +132,9 @@ def test(context):
 
 @when('hitting GET /filters endpoint in Turkish')
 def act(context):
-    request = APIRequestFactory().get(reverse('engine:filters-list'), {'language': 'tr'})
+    translation.activate('tr')
+
+    request = APIRequestFactory().get(reverse('engine:filters-list'))
     view = FiltersListViewSet.as_view(actions={'get': 'list'})
     context.response = view(request)
 
@@ -142,8 +147,9 @@ def test(context):
 
 @when('hitting POST /dorms endpoint in English')
 def act(context):
-    request = APIRequestFactory().post(reverse('engine:dorms-list'),
-                                       {'language': 'en'}, format='json')
+    translation.activate('en')
+
+    request = APIRequestFactory().post(reverse('engine:dorms-list'), format='json')
     view = DormViewSet.as_view(actions={'post': 'create'})
     context.response = view(request)
 
@@ -163,8 +169,9 @@ def test(context):
 
 @when('hitting POST /dorms endpoint in Turkish')
 def act(context):
-    request = APIRequestFactory().post(reverse('engine:dorms-list'),
-                                       {'language': 'tr'}, format='json')
+    translation.activate('tr')
+
+    request = APIRequestFactory().post(reverse('engine:dorms-list'), format='json')
     view = DormViewSet.as_view(actions={'post': 'create'})
     context.response = view(request)
 
@@ -180,24 +187,3 @@ def test(context):
 
     # print(context.response.render().data)
     assert str(context.response.render().data).count("('choice', 'Kahvalti')") == 1
-
-
-@when('hitting POST /dorms endpoint in non registered language')
-def act(context):
-    request = APIRequestFactory().post(reverse('engine:dorms-list'),
-                                       {'language': 'dude'}, format='json')
-    view = DormViewSet.as_view(actions={'post': 'create'})
-    context.response = view(request)
-
-
-@then('get 200 OK with Default language (EN) rooms characteristics')
-def test(context):
-    assert context.response.status_code == status.HTTP_200_OK
-
-    returned_dorms = context.response.render().data[0]
-
-    number_of_returned_json_filters = len(list(returned_dorms))
-    assert number_of_returned_json_filters == 11
-
-    # print(context.response.render().data)
-    assert str(context.response.render().data).count("('choice', 'Breakfast')") == 1

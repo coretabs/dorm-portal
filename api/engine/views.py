@@ -1,6 +1,5 @@
 from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
-from django.utils import translation
 from django.conf import settings
 
 from rest_framework import viewsets, generics, status
@@ -16,12 +15,6 @@ from . import models
 
 # Serve Vue Application
 index_view = never_cache(TemplateView.as_view(template_name='index.html'))
-
-
-def activate_language(language):
-    if language not in dict(settings.LANGUAGES):
-        language = 'en'
-    translation.activate(language)
 
 
 class ResendConfirmView(generics.GenericAPIView):
@@ -47,8 +40,6 @@ class FiltersListViewSet(viewsets.ViewSet):
     serializer_class = serializers.ClientReturnedFiltersSerializer
 
     def list(self, request):
-        activate_language(request.query_params.get('language', 'en'))
-
         return Response(self.serializer_class([]).data)
 
 
@@ -59,8 +50,6 @@ class DormViewSet(viewsets.ViewSet):
         It's not actually creating anything, it's just filtering
         But drf doesn't allow changing the action of list ViewSet
         """
-
-        activate_language(request.data.get('language', 'en'))
 
         deserialized_filters = serializers.ClientAcceptedFiltersSerializer(data=request.data)
         deserialized_filters.is_valid()
@@ -80,8 +69,6 @@ class DormViewSet(viewsets.ViewSet):
         return Response(serializers.DormSerializer(filtered_dorms, many=True).data)
 
     def retrieve(self, request, pk=None):
-        activate_language(request.query_params.get('language', 'en'))
-
         dorm = models.Dormitory.objects.filter(id=pk)\
             .superfilter(to_currency=request.data.get('currency', 'USD'))\
             .with_last_3_reviews()\

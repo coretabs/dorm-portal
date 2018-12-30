@@ -9,7 +9,10 @@ languages
     code
 ```
 
-GET /filters? currency=USD & language=EN returns
+Setting language (cookie name = django_language)
+
+
+GET /filters? currency=USD returns
 ```
 category_options
 	id
