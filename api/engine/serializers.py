@@ -528,7 +528,7 @@ class DormManagementRoomDetailsIntegralFilterSerializer(serializers.ModelSeriali
         fields = ('id', 'name', 'selected_number', 'is_optional')
 
 class DormManagementRoomDetailsSerializer(serializers.ModelSerializer):
-    price_currency = serializers.CharField(source='price_currency.id')
+    price_currency_id = serializers.IntegerField(source='price_currency.id')
     room_type_id = serializers.SerializerMethodField()
     duration_id = serializers.SerializerMethodField()
 
@@ -577,7 +577,7 @@ class DormManagementRoomDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.RoomCharacteristics
         fields = ('total_quota', 'allowed_quota', 'room_confirmation_days', 'is_ready',
-                  'price', 'price_currency', 'room_type_id', 'people_allowed_number', 'duration_id',
+                  'price', 'price_currency_id', 'room_type_id', 'people_allowed_number', 'duration_id',
                   'photos',
                   'room_types', 'durations', 'currencies',
                   'radio_filters', 'integral_filters', 'all_features', 'chosen_features')

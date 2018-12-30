@@ -199,7 +199,7 @@ room_confirmation_days
 is_ready
 
 price
-price_currency
+price_currency_id
 room_type_id
 people_allowed_number
 duration_id
