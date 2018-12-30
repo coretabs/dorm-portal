@@ -212,6 +212,12 @@ class DormitoryQuerySet(django_models.QuerySet):
 
         return result
 
+    def exclude_the_ones_without_rooms(self):
+        annotated_dorms = self.annotate(
+            room_characteristics_count=django_models.Count('room_characteristics', filter=django_models.Q(room_characteristics__is_ready=True)))
+
+        return annotated_dorms.exclude(room_characteristics_count=0)
+
 
 class FilterQuerySet(PolymorphicQuerySet):
 

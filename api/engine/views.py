@@ -63,6 +63,7 @@ class DormViewSet(viewsets.ViewSet):
                 room_features_ids=deserialized_filters.data.get('room_features', None),
                 to_currency=request.data.get('currency', 'USD'))\
             .with_reviews_statistics()\
+            .exclude_the_ones_without_rooms()
 
         # print(filtered_dorms)
 
