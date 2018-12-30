@@ -421,7 +421,7 @@ class BankAccount(django_models.Model):
     account_number = django_models.CharField(max_length=60)
 
     iban = django_models.CharField(max_length=60)
-    swift = django_models.CharField(max_length=60)
+    swift = django_models.CharField(max_length=60, blank=True)
 
     currency = django_models.ForeignKey(
         Currency, related_name='bank_accounts', on_delete=django_models.CASCADE)
