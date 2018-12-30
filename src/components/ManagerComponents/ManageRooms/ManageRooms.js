@@ -17,10 +17,6 @@ export default {
         roomId: null
       },
       loadingBtn: false,
-      reservedRoomsNumber: null,
-      totalRoomsNumber: null,
-      allowedQuotaNumber: null,
-      availableRoomsNumber: null,
       quotaRoomID: null,
       roomEditId: null,
       roomDetails: {},
@@ -44,14 +40,45 @@ export default {
     },
     showRoomDetails(room){
       this.roomDetails = room;
-      this.showRoomDetailsdialog = true;
+      this.showRoomDetailsdialog = true
     },
     showQuotaUpdate(reservedRooms, totalRooms, allowedQuota, roomID){
-      this.reservedRoomsNumber = reservedRooms;
-      this.totalRoomsNumber = totalRooms;
-      this.allowedQuotaNumber = allowedQuota;
-      this.quotaRoomID = roomID;
-      this.showQuotaUpdatedialog = true;
+      this.reservedRoomsNumber = reservedRooms
+      this.totalRoomsNumber = totalRooms
+      this.allowedQuotaNumber = allowedQuota
+      this.quotaRoomID = roomID
+      this.showQuotaUpdatedialog = true
+    },
+    UpdateQuotaNumber(){
+      let snackbar
+      if(this.allowedQuotaNumber <= this.availableRoomsNumber){
+        let roomData = {
+          allowedQuota: this.allowedQuotaNumber
+        }
+        const roomId = this.quotaRoomID
+        const dormId = localStorage.getItem('manageDormID')
+        this.$store.dispatch('updateRoomData', {dormId, roomId, roomData}).then(()=>{
+          snackbar = {
+            message: 'ٌRoom Quota Has been Updated Successfully',
+            color: 'success'
+          }
+          this.$store.dispatch('fetchManagerDormRooms',dormId)
+          this.showQuotaUpdatedialog = false
+        }).catch(()=>{
+          snackbar = {
+            message: 'Some thing went wrong! try again',
+            color: 'error'
+          }
+        }).then(()=>{
+          this.$store.commit('updateSnackbar', snackbar)
+        })
+      }else{
+        snackbar = {
+          message: 'You have only ' + this.availableRoomsNumber + ' room avaliable',
+          color: 'error'
+        }
+        this.$store.commit('updateSnackbar', snackbar)
+      }
     },
     progressValue(reserved_rooms,total_rooms){
       return reserved_rooms / total_rooms * 100;
@@ -101,8 +128,7 @@ export default {
     },
     fetchManagerDormRooms(){
       const dormID = localStorage.getItem('manageDormID')
-      this.$store.dispatch('fetchManagerDormRooms',dormID).then(()=>{
-      })
+      this.$store.dispatch('fetchManagerDormRooms',dormID)
     },
     fetchEditRoomFilters(roomId){
       const dormId = localStorage.getItem('manageDormID')
@@ -113,6 +139,26 @@ export default {
     },
     closeEditDialog(dialogStatus){
       this.showEditRoomDialog = dialogStatus
+    },
+    updateRoomStatus(roomId, roomStatus){
+      let roomData = {
+        isReady: roomStatus
+      }
+      const dormId = localStorage.getItem('manageDormID')
+      this.$store.dispatch('updateRoomData', {dormId, roomId, roomData}).then(()=>{
+        let snackbar = {
+          message: 'ٌRoom Status Has been Updated Successfully',
+          color: 'success'
+        }
+        this.$store.commit('updateSnackbar', snackbar)
+        this.$store.dispatch('fetchManagerDormRooms',dormId)
+      }).catch(()=>{
+        let snackbar = {
+          message: 'Some thing went wrong! try again',
+          color: 'error'
+        }
+        this.$store.commit('updateSnackbar', snackbar)
+      })
     }
   },
   mounted(){

@@ -263,7 +263,7 @@ $backend.$addNewRoom = (id, data) => {
         is_ready: data.isReady
     })
         .then(response => response.data)
-},
+}
 
 $backend.$updateRoomData = (dormId, roomId, data) => {
     return $backend.put(`/manager-dorms/${dormId}/rooms/${roomId}/`, {
@@ -277,11 +277,11 @@ $backend.$updateRoomData = (dormId, roomId, data) => {
         duration_id: data.durationId,
         room_features: data.roomFeatures,
         radio_options: data.radioChoices,
-        integral_choices: data.integralChoices
+        integral_choices: data.integralChoices,
+        is_ready: data.isReady
     })
         .then(response => response.data)
-},
-
+}
 
 $backend.$askForReview = (dormId,reservationId) => {
     return $backend.post(`/manager-dorms/${dormId}/reservations/${reservationId}/ask-review/`)

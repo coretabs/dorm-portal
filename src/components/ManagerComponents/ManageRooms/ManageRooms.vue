@@ -29,9 +29,14 @@
         <v-card-title primary-title>
           <v-flex class="room-card__title" xs12 md3 px-3>
             <v-layout wrap>
-              <v-flex class="room-card__title mb-2" xs12>
+              <v-flex class="room-card__title mb-2" xs12 md8>
                 <h3>Room Type:</h3>
                 <span>{{ room.room_type }}</span>
+              </v-flex>
+              <v-flex class="room-card__title" xs12 md4>
+                <h3>availability:</h3>
+                  <v-switch color="success" v-model="room.is_ready" @change="updateRoomStatus(room.id, room.is_ready)"></v-switch>
+
               </v-flex>
             </v-layout>
           </v-flex>
@@ -95,7 +100,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn flat @click="showQuotaUpdatedialog = false">Cancel</v-btn>
-          <v-btn v-if="availableRoomsNumber > 0" color="green darken-1" flat @click="showQuotaUpdatedialog = false">Confirm</v-btn>
+          <v-btn v-if="availableRoomsNumber > 0" color="green darken-1" flat @click="UpdateQuotaNumber">Confirm</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
