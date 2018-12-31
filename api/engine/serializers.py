@@ -26,8 +26,10 @@ from . import models
 class LocalRemoteURLField(serializers.URLField):
     def to_representation(self, value):
         result = super().to_representation(value)
-        if not settings.IS_PRODUCTION:
-            result = result[result.find(r'\media'):]
+        media_starting_position = result.find(r'\media')
+        is_slash_media_found = media_starting_position != -1
+        if not settings.IS_PRODUCTION and is_slash_media_found:
+            result = result[media_starting_position:]
         return result
 
 
