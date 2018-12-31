@@ -9,7 +9,7 @@
             <div>
               <v-icon>place</v-icon>
               <span>{{dorm.main_info.address}}</span> -
-              <a href="#" @click.stop.prevent="showMap"> show map</a>
+              <a href="#" @click.stop.prevent="showMap"> {{lang.dormProfile.showMap}}</a>
             </div>
           </section>
           <section id="dorm-photos">

@@ -4,5 +4,10 @@ export default {
     return {
       
     };
+  },
+  computed:{
+    lang() {
+      return this.$store.getters.lang
+    }
   }
 };

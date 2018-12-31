@@ -11,8 +11,8 @@ export default {
       isEmailNotExist: false,
       errors: [],
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v.trim()) || 'E-mail must be valid'
+        v => !!v || this.lang.rules.emailRequired,
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v.trim()) || this.lang.rules.emailValid
       ]
     };
   },
@@ -42,7 +42,7 @@ export default {
           email: this.email,
           password: this.password
         }
-        this.$store.dispatch('login', user).then(response => {
+        this.$store.dispatch('login', user).then(() => {
           this.$store.dispatch('auth').then(response => {
             if(response.is_manager == true){
               this.$router.push('/manage')

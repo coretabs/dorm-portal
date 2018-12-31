@@ -18,7 +18,7 @@
               <v-text-field prepend-icon="fa-key" :label="lang.login.password" v-model="password" :append-icon="show ? 'visibility_off' : 'visibility'" @click:append="show = !show" :type="show ? 'text' : 'password'" required></v-text-field>
             </v-card-text>
             <v-card-actions>
-              <a href="#" @click.stop="isForgotPassword" class="grey--text text--darken-2 forgot-link">Forgot your password?</a>
+              <a href="#" @click.stop="isForgotPassword" class="grey--text text--darken-2 forgot-link">{{lang.login.forgotPass}}?</a>
               <v-spacer></v-spacer>
               <v-btn color="#feae25" large class="elevation-0" @click.prevent="submit">{{lang.login.button}}</v-btn>
             </v-card-actions>
@@ -32,9 +32,9 @@
 
       <v-card-text class="px-4 py-5" v-if="!emailSent">
         <v-alert v-model="isEmailNotExist" dismissible type="error" class="mb-4">
-          This Email address is not assigned to any user account
+          {{lang.resetPassword.notUser}}
         </v-alert>
-        <h2 class="mb-3">Enter your email to reset password</h2>
+        <h2 class="mb-3">{{lang.resetPassword.heading}}</h2>
         <v-form ref="form" lazy-validation>
           <v-text-field :label="lang.signup.email" autocomplete="on" :rules="emailRules" required type="email" v-model.trim="email" :disabled="emailSent"></v-text-field>
         </v-form>
@@ -46,12 +46,14 @@
             <v-icon class="success-icon">fa-envelope-open-text</v-icon>
           </v-flex>
           <v-flex xs12>
-            <p class="success-text mb-1 text-xs-center">Your request went successfully</p>
-            <p class="success-text text-xs-center">An email has been sent to you with detailed instructions on how to reset your password.</p>
+            <p class="success-text mb-1 text-xs-center">
+              {{lang.resetPassword.successReset}}
+            </p>
+            <p class="success-text text-xs-center">{{lang.resetPassword.emailSent}}.</p>
           </v-flex>
           <v-flex xs12 class="mt-4 text-xs-center">
             <v-btn color="#feae25" class="elevation-0" large @click="forgotPassword = false">
-              Close
+              {{lang.shared.close}}
             </v-btn>
           </v-flex>
         </v-layout>
@@ -61,11 +63,11 @@
         <v-spacer></v-spacer>
 
         <v-btn color="gray darken-1" flat="flat" large @click="forgotPassword = false">
-          cancel
+          {{lang.shared.cancel}}
         </v-btn>
 
         <v-btn color="#feae25" :disabled="!valid" class="elevation-0" large @click="resetPassword">
-          Reset
+          {{lang.resetPassword.reset}}
         </v-btn>
       </v-card-actions>
     </v-card>

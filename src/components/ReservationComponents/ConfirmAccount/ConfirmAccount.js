@@ -10,7 +10,7 @@ export default {
       emailSent: false,
       email: '',
       emailRules: [
-        v => !!v || 'E-mail is required',
+        v => !!v || this.lang.resendActivationEmail.emailRule,
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v.trim()) || 'E-mail must be valid'
       ]
     };

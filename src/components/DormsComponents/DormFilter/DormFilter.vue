@@ -15,7 +15,7 @@
           ></v-progress-circular>
         </div>
         <div v-if="!loadingFilters" class="filter">
-          <div class="filter-title">Dorm Features:</div>
+          <div class="filter-title">{{lang.dormFilter.dormFeatures}}:</div>
           <template>
             <ul>
               <li v-for="(dormFeature, index) in filters.dorm_features" :key="index">
@@ -23,7 +23,7 @@
               </li>
             </ul>
           </template>
-          <div class="filter-title">Room Features:</div>
+          <div class="filter-title">{{lang.dormFilter.roomFeatures}}:</div>
           <template>
             <ul>
               <li v-for="(roomFeatures, index) in filters.room_features" :key="index">
@@ -77,12 +77,16 @@
           <div v-if="resultAlert > 0" class="search-success">
             <v-icon small>fa-check-circle</v-icon>
             {{resultAlert}}
-            <span v-if="resultAlert > 1">Dorms matches your search</span>
-            <span v-else>Dorm matches your search</span>
+            <span v-if="resultAlert > 1">
+              {{lang.dormFilter.dorms}} {{lang.dormFilter.searchResult}}
+            </span>
+            <span v-else>
+              {{lang.dormFilter.dorm}} {{lang.dormFilter.searchResult}}
+            </span>
           </div>
           <div v-if="resultAlert == 0" class="search-noresult">
             <v-icon small>fa-exclamation-circle</v-icon>
-            Sorry, no dorm matches your search
+             {{lang.dormFilter.noSearchResult}} {{lang.dormFilter.searchResult}}
           </div>
         </v-flex>
 

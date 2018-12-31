@@ -80,7 +80,7 @@
               <v-tooltip top>
                 <div @click="showRooms(room)" class="bar" slot="activator"></div>
                 <span @click="showRooms(room)" class="price" slot="activator">{{$store.getters.activeCurrency}}{{room.price}}</span>
-                <span>Click To show room details</span>
+                <span>{{lang.dormCard.showDetails}}</span>
               </v-tooltip>
 
             </div>
@@ -109,12 +109,12 @@
                     <v-layout row wrap justify-center align-center>
 
                       <v-flex class="detail-block" xs6 md4>
-                        <h3>Room Type:</h3>
+                        <h3>{{lang.roomCard.roomType}}:</h3>
                         <span>{{room.room_type}}</span>
                       </v-flex>
 
                       <v-flex class="detail-block" xs6 md4>
-                        <h3>Number of People:</h3>
+                        <h3>{{lang.roomCard.peopleAllowed}}:</h3>
                         <span v-if="room.people_allowed_number < 4">
                           <v-icon v-for="n in room.people_allowed_number" :key="n">fa-user</v-icon>
                         </span>
@@ -125,7 +125,7 @@
                       </v-flex>
 
                       <v-flex class="detail-block" xs12 md4>
-                        <h3>Price:</h3>
+                        <h3>{{lang.roomCard.price}}:</h3>
                         <span>{{$store.getters.activeCurrency}}{{room.price}}</span>
                       </v-flex>
 
@@ -145,7 +145,7 @@
                       </v-flex>
 
                       <v-flex class="feature-block" xs12 md6>
-                        <h3>Room characteristics:</h3>
+                        <h3>{{lang.roomCard.characteristics}}:</h3>
                         <div class="feature-block__scroll">
                           <div class="room-feature" v-for="(feature,index) in room.features" :key="index">
                             <v-icon>{{feature.icon}}</v-icon>
@@ -155,7 +155,7 @@
                       </v-flex>
 
                       <v-flex class="feature-block" xs12 md6>
-                        <h3>Room Features:</h3>
+                        <h3>{{lang.roomCard.features}}:</h3>
                         <div class="feature-block__scroll">
                           <div class="room-feature" v-for="(choice,index) in room.choices" :key="index">
                             <v-icon>fa-check</v-icon>
@@ -166,10 +166,11 @@
                       </v-flex>
 
                       <v-flex xs12>
-                        <v-btn color="success" @click="reserveRoom(room)" class="reserve-btn elevation-0" large>Reserve Now</v-btn>
+                        <v-btn color="success" @click="reserveRoom(room)" class="reserve-btn elevation-0" large>{{lang.roomCard.reserveBtn}}</v-btn>
+                        <v-btn  @click="saveRoom(room,dorm.id)" class="grey--text text--darken-2 elevation-0" large>{{lang.roomCard.aboutDormBtn}}</v-btn>
+
                       </v-flex>
                       <v-flex xs12>
-                        <a href="#" @click.prevent="saveRoom(room,dorm.id)" class="grey--text text--darken-2" >Do you want to read more about the dorm?</a>
                       </v-flex>
                     </v-layout>
                   </v-flex>

@@ -3,7 +3,7 @@
 
   <v-snackbar v-model="snackbar.trigger" :timeout="4000" top :color="snackbar.color">
     <span>{{snackbar.message}}</span>
-    <v-btn flat color="white" @click="closeSnackbar">close</v-btn>
+    <v-btn flat color="white" @click="closeSnackbar">{{lang.snackbar.close}}</v-btn>
   </v-snackbar>
   
   <v-toolbar light flat fixed app >
@@ -76,21 +76,21 @@
           <v-list-tile @click="userRedirect">
             <v-list-tile-title>
               <span v-if="isAdmin">
-                Dashboard
+                {{lang.header.dashboard}}
               </span>
               <span v-else>
-                Status
+                {{lang.header.status}}
               </span>
             </v-list-tile-title>
           </v-list-tile>
           <v-list-tile v-if="isAdmin" @click="dormProfile">
             <v-list-tile-title>
-              Dorm Profile
+                {{lang.header.dormProfile}}
             </v-list-tile-title>
           </v-list-tile>
           <v-list-tile @click="logout">
             <v-list-tile-title>
-              Logout
+              {{lang.header.logout}}
             </v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -105,7 +105,7 @@
 
     <v-btn flat color="teal" @click="toggleDrawer">
       <template>
-        <span>Filters</span>
+        <span>{{lang.bottomNav.filters}}</span>
         <v-icon>fa-filter</v-icon>
       </template>
     </v-btn>

@@ -1,22 +1,32 @@
 {
     "en": {
+        "shared":{
+            "submit": "Submit",
+            "close": "Close",
+            "cancel": "Cancel"
+        },
+        "rules":{
+            "emailRequired": "E-mail is required",
+            "emailValid": "E-mail must be valid"
+        },
         "header": {
             "logo": "Dorms",
-            "button": "Reservation Status"
+            "button": "Reservation Status",
+            "dashboard": "Dashboard",
+            "status": "Status",
+            "dormProfile": "Dorm Profile",
+            "logout": "Logout"
         },
-        "login": {
-            "heading": "Login to You Account",
-            "password": "Password",
-            "email": "Email",
-            "button": "Check",
-            "button2": "Login"
+        "footer":{
+            "copyrights": "copyrights"
         },
-        "dormSearch": {
-            "heading": "Find Dormitories in EMU",
-            "button": "Search"
+        "bottomNav": {
+            "filters": "Filters"
         },
-        "dormFilter": {
-            "heading": "Filter Rooms by"
+        "snackbar":{
+            "close": "close",
+            "successFileUpload": "Files Uploaded successfully",
+            "wrongMsg": "Something went Wrong!"
         },
         "dormCard": {
             "roomsLeft": "Rooms left",
@@ -24,7 +34,106 @@
             "openMap": "open map",
             "reviews": "reviews",
             "more": "More",
-            "features": "Features"
+            "features": "Features",
+            "showDetails": "Click To show room details",
+            "roomType": "Room Type"
+        },
+        "roomCard": {
+            "roomType": "Room Type",
+            "peopleAllowed": "Number of People",
+            "price": "Price",
+            "characteristics": "Room characteristics",
+            "features": "Room Features",
+            "reserveBtn": "Reserve Now",
+            "aboutDormBtn": "Read more about the dorm",
+            "savedRoomComment": "The room you have choosen is saved",
+            "delete": "Delete it",
+            "checkRoom": "Check it again"
+        },
+        "dormFilter": {
+            "heading": "Filter Rooms by",
+            "dormFeatures": "Dorm Features",
+            "roomFeatures": "Room Features",
+            "dorms": "Dorms",
+            "dorm": "Dorm",
+            "searchResult": "matches your search",
+            "noSearchResult": "Sorry, no dorm"
+        },
+        "dormSearch": {
+            "heading": "Find Dormitories in EMU",
+            "button": "Search",
+            "allDorms": "All dormitories",
+            "allTime": "All Time"
+        },
+        "dormReview":{
+            "heading": "Rate Our Dormitory",
+            "desc": "If you enjoy staing in our Dormitory, please take a few seconds to rate your experience with us",
+            "successMessage": "Thanks for Your review",
+            "backBtn": "Back Home",
+            "label": "Write us a Comment",
+            "review": "review",
+            "yourName": "Your Name",
+            "noReviews": "This dorm has no reviews yet, you might be the first to recommend it for your friends"
+        },
+        "dormProfile":{
+            "aboutUs": "About Us",
+            "features": "Features",
+            "contactUs": "Contact Us",
+            "contactHeading": "You can contact us through",
+            "contactName": "Name",
+            "contactEmail": "Email",
+            "contactPhone": "Phone",
+            "ContactFax": "Fax",
+            "showMap": "show map"
+        },
+        "confirmAccount":{
+            "heading": "Your Email has been confirmed",
+            "desc": "You can now complate your reservation process",
+            "btn": "Login to continue",
+            "expiredLink": "The link you followed may have expired, please re-enter your Email below to get a new activation Email",
+            "notRegestered": "The Email you've entered is not regestered in our system",
+            "emailSent": "We've sent you an email, please check it"
+        },
+        "resendActivationEmail":{
+            "heading": "Resend Activation Email",
+            "btn": "send",
+            "emailRule": "E-mail is required"
+        },
+        "confirmPayment": {
+            "backToStatusBtn": "Back to status page",
+            "deadlineHeading": "Receipt Submition Deadline",
+            "deadlineHint": "If you don't upload the receipt before the deadline your reservation will be canceled",
+            "amountHeading": "Amount to pay",
+            "bankAccountsHeading": "Our Bank Accounts",
+            "accountName": "Account name",
+            "currency": "Currency",
+            "accountNumber": "Account No",
+            "swift": "swift",
+            "iban": "IBAN",
+            "instruction": "Please make a transiction to one of our bank accounts, then upload the receipt below.",
+            "allowedDocs": "Allowed documents",
+            "notAllowedType": "File type is not allowed",
+            "fileMaxSize": "Max size",
+            "dragMessage": "Drag and Drop files to upload",
+            "chooseFile": "Choose files",
+            "selectFile": "Select files",
+            "startUpload": "Start Upload",
+            "stopUpload": "Stop Upload",
+            "confirmButton": "Next step"
+        },
+        "login": {
+            "heading": "Login to You Account",
+            "password": "Password",
+            "email": "Email",
+            "button": "Login",
+            "forgotPass": "Forgot your password",
+            "successReset": "Your request went successfully"
+        },
+        "resetPassword":{
+            "notUser": "This Email address is not assigned to any user account",
+            "heading": "Enter your email to reset password",
+            "emailSent": "An email has been sent to you with detailed instructions on how to reset your password",
+            "reset": "reset"
         },
         "signup": {
             "heading": "Create an Account",
@@ -35,15 +144,6 @@
             "lastName": "Last Name",
             "button": "Signup",
             "haveAccount": "Do You Have an Account?"
-        },
-        "confirmPayment": {
-            "instruction": "Please make a transiction to one of our bank accounts, then upload the receipt below.",
-            "dragMessage": "Drag and Drop files to upload",
-            "chooseFile": "Choose files",
-            "selectFile": "Select files",
-            "startUpload": "Start Upload",
-            "stopUpload": "Stop Upload",
-            "confirmButton": "Next step"
         },
         "reservationStatus": {
             "uploadedDocuments": "Uploaded Documents",

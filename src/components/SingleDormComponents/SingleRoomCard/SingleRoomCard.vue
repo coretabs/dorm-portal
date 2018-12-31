@@ -1,10 +1,10 @@
 <template>
 <div>
   <div v-if="showSavedRoomNav" id="show-savedroom">
-    <span>The room you have choosen is saved</span>
-    <v-btn depressed color="#ea7e15" class="font-weight-bold" @click="showRoomModel">Check it again</v-btn>
+    <span>{{lang.roomCard.savedRoomComment}}</span>
+    <v-btn depressed color="#ea7e15" class="font-weight-bold" @click="showRoomModel">{{lang.roomCard.checkRoom}}</v-btn>
     <v-btn color="#c61a1a" class="font-weight-bold" @click="deleteSavedRoom">
-      <v-icon small left>fa-trash-alt</v-icon> Delete it
+      <v-icon small left>fa-trash-alt</v-icon> {{lang.roomCard.delete}}
     </v-btn>
   </div>
 
@@ -26,12 +26,12 @@
           <v-layout row wrap justify-center align-center>
 
             <v-flex class="detail-block" xs6 md4>
-              <h3>Room Type:</h3>
+              <h3>{{lang.roomCard.roomType}}:</h3>
               <span>{{savedRoom.room.room_type}}</span>
             </v-flex>
 
             <v-flex class="detail-block" xs6 md4>
-              <h3>Number of People:</h3>
+              <h3>{{lang.roomCard.peopleAllowed}}:</h3>
               <span v-if="savedRoom.room.people_allowed_number < 4">
                           <v-icon v-for="n in savedRoom.room.people_allowed_number" :key="n">fa-user</v-icon>
                         </span>
@@ -42,7 +42,7 @@
             </v-flex>
 
             <v-flex class="detail-block" xs12 md4>
-              <h3>Price:</h3>
+              <h3>{{lang.roomCard.price}}:</h3>
               <span>${{savedRoom.room.price}}</span>
             </v-flex>
 
@@ -62,17 +62,18 @@
             </v-flex>
 
             <v-flex class="feature-block" xs12 md6>
-              <h3>Room characteristics:</h3>
+              <h3>{{lang.roomCard.characteristics}}:</h3>
               <div class="feature-block__scroll">
                 <div class="room-feature" v-for="(feature,index) in savedRoom.room.features" :key="index">
-                  <v-icon>{{feature.icon}}</v-icon>
+                  <v-icon v-if="feature.icon">{{feature.icon}}</v-icon>
+                  <v-icon v-else>fa-check</v-icon>
                   <span>{{feature.name}}</span>
                 </div>
               </div>
             </v-flex>
 
             <v-flex class="feature-block" xs12 md6>
-              <h3>Room Features:</h3>
+              <h3>{{lang.roomCard.features}}:</h3>
               <div class="feature-block__scroll">
                 <div class="room-feature" v-for="(choice,index) in savedRoom.room.choices" :key="index">
                   <v-icon>fa-check</v-icon>
@@ -83,7 +84,7 @@
             </v-flex>
 
             <v-flex xs12>
-              <v-btn color="success" @click="reserveRoom(savedRoom.room)" class="reserve-btn elevation-0" large>Reserve Now</v-btn>
+              <v-btn color="success" @click="reserveRoom(savedRoom.room)" class="reserve-btn elevation-0" large>{{lang.roomCard.reserveBtn}}</v-btn>
             </v-flex>
           </v-layout>
         </v-flex>

@@ -108,7 +108,7 @@ export default {
     },
     setDuration(){
       let allTime = {
-        name: 'All Time',
+        name: this.lang.dormSearch.allTime,
         id: null
       }
       const duration = this.$store.state.filters.duration_options
@@ -119,7 +119,7 @@ export default {
     },
     setCategory(){
       let allDorms = {
-        name: 'All dormitories',
+        name: this.lang.dormSearch.allDorms,
         id: null
       }
       const category = this.$store.state.filters.category_options

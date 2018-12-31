@@ -3,18 +3,18 @@
   <v-flex v-if="isNewUpload" xs12 class="mx-3 pa-0 text-xs-right">
     <v-spacer></v-spacer>
     <v-btn color="#feae25" depressed class="upload-btn mb-4 mx-0" @click="nextStep">
-      Back to status page
+      {{lang.confirmPayment.backToStatusBtn}}
       <v-icon small right>fa-arrow-right</v-icon>
     </v-btn>
   </v-flex>
   <v-flex v-if="date  && thereIsDeadline" xs12 class="mb-4 mx-3  confirmation-countdown">
 
-    <h1>Receipt Submition Deadline</h1>
+    <h1>{{lang.confirmPayment.deadlineHeading}}</h1>
 
     <div class="hint">
       <v-tooltip bottom max-width="200">
         <v-icon color="#ccc" slot="activator">fa-question-circle</v-icon>
-        <span>If you don't upload the receipt before the deadline your reservation will be canceled</span>
+        <span>{{lang.confirmPayment.deadlineHint}}</span>
       </v-tooltip>
     </div>
 
@@ -23,12 +23,12 @@
 
   <v-flex xs12 md4 px-3 v-if="reservation.room_characteristics">
     <div id="amount" v-if="!isNewAmount">
-      <h3>Amount to pay:</h3>
+      <h3>{{lang.confirmPayment.amountHeading}}:</h3>
       <span>{{reservation.room_characteristics.price_currency}}{{reservation.room_characteristics.price}}</span>
       <v-icon>fa-money-bill-alt</v-icon>
     </div>
     <div id="bank-accounts">
-      <h3>Our Bank Accounts:</h3>
+      <h3>{{lang.confirmPayment.bankAccountsHeading}}:</h3>
       <v-expansion-panel>
         <v-expansion-panel-content v-for="(account,i) in reservation.room_characteristics.dormitory.bank_accounts" :key="i">
           <div slot="header">
@@ -38,23 +38,23 @@
             <v-card-text>
               <table>
                 <tr>
-                  <td><strong>Account name:</strong></td>
+                  <td><strong>{{lang.confirmPayment.accountName}}:</strong></td>
                   <td>{{account.account_name}}</td>
                 </tr>
                 <tr>
-                  <td><strong>Currency:</strong></td>
+                  <td><strong>{{lang.confirmPayment.currency}}:</strong></td>
                   <td>{{account.currency_code}}</td>
                 </tr>
                 <tr>
-                  <td><strong>Account No:</strong></td>
+                  <td><strong>{{lang.confirmPayment.accountNumber}}:</strong></td>
                   <td>{{account.account_number}}</td>
                 </tr>
                 <tr>
-                  <td><strong>swift:</strong></td>
+                  <td><strong>{{lang.confirmPayment.swift}}:</strong></td>
                   <td>{{account.swift}}</td>
                 </tr>
                 <tr>
-                  <td><strong>IBAN:</strong></td>
+                  <td><strong>{{lang.confirmPayment.iban}}:</strong></td>
                   <td>{{account.iban}}</td>
                 </tr>
               </table>
@@ -85,7 +85,7 @@
                     </label>
                   </v-flex>
                   <v-flex md9 xs12 class="text-md-left">
-                    <p>Allowed documents: JEPG, PNG, GIF</p>
+                    <p>{{lang.confirmPayment.allowedDocs}}: JEPG, PNG, GIF</p>
                   </v-flex>
                 </v-layout>
 
@@ -110,7 +110,7 @@
                 </v-layout>
 
               </v-flex>
-              <v-btn type="submit" class="upload-btn mt-3" depressed v-show="this.files.length" color="#1c3a70" :dark="!disabled" :disabled="disabled" :loading="loadingBtn">Submit</v-btn>
+              <v-btn type="submit" class="upload-btn mt-3" depressed v-show="this.files.length" color="#1c3a70" :dark="!disabled" :disabled="disabled" :loading="loadingBtn">{{lang.shared.submit}}</v-btn>
             </v-form>
 
           </div>

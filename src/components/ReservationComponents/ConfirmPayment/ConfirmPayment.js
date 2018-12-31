@@ -28,18 +28,15 @@ export default {
         }))
       ]
       this.isValid()
-      // console.log(files)
-      console.log(this.uploadFiles)
-      
     },
     validate(file){
       const MAX_SIZE = 8000000
       const allowedType = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf']
       if(file.size > MAX_SIZE){
-        return `Max size: ${MAX_SIZE/1000}KB`
+        return `${this.lang.confirmPayment.fileMaxSize}: ${MAX_SIZE/1000}KB`
       }
       if(!allowedType.includes(file.type)){
-        return 'File type is not allowed'
+        return this.lang.confirmPayment.notAllowedType
       }
       return ''
     },
@@ -67,7 +64,7 @@ export default {
         this.files = []
         this.uploadFiles = []
         let snackbar = {
-          message: 'Files Uploaded successfully',
+          message: this.lang.snackbar.successFileUpload,
           color: 'success'
         }
         this.$store.commit('updateSnackbar', snackbar)
@@ -77,7 +74,7 @@ export default {
         }, 1000);
       }else{
         let snackbar = {
-          message: 'Something went Wrong!',
+          message: this.lang.snackbar.wrongMsg,
           color: 'error'
         }
         this.$store.commit('updateSnackbar', snackbar)
