@@ -106,7 +106,7 @@
                   </v-flex>
 
                   <v-flex class="room-details" xs12 sm6>
-                    <v-layout row wrap justify-center align-center>
+                    <v-layout row wrap justify-center>
 
                       <v-flex class="detail-block" xs6 md4>
                         <h3>{{lang.roomCard.roomType}}:</h3>
@@ -148,7 +148,8 @@
                         <h3>{{lang.roomCard.characteristics}}:</h3>
                         <div class="feature-block__scroll">
                           <div class="room-feature" v-for="(feature,index) in room.features" :key="index">
-                            <v-icon>{{feature.icon}}</v-icon>
+                            <v-icon v-if="feature.icon">{{feature.icon}}</v-icon>
+                            <v-icon v-else>fa-check</v-icon>
                             <span>{{feature.name}}</span>
                           </div>
                         </div>

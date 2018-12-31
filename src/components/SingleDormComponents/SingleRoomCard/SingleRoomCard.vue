@@ -23,7 +23,7 @@
         </v-flex>
 
         <v-flex class="room-details" xs12 sm6>
-          <v-layout row wrap justify-center align-center>
+          <v-layout row wrap justify-center>
 
             <v-flex class="detail-block" xs6 md4>
               <h3>{{lang.roomCard.roomType}}:</h3>
