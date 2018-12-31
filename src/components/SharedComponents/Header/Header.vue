@@ -15,6 +15,11 @@
             <v-icon>menu</v-icon>
           </v-btn>
         </v-flex>
+        <v-flex class="text-xs-center" v-else>
+          <v-btn flat class="mr-2 my-0" icon @click="$router.go(-1)">
+            <v-icon>arrow_back</v-icon>
+          </v-btn>
+        </v-flex>
         <v-flex>
           <router-link to="/" id="logo">
             <img src="../../../assets/images/header/logo.png" alt="EMU">
