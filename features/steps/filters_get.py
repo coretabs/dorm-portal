@@ -118,7 +118,7 @@ def act(context):
     context.all_filters_string = str(context.all_filters.data)
 
 
-@then('got both features filters for dorms and room')
+@then('get both features filters for dorms and room')
 def test(context):
     assert Filter.objects.dorm_features().count() == 3
     assert Filter.objects.room_features().count() == 2

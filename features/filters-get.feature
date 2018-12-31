@@ -17,7 +17,7 @@ Feature: Getting all filters
         And not get main filters with the additional filters
 
         When adding features filters for dorms and rooms
-        Then got both features filters for dorms and room
+        Then get both features filters for dorms and room
 
         When requesting GET /filters
         Then get 200 OK and all filters in GET /filters
