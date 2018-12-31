@@ -112,11 +112,11 @@ class DormitoryQuerySet(django_models.QuerySet):
         if filters:
             # print(filtered_rooms)
 
-            for current_filter in filters:
-                filtered_rooms = filtered_rooms.filter(current_filter)
-
             filtered_rooms = filtered_rooms.annotate(
                 price_converted=get_prices_converted_cases(filtered_rooms))
+
+            for current_filter in filters:
+                filtered_rooms = filtered_rooms.filter(current_filter)
 
             filtered_rooms.prefetch_related('features', 'radio_choices', 'integral_choices',
                                             'radio_choices__related_filter',
@@ -303,9 +303,19 @@ class IntegralFilter(Filter):
     is_optional = django_models.BooleanField(default=True)
 
     def get_query(self, min, max):
-        return (django_models.Q(integral_choices__related_filter__id=self.id) &
-                django_models.Q(integral_choices__selected_number__gte=min) &
-                django_models.Q(integral_choices__selected_number__lte=max))
+        try:
+            search_term = self.name.data.values()
+        except AttributeError:
+            search_term = str(self.name)
+
+        if ('Price' in search_term):
+            return (django_models.Q(integral_choices__related_filter__id=self.id) &
+                    django_models.Q(price_converted__gte=min) &
+                    django_models.Q(price_converted__lte=max))
+        else:
+            return (django_models.Q(integral_choices__related_filter__id=self.id) &
+                    django_models.Q(integral_choices__selected_number__gte=min) &
+                    django_models.Q(integral_choices__selected_number__lte=max))
 
     def get_query_polymorphic(self, json_min_max):
         return self.get_query(json_min_max['min_value'], json_min_max['max_value'])

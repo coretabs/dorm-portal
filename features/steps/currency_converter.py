@@ -13,9 +13,10 @@ from features.steps.factory import *
 
 from djmoney.contrib.exchange.models import *
 
-from api.engine.models import Dormitory, RoomCharacteristics
 from api.engine import exchange_backends
+
 from api.engine.views import *
+from api.engine.serializers import *
 
 
 @given('we have all exchange rates')
@@ -85,6 +86,83 @@ def test(context):
     assert context.filtered_dorms[0].room_characteristics.all()[1].price == 1200 / 2
     assert context.filtered_dorms[1].room_characteristics.all()[0].price == 1700 / 5 / 2
     assert context.filtered_dorms[1].room_characteristics.all()[1].price == 2000
+
+
+@when('filtering rooms price with USD currency between 300 and 1500')
+def act(context):
+    filters = [context.price_filter.get_query(300, 1500), ]
+    context.filtered_dorms = Dormitory.objects.apply_room_filters(filters, to_currency='USD')
+
+
+@then('get three filtered rooms in USD (340 & 1000 & 1200)')
+def test(context):
+    assert context.filtered_dorms[0].room_characteristics.filter(price_converted=1000).count() == 1
+    assert context.filtered_dorms[0].room_characteristics.filter(price_converted=1200).count() == 1
+    assert context.filtered_dorms[1].room_characteristics.filter(price_converted=340).count() == 1
+
+
+@when('filtering rooms price with TRY currency between 1500 and 5100')
+def act(context):
+    filters = [context.price_filter.get_query(1500, 5100), ]
+    context.filtered_dorms = Dormitory.objects.apply_room_filters(filters, to_currency='TRY')
+
+
+@then('get two filtered rooms in TRY (1700 & 5000)')
+def test(context):
+    assert context.filtered_dorms[0].room_characteristics.filter(price_converted=5000).count() == 1
+    assert context.filtered_dorms[1].room_characteristics.filter(price_converted=1700).count() == 1
+
+
+@when('filtering rooms price with EUR currency between 500 and 2000')
+def act(context):
+    filters = [context.price_filter.get_query(500, 2000), ]
+    context.filtered_dorms = Dormitory.objects.apply_room_filters(filters, to_currency='EUR')
+
+
+@then('get three filtered rooms in EUR (500 & 600 & 2000)')
+def test(context):
+    assert context.filtered_dorms[0].room_characteristics.filter(price_converted=500).count() == 1
+    assert context.filtered_dorms[0].room_characteristics.filter(price_converted=600).count() == 1
+    assert context.filtered_dorms[1].room_characteristics.filter(price_converted=2000).count() == 1
+
+
+@when('serializing min_value max_value for price in USD')
+def act(context):
+    context.serialized_price = IntegralFilterSerializer(
+        context.price_filter, context={'to_currency': 'USD'})
+    context.serialized_price_string = str(context.serialized_price.data)
+
+
+@then('get min_value=340 and max_value=4000 for USD')
+def test(context):
+    print(context.serialized_price_string)
+    assert context.serialized_price_string.count("'value': [340, 4000],") == 1
+
+
+@when('serializing min_value max_value for price in TRY')
+def act(context):
+    context.serialized_price = IntegralFilterSerializer(
+        context.price_filter, context={'to_currency': 'TRY'})
+    context.serialized_price_string = str(context.serialized_price.data)
+
+
+@then('get min_value=1700 and max_value=20000 for TRY')
+def test(context):
+    print(context.serialized_price_string)
+    assert context.serialized_price_string.count("'value': [1700, 20000],") == 1
+
+
+@when('serializing min_value max_value for price in EUR')
+def act(context):
+    context.serialized_price = IntegralFilterSerializer(
+        context.price_filter, context={'to_currency': 'EUR'})
+    context.serialized_price_string = str(context.serialized_price.data)
+
+
+@then('get min_value=170 and max_value=2000 for EUR')
+def test(context):
+    print(context.serialized_price_string)
+    assert context.serialized_price_string.count("'value': [170, 2000],") == 1
 
 
 @when('hitting POST /dorms endpoint in USD')

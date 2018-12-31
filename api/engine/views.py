@@ -40,7 +40,8 @@ class FiltersListViewSet(viewsets.ViewSet):
     serializer_class = serializers.ClientReturnedFiltersSerializer
 
     def list(self, request):
-        return Response(self.serializer_class([]).data)
+        to_currency = request.query_params.get('currency', 'USD')
+        return Response(self.serializer_class([], context={'to_currency': to_currency}).data)
 
 
 class DormViewSet(viewsets.ViewSet):

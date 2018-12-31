@@ -4,6 +4,9 @@ from django.db import models as django_models
 from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
 
+from djmoney.money import Money
+from djmoney.contrib.exchange.models import convert_money
+
 from rest_framework import serializers
 
 from allauth.account.forms import ResetPasswordForm, default_token_generator, UserTokenForm
@@ -445,11 +448,27 @@ class IntegralFilterSerializer(serializers.ModelSerializer):
         return str(obj.name)
 
     def get_value(self, obj):
-        result = obj.integralfilter.integral_choices.aggregate(
-            django_models.Max('selected_number'), django_models.Min('selected_number'))
+        to_currency = self.context.get('to_currency', None)
+        try:
+            search_term = obj.integralfilter.name.data.values()
+        except AttributeError:
+            search_term = str(obj.integralfilter.name)
 
-        self.min_value = result['selected_number__min']
-        self.max_value = result['selected_number__max']
+        if to_currency and ('Price' in search_term):
+            original_prices = obj.integralfilter.integral_choices.values_list('room_characteristics__price_currency__code', 'selected_number')
+            converted_prices = []
+            for from_currency, original_price in original_prices:
+                if not from_currency:
+                    from_currency = 'USD'
+                converted_prices.append(int(convert_money(Money(original_price, from_currency), to_currency).amount))
+            self.min_value = min(converted_prices)
+            self.max_value = max(converted_prices)
+
+        else:
+            aggregate_min_max = obj.integralfilter.integral_choices.aggregate(
+                django_models.Max('selected_number'), django_models.Min('selected_number'))
+            self.min_value = aggregate_min_max['selected_number__min']
+            self.max_value = aggregate_min_max['selected_number__max']
 
         return [self.min_value, self.max_value]
 
@@ -862,7 +881,7 @@ class ClientReturnedFiltersSerializer(serializers.Serializer):
 
     def get_additional_filters(self, obj):
         filters = models.Filter.objects.additional_filters()
-        return AddtionalFiltersSerializer(filters, many=True).data
+        return AddtionalFiltersSerializer(filters, many=True, context = self.context).data
 
     def get_dorm_features(self, obj):
         filters = models.Filter.objects.dorm_features()

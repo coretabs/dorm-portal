@@ -30,6 +30,30 @@ Feature: Currency converter
 
 
 
+        When filtering rooms price with USD currency between 300 and 1500
+        Then get three filtered rooms in USD (340 & 1000 & 1200)
+
+        When filtering rooms price with TRY currency between 1500 and 5100
+        Then get two filtered rooms in TRY (1700 & 5000)
+
+        When filtering rooms price with EUR currency between 500 and 2000
+        Then get three filtered rooms in EUR (500 & 600 & 2000)
+
+
+        
+
+        When serializing min_value max_value for price in USD
+        Then get min_value=340 and max_value=4000 for USD
+
+        When serializing min_value max_value for price in TRY
+        Then get min_value=1700 and max_value=20000 for TRY
+
+        When serializing min_value max_value for price in EUR
+        Then get min_value=170 and max_value=2000 for EUR
+
+
+
+
         When hitting POST /dorms endpoint in USD
         Then get 200 OK with USD prices
 
