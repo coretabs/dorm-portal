@@ -71,7 +71,7 @@ class DormViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         dorm = models.Dormitory.objects.filter(id=pk)\
-            .superfilter(to_currency=request.data.get('currency', 'USD'))\
+            .superfilter(to_currency=request.query_params.get('currency', 'USD'))\
             .with_last_3_reviews()\
             .with_reviews_statistics()\
             .first()
