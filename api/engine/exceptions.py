@@ -1,4 +1,4 @@
-import i18n
+from .utils import i18n
 
 
 class NoEnoughQuotaException(Exception):
