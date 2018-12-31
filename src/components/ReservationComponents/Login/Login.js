@@ -43,15 +43,15 @@ export default {
           password: this.password
         }
         this.$store.dispatch('login', user).then(() => {
-          this.$store.dispatch('auth').then(response => {
-            if(response.is_manager == true){
-              this.$router.push('/manage')
-            }
-            else{
-              this.$router.push('/reservation')
-            }
-          })
-          .catch(err => console.log(err))
+          return this.$store.dispatch('auth')
+        })
+        .then(response => {
+          if(response.is_manager == true){
+            this.$router.push('/manage')
+          }
+          else{
+            this.$router.push('/reservation')
+          }
         })
         .catch(err =>  this.errors = err.response.data)
       }
