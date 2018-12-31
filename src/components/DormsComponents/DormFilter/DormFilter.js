@@ -30,7 +30,7 @@ export default {
   methods: {
     fetchFilters() {
       this.loadingFilters = true
-      this.$store.dispatch('fetchFilters', this.currentCurrency).then(()=>{
+      this.$store.dispatch('fetchFilters', this.activeCurrency).then(()=>{
         this.loadingFilters = false
       })
     },
@@ -102,7 +102,7 @@ export default {
       return this.$store.getters.lang;
     },
     activeCurrency(){
-      return this.$store.getters.activeCurrency
+      return this.$store.state.currencyCode
     },
     drawerControl(){
       return this.$store.state.drawer;
