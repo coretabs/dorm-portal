@@ -52,7 +52,8 @@
               <h3>{{lang.dormCard.dormFeatures}}:</h3>
 
               <v-tooltip top v-for="(feature, index) in dorm.features" :key="index">
-                <v-icon class="facility-icon" slot="activator">{{feature.icon}}</v-icon>
+                <v-icon class="facility-icon" slot="activator" v-if="feature.icon">{{feature.icon}}</v-icon>
+                <v-icon class="facility-icon" slot="activator" v-else>fa-check</v-icon>
                 <span>{{feature.name}}</span>
               </v-tooltip>
 
