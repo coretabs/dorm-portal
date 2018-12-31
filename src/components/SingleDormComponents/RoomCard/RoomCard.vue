@@ -5,7 +5,7 @@
       <v-flex class="room-images" xs12 sm8>
         <v-carousel>
           <!-- TODO: Update images to be fetched from the endpoint -->
-          <v-carousel-item v-for="(image,index) in room.photos" :key="index" :src="image"></v-carousel-item>
+          <v-carousel-item v-for="(image,index) in room.photos" :key="index" :src="image.url"></v-carousel-item>
         </v-carousel>
       </v-flex>
       <v-flex class="room-details" xs12 sm4>

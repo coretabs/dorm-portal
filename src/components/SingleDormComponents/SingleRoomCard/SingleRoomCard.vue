@@ -17,7 +17,7 @@
             <v-icon>fa-times</v-icon>
           </div>
           <v-carousel>
-            <v-carousel-item v-for="(image,index) in savedRoom.room.photos" :key="index" :src="image"></v-carousel-item>
+            <v-carousel-item v-for="(image,index) in savedRoom.room.photos" :key="index" :src="image.url"></v-carousel-item>
           </v-carousel>
 
         </v-flex>
