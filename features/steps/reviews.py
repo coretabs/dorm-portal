@@ -133,7 +133,7 @@ def test(context):
         assert len(mail.outbox) == 0
 
         context.deserialized_data.save()
-        #assert len(mail.outbox) == 1
+        assert len(mail.outbox) == 1
 
 
 @when('hitting POST /manager-dorms/{alfam-id}/reservations/{res-id}/ask-review')
@@ -155,6 +155,7 @@ def act(context):
 def test(context):
     # print(context.response.status_code)
     assert context.response.status_code == status.HTTP_200_OK
+    assert len(mail.outbox) == 2
 
 
 @when('hitting POST /manager-dorms/{alfam-id}/reservations/{res-id}/ask-review for non-reviewable')
