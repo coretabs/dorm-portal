@@ -17,10 +17,10 @@
               <!-- TODO: Update photos -->
               <swiper-slide v-for="(photo,i) in dorm.photos" :key="i">
                 <template v-if="photo.is_3d">
-                  <img src="../../../assets/images/dormprofile/360.png" @click="sendPhotoUrl(photo.src, photo.is_3d)">
+                  <img src="../../../assets/images/dormprofile/360.png" @click="sendPhotoUrl(photo.url, photo.is_3d)">
                   </template>
                   <template v-else>
-                    <v-img :src="photo.src" gradient="to top right, rgba(255,255,255,0), rgba(0,0,0,0.1)" @click="sendPhotoUrl(photo.src, photo.is_3d)">
+                    <v-img :src="photo.url" gradient="to top right, rgba(255,255,255,0), rgba(0,0,0,0.1)" @click="sendPhotoUrl(photo.url, photo.is_3d)">
                       <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
                         <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                       </v-layout>

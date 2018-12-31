@@ -329,7 +329,7 @@
                   <v-layout v-else class="photos-block" align-center justify-center row>
                     <p>You haven't uploaded any photos yet.</p>
                   </v-layout>
-                  <v-dialog persistent v-model="dialog.photos" lazy width="800px">
+                  <v-dialog v-model="dialog.photos" lazy width="800px">
                       <v-card>
                         <v-card-text>
                           <v-layout wrap v-if="lightBox.isAdd" class="pa-3">
