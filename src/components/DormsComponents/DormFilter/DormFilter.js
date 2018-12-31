@@ -18,7 +18,11 @@ export default {
     };
   },
   watch: {
-    lang: function () {
+    lang() {
+      this.fetchFilters()
+      this.fetchDorms()
+    },
+    activeCurrency(){
       this.fetchFilters()
       this.fetchDorms()
     }
@@ -94,8 +98,11 @@ export default {
     }
   },
   computed: {
-    lang() {
+    lang(){
       return this.$store.getters.lang;
+    },
+    activeCurrency(){
+      return this.$store.getters.activeCurrency
     },
     drawerControl(){
       return this.$store.state.drawer;

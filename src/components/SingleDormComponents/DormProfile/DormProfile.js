@@ -40,10 +40,16 @@ export default {
     },
     checkSavedRoom(){
       return localStorage.getItem("room") != null;
+    },
+    activeCurrency(){
+      return this.$store.getters.activeCurrency
     }
   },
   watch: {
     lang: function () {
+      this.fetchDorm()
+    },
+    activeCurrency(){
       this.fetchDorm()
     }
   },
@@ -57,7 +63,7 @@ export default {
       this.mapModel = !this.mapModel;
     },
     fetchDorm() {
-      this.$backend.$fetchDorm(this.$route.params.id, this.$store.state.language, this.$store.state.currencyCode).then(responseDate => {
+      this.$backend.$fetchDorm(this.$route.params.id, this.$store.state.currencyCode).then(responseDate => {
         this.dorm = responseDate;
       });
     }

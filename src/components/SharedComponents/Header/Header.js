@@ -20,7 +20,6 @@ export default {
       this.$store.state.currencySymbol = symbol
       localStorage.setItem("currency-code", code)
       localStorage.setItem("currency-symbol", symbol)
-      this.$store.dispatch('fetchFilters')
     },
     toggleDrawer(){
       this.$store.state.drawer = !this.$store.state.drawer
@@ -58,6 +57,10 @@ export default {
     },
     closeSnackbar(){
       this.$store.state.snackbar.trigger = false
+    },
+    setDefaultLang(){
+      const lang = localStorage.getItem('lang') || 'en'
+      this.$cookie.set('django_language', lang, { expires: '1Y' });
     }
   },
   computed: {
@@ -88,5 +91,8 @@ export default {
   },
   updated(){
     this.getUserName()
+  },
+  mounted(){
+    this.setDefaultLang()
   }
 };
