@@ -13,26 +13,26 @@ export default {
     reservation(){
       switch(this.$store.getters.reservationData.status){
         case '0':
-          this.status = "pending"
+          this.status = this.lang.reservationStatus.pending
           this.statusIcon = "fa-clock"
           break;
         case '1':
-          this.status = "rejected"
+          this.status = this.lang.reservationStatus.rejected
           this.statusIcon = "fa-times"
           break;
         case '2':
-          this.status = "confirmed"
+          this.status = this.lang.reservationStatus.confirmed
           this.statusIcon = "fa-check"
           break;
           case '3':
-          this.status = "Wating"
+          this.status = this.lang.reservationStatus.Wating
           break;
         case '4':
-          this.status = "Updated"
+          this.status = this.lang.reservationStatus.Updated
           this.statusIcon = "fa-bell"
           break;
         case '5':
-          this.status = "Expired"
+          this.status = this.lang.reservationStatus.Expired
           this.statusIcon = "fa-times"
           break;
         default:

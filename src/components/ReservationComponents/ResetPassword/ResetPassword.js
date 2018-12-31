@@ -10,8 +10,8 @@ export default {
       password: '',
       confirmPassword: '',
       passwordRules:[
-        v => !!v || 'Password is required',
-        v => v.length >= 6 || 'Password Must be more that 6'
+        v => !!v || this.lang.rules.passRequired,
+        v => v.length >= 6 || this.lang.rules.passLength
       ]
     };
   },
@@ -20,7 +20,7 @@ export default {
       return this.$store.getters.lang;
     },
     comparePasswords(){
-      return this.password !== this.confirmPassword ? 'Passwords do not match': ''
+      return this.password !== this.confirmPassword ? this.lang.resetPassword.noMatch : ''
     }
   },
   methods: {

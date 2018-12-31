@@ -32,8 +32,8 @@
         <v-icon class="success-icon">fa-check</v-icon>
       </v-flex>
       <v-flex xs12>
-        <p class="success-text mb-1 text-xs-center">Your account has been successfully created.</p>
-        <p class="success-text text-xs-center">An email has been sent to you with detailed instructions on how to activate it.</p>
+        <p class="success-text mb-1 text-xs-center">{{lang.signup.successMsg}}.</p>
+        <p class="success-text text-xs-center">{{lang.signup.emailSentMsg}}.</p>
       </v-flex>
       </v-layout>
   </div>

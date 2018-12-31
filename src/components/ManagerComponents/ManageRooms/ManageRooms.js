@@ -24,12 +24,8 @@ export default {
       quotaRoomID: null,
       roomEditId: null,
       roomDetails: {},
-      items: [
-        { title: 'Edit' },
-        { title: 'Delete' }
-      ],
       quotaRules: [
-        v => v <= this.availableRoomsNumber || 'You exceeds the allowed number'
+        v => v <= this.availableRoomsNumber || this.lang.rules.quotaRule
       ]
     }
   },
@@ -66,14 +62,14 @@ export default {
         const dormId = localStorage.getItem('manageDormID')
         this.$store.dispatch('updateRoomData', {dormId, roomId, roomData}).then(()=>{
           snackbar = {
-            message: 'ٌRoom Quota Has been Updated Successfully',
+            message: this.lang.snackbar.successQuotaUpdate,
             color: 'success'
           }
           this.$store.dispatch('fetchManagerDormRooms',dormId)
           this.showQuotaUpdatedialog = false
         }).catch(()=>{
           snackbar = {
-            message: 'Some thing went wrong! try again',
+            message: this.lang.snackbar.wrongMsg,
             color: 'error'
           }
         }).then(()=>{
@@ -81,7 +77,7 @@ export default {
         })
       }else{
         snackbar = {
-          message: 'You have only ' + this.availableRoomsNumber + ' room avaliable',
+          message:  this.lang.snackbar.errorQuotaUpdate,
           color: 'error'
         }
         this.$store.commit('updateSnackbar', snackbar)
@@ -118,14 +114,14 @@ export default {
       let snackbar
       this.$store.dispatch('deleteDormRoom',{dormId,roomId}).then(()=>{
         snackbar = {
-          message: 'Room has been deleted successfully',
+          message: this.lang.snackbar.successRoomDelete,
           color: 'success'
         }
         this.fetchManagerDormRooms()
         this.deleteDialog.show = false
       }).catch(()=>{
         snackbar = {
-          message: 'Something went wrong! try again',
+          message: this.lang.snackbar.wrongMsg,
           color: 'error'
         }
       }).then(()=>{
@@ -154,14 +150,14 @@ export default {
       const dormId = localStorage.getItem('manageDormID')
       this.$store.dispatch('updateRoomData', {dormId, roomId, roomData}).then(()=>{
         let snackbar = {
-          message: 'ٌRoom Status Has been Updated Successfully',
+          message: this.lang.snackbar.successStatusUpdate,
           color: 'success'
         }
         this.$store.commit('updateSnackbar', snackbar)
         this.$store.dispatch('fetchManagerDormRooms',dormId)
       }).catch(()=>{
         let snackbar = {
-          message: 'Some thing went wrong! try again',
+          message: this.lang.snackbar.wrongMsg,
           color: 'error'
         }
         this.$store.commit('updateSnackbar', snackbar)

@@ -8,18 +8,18 @@
           <v-card-text>
 
             <v-alert v-model="isError" dismissible type="error" class="mb-4">
-              An error occured, please try again
+              {{lang.resetPassword.errorMsg}}
             </v-alert>
 
-            <h2 class="mb-3">Create a New Password</h2>
+            <h2 class="mb-3">{{lang.resetPassword.newPassHeading}}</h2>
             <v-form ref="form" lazy-validation>
-              <v-text-field label="New Password" v-model="password" :rules="passwordRules" required :append-icon="show ? 'visibility_off' : 'visibility'" @click:append="show = !show" :type="show ? 'text' : 'password'"></v-text-field>
-              <v-text-field label="Repeat The Password" v-model="confirmPassword" :rules="[comparePasswords]" type="password"></v-text-field>
+              <v-text-field :label="lang.resetPassword.newPass" v-model="password" :rules="passwordRules" required :append-icon="show ? 'visibility_off' : 'visibility'" @click:append="show = !show" :type="show ? 'text' : 'password'"></v-text-field>
+              <v-text-field :label="lang.resetPassword.repeatPass" v-model="confirmPassword" :rules="[comparePasswords]" type="password"></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="#feae25" :disabled="!valid" large class="elevation-0" @click="submit">Reset Password</v-btn>
+            <v-btn color="#feae25" :disabled="!valid" large class="elevation-0" @click="submit">{{lang.resetPassword.reset}}</v-btn>
           </v-card-actions>
         </v-card>
 
@@ -30,11 +30,13 @@
                 <v-icon class="success-icon">fa-check</v-icon>
               </v-flex>
               <v-flex xs12>
-                <p class="success-text mb-1 text-xs-center">Your Password Has been changed successfully</p>
+                <p class="success-text mb-1 text-xs-center">
+                  {{lang.resetPassword.successMsg}}
+                </p>
               </v-flex>
               <v-flex xs12 class="mt-4 text-xs-center">
                 <v-btn color="#feae25" class="elevation-0" large to="/login">
-                  Login now
+                  {{lang.resetPassword.successBtn}}
                 </v-btn>
               </v-flex>
             </v-layout>

@@ -60,7 +60,7 @@
             <v-card-title>
               <h2>{{lang.manageResrevations.heading}}</h2>
               <v-spacer></v-spacer>
-              <v-text-field v-model="search" prepend-icon="search" @input="filterByStatus()" label="Search" single-line hide-details></v-text-field>
+              <v-text-field v-model="search" prepend-icon="search" @input="filterByStatus()" :label="lang.manageResrevations.search" single-line hide-details></v-text-field>
             </v-card-title>
 
             <v-data-table :headers="headers" :items="reservations" :search="search" :rows-per-page-items="rowsPerPage" :pagination.sync="pagination">
@@ -99,7 +99,7 @@
 
                       </v-card>
                     </v-menu>
-                    <div v-else class="grey--text text--darken-5 ml-1">No Files</div>
+                    <div v-else class="grey--text text--darken-5 ml-1">{{lang.manageResrevations.noFiles}}</div>
 
                   </td>
                   <td class="text-xs-left">
@@ -120,20 +120,20 @@
                       <v-btn slot="activator" @click="props.expanded = !props.expanded" flat icon>
                         <v-icon color="#677889">fa-info-circle</v-icon>
                       </v-btn>
-                      <span>More info</span>
+                      <span>{{lang.manageResrevations.moreInfo}}</span>
                     </v-tooltip>
                     <v-btn depressed @click="updateStatus(props.item)" v-if="props.item.status != 2" color="green" dark>
                       {{lang.manageResrevations.updateStatus}}
                     </v-btn>
                     <v-btn depressed :disabled="props.item.is_reviewed" v-if="props.item.status == 2 && props.item.is_reviewable" @click="askForReview(props.item.id)">
                       <span v-if="!props.item.is_reviewed">{{lang.manageResrevations.askForReview}}</span>
-                      <span v-else>Reviewd</span>
+                      <span v-else>{{lang.manageResrevations.reviewd}}</span>
                     </v-btn>
                     <v-tooltip top>
                       <v-btn slot="activator" icon depressed @click="updateStatus(props.item)" v-if="props.item.status == 2">
                         <v-icon small class="grey--text">fa-pen</v-icon>
                       </v-btn>
-                      <span>Update Status</span>
+                      <span>{{lang.manageResrevations.updateStatus}}</span>
                     </v-tooltip>
                   </td>
                 </tr>
@@ -145,11 +145,11 @@
                       <v-flex md6>
                         <v-layout fill-height class="details-room">
                           <v-flex class="details-model__info">
-                            <h3>Room Type:</h3>
+                            <h3>{{lang.AddnewRoom.roomType}}:</h3>
                             <span>{{props.item.room_type}}</span>
                           </v-flex>
                           <v-flex class="details-model__info">
-                            <h3>Allowed people in room:</h3>
+                            <h3>{{lang.AddnewRoom.allowedPeople}}:</h3>
                             <span v-if="props.item.room_people_allowed_number < 4">
                               <v-icon v-for="n in props.item.room_people_allowed_number" small :key="n" class="mr-1">fa-user</v-icon>
                             </span>
@@ -159,16 +159,16 @@
                             </span>
                           </v-flex>
                           <v-flex class="details-model__info">
-                            <h3>Staying Duration:</h3>
+                            <h3>{{lang.AddnewRoom.duration}}:</h3>
                             <span>{{props.item.room_duration}}</span>
                           </v-flex>
                         </v-layout>
                       </v-flex>
                       <v-flex md6>
                         <v-layout fill-height column class="details-model__info">
-                          <h3>Status Message:</h3>
+                          <h3>{{lang.manageResrevations.statusCmt}}:</h3>
                           <span v-if="props.item.follow_up_message">{{props.item.follow_up_message}}</span>
-                          <span v-else>No Comment</span>
+                          <span v-else>{{lang.manageResrevations.noCmt}}</span>
                         </v-layout>
                       </v-flex>
 
@@ -194,12 +194,12 @@
       <v-card lazy>
         <v-card-text>
           <v-container grid-list-md>
-            <h2 class="mb-4">Update Reservation Status </h2>
+            <h2 class="mb-4">{{lang.manageResrevations.updateStatusHeading}} </h2>
             <v-form ref="form" lazy-validation>
 
               <v-layout wrap>
                 <v-flex xs12>
-                  <v-select prepend-icon="fa-pen" :items="status" v-model="currentStatus" label="Status" @change="setStatusIndex" required :rules="statusRules"></v-select>
+                  <v-select prepend-icon="fa-pen" :items="status" v-model="currentStatus" :label="lang.manageResrevations.statusLabel" @change="setStatusIndex" required :rules="statusRules"></v-select>
                 </v-flex>
                 <v-flex xs12 v-if="statusIndex == 0">
                   <v-menu ref="menu" :close-on-content-click="false" v-model="menu" :nudge-right="40" :return-value.sync="date" lazy transition="scale-transition" offset-y full-width min-width="290px">
@@ -210,7 +210,7 @@
                   </v-menu>
                 </v-flex>
                 <v-flex xs12>
-                  <v-textarea prepend-icon="fa-envelope" label="Note" v-model="followUpMessage" required :rules="requiredRules"></v-textarea>
+                  <v-textarea prepend-icon="fa-envelope" :label="lang.manageResrevations.noteLabel" v-model="followUpMessage" required :rules="requiredRules"></v-textarea>
                 </v-flex>
 
               </v-layout>
@@ -219,8 +219,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="grey darken-1" flat @click="close">Close</v-btn>
-          <v-btn color="green darken-1" dark depressed @click="submit" :loading="loadingBtn">Update</v-btn>
+          <v-btn color="grey darken-1" flat @click="close">{{lang.shared.close}}</v-btn>
+          <v-btn color="green darken-1" dark depressed @click="submit" :loading="loadingBtn">{{lang.shared.update}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -231,12 +231,12 @@
       <v-card-text class="text-xs-center subheading pt-5 pb-4">
         <v-icon large color="success" class="mb-4 ">fa-check-circle</v-icon>
         <h3>
-          Review request has been sent to the student
+          {{lang.manageResrevations.sentReviewRequestMsg}}
         </h3>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn class="elevation-0" @click="isReviewRequestSent = false">close</v-btn>
+        <v-btn class="elevation-0" @click="isReviewRequestSent = false">{{lang.shared.close}}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

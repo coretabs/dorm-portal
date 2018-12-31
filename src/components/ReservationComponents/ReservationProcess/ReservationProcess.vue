@@ -5,15 +5,15 @@
       <v-flex xs12 sm8 md8>
         <v-stepper v-model="reservationStep" class="pb-4">
           <v-stepper-header class="elevation-3">
-            <v-stepper-step :complete="progress > 1" step="1" color="#1c3a70">Register</v-stepper-step>
+            <v-stepper-step :complete="progress > 1" step="1" color="#1c3a70">{{lang.reservationProcess.step1}}</v-stepper-step>
 
             <v-divider></v-divider>
 
-            <v-stepper-step :complete="progress > 2" step="2" color="#1c3a70">Confirm Payment</v-stepper-step>
+            <v-stepper-step :complete="progress > 2" step="2" color="#1c3a70">{{lang.reservationProcess.step2}}</v-stepper-step>
 
             <v-divider></v-divider>
 
-            <v-stepper-step :complete="reservationComplated" step="3" color="#1c3a70">Await Approval</v-stepper-step>
+            <v-stepper-step :complete="reservationComplated" step="3" color="#1c3a70">{{lang.reservationProcess.step3}}</v-stepper-step>
 
           </v-stepper-header>
 
@@ -27,10 +27,10 @@
               <div v-if="!isRoomNotSaved && !isRoomReserved">
                 <div class="noroom-alert mt-4">
                   <v-icon left>fa-info-circle</v-icon>
-                  <span>Ops! it seems that you haven't choosen any room yet.</span>
+                  <span>{{lang.reservationProcess.noRoomSelected}}.</span>
                 </div>
                 <v-layout justify-center class="my-4">
-                  <v-btn large dark color="#1c3a70" to="/">Find your Room Now</v-btn>
+                  <v-btn large dark color="#1c3a70" to="/">{{lang.reservationProcess.findRoomBtn}}</v-btn>
                 </v-layout>
               </div>
               <confirm-payment v-else></confirm-payment>
@@ -51,21 +51,21 @@
     <v-btn slot="activator" color="rgb(36, 204, 27)" class="contact-icon" dark fab @click="contactDate">
       <v-icon>fa-comment-alt</v-icon>
     </v-btn>
-    <span>Contact Us</span>
+    <span>{{lang.dormProfile.contactUs}}</span>
   </v-tooltip>
 
   <v-dialog v-model="contactDialog" max-width="500" lazy>
     <v-card>
       <v-card-text class="pa-4">
-        <h2 class="mb-4">Feel Free to Contact Us:</h2>
+        <h2 class="mb-4">{{lang.reservationProcess.contactMsg}}:</h2>
         <div class="contact-info">
-          <v-icon>fa-envelope</v-icon> <span>Email:</span> {{contact.contact_email}}
+          <v-icon>fa-envelope</v-icon> <span>{{lang.dormProfile.contactEmail}}:</span> {{contact.contact_email}}
         </div>
         <div class="contact-info">
-          <v-icon>fa-phone</v-icon> <span>Phone:</span> {{contact.contact_number}}
+          <v-icon>fa-phone</v-icon> <span>{{lang.dormProfile.contactPhone}}:</span> {{contact.contact_number}}
         </div>
         <div class="contact-info">
-          <v-icon>fa-fax</v-icon> <span>Fax:</span> {{contact.contact_fax}}
+          <v-icon>fa-fax</v-icon> <span>{{lang.dormProfile.ContactFax}}:</span> {{contact.contact_fax}}
         </div>
       </v-card-text>
     </v-card>

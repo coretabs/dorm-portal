@@ -3,11 +3,22 @@
         "shared":{
             "submit": "Submit",
             "close": "Close",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "reset": "Reset",
+            "save": "Save",
+            "update": "Update",
+            "delete": "Delete",
+            "edit": "Edit"
         },
         "rules":{
             "emailRequired": "E-mail is required",
-            "emailValid": "E-mail must be valid"
+            "emailValid": "E-mail must be valid",
+            "passRequired": "Password is required",
+            "passLength": "Password Must be more that 6",
+            "nameRequired": "Name is required",
+            "nameLength": "Name must be more than 3 and less than 20 characters",
+            "fieldRequired": "This field is required",
+            "quotaRule": "You exceeds the allowed number"
         },
         "header": {
             "logo": "Dorms",
@@ -26,7 +37,13 @@
         "snackbar":{
             "close": "close",
             "successFileUpload": "Files Uploaded successfully",
-            "wrongMsg": "Something went Wrong!"
+            "wrongMsg": "Something went Wrong! try again",
+            "successRoomAdd": "Room has been Add successfully",
+            "successRoomEdit": "Room has been Updated successfully",
+            "successStatusUpdate": "Status has been Updeated, successfully",
+            "successQuotaUpdate": "Room Quota Has been Updated Successfully",
+            "errorQuotaUpdate" : "You exceeds the allowed number",
+            "successRoomDelete": "Room has been deleted successfully"
         },
         "dormCard": {
             "roomsLeft": "Rooms left",
@@ -133,7 +150,22 @@
             "notUser": "This Email address is not assigned to any user account",
             "heading": "Enter your email to reset password",
             "emailSent": "An email has been sent to you with detailed instructions on how to reset your password",
-            "reset": "reset"
+            "reset": "reset",
+            "errorMsg": "An error occured, please try again",
+            "newPassHeading": "Create a New Password",
+            "newPass": "new Password",
+            "repeatPass": "Repeat The Password",
+            "successMsg": "Your Password Has been changed successfully",
+            "successBtn": "Login now",
+            "noMatch": "Passwords do not match"
+        },
+        "reservationProcess":{
+            "step1": "Register",
+            "step2": "Confirm Payment",
+            "step3": "Await Approval",
+            "noRoomSelected": "Ops! it seems that you haven't choosen any room yet",
+            "findRoomBtn": "Find your Room Now",
+            "contactMsg": "Feel Free to Contact Us"
         },
         "signup": {
             "heading": "Create an Account",
@@ -143,14 +175,104 @@
             "passport": "Passport Number",
             "lastName": "Last Name",
             "button": "Signup",
-            "haveAccount": "Do You Have an Account?"
+            "haveAccount": "Do You Have an Account?",
+            "successMsg": "Your account has been successfully created",
+            "emailSentMsg": "An email has been sent to you with detailed instructions on how to activate it"
         },
         "reservationStatus": {
             "uploadedDocuments": "Uploaded Documents",
             "newUpload": "New receipt",
             "statusHeading": "Reservation Status",
             "commentHeading": "comment",
-            "submittedHeading": "Submitted on"
+            "submittedHeading": "Submitted on",
+            "updatedOn": "Updated on",
+            "submitionDeadline": "Submition Deadline",
+            "watingActionMsg": "Wating for dorm manager action",
+            "expiredMsg": "Your reservation has expired",
+            "uploadReceipt": "Upload a receipt",
+            "submitReceipt": "Submit receipt",
+            "reserveNewRoom": "reserve new room",
+            "noFiles": "There are no files",
+            "pending": "pending",
+            "rejected": "rejected",
+            "confirmed": "confirmed",
+            "Wating": "Wating",
+            "Updated": "Updated",
+            "Expired": "Expired",
+            "Unknown": "Unknown"
+        },
+        "AddnewRoom":{
+            "generalHeading": "General Properties",
+            "roomType": "Room Type",
+            "duration": "Duration",
+            "allowedPeople": "Number of people",
+            "price": "price",
+            "currency": "Currency",
+            "totalRooms": "Total Rooms in Dorm",
+            "totalRoomsHint": "Number of all rooms of this type in your dorm",
+            "selectFeatures": "Select features",
+            "featuresHeading": "Room Features",
+            "photosHeading": "Room Photos",
+            "isRoomReady": "switch off to hide room from search results",
+            "btn": "Add Room",
+            "noPhotos": "No Photos Has been uploaded for this Room",
+            "UploadNewHeading": "Upload New Photos",
+            "confirmDelete": "Confirm Delete",
+            "confirmDeleteMsg": "Are You sure you want to delete this Photo",
+            "deleteBtn": "Delete photo"
+        },
+        "manageResrevations": {
+            "heading": "Reservation records",
+            "all": "All",
+            "wating": "Wating",
+            "pending": "Pending",
+            "confirmed": "Confirmed",
+            "rejected": "Rejected",
+            "Expired": "Expired",
+            "search": "search",
+            "noFiles": "No files",
+            "moreInfo": "More Info",
+            "searchResults": "No record found for ",
+            "updateStatus": "Update Status",
+            "askForReview": "Ask for review",
+            "reviewd": "Reviewd",
+            "statusCmt": "Status Comment",
+            "noCmt": "No comment",
+            "updateStatusHeading": "Update Reservation Status",
+            "statusLabel": "Status",
+            "noteLabel": "Note",
+            "receipt": "Receipt",
+            "sentReviewRequestMsg": "Review request has been sent to the student",
+            "download": "Download",
+            "tableHeaders": [
+                "Amount",
+                "Receipts",
+                "Status",
+                "Last Updated On",
+                "Student Name",
+                "Student Email",
+                "Created On",
+                "Deadline",
+                "Actions"
+            ],
+            "status": [
+                "Update",
+                "Reject",
+                "Confirm"
+            ]
+        },
+        "manageRooms":{
+            "availability": "Availability",
+            "reservedRooms": "Reserved Rooms",
+            "quota": "Quota",
+            "deleteConfirmMsg": "Are You sure you want to delete this room",
+            "deleteRoomBtn": "Delete Room",
+            "updateQuotaHeading": "Update Quota",
+            "editRoom": "Edit Room",
+            "confirm": "Confirm",
+            "addUpTo": "You can add upto",
+            "room": "room",
+            "roomAvailable": "room avaialable"
         },
         "managerMenuItems": [
             "Reservations",
@@ -176,40 +298,6 @@
             "DormEmail": "Dorm Email",
             "button": "Update"
         },
-        "manageResrevations": {
-            "heading": "Reservation records",
-            "all": "All",
-            "wating": "Wating",
-            "pending": "Pending",
-            "confirmed": "Confirmed",
-            "rejected": "Rejected",
-            "Expired": "Expired",
-            "searchResults": "No record found for ",
-            "updateStatus": "Update Status",
-            "askForReview": "Ask for review",
-            "receipt": "Receipt",
-            "download": "Download",
-            "tableHeaders": [
-                "Amount",
-                "Receipts",
-                "Status",
-                "Last Updated On",
-                "Student Name",
-                "Student Email",
-                "Created On",
-                "Deadline",
-                "Actions"
-            ],
-            "status": [
-                "Pending",
-                "Rejected",
-                "Confirm"
-            ]
-        },
-        "manageRoom": [
-            "Quota",
-            "Room Card"
-        ],
         "errorMessages": {
             "manageDorm": {
                 "pleaseAddEitherURLorPhoto": "Please add either url or uploaded_photo",

@@ -6,27 +6,27 @@
         <v-layout wrap>
 
           <v-flex xs12 sm6 md4 pa-3>
-            <h2 class="heading">General Properties:</h2>
-            <v-select class="shift-left" :items="roomFilters.room_types" :rules="requiredRules" item-text="name" item-value="id" label="Room Type" append-icon="expand_more" :menu-props="{
+            <h2 class="heading">{{lang.AddnewRoom.generalHeading}}:</h2>
+            <v-select class="shift-left" :items="roomFilters.room_types" :rules="requiredRules" item-text="name" item-value="id" :label="lang.AddnewRoom.roomType" append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
           }" v-model="room.roomTypeId"></v-select>
 
-            <v-select class="shift-left" :items="roomFilters.durations" :rules="requiredRules" item-text="name" item-value="id" label="Duration" append-icon="expand_more" :menu-props="{
+            <v-select class="shift-left" :items="roomFilters.durations" :rules="requiredRules" item-text="name" item-value="id" :label="lang.AddnewRoom.duration" append-icon="expand_more" :menu-props="{
             offsetY: '',
             transition: 'slide-y-transition',
             bottom: ''
           }" v-model="room.durationId"></v-select>
 
-            <v-text-field label="Number of people" type="number" :rules="requiredRules" v-model="room.peopleAllowedNumber"></v-text-field>
+            <v-text-field :label="lang.AddnewRoom.allowedPeople" type="number" :rules="requiredRules" v-model="room.peopleAllowedNumber"></v-text-field>
 
             <v-layout wrap>
               <v-flex xs12 sm8>
-                <v-text-field label="price" type="number" :rules="requiredRules" v-model="room.price"></v-text-field>
+                <v-text-field :label="lang.AddnewRoom.price" type="number" :rules="requiredRules" v-model="room.price"></v-text-field>
               </v-flex>
               <v-flex xs12 sm4 pl-2>
-                <v-select class="shift-left" :rules="requiredRules" :items="roomFilters.currencies" v-model="room.currencyId" item-text="code" item-value="id" label="Currency" color="success" append-icon="expand_more" :menu-props="{
+                <v-select class="shift-left" :rules="requiredRules" :items="roomFilters.currencies" v-model="room.currencyId" item-text="code" item-value="id" :label="lang.AddnewRoom.currency" color="success" append-icon="expand_more" :menu-props="{
                   offsetY: '',
                   transition: 'slide-y-transition',
                   bottom: ''
@@ -34,11 +34,11 @@
               </v-flex>
             </v-layout>
 
-            <v-text-field label="Total Rooms in Dorm" hint="Number of all rooms of this type in your dorm" :rules="requiredRules" type="number" v-model="room.totalQuota"></v-text-field>
+            <v-text-field :label="lang.AddnewRoom.totalRooms" :hint="lang.AddnewRoom.totalRoomsHint" :rules="requiredRules" type="number" v-model="room.totalQuota"></v-text-field>
             <v-text-field label="Quota" hint="Number of rooms you want to open for online reservation" type="number" :rules="requiredRules" v-model="room.allowedQuota"></v-text-field>
             <v-text-field label="Confirmation Duration in Days" hint="Give students a deadline to upload payment receipts" :rules="requiredRules" type="number" v-model="room.confirmationDays"></v-text-field>
 
-            <v-autocomplete class="features-input" v-model="room.roomFeatures" :disabled="isUpdating" :items="roomFilters.room_features" box chips color="blue-grey lighten-2" label="Select features" item-text="name" item-value="id" multiple>
+            <v-autocomplete class="features-input" v-model="room.roomFeatures" :disabled="isUpdating" :items="roomFilters.room_features" box chips color="blue-grey lighten-2" :label="lang.AddnewRoom.selectFeatures" item-text="name" item-value="id" multiple>
               <template slot="selection" slot-scope="data">
                 <v-chip :selected="data.selected" close class="chip--select-multi" @input="remove(data.item)">
                   {{data.item.name}}
@@ -56,7 +56,7 @@
           </v-flex>
 
           <v-flex xs12 sm6 md4 pa-3>
-            <h2 class="heading">Room Features:</h2>
+            <h2 class="heading">{{lang.AddnewRoom.featuresHeading}}:</h2>
 
             <div v-for="(filter,i) in roomFilters.additional_filters" :key="i">
 
@@ -77,7 +77,7 @@
           </v-flex>
 
           <v-flex xs12 sm6 md4 pa-3>
-            <h2 class="heading">Room Photos:</h2>
+            <h2 class="heading">{{lang.AddnewRoom.photosHeading}}:</h2>
 
             <div class="files-uploader">
               <v-form enctype="multipart/form-data">
@@ -90,7 +90,7 @@
                       </label>
                     </v-flex>
                     <v-flex md8 xs12 class="text-md-left">
-                      <p>Allowed documents: JEPG, PNG, GIF</p>
+                      <p>{{lang.confirmPayment.allowedDocs}}: JEPG, PNG, GIF</p>
                     </v-flex>
                   </v-layout>
                   <input type="file" id="file" multiple @change="selectFile" ref="files" v-show="false">
@@ -111,7 +111,7 @@
                       </v-flex>
                     </v-layout>
                   </v-flex>
-                  <v-btn class="upload-btn mt-3 mr-2" depressed @click="resetFiles" v-show="this.files.length">reset</v-btn>
+                  <v-btn class="upload-btn mt-3 mr-2" depressed @click="resetFiles" v-show="this.files.length">{{lang.shared.reset}}</v-btn>
               </v-form>
             </div>
 
@@ -122,11 +122,11 @@
               <v-layout wrap row>
 
                 <v-flex xs12 md6 class="pl-2">
-                  <v-switch label="switch off to hide room from search results" color="success" v-model="room.isReady"></v-switch>
+                  <v-switch :label="lang.AddnewRoom.isRoomReady" color="success" v-model="room.isReady"></v-switch>
                 </v-flex>
                 
                 <v-flex xs12 md6 class="text-xs-right">
-                  <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" @click="submitNewRoom">Add Room</v-btn>
+                  <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" @click="submitNewRoom">{{lang.AddnewRoom.btn}}</v-btn>
                 </v-flex>
 
               </v-layout>

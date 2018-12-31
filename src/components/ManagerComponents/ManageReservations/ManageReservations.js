@@ -27,10 +27,10 @@ export default {
       statusIndex: null,
       statusFilter: null,
       requiredRules:[
-        v => !!v || 'This field is required'
+        v => !!v || this.lang.rules.fieldRequired
       ],
       statusRules:[
-        v => !!v || 'Status is required',
+        v => !!v || this.lang.rules.fieldRequired,
       ],
       rowsPerPage: [10, 20, 30, 40],
       pagination: {
@@ -86,7 +86,7 @@ export default {
         localStorage.setItem('manageDormID',dormID)
       }).catch(()=>{
         this.$store.state.snackbar.trigger = true
-        this.$store.state.snackbar.message = 'Can\'t load dorm'
+        this.$store.state.snackbar.message = this.lang.snackbar.wrongMsg
         this.$store.state.snackbar.color = 'error'
       })
     },
@@ -108,7 +108,7 @@ export default {
         this.loadingBtn = true
         this.$store.dispatch("updateReservationStatus", data).then(()=>{
           let snackbar = {
-            message: 'Status has been Updeated, successfully',
+            message: this.lang.snackbar.successStatusUpdate,
             color: 'success'
           }
           this.$refs.form.reset()
@@ -117,7 +117,7 @@ export default {
           this.$store.commit('updateSnackbar', snackbar)
         }).catch(()=>{
           let snackbar = {
-            message: 'Something went Wrong! Try again',
+            message: this.lang.snackbar.wrongMsg,
             color: 'error'
           }
           this.$store.commit('updateSnackbar', snackbar)

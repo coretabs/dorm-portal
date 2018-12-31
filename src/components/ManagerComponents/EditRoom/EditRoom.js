@@ -23,7 +23,7 @@ export default {
         confirmDialog: false
       },
       requiredRules: [
-        v => !!v || 'This field is required'
+        v => !!v || this.lang.rules.fieldRequired
       ]
     }
   },
@@ -65,7 +65,7 @@ export default {
         this.resetFiles()
         this.$store.dispatch('fetchManagerDormRooms',dormId)
         let snackbar = {
-          message: 'Room has been Updated successfully',
+          message: this.lang.snackbar.successRoomEdit,
           color: 'success'
         }
         this.closeEditDialog()
@@ -100,7 +100,7 @@ export default {
           let snackbar
           if(err.response.status == 403 || err.response.status == 500){
             snackbar = {
-              message: 'error occured, please try again',
+              message: this.lang.snackbar.wrongMsg,
               color: 'error'
             }
             this.$store.commit('updateSnackbar', snackbar)
@@ -134,10 +134,10 @@ export default {
       const MAX_SIZE = 8000000
       const allowedType = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
       if(file.size > MAX_SIZE){
-        return `Max size: ${MAX_SIZE/1000}KB`
+        return `${this.confirmPayment.fileMaxSize}: ${MAX_SIZE/1000}KB`
       }
       if(!allowedType.includes(file.type)){
-        return 'File type is not allowed'
+        return this.confirmPayment.notAllowedType
       }
       return ''
     },

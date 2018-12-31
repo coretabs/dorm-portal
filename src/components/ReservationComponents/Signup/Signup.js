@@ -11,16 +11,16 @@ export default {
       errors: [],
       password: '',
       nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length >= 3 && v.length <=20 || 'Name must be more than 3 and less than 20 characters'
+        v => !!v || this.lang.rules.nameRequired,
+        v => v.length >= 3 && v.length <=20 || this.lang.rules.nameLength
       ],
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v.trim()) || 'E-mail must be valid'
+        v => !!v || this.lang.rules.emailRequired,
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v.trim()) || this.lang.rules.emailValid
       ],
       passwordRules:[
-        v => !!v || 'Password is required',
-        v => v.length >= 6 || 'Password Must be more that 8'
+        v => !!v || this.lang.rules.passRequired,
+        v => v.length >= 6 || this.lang.rules.passLength
       ]
     }
   },
