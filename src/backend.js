@@ -51,7 +51,7 @@ $backend.$searchDorms = (filters) => {
 }
 
 $backend.$fetchDorm = (dormId, currencyCode) => {
-    return $backend.get(`/dorms/${dormId}/?currency=${currencyCode}/`)
+    return $backend.get(`/dorms/${dormId}/?currency=${currencyCode}`)
         .then(response => response.data)
 }
 
