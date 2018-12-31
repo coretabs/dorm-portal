@@ -37,6 +37,10 @@ To get up and running in a matter of seconds, simply run `python manage.py seed`
 
 You will need to add both `update_rates` and `collectquota` scheduled tasks into your deployed app whether [using cron](https://askubuntu.com/a/2369) or [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler). Their job is to update the exchange rate (for currency conversion) and collect the quota (from the expired reservations), respectively.
 
+### Uploading photos
+
+If you are willing to use Heroku for your production app, ensure that you provide S3 backend storage to store your photos, [please refer to this guide for more information](https://simpleisbetterthancomplex.com/tutorial/2017/08/01/how-to-setup-amazon-s3-in-a-django-project.html).
+
 ## Tech stack
 
 <p align="center">
