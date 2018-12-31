@@ -4,7 +4,8 @@ export default {
     return {
       activeBtn: 1,
       showNav: true,
-      userName: ''
+      userName: '',
+      dormName: 'Switch Dorm'
     };
   },
   methods: {
@@ -51,9 +52,10 @@ export default {
     },
     switchDorms(id){
       localStorage.setItem('manageDormID', id)
-        this.$store.dispatch('fetchManagerReservation', id)
-        this.$store.dispatch('fetchManagerDorm', id)
-        this.$store.dispatch('fetchManagerDormRooms', id)
+      this.$store.dispatch('fetchManagerReservation', id)
+      this.$store.dispatch('fetchManagerDorm', id)
+      this.$store.dispatch('fetchManagerDormRooms', id)
+      this.setDormName()
     },
     closeSnackbar(){
       this.$store.state.snackbar.trigger = false
@@ -61,6 +63,13 @@ export default {
     setDefaultLang(){
       const lang = localStorage.getItem('lang') || 'en'
       this.$cookie.set('django_language', lang, { expires: '1Y' });
+    },
+    setDormName(){
+      const activeDormId = localStorage.getItem('manageDormID')
+      if(activeDormId){
+        let name = this.managerDorms.find(dorm => dorm.id == activeDormId).name
+        this.dormName = name
+      }
     }
   },
   computed: {
@@ -91,6 +100,7 @@ export default {
   },
   updated(){
     this.getUserName()
+    this.setDormName()
   },
   mounted(){
     this.setDefaultLang()

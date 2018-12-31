@@ -35,7 +35,7 @@
       <!-- Switching Dorms -->
       <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y v-if="$route.path === '/manage' && managerDorms.length > 1">
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
-          Switch Dorms
+          {{dormName}}
           <v-icon color="#ccc" right>expand_more</v-icon>
         </v-btn>
         <v-list>
