@@ -68,11 +68,10 @@
 
         </v-flex>
         <div class="reviews-avarage" v-if="dorm.stars_average">
-          {{dorm.stars_average / 5 * 10}}
-          <sub>/10</sub>
+          {{dorm.stars_average}}
+          <sub>/5</sub>
         </div>
         
-        </div>
       </v-layout>
 
       <v-divider light></v-divider>
