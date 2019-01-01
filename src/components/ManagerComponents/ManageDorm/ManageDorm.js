@@ -194,14 +194,14 @@ export default {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
           position.enableHighAccuracy = true
-          console.log(position)
+          //console.log(position)
           const lng = position.coords.longitude
           const lat = position.coords.latitude
           this.dorm.geo_longitude = lng
           this.dorm.geo_latitude = lat
         })
       } else {
-        console.log('geolocation IS NOT available on your browser');
+        //console.log('geolocation IS NOT available on your browser');
       }
     },
     submitDormLocation(dialog) {

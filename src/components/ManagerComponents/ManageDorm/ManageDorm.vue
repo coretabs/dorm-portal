@@ -221,7 +221,6 @@
             <v-flex xs12 class="pa-3">
               <div class="dorm-feature" v-for="feature in dorm.features" :key="feature.id">
                 <v-icon v-if="feature.icon">{{feature.icon}}</v-icon>
-                <v-icon else>fa-check</v-icon>
                 <span>{{feature.name}}</span>
               </div>
             </v-flex>
