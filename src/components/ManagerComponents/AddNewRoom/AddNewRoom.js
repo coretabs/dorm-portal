@@ -87,6 +87,7 @@ export default {
       if (success) {
         this.files = []
         this.uploadFiles = []
+        this.$store.state.adminActiveComponent = 'ManageRooms'
         this.$store.dispatch('fetchManagerDormRooms', dormId)
         let snackbar = {
           message: this.lang.snackbar.successRoomAdd,

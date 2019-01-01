@@ -4,7 +4,6 @@
     <v-card-text>
       <v-form ref="form" lazy-validation>
         <v-layout wrap>
-
           <v-flex xs12 sm6 md4 pa-3>
             <h2 class="heading">{{lang.AddnewRoom.generalHeading}}:</h2>
             <v-select class="shift-left" :items="roomFilters.room_types" :rules="requiredRules" item-text="name" item-value="id" :label="lang.AddnewRoom.roomType" append-icon="expand_more" :menu-props="{
