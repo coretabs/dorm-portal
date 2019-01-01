@@ -98,7 +98,7 @@
       <v-card>
         <v-card-text>
           <h2>{{lang.manageRooms.updateQuotaHeading}}:</h2>
-          <p v-if=" availableRooms(reservedRoomsNumber, totalRoomsNumber) > 0 " class="avaliable-quota__info">{{lang.manageRooms.addUpTo}} <strong>{{availableRoomsNumber}}</strong> {{lang.manageRooms.room}}</p>
+          <p v-if=" availableRooms(reservedRoomsNumber, totalRoomsNumber) > 0 " class="avaliable-quota__info"><strong>{{availableRoomsNumber}}</strong> {{lang.manageRooms.room}} {{lang.manageRooms.addUpTo}}</p>
           <p v-else class="avaliable-quota__warning"> <strong>0</strong> {{lang.manageRooms.roomAvailable}}</p>
           <v-text-field :rules="quotaRules" v-model="allowedQuotaNumber" type="number" min="0" :max="availableRoomsNumber" required :disabled="availableRoomsNumber == 0"></v-text-field>
         </v-card-text>

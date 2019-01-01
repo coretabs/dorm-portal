@@ -37,20 +37,20 @@
         "snackbar":{
             "close": "Kapat",
             "successFileUpload": "Dosyalar başarıyla yüklendi",
-            "wrongMsg": "Bir şeyler ters gitti! Tekrar dene.",
+            "wrongMsg": "Bir şeyler ters gitti! Tekrar dene",
             "successRoomAdd": "Oda başarıyla eklendi",
             "successRoomEdit": "Oda başarıyla güncellendi",
             "successStatusUpdate": "Durum başarıyla güncellendi",
-            "successQuotaUpdate": "Oda kotası başarıyla güncellendi.",
+            "successQuotaUpdate": "Oda kotası başarıyla güncellendi",
             "errorQuotaUpdate" : "İzin verilen numarayı aşıyorsunuz",
             "successRoomDelete": "Oda başarıyla silindi"
         },
         "dormCard": {
             "roomsLeft": "Kalan odalar",
             "dormFeatures": "Yurt özellikleri",
-            "openMap": "haritayı aç",
-            "reviews": "yorumlar",
-            "more": "daha fazlası",
+            "openMap": "Haritayı aç",
+            "reviews": "Yorum",
+            "more": "Daha fazlası",
             "features": "Özellikler",
             "showDetails": "Oda ayrıntıları için tıklayın",
             "roomType": "Oda Tipi"
@@ -62,18 +62,18 @@
             "characteristics": "Oda karakteristiği",
             "features": "Oda özellikleri",
             "reserveBtn": "Şimdi rezerve et",
-            "aboutDormBtn": "Yurt hakkında daha fazlasını oku",
+            "aboutDormBtn": "Yurt hakkında daha fazlasını edin",
             "savedRoomComment": "Seçtiğiniz oda kaydedildi",
-            "delete": "Silin",
+            "delete": "Sil",
             "checkRoom": "Tekrar kontrol et"
         },
         "dormFilter": {
            "heading": "Odaları filtrele",
             "dormFeatures": "Yurt Özellikleri",
             "roomFeatures": "Oda Özellikleri",
-            "dorms": "Yurtlar",
+            "dorms": "Yurt",
             "dorm": "Yurt",
-            "searchResult": "Aramanızla eşleşenler",
+            "searchResult": "aramanızla eşleşti.",
             "noSearchResult": "Üzgünüm, yurt bulunamadı"
         },
         "dormSearch": {
@@ -119,7 +119,7 @@
         "confirmPayment": {
             "backToStatusBtn": "Durum sayfasına geri dön ",
             "deadlineHeading": "Makbuz Gönderme Tarihi",
-            "deadlineHint": "Makbuzu son başvuru tarihinden önce yüklemezseniz, rezervasyonunuz iptal edilir",
+            "deadlineHint": "Makbuzu son başvuru tarihinden önce yüklemezseniz, rezervasyonunuz iptal edilir.",
             "amountHeading": "Ödenecek miktar ",
             "bankAccountsHeading": "Banka hesaplarımız",
             "accountName": "Hesap adı",
@@ -139,11 +139,11 @@
             "confirmButton": "Bir sonraki adım"
         },
         "login": {
-            "heading": "Hesabınıza giriş yapın",
+            "heading": "Hesabınıza giriş yapın.",
             "password": "Şifre",
             "email": "Eposta",
             "button": "Giriş yap",
-            "forgotPass": "Parolanızı mı unuttunuz ?",
+            "forgotPass": "Parolanızı mı unuttunuz? ",
             "successReset": "İsteğiniz başarıyla gönderildi."
         },
         "resetPassword":{
@@ -182,23 +182,23 @@
         "reservationStatus": {
             "uploadedDocuments": "Yüklenen belgeler",
             "newUpload": "Yeni makbuz",
-            "statusHeading": "Rezervasyon durumu",
-            "commentHeading": "yorum",
+            "statusHeading": "Rezervasyon Durumu",
+            "commentHeading": "Yorum",
             "submittedHeading": "tarihinde gönderildi",
-            "updatedOn": "tarihinde güncellendi",
+            "updatedOn": "Güncellenen Tarih",
             "submitionDeadline": "Son Başvuru Tarihi",
            "watingActionMsg": "Yurt yöneticisi eylemi bekleniyor",
             "expiredMsg": "Rezervasyonunuzun süresi dolmuştur.",
             "uploadReceipt": "Makbuz yükle",
             "submitReceipt": "Makbuzu gönder",
-            "reserveNewRoom": "yeni oda rezervasyonu",
+            "reserveNewRoom": "Yeni Oda Rezervasyonu",
             "noFiles": "Dosya yok",
-            "pending": "pending",
-            "rejected": "reddedildi",
-            "confirmed": "onaylandı",
+            "pending": "Askıda",
+            "rejected": "Reddedildi",
+            "confirmed": "Onaylandı",
             "Wating": "Bekleniyor",
             "Updated": "Güncellendi",
-            "Expired": "Süre doldu",
+            "Expired": "Süresi doldu",
             "Unknown": "Bilinmiyor"
         },
         "AddnewRoom":{
@@ -227,9 +227,9 @@
             "wating": "Bekleniyor",
            "pending": "Askıda",
             "confirmed": "Onaylandı",
-            "rejected": "reddedildi",
-            "Expired": "süre doldu",
-            "search": "arama",
+            "rejected": "Reddedildi",
+            "Expired": "Süresi doldu",
+            "search": "Arama",
             "noFiles": "Dosyalar yok",
             "moreInfo": "Daha fazla bilgi",
             "searchResults": "      için kayıt bulunamadı ",
@@ -250,7 +250,7 @@
                 "Durum",
                 "Son Güncelleme Tarihi",
                 "Öğrencinin Adı",
-                "Öğrencinin eposta adresi",
+                "Öğrencinin Eposta Adresi",
                 "Oluşturuldu",
                 "Son tarih",
                 "Eylemler"
@@ -301,7 +301,7 @@
         "errorMessages": {
             "manageDorm": {
                 "pleaseAddEitherURLorPhoto": "Lütfen URL'yi veya yüklenen fotoğrafı ekleyin",
-                "urlOnlyWith3D": "Bir 3D resim eklemek istiyorsanız, lütfen URL'yi ekleyin ve fotoğraf yüklemeyin"
+                "urlOnlyWith3D": "Bir 360 resim eklemek istiyorsanız, lütfen URL'yi ekleyin ve fotoğraf yüklemeyin"
             },
             "manageReservation": {
                 "thisReservationIsNotReviewable": "Bu rezervasyon incelenemez",
