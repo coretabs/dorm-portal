@@ -23,8 +23,8 @@
           </v-card-actions>
         </v-card>
 
-        <v-card>
-          <v-card-text class="pa-5" v-if="isPasswordChanged">
+        <v-card v-if="isPasswordChanged">
+          <v-card-text class="pa-5">
             <v-layout row wrap justify-center align-center>
               <v-flex xs12 class="text-xs-center mb-4">
                 <v-icon class="success-icon">fa-check</v-icon>
