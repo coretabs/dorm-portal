@@ -298,6 +298,10 @@
             "DormEmail": "Dorm Email",
             "button": "Update"
         },
+        "selectDorm":{
+            "heading": "Choose Dorm To Manage",
+            "btn": "Manage"
+        },
         "errorMessages": {
             "manageDorm": {
                 "pleaseAddEitherURLorPhoto": "Please add either url or uploaded_photo",

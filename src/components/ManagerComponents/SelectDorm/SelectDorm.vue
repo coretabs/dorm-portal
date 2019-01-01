@@ -1,6 +1,6 @@
 <template>
 <div id="manage-reservations" class="text-xs-center">
-  <h1 class="my-5">Choose Dorm To Manage</h1>
+  <h1 class="my-5">{{lang.selectDorm.heading}}</h1>
   <v-layout wrap row justify-center>
     <v-flex md4 xs12 v-for="(dorm,index) in dorms" :key="index">
       <v-card class="ma-3">
@@ -18,7 +18,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="orange" @click="chosenDorm(dorm.id)">Manage</v-btn>
+          <v-btn color="orange" @click="chosenDorm(dorm.id)">{{lang.selectDorm.btn}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>

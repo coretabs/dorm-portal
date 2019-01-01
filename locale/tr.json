@@ -298,6 +298,10 @@
             "DormEmail": "Yurt Eposta Adresi",
             "button": "Güncelle"
         },
+        "selectDorm":{
+            "heading": "Yöneteceğiniz yurdu seçin",
+            "btn": "Yönet"
+        },
         "errorMessages": {
             "manageDorm": {
                 "pleaseAddEitherURLorPhoto": "Lütfen URL'yi veya yüklenen fotoğrafı ekleyin",
