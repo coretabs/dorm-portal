@@ -37,13 +37,13 @@ header {
       display: none;
     }
   }
-  #currency-menu,
-  #language-menu
-  {
-    @media (max-width: 600px) {
-      display: none;
-    }
-  }
+  // #currency-menu,
+  // #language-menu
+  // {
+  //   @media (max-width: 600px) {
+  //     display: none;
+  //   }
+  // }
   .v-navigation-drawer{
     margin-top: 0 !important;
   }

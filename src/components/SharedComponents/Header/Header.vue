@@ -5,8 +5,8 @@
     <span>{{snackbar.message}}</span>
     <v-btn flat color="white" @click="closeSnackbar">{{lang.snackbar.close}}</v-btn>
   </v-snackbar>
-  
-  <v-toolbar light flat fixed app >
+
+  <v-toolbar light flat fixed app>
     <!-- <v-toolbar-side-icon  @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
     <v-toolbar-title>
       <v-layout>
@@ -15,7 +15,7 @@
             <v-icon>menu</v-icon>
           </v-btn>
         </v-flex>
-        <v-flex class="text-xs-center" v-else>
+        <v-flex class="text-xs-center hidden-md-and-up" v-else>
           <v-btn flat class="mr-2 my-0" icon @click="$router.go(-1)">
             <v-icon>arrow_back</v-icon>
           </v-btn>
@@ -23,7 +23,7 @@
         <v-flex>
           <router-link to="/" id="logo">
             <img src="../../../assets/images/header/logo.png" alt="EMU">
-            <span>{{lang.header.logo}}</span>
+            <span class="hidden-sm-and-down">{{lang.header.logo}}</span>
           </router-link>
         </v-flex>
       </v-layout>
@@ -33,7 +33,7 @@
     <v-toolbar-items>
 
       <!-- Switching Dorms -->
-      <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y v-if="$route.path === '/manage' && managerDorms.length > 1">
+      <v-menu transition="slide-y-transition" bottom offset-y v-if="$route.path === '/manage' && managerDorms.length > 1">
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
           {{dormName}}
           <v-icon color="#ccc" right>expand_more</v-icon>
@@ -46,7 +46,7 @@
       </v-menu>
 
       <!-- Currency -->
-      <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y v-if="$route.path !== '/reservation' && $route.path !== '/manage'">
+      <v-menu id="currency-menu" transition="slide-y-transition" bottom offset-y v-if="$route.path !== '/reservation' && $route.path !== '/manage'" class="hidden-sm-and-down">
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
           {{this.$store.state.currencyCode}}
           <v-icon color="#ccc" right>expand_more</v-icon>
@@ -58,7 +58,7 @@
         </v-list>
       </v-menu>
       <!-- language -->
-      <v-menu id="language-menu" transition="slide-y-transition" bottom offset-y>
+      <v-menu id="language-menu" transition="slide-y-transition" bottom offset-y class="hidden-sm-and-down">
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
           <v-icon color="#666">language</v-icon>
           <v-icon color="#ccc" right>expand_more</v-icon>
@@ -90,7 +90,7 @@
           </v-list-tile>
           <v-list-tile v-if="isAdmin" @click="dormProfile">
             <v-list-tile-title>
-                {{lang.header.dormProfile}}
+              {{lang.header.dormProfile}}
             </v-list-tile-title>
           </v-list-tile>
           <v-list-tile @click="logout">
@@ -106,14 +106,57 @@
 
   </v-toolbar>
 
-  <v-bottom-nav id="bottom-nav" :active.sync="activeBtn" :value="showNav" fixed color="#fff" v-if="$route.path === '/'">
+  <v-bottom-nav id="bottom-nav" :active.sync="activeBtn" :value="showNav" fixed color="#fff" v-if="$route.path != '/manage'">
 
-    <v-btn flat color="teal" @click="toggleDrawer">
-      <template>
-        <span>{{lang.bottomNav.filters}}</span>
-        <v-icon>fa-filter</v-icon>
-      </template>
-    </v-btn>
+    <v-layout align-center justify-space-between row fill-height>
+      <v-flex xs4 class="text-xs-center">
+        <v-menu transition="slide-y-transition" bottom offset-y>
+          <v-btn large slot="activator" color="#1c3a70" class="lang-btn" flat append-icon="expand_more">
+            <template>
+              <span>Language</span>
+              <v-icon>language</v-icon>
+            </template>
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="(language, index) in languages" :key="index" @click="changeLang(language.code)">
+              <v-list-tile-title>{{ language.name }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+      </v-flex>
+      <v-flex xs4 v-if="$route.path === '/'">
+        <v-btn large flat color="#1c3a70" @click="toggleDrawer">
+          <template>
+            <span>{{lang.bottomNav.filters}}</span>
+            <v-icon v-if="!this.$store.state.drawer">fa-filter</v-icon>
+            <v-icon v-else>fa-check</v-icon>
+          </template>
+        </v-btn>
+      </v-flex>
+      <v-flex xs4 v-else>
+        <v-btn large flat color="#1c3a70" @click="$router.push('/')">
+          <template>
+            <span>Home</span>
+            <v-icon>fa-home</v-icon>
+          </template>
+        </v-btn>
+      </v-flex>
+      <v-flex xs4 class="text-xs-center">
+        <v-menu transition="slide-y-transition" bottom offset-y v-if="$route.path !== '/reservation' && $route.path !== '/manage'">
+          <v-btn large slot="activator" color="#1c3a70" class="lang-btn" flat append-icon="expand_more">
+            <template>
+              <span>{{this.$store.state.currencyCode}}</span>
+              <v-icon>fa-money-bill-wave</v-icon>
+            </template>
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="(currency, index) in currencies" :key="index" @click="changeCurrency(currency.code, currency.symbol)">
+              <v-list-tile-title>{{ currency.code }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+      </v-flex>
+    </v-layout>
 
   </v-bottom-nav>
 
