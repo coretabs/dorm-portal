@@ -1081,6 +1081,13 @@ class ClientBankAccountSerializer(serializers.Serializer):
         return instance
 
     def update(self, instance, validated_data):
+        currency_code = validated_data.get('currency_code', None)
+        if currency_code:
+            currency = models.Currency.objects.get(code=validated_data['currency_code'])
+            validated_data['currency'] = currency
+            validated_data.pop('currency_code', None)
+
+
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()
