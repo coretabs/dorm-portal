@@ -33,7 +33,7 @@
     <v-toolbar-items>
 
       <!-- Switching Dorms -->
-      <v-menu transition="slide-y-transition" bottom offset-y v-if="$route.path === '/manage' && managerDorms.length > 1" class="hidden-sm-and-down">
+      <v-menu transition="slide-y-transition" bottom offset-y v-if="$route.path === '/manage' && managerDorms.length > 1 && !isSelectDormComponent" class="hidden-sm-and-down">
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
           {{dormName}}
           <v-icon color="#ccc" right>expand_more</v-icon>
