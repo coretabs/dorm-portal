@@ -1,4 +1,4 @@
 {% load i18n %}
 {% autoescape off %}
-{% blocktrans %}تأكيد الحساب{% endblocktrans %}
+{% blocktrans %}Account Confirmation{% endblocktrans %}
 {% endautoescape %}
