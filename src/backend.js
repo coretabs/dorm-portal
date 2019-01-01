@@ -283,13 +283,13 @@ $backend.$updateRoomData = (dormId, roomId, data) => {
         .then(response => response.data)
 }
 
-$backend.$askForReview = (dormId,reservationId) => {
+$backend.$askForReview = (dormId, reservationId) => {
     return $backend.post(`/manager-dorms/${dormId}/reservations/${reservationId}/ask-review/`)
         .then(response => response.data)
 }
 
-$backend.$submitReview = (dormId,data) => {
-    return $backend.post(`/reservations/${dormId}/reviews/`,{
+$backend.$submitReview = (dormId, data) => {
+    return $backend.post(`/reservations/${dormId}/reviews/`, {
         stars: data.stars,
         description: data.comment
     })
@@ -300,9 +300,5 @@ $backend.$fetchDormReviews = (dormId) => {
     return $backend.get(`/dorms/${dormId}/reviews/`)
         .then(response => response.data)
 }
-
-
-
-
 
 export default $backend
