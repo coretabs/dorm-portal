@@ -93,6 +93,11 @@
     padding-top: 20px;
     padding-bottom: 20px;
   }
+  .add-room__btn{
+    @media (max-width: 600px) {
+      bottom: 80px;
+    }
+  }
 }
 .v-carousel{
   box-shadow: none !important;

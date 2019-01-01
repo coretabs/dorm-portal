@@ -10,7 +10,7 @@
     <!-- <v-toolbar-side-icon  @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
     <v-toolbar-title>
       <v-layout>
-        <v-flex class="text-xs-center" v-if="!isSelectDormComponent && $route.path === '/manage' || $route.path === '/'">
+        <v-flex class="text-xs-center" v-if="$route.path == '/'  || !isSelectDormComponent && $route.path === '/manage'">
           <v-btn flat class="mr-2 my-0" icon @click="toggleDrawer">
             <v-icon>menu</v-icon>
           </v-btn>
@@ -33,7 +33,7 @@
     <v-toolbar-items>
 
       <!-- Switching Dorms -->
-      <v-menu transition="slide-y-transition" bottom offset-y v-if="$route.path === '/manage' && managerDorms.length > 1">
+      <v-menu transition="slide-y-transition" bottom offset-y v-if="$route.path === '/manage' && managerDorms.length > 1" class="hidden-sm-and-down">
         <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
           {{dormName}}
           <v-icon color="#ccc" right>expand_more</v-icon>
@@ -74,7 +74,8 @@
       <v-btn v-if="!isLogin" flat dark class="status-btn" to="/login">{{lang.header.button}}</v-btn>
       <v-menu v-else id="language-menu" class="status-btn" transition="slide-y-transition" bottom offset-y>
         <v-btn dark slot="activator" class="lang-btn pl-3" flat append-icon="expand_more">
-          <span>{{userName}}</span>
+          <span class="hidden-sm-and-down">{{userName}}</span>
+          <v-icon class="hidden-md-and-up" small left>fa-user</v-icon>
           <v-icon color="#ccc">expand_more</v-icon>
         </v-btn>
         <v-list>
@@ -106,7 +107,7 @@
 
   </v-toolbar>
 
-  <v-bottom-nav id="bottom-nav" :active.sync="activeBtn" :value="showNav" fixed color="#fff" v-if="$route.path != '/manage'">
+  <v-bottom-nav id="bottom-nav" :active.sync="activeBtn" :value="showNav" fixed color="#fff">
 
     <v-layout align-center justify-space-between row fill-height>
       <v-flex xs4 class="text-xs-center">
@@ -134,7 +135,7 @@
         </v-btn>
       </v-flex>
       <v-flex xs4 v-else>
-        <v-btn large flat color="#1c3a70" @click="$router.push('/')">
+        <v-btn large flat color="#1c3a70" @click="$router.push('/')" v-if="$route.path !== '/manage'">
           <template>
             <span>Home</span>
             <v-icon>fa-home</v-icon>
@@ -152,6 +153,19 @@
           <v-list>
             <v-list-tile v-for="(currency, index) in currencies" :key="index" @click="changeCurrency(currency.code, currency.symbol)">
               <v-list-tile-title>{{ currency.code }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+        <v-menu transition="slide-y-transition" bottom offset-y v-if="$route.path === '/manage' && managerDorms.length > 1">
+          <v-btn slot="activator" class="lang-btn" flat append-icon="expand_more">
+            <template>
+              <span>{{dormName}}</span>
+              <v-icon>fa-exchange-alt </v-icon>
+            </template>
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="(dorm, index) in managerDorms" :key="index" @click="switchDorms(dorm.id)">
+              <v-list-tile-title>{{ dorm.name }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>

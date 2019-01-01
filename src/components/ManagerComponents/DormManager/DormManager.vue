@@ -14,7 +14,7 @@
     </v-list>
   </v-navigation-drawer>
   <v-content>
-    <v-container fluid>
+    <v-container fluid class="mb-5">
       <v-layout row wrap>
         <v-flex xs12>
           <keep-alive>

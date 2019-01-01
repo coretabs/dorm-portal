@@ -1,7 +1,7 @@
 <template>
 <div id="manage-rooms" class="mb-5">
   <v-layout wrap>
-    <v-btn color="success" dark medium fixed bottom right fab @click="loadComponent('AddNewRoom')">
+    <v-btn class="add-room__btn" color="success" dark medium fixed bottom right fab @click="loadComponent('AddNewRoom')">
       <v-icon>add</v-icon>
     </v-btn>
     <template v-if="rooms.length">

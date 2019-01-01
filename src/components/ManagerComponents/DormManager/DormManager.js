@@ -43,7 +43,7 @@ export default {
           this.$store.state.adminActiveComponent = 'SelectDorm'
         }else{
           this.$store.state.drawer = null
-          this.$store.state.adminActiveComponent = 'ManageDorm' //'ManageReservations'
+          this.$store.state.adminActiveComponent = 'ManageReservations'
         }
       })
     },
