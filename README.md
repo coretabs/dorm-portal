@@ -2,6 +2,10 @@
 
 Dormitory reservation and management system for both students and dormitory managers.
 
+<div align="center">
+<img src="./demo.png"/>
+</div>
+
 ## Live Demo
 
 https://dorm-portal.herokuapp.com
