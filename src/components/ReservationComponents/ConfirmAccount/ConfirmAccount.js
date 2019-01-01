@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     verifyEmail(){
-      this.$store.dispatch("verifyEmail", this.$route.params.key)
+      this.$backend.$verifyEmail(this.$route.params.key)
       .then(()=>{
         this.isConfirmed = true
       })
@@ -39,7 +39,7 @@ export default {
     submit(){
       if(this.$refs.form.validate()){
         let email= this.email
-        this.$store.dispatch('resendVerifyEmail', email)
+        this.$backend.$resendVerifyEmail(email)
          .then(() => {
             this.emailSent = true
             this.isExpiredLink = false

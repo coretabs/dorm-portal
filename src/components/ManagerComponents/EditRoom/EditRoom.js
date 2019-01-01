@@ -1,24 +1,24 @@
 import _ from 'lodash'
 export default {
   name: "EditRoom",
-  props:{
+  props: {
     'roomData': Object,
     'roomId': Number
   },
   data: function () {
     return {
-      selectedFeatures:[],
+      selectedFeatures: [],
       files: [],
       uploadFiles: [],
       room_types: 1,
       btnDisabled: false,
       isUpdating: false,
       loadingBtn: false,
-      roomFilters:{
+      roomFilters: {
         radioChoices: [],
         integralChoices: []
       },
-      deletePhoto:{
+      deletePhoto: {
         id: null,
         confirmDialog: false
       },
@@ -33,51 +33,54 @@ export default {
     }
   },
   methods: {
-    remove (item) {
+    remove(item) {
       const index = this.roomData.chosen_features.indexOf(item.id)
       if (index >= 0) this.roomData.chosen_features.splice(index, 1)
     },
-    closeEditDialog(){
+    closeEditDialog() {
       this.$emit('closeEditDialog', false)
       this.resetFiles()
     },
-    uploadFile(dormId,roomId,formData){
-      return this.$store.dispatch("uploadRoomPhotos", {roomId,dormId,formData});
+    uploadFile(dormId, roomId, formData) {
+      return this.$backend.$uploadRoomPhotos(dormId, roomId, formData);
     },
-    async submitPhotos(){
+    async submitPhotos() {
       const dormId = localStorage.getItem('manageDormID')
       const roomId = this.roomId
       let success = true
       for (const file of this.uploadFiles) {
         const formData = new FormData()
-        if(this.validate(file) === ''){
+        if (this.validate(file) === '') {
           formData.set('uploaded_photo', file)
-            await this.uploadFile(dormId, roomId, formData).then(()=>{
+          await this.uploadFile(dormId, roomId, formData).then(() => {
             this.files.shift()
-          }).catch(()=>{
+          }).catch(() => {
             success = false
-          }).then(()=>{
+          }).then(() => {
             this.loadingBtn = false
           })
         }
       }
-      if(success){
+      if (success) {
         this.resetFiles()
-        this.$store.dispatch('fetchManagerDormRooms',dormId)
+        this.$store.dispatch('fetchManagerDormRooms', dormId)
         let snackbar = {
           message: this.lang.snackbar.successRoomEdit,
           color: 'success'
         }
         this.closeEditDialog()
-        setTimeout(()=>{
+        setTimeout(() => {
           this.$store.commit('updateSnackbar', snackbar)
-        },700)
+        }, 700)
       }
     },
-    submitChanges(){
+    clean(data) {
+      Object.keys(data).forEach((key) => (data[key] == null || data[key].length == 0) && delete data[key]);
+    },
+    submitChanges() {
       const dormId = localStorage.getItem('manageDormID')
       const roomId = this.roomId
-      let getRadioArray =  this.roomFilters.radioChoices.map(radioChoices => radioChoices.selected_number);
+      let getRadioArray = this.roomFilters.radioChoices.map(radioChoices => radioChoices.selected_number);
       let roomData = {
         totalQuota: this.roomData.total_quota,
         allowedQuota: this.roomData.allowed_quota,
@@ -91,32 +94,32 @@ export default {
         radioChoices: getRadioArray,
         integralChoices: this.roomFilters.integralChoices
       }
-
-      if(this.$refs.form.validate()){
+      if (this.$refs.form.validate()) {
         this.loadingBtn = true
-        this.$store.dispatch('updateRoomData', {dormId,roomId,roomData}).then(()=>{
+        this.clean(roomData)
+        this.$backend.$updateRoomData(dormId, roomId, roomData).then(() => {
           this.submitPhotos()
-        }).catch((err)=>{
+        }).catch((err) => {
           let snackbar
-          if(err.response.status == 403 || err.response.status == 500){
+          if (err.response.status == 403 || err.response.status == 500) {
             snackbar = {
               message: this.lang.snackbar.wrongMsg,
               color: 'error'
             }
             this.$store.commit('updateSnackbar', snackbar)
-          }else{
+          } else {
             snackbar = {
               message: err,
               color: 'error'
             }
             this.$store.commit('updateSnackbar', snackbar)
           }
-        }).then(()=>{
+        }).then(() => {
           this.loadingBtn = false
         })
       }
     },
-    selectNewFile(){
+    selectNewFile() {
       const files = this.$refs.editRoomfiles.files
       this.uploadFiles = [...this.uploadFiles, ...files]
       this.files = [
@@ -130,74 +133,74 @@ export default {
       ]
       this.isValid()
     },
-    validate(file){
+    validate(file) {
       const MAX_SIZE = 8000000
       const allowedType = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
-      if(file.size > MAX_SIZE){
-        return `${this.confirmPayment.fileMaxSize}: ${MAX_SIZE/1000}KB`
+      if (file.size > MAX_SIZE) {
+        return `${this.confirmPayment.fileMaxSize}: ${MAX_SIZE / 1000}KB`
       }
-      if(!allowedType.includes(file.type)){
+      if (!allowedType.includes(file.type)) {
         return this.confirmPayment.notAllowedType
       }
       return ''
     },
-    isValid(){
-      for(var file of this.uploadFiles) {
-        if(this.validate(file) != ''){
+    isValid() {
+      for (var file of this.uploadFiles) {
+        if (this.validate(file) != '') {
           this.btnDisabled = true
           break;
         }
         this.btnDisabled = false
       }
-      if(!this.uploadFiles.length){
+      if (!this.uploadFiles.length) {
         this.btnDisabled = false
       }
     },
-    removeFile(index){
+    removeFile(index) {
       this.files.splice(index, 1)
       this.uploadFiles.splice(index, 1)
       this.isValid()
     },
-    resetFiles(){
+    resetFiles() {
       this.files = []
       this.uploadFiles = []
     },
-    addFilter(filterId, optionId, type){
+    addFilter(filterId, optionId, type) {
       let filtersArray
-      if(type == 'radio'){
+      if (type == 'radio') {
         filtersArray = this.roomFilters.radioChoices
-      }else{
+      } else {
         filtersArray = this.roomFilters.integralChoices
       }
       let objectUpdated = 0;
-      for(const filter of filtersArray){
-        if(filter.id == filterId){
+      for (const filter of filtersArray) {
+        if (filter.id == filterId) {
           filter.selected_number = optionId
           objectUpdated = -1;
           continue;
         }
       }
-      if(objectUpdated == 0){
+      if (objectUpdated == 0) {
         filtersArray.push({
           id: filterId,
           selected_number: optionId
         })
       }
     },
-    confirmDelete(id){
+    confirmDelete(id) {
       this.deletePhoto.id = id
       this.deletePhoto.confirmDialog = true
     },
-    deleteRoomPhoto(){
+    deleteRoomPhoto() {
       const dormId = localStorage.getItem('manageDormID')
       const roomId = this.roomId
       const photoId = this.deletePhoto.id
-      this.$store.dispatch('deleteRoomPhoto',{dormId, roomId,photoId }).then(()=>{
+      this.$backend.$deleteRoomPhoto(dormId, roomId, photoId).then(() => {
         this.deletePhoto.confirmDialog = false
-        return this.$store.dispatch('fetchEditRoomFilters', {dormId, roomId})
-      }).then((response)=>{
+        return this.$backend.$fetchEditRoomFilters(dormId, roomId)
+      }).then((response) => {
         this.roomData = response
-      }).catch((err)=>{
+      }).catch((err) => {
         let snackbar = {
           message: err,
           color: 'error'
@@ -207,7 +210,7 @@ export default {
     }
   },
   watch: {
-    isUpdating (val) {
+    isUpdating(val) {
       if (val) {
         setTimeout(() => (this.isUpdating = false), 3000)
       }

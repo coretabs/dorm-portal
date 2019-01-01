@@ -19,7 +19,7 @@ export default {
       return Math.floor(Math.random() * (max - min + 1) ) + min;
     },
     showReviews(dormId) {
-      this.$store.dispatch('fetchDormReviews',dormId).then((response)=>{
+      this.$backend.$fetchDormReviews(dormId).then((response)=>{
         this.dormReviews = response
       })
       this.reviewsModel = true;

@@ -20,7 +20,7 @@ export default {
       search: '',
       headers: [
         { text: 'id', value: 'id' },
-        { text: 'Bank Name', value: 'bank_name'  },
+        { text: 'Bank Name', value: 'bank_name' },
         { text: 'Account Name', value: 'account_name' },
         { text: 'Account Number', value: 'account_number' },
         { text: 'Swift', value: 'swift' },
@@ -28,17 +28,17 @@ export default {
         { text: 'Currency', value: 'currency_code' },
         { text: 'Actions', value: 'id' }
       ],
-      lightBox:{
+      lightBox: {
         url: '',
         isIframe: false,
         isAdd: false,
         is360: false
       },
-      bank:{
-        name:'',
-        accountName:'',
+      bank: {
+        name: '',
+        accountName: '',
         accountNumber: '',
-        swift:'',
+        swift: '',
         iban: '',
         currency: ''
       },
@@ -51,7 +51,7 @@ export default {
         addBanks: false,
         photos: false
       },
-      deleteRecord:{
+      deleteRecord: {
         confirmDialog: false,
         id: null,
         photoBtn: false
@@ -60,17 +60,17 @@ export default {
       pagination: {
         rowsPerPage: 10,
         sortBy: 'id',
-        descending : true
+        descending: true
       },
-      dormsAboutDesc:[1,2],
-      requiredRules:[
+      dormsAboutDesc: [1, 2],
+      requiredRules: [
         v => !!v || 'This field is required'
       ],
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
       ],
-      urlRules:[
+      urlRules: [
         v => !!v || 'URL is required',
         v => /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(v) || 'URL must be valid, Ex: https://emu.edu.tr'
       ]
@@ -80,73 +80,73 @@ export default {
     lang() {
       return this.$store.getters.lang
     },
-    languages(){
+    languages() {
       return this.$store.state.languages
     },
-    currencies(){
+    currencies() {
       return this.$store.state.currencies
     },
-    dorm(){
+    dorm() {
       return this.$store.getters.manageDorm
     },
-    bankAccounts(){
+    bankAccounts() {
       return this.dorm.bank_accounts
     }
   },
   methods: {
-    remove (item) {
+    remove(item) {
       const index = this.selectedFeatures.indexOf(item.id)
       if (index >= 0) this.selectedFeatures.splice(index, 1)
     },
     resetFields(obj) {
-      Object.keys(obj).forEach((key)=> {
-          obj[key] = null
+      Object.keys(obj).forEach((key) => {
+        obj[key] = null
       })
     },
-    fetchManagerDorm(){
+    fetchManagerDorm() {
       const dormID = localStorage.getItem('manageDormID')
       this.$store.dispatch('fetchManagerDorm', dormID)
-      .catch(()=>{
-        this.$store.state.snackbar.trigger = true
-        this.$store.state.snackbar.message = 'Can\'t load dorm'
-        this.$store.state.snackbar.color = 'error'
-      })
+        .catch(() => {
+          this.$store.state.snackbar.trigger = true
+          this.$store.state.snackbar.message = 'Can\'t load dorm'
+          this.$store.state.snackbar.color = 'error'
+        })
     },
-    formBind(dialogName,data){
+    formBind(dialogName, data) {
       this.dialog['isEdit'] = true
-      if(dialogName == 'addBanks'){
+      if (dialogName == 'addBanks') {
         this.dialog.idHolder = data.id
         this.bank.name = data.bank_name
         this.bank.accountName = data.account_name
         this.bank.accountNumber = data.account_number
         this.bank.swift = data.swift
         this.bank.currency = data.currency_code
-        this.bank.iban = data.iban        
+        this.bank.iban = data.iban
       }
     },
-    updateDialog(dialogName, editAction, data){
-      if(editAction == true){
+    updateDialog(dialogName, editAction, data) {
+      if (editAction == true) {
         this.formBind(dialogName, data)
-      }else{
+      } else {
         this.dialog['isEdit'] = false
       }
-      if(dialogName == 'features'){
+      if (dialogName == 'features') {
         this.selectedFeatures = this.$store.state.dormFeatures
       }
       this.dialog[dialogName] = true
     },
-    closeDialog(dialogName){
+    closeDialog(dialogName) {
       const dormID = localStorage.getItem('manageDormID')
       this.dialog[dialogName] = false
-      if(dialogName == 'addBanks'){
+      if (dialogName == 'addBanks') {
         this.$refs.form.reset()
       }
       this.$store.dispatch("fetchManagerDorm", dormID)
     },
-    UpdateDormInfo(data,dialog){
-      if(this.$refs.form.validate()){
+    UpdateDormInfo(data, dialog) {
+      if (this.$refs.form.validate()) {
         this.loadingBtn = true
-        this.$store.dispatch("updateDormInfo", data).then(()=>{
+        this.$backend.$updateDormInfo(data).then(() => {
           let snackbar = {
             message: 'Updeated successfully',
             color: 'success'
@@ -155,22 +155,22 @@ export default {
           this.$store.dispatch("fetchManagerDorm", dormID)
           this.closeDialog(dialog)
           this.$store.commit('updateSnackbar', snackbar)
-        }).catch(()=>{
+        }).catch(() => {
           let snackbar = {
             message: 'Something went wrong!, try again',
             color: 'error'
           }
           this.$store.commit('updateSnackbar', snackbar)
-        }).then(()=>{
+        }).then(() => {
           this.loadingBtn = false
         })
       }
     },
-    submitDormInfo(dialog){
+    submitDormInfo(dialog) {
       let about = []
-      for(const lang in this.dorm.abouts){
+      for (const lang in this.dorm.abouts) {
         about.push({
-          [lang] : this.dorm.abouts[lang]
+          [lang]: this.dorm.abouts[lang]
         })
       }
       let data = {
@@ -183,16 +183,16 @@ export default {
       }
       this.UpdateDormInfo(data, dialog)
     },
-    submitDormFeatures(dialog){
+    submitDormFeatures(dialog) {
       let data = {
         dormID: localStorage.getItem('manageDormID'),
         features: this.selectedFeatures
       }
       this.UpdateDormInfo(data, dialog)
     },
-    getGeolocation(){
+    getGeolocation() {
       if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition((position)=>{
+        navigator.geolocation.getCurrentPosition((position) => {
           position.enableHighAccuracy = true
           console.log(position)
           const lng = position.coords.longitude
@@ -204,7 +204,7 @@ export default {
         console.log('geolocation IS NOT available on your browser');
       }
     },
-    submitDormLocation(dialog){
+    submitDormLocation(dialog) {
       let data = {
         dormID: localStorage.getItem('manageDormID'),
         geo_longitude: this.dorm.geo_latitude,
@@ -213,10 +213,10 @@ export default {
       }
       this.UpdateDormInfo(data, dialog)
     },
-    selectCover(){
+    selectCover() {
       const file = this.$refs.coverFile.files[0]
       this.file = file
-      
+
       const MAX_SIZE = 20000000
       const allowedType = ['image/jpeg', 'image/png', 'image/gif']
       const largeFile = file.size > MAX_SIZE
@@ -225,8 +225,8 @@ export default {
       const formData = new FormData()
       formData.append('cover', this.file)
 
-      if(isAllowedType && !largeFile){
-        this.$store.dispatch("uploadDormCover", {id,formData}).then(()=>{
+      if (isAllowedType && !largeFile) {
+        this.$backend.$updateDormCover(id, formData).then(() => {
           let snackbar = {
             message: 'Cover Updated Successfully',
             color: 'success'
@@ -234,27 +234,27 @@ export default {
           const dormID = localStorage.getItem('manageDormID')
           this.$store.commit('updateSnackbar', snackbar)
           this.$store.dispatch("fetchManagerDorm", dormID)
-        }).catch(()=>{
+        }).catch(() => {
           let snackbar = {
             message: 'Some thing went wrong! try again',
             color: 'error'
           }
           this.$store.commit('updateSnackbar', snackbar)
         })
-      }else{
-        let message = isAllowedType ? `Max size is  ${MAX_SIZE/1000} KB` : 'Only images are allowed'
+      } else {
+        let message = isAllowedType ? `Max size is  ${MAX_SIZE / 1000} KB` : 'Only images are allowed'
         let snackbar = {
           message: message,
           color: 'error'
         }
         this.$store.commit('updateSnackbar', snackbar)
-      }      
+      }
     },
-    submitNewBank(){
+    submitNewBank() {
       const id = localStorage.getItem('manageDormID')
       let data = this.bank
-      if(this.$refs.form.validate()){
-        this.$store.dispatch("addBankAccount", {id, data}).then(() => {
+      if (this.$refs.form.validate()) {
+        this.$backend.$addBankAccount(id, data).then(() => {
           let snackbar = {
             message: 'Bank Account Added Successfully',
             color: 'success'
@@ -271,10 +271,10 @@ export default {
         })
       }
     },
-    deleteBankAccount(){
-      const accountId= this.deleteRecord.id
+    deleteBankAccount() {
+      const accountId = this.deleteRecord.id
       const dormId = localStorage.getItem('manageDormID')
-      this.$store.dispatch('deleteBankAccount', {dormId,accountId}).then(()=>{
+      this.$backend.$deleteBankAccount(dormId, accountId).then(() => {
         let snackbar = {
           message: 'Bank Account Has been Deleted Successfully',
           color: 'success'
@@ -282,7 +282,7 @@ export default {
         this.$store.dispatch("fetchManagerDorm", dormId)
         this.deleteRecord.confirmDialog = false
         this.$store.commit('updateSnackbar', snackbar)
-      }).catch(()=>{
+      }).catch(() => {
         let snackbar = {
           message: 'Some thing went wrong! try again',
           color: 'error'
@@ -290,19 +290,19 @@ export default {
         this.$store.commit('updateSnackbar', snackbar)
       })
     },
-    confirmDelete(id, record){
-      if(record == 'dormPhoto'){
+    confirmDelete(id, record) {
+      if (record == 'dormPhoto') {
         this.deleteRecord.photoBtn = true
-      }else{
+      } else {
         this.deleteRecord.photoBtn = false
       }
       this.deleteRecord.id = id
       this.deleteRecord.confirmDialog = true
     },
-    deleteDormPhoto(){
-      const photoId= this.deleteRecord.id
+    deleteDormPhoto() {
+      const photoId = this.deleteRecord.id
       const dormId = localStorage.getItem('manageDormID')
-      this.$store.dispatch('deleteDormPhoto', {dormId,photoId}).then(()=>{
+      this.$backend.$deleteDormPhoto(dormId, photoId).then(() => {
         let snackbar = {
           message: 'Photo has been Deleted Successfully',
           color: 'success'
@@ -310,7 +310,7 @@ export default {
         this.$store.dispatch("fetchManagerDorm", dormId)
         this.deleteRecord.confirmDialog = false
         this.$store.commit('updateSnackbar', snackbar)
-      }).catch(()=>{
+      }).catch(() => {
         let snackbar = {
           message: 'Some thing went wrong! try again',
           color: 'error'
@@ -318,12 +318,12 @@ export default {
         this.$store.commit('updateSnackbar', snackbar)
       })
     },
-    updateBankAccount(){
+    updateBankAccount() {
       const dormId = localStorage.getItem('manageDormID')
       const accountId = this.dialog.idHolder
       let data = this.bank
-      if(this.$refs.form.validate()){
-        this.$store.dispatch("updateBankAccount", {dormId, accountId, data}).then(() => {
+      if (this.$refs.form.validate()) {
+        this.$backend.$updateBankAccount(dormId, accountId, data).then(() => {
           let snackbar = {
             message: 'Bank Account Updated Successfully',
             color: 'success'
@@ -340,18 +340,18 @@ export default {
         })
       }
     },
-    openPhotosDialog(url,is_3d,isAdd = false){
+    openPhotosDialog(url, is_3d, isAdd = false) {
       this.lightBox.url = url
       this.lightBox.isIframe = is_3d
       this.lightBox.isAdd = isAdd
       this.dialog.photos = true
     },
-    selectFile(){
+    selectFile() {
       const files = this.$refs.files.files
       this.uploadFiles = [...this.uploadFiles, ...files]
       this.files = [
         ...this.files,
-        ..._.map(files, file=>({
+        ..._.map(files, file => ({
           name: file.name,
           size: file.size,
           type: file.type,
@@ -360,56 +360,56 @@ export default {
       ]
       this.isValid()
     },
-    validate(file){
+    validate(file) {
       const MAX_SIZE = 8000000
       const allowedType = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
-      if(file.size > MAX_SIZE){
-        return `Max size: ${MAX_SIZE/1000}KB`
+      if (file.size > MAX_SIZE) {
+        return `Max size: ${MAX_SIZE / 1000}KB`
       }
-      if(!allowedType.includes(file.type)){
+      if (!allowedType.includes(file.type)) {
         return 'File type is not allowed'
       }
       return ''
     },
-    removeFile(index){
+    removeFile(index) {
       this.files.splice(index, 1)
       this.uploadFiles.splice(index, 1)
       this.isValid()
     },
-    isValid(){
-      for(var file of this.uploadFiles) {
-        if(this.validate(file) != ''){
+    isValid() {
+      for (var file of this.uploadFiles) {
+        if (this.validate(file) != '') {
           this.uploaderDisabled = true
           break;
         }
         this.uploaderDisabled = false
       }
     },
-    resetFiles(){
+    resetFiles() {
       this.files = []
       this.uploadFiles = []
     },
-    uploadFile(id, formData){
-      return this.$store.dispatch("uploadPhotos", {id,formData});
+    uploadFile(id, formData) {
+      return this.$backend.$uploadPhotos(id, formData);
     },
-    async submitPhotos(){
+    async submitPhotos() {
       const dormId = localStorage.getItem('manageDormID')
       let success = true
       for (const file of this.uploadFiles) {
         this.loadingBtn = true
         const formData = new FormData()
-        if(this.validate(file) === ''){
+        if (this.validate(file) === '') {
           formData.set('uploaded_photo', file)
-          await this.uploadFile(dormId, formData).then(()=>{
+          await this.uploadFile(dormId, formData).then(() => {
             this.files.shift()
-          }).catch(()=>{
+          }).catch(() => {
             success = false
-          }).then(()=>{
+          }).then(() => {
             this.loadingBtn = false
           })
         }
       }
-      if(success){
+      if (success) {
         this.files = []
         this.uploadFiles = []
         let snackbar = {
@@ -419,7 +419,7 @@ export default {
         this.$store.commit('updateSnackbar', snackbar)
         this.$store.dispatch('fetchManagerDorm', dormId)
         this.closeDialog('photos')
-      }else{
+      } else {
         let snackbar = {
           message: 'Something went Wrong!',
           color: 'error'
@@ -427,39 +427,40 @@ export default {
         this.$store.commit('updateSnackbar', snackbar)
       }
     },
-    submit360Photos(){
-      if(this.$refs.form.validate()){
+    submit360Photos() {
+      if (this.$refs.form.validate()) {
         const dormId = localStorage.getItem('manageDormID')
         let data = {
           is360Photo: true,
           url: this.lightBox.url
         }
-        this.$store.dispatch('upload360Photos',{dormId,data}).then(()=>{
-          let snackbar = {
-            message: 'Files Uploaded successfully',
-            color: 'success'
-          }
-          this.$store.commit('updateSnackbar', snackbar)
-          this.$store.dispatch('fetchManagerDorm', dormId)
-          this.closeDialog('photos')
-        }).catch(()=>{
-          let snackbar = {
-            message: 'Something went Wrong!',
-            color: 'error'
-          }
-          this.$store.commit('updateSnackbar', snackbar)
-        })
+        this.$backend.$upload360Photos(dormId, data)
+          .then(() => {
+            let snackbar = {
+              message: 'Files Uploaded successfully',
+              color: 'success'
+            }
+            this.$store.commit('updateSnackbar', snackbar)
+            this.$store.dispatch('fetchManagerDorm', dormId)
+            this.closeDialog('photos')
+          }).catch(() => {
+            let snackbar = {
+              message: 'Something went Wrong!',
+              color: 'error'
+            }
+            this.$store.commit('updateSnackbar', snackbar)
+          })
       }
     }
   },
   watch: {
-    isUpdating (val) {
+    isUpdating(val) {
       if (val) {
         setTimeout(() => (this.isUpdating = false), 3000)
       }
     }
   },
-  mounted(){
+  mounted() {
     this.fetchManagerDorm()
   }
 };

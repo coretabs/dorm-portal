@@ -9,7 +9,7 @@ import ConfirmAccount from './components/ReservationComponents/ConfirmAccount/Co
 import ResetPassword from './components/ReservationComponents/ResetPassword/ResetPassword.vue'
 import ReviewDorm from './components/DormsComponents/ReviewDorm/ReviewDorm.vue'
 
-import store from './store'
+import store from '@/store/store'
 
 Vue.use(Router)
 

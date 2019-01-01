@@ -93,6 +93,9 @@ export default {
     setStatusIndex(){
       this.statusIndex = this.status.indexOf(this.currentStatus)
     },
+    clean(data) {
+      Object.keys(data).forEach((key) => (data[key] == null || data[key].length == 0) && delete data[key]);
+    },
     submit(){
       if(this.statusIndex == 0){
         this.statusIndex = 4
@@ -106,7 +109,8 @@ export default {
       }
       if(this.$refs.form.validate()){
         this.loadingBtn = true
-        this.$store.dispatch("updateReservationStatus", data).then(()=>{
+        this.clean(data)
+        this.$backend.$updateReservationStatus(data).then(()=>{
           let snackbar = {
             message: this.lang.snackbar.successStatusUpdate,
             color: 'success'
@@ -131,7 +135,7 @@ export default {
     },
     askForReview(reservationId){
       const dormID = localStorage.getItem('manageDormID')
-      this.$store.dispatch('askForReview', {dormID,reservationId}).then(()=>{
+      this.$backend.$askForReview(dormID, reservationId).then(()=>{
         this.isReviewRequestSent = true
       })
     }

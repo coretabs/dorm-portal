@@ -23,26 +23,13 @@ export default {
   },
   methods: {
     submit(){
-      // if(this.$refs.form.validate()){
-      //   this.$store.dispatch("login").then(response => {
-      //     if(response.is_manager == true){
-      //       this.$router.push('/manage')
-      //     }
-      //     else{
-      //       this.$router.push('/reservation')
-      //     }
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error)
-      //   });
-      // }
-
+      
       if(this.$refs.form.validate()){
         let user = {
           email: this.email,
           password: this.password
         }
-        this.$store.dispatch('login', user).then(() => {
+        this.$backend.$login(user).then(() => {
           return this.$store.dispatch('auth')
         })
         .then(response => {
@@ -55,13 +42,12 @@ export default {
         })
         .catch(err =>  this.errors = err.response.data)
       }
-
     },
     isForgotPassword(){
       this.forgotPassword = true
     },
     resetPassword(){
-      this.$store.dispatch("resetPassword", this.email).then(() => {
+      this.$backend.$resetPassword(this.email).then(() => {
         this.emailSent = true
       })
       .catch(() => {

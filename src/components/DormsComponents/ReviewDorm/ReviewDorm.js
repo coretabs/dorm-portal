@@ -22,7 +22,7 @@ export default {
           stars: this.rating,
           comment: this.comment
         }
-        this.$store.dispatch('submitReview', {dormId, data}).then(()=>{
+        this.$backend.$submitReview(dormId, data).then(()=>{
           let snackbar = {
             message: 'Status has been Updeated, successfully',
             color: 'success'

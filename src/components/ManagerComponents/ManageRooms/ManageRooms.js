@@ -60,7 +60,7 @@ export default {
         }
         const roomId = this.quotaRoomID
         const dormId = localStorage.getItem('manageDormID')
-        this.$store.dispatch('updateRoomData', {dormId, roomId, roomData}).then(()=>{
+        this.$backend.$updateRoomData(dormId, roomId, roomData).then(()=>{
           snackbar = {
             message: this.lang.snackbar.successQuotaUpdate,
             color: 'success'
@@ -112,7 +112,7 @@ export default {
       const roomId = this.deleteDialog.roomId
       this.loadingBtn = true
       let snackbar
-      this.$store.dispatch('deleteDormRoom',{dormId,roomId}).then(()=>{
+      this.$backend.$deleteDormRoom(dormId, roomId).then(()=>{
         snackbar = {
           message: this.lang.snackbar.successRoomDelete,
           color: 'success'
@@ -135,7 +135,7 @@ export default {
     },
     fetchEditRoomFilters(roomId){
       const dormId = localStorage.getItem('manageDormID')
-      this.$store.dispatch('fetchEditRoomFilters', {dormId, roomId}).then((response)=>{
+      this.$backend.$fetchEditRoomFilters(dormId, roomId).then((response)=>{
         this.roomEditId = roomId
         this.roomDetails = response
       })
@@ -148,7 +148,7 @@ export default {
         isReady: roomStatus
       }
       const dormId = localStorage.getItem('manageDormID')
-      this.$store.dispatch('updateRoomData', {dormId, roomId, roomData}).then(()=>{
+      this.$backend.$updateRoomData(dormId, roomId, roomData).then(()=>{
         let snackbar = {
           message: this.lang.snackbar.successStatusUpdate,
           color: 'success'

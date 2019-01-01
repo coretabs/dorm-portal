@@ -30,7 +30,7 @@ export default {
           key: this.$route.params.key,
           password: this.password
         }
-        this.$store.dispatch('resetPasswordConfirm', data)
+        this.$backend.$resetPasswordConfirm(data)
         .then(() => {
           this.isPasswordChanged = true
         })

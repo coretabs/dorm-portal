@@ -41,7 +41,7 @@ export default {
       return ''
     },
     uploadFile(id, formData){
-      return this.$store.dispatch("uploadReceipt", {id,formData});
+      return this.$backend.$uploadReceipt(id, formData);
     },
     async submit(id){
       let success = true

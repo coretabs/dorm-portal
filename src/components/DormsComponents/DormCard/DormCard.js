@@ -30,7 +30,7 @@ export default {
       this.mapModel = !this.mapModel;
     },
     showReviews(dormId) {
-      this.$store.dispatch('fetchDormReviews',dormId).then((response)=>{
+      this.$backend.$fetchDormReviews(dormId).then((response)=>{
         this.dormReviews = response
       })
       this.reviewsModel = true;

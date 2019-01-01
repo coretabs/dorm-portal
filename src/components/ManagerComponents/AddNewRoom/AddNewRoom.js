@@ -4,14 +4,14 @@ export default {
   name: "AddNewRoom",
   data: function () {
     return {
-      selectedFeatures:[],
+      selectedFeatures: [],
       files: [],
       uploadFiles: [],
       btnDisabled: false,
       isUpdating: false,
       loadingBtn: false,
-      roomFilters:{},
-      room:{
+      roomFilters: {},
+      room: {
         isReady: true,
         totalQuota: null,
         allowedQuota: null,
@@ -37,57 +37,57 @@ export default {
     }
   },
   methods: {
-    remove (item) {
+    remove(item) {
       const index = this.room.roomFeatures.indexOf(item.id)
       if (index >= 0) this.room.roomFeatures.splice(index, 1)
     },
-    fetchRoomFilters(){
-      this.$store.dispatch('fetchRoomFilters').then((response)=>{
+    fetchRoomFilters() {
+      this.$backend.$fetchRoomFilters().then((response) => {
         this.roomFilters = response
       })
     },
-    integralFilter(id,index){
+    integralFilter(id, index) {
       let value = this.room.integralChoicesHolder[index]
       let objectUpdated = 0;
-      for(const filter of this.room.integralChoices){
+      for (const filter of this.room.integralChoices) {
         if (filter.id === id) {
           filter.selected_number = value;
           objectUpdated = -1;
           continue;
         }
       }
-      if(objectUpdated != -1 && value){
+      if (objectUpdated != -1 && value) {
         this.room.integralChoices.push({
           id: id,
           selected_number: value
         })
-       }
+      }
     },
 
-    uploadFile(dormId,roomId,formData){
-      return this.$store.dispatch("uploadRoomPhotos", {roomId,dormId,formData});
+    uploadFile(dormId, roomId, formData) {
+      return this.$backend.$uploadRoomPhotos(dormId, roomId, formData)
     },
-    async submitPhotos(roomId){
+    async submitPhotos(roomId) {
       const dormId = localStorage.getItem('manageDormID')
       let success = true
       for (const file of this.uploadFiles) {
         this.loadingBtn = true
         const formData = new FormData()
-        if(this.validate(file) === ''){
+        if (this.validate(file) === '') {
           formData.set('uploaded_photo', file)
-          await this.uploadFile(dormId, roomId, formData).then(()=>{
+          await this.uploadFile(dormId, roomId, formData).then(() => {
             this.files.shift()
-          }).catch(()=>{
+          }).catch(() => {
             success = false
-          }).then(()=>{
+          }).then(() => {
             this.loadingBtn = false
           })
         }
       }
-      if(success){
+      if (success) {
         this.files = []
         this.uploadFiles = []
-        this.$store.dispatch('fetchManagerDormRooms',dormId)
+        this.$store.dispatch('fetchManagerDormRooms', dormId)
         let snackbar = {
           message: this.lang.snackbar.successRoomAdd,
           color: 'success'
@@ -96,36 +96,39 @@ export default {
         this.$store.commit('updateSnackbar', snackbar)
       }
     },
-    submitNewRoom(){
+    clean(data){
+      Object.keys(data).forEach((key) => (data[key] == null || data[key].length == 0) && delete data[key]);
+    },
+    submitNewRoom() {
       const dormID = localStorage.getItem('manageDormID')
       let roomData = this.room
-      if(this.$refs.form.validate()){
+      if (this.$refs.form.validate()) {
         this.loadingBtn = true
-        
-        this.$store.dispatch('addNewRoom', {dormID,roomData}).then((response)=>{
+        this.clean(roomData)
+        this.$backend.$addNewRoom(dormID, roomData).then((response) => {
           const roomId = response.id
           this.submitPhotos(roomId)
-        }).catch((err)=>{
+        }).catch((err) => {
           let snackbar
-          if(err.response.status == 403 || err.response.status == 500){
+          if (err.response.status == 403 || err.response.status == 500) {
             snackbar = {
               message: this.lang.snackbar.wrongMsg,
               color: 'error'
             }
             this.$store.commit('updateSnackbar', snackbar)
-          }else{
+          } else {
             snackbar = {
               message: err,
               color: 'error'
             }
             this.$store.commit('updateSnackbar', snackbar)
           }
-        }).then(()=>{
-          
+        }).then(() => {
+
         })
       }
     },
-    selectFile(){
+    selectFile() {
       const files = this.$refs.files.files
       this.uploadFiles = [...this.uploadFiles, ...files]
       this.files = [
@@ -139,47 +142,47 @@ export default {
       ]
       this.isValid()
     },
-    validate(file){
+    validate(file) {
       const MAX_SIZE = 8000000
       const allowedType = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
-      if(file.size > MAX_SIZE){
-        return `${this.confirmPayment.fileMaxSize}: ${MAX_SIZE/1000}KB`
+      if (file.size > MAX_SIZE) {
+        return `${this.confirmPayment.fileMaxSize}: ${MAX_SIZE / 1000}KB`
       }
-      if(!allowedType.includes(file.type)){
+      if (!allowedType.includes(file.type)) {
         return this.confirmPayment.notAllowedType
       }
       return ''
     },
-    isValid(){
-      for(var file of this.uploadFiles) {
-        if(this.validate(file) != ''){
+    isValid() {
+      for (var file of this.uploadFiles) {
+        if (this.validate(file) != '') {
           this.btnDisabled = true
           break;
         }
         this.btnDisabled = false
       }
-      if(!this.uploadFiles.length){
+      if (!this.uploadFiles.length) {
         this.btnDisabled = false
       }
     },
-    removeFile(index){
+    removeFile(index) {
       this.files.splice(index, 1)
       this.uploadFiles.splice(index, 1)
       this.isValid()
     },
-    resetFiles(){
+    resetFiles() {
       this.files = []
       this.uploadFiles = []
     }
   },
   watch: {
-    isUpdating (val) {
+    isUpdating(val) {
       if (val) {
         setTimeout(() => (this.isUpdating = false), 3000)
       }
     }
   },
-  mounted(){
+  mounted() {
     this.fetchRoomFilters()
   }
 };
