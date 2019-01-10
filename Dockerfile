@@ -1,7 +1,7 @@
 FROM node:8.11.4-alpine as build-spa-stage
 
 WORKDIR /dormportal/app
-COPY ./* ./
+COPY . ./
 
 RUN npm install
 
@@ -13,7 +13,7 @@ RUN npm run build
 FROM python:3.6.6-alpine3.8
 
 WORKDIR /dormportal/app
-COPY --from=build-spa-stage /dormportal/app/* ./
+COPY --from=build-spa-stage /dormportal/app/ ./
 
 # Install libraries
 RUN apk update
@@ -51,4 +51,4 @@ RUN apk del deps
 
 # Collect static files
 RUN mkdir static
-RUN python manage.py collectstatic
+RUN python manage.py collectstatic --noinput
