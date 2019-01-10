@@ -1,0 +1,13 @@
+db.sqlite3
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv
+venv2
+.cache
+*.log
+.git
+node_modules
+public_html

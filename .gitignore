@@ -9,6 +9,7 @@ media/*
 ./activate.bat
 
 # local env files
+.env
 .env.local
 .env.*.local
 dev_secrets.py
