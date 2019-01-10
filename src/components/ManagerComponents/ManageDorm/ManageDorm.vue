@@ -15,13 +15,13 @@
                 <v-spacer></v-spacer>
                 <v-btn color="#ffa915" depressed @click="updateDialog('general')">
                   <v-icon small color="black" left>fa-pen</v-icon>
-                  Update info
+                  {{lang.DormGeneralinfo.button}}
                 </v-btn>
               </v-card-actions>
             </v-flex>
             <v-flex xs12 sm6 md8 class="pa-4">
               <v-layout column>
-                <h3 class="heading">About Dorm</h3>
+                <h3 class="heading">{{lang.DormGeneralinfo.About}}</h3>
                 <v-flex>
                   <v-tabs color="#fafafa" slider-color="#feae25">
                     <v-tab v-for="(language,index) in languages" :key="index" ripple>
@@ -37,7 +37,7 @@
             <v-flex xs12 sm6 md4 pa-3 class=" pa-4 pl-0">
               <v-layout column class="mb-4">
                 <h3 class="mb-1">
-                  Manager Name
+                  {{lang.DormGeneralinfo.managerName}}
                 </h3>
                 <span small class="title font-weight-regular ">
                   {{dorm.contact_name}}
@@ -45,7 +45,7 @@
               </v-layout>
               <v-layout column class="mb-4">
                 <h3 class="mb-1">
-                  Email
+                  {{lang.DormGeneralinfo.DormEmail}}
                 </h3>
                 <span class="title font-weight-regular ">
                   {{dorm.contact_email}}
@@ -53,7 +53,7 @@
               </v-layout>
               <v-layout column class="mb-4">
                 <h3 class="mb-1">
-                  Phone Number
+                  {{lang.DormGeneralinfo.DormPhone}}
                 </h3>
                 <span class="title font-weight-regular ">
                   {{dorm.contact_number}}
@@ -61,7 +61,7 @@
               </v-layout>
               <v-layout column class="mb-4">
                 <h3 class="mb-1">
-                  Fax Number
+                  {{lang.DormGeneralinfo.DormFax}}
                 </h3>
                 <span class="title font-weight-regular ">
                   {{dorm.contact_fax}}
@@ -77,7 +77,7 @@
             <v-card-text>
               <v-layout row wrap>
                 <v-flex sm12 md8 pa-3>
-                  <h3 class="heading mb-4">About {{dorm.name}}:</h3>
+                  <h3 class="heading mb-4">{{lang.DormGeneralinfo.About}}:</h3>
                   <div>
                     <v-tabs color="#fafafa" slider-color="#feae25">
                       <v-tab v-for="(language,index) in languages" :key="index" ripple>
@@ -90,7 +90,7 @@
                   </div>
                 </v-flex>
                 <v-flex sm12 md4 pa-3>
-                  <h3 class="heading mb-3">Contact Information:</h3>
+                  <h3 class="heading mb-3">{{lang.DormGeneralinfo.contactInfo}}:</h3>
                   <v-text-field v-model="dorm.contact_name" prepend-icon="fa-user" :label="lang.DormGeneralinfo.DormPhone" type="text" :rules="requiredRules" required></v-text-field>
                   <v-text-field v-model="dorm.contact_email" prepend-icon="fa-envelope" :label="lang.DormGeneralinfo.DormEmail" type="text" :rules="emailRules" required></v-text-field>
                   <v-text-field v-model="dorm.contact_number" prepend-icon="fa-mobile-alt" :label="lang.DormGeneralinfo.DormPhone" type="text" :rules="requiredRules" required></v-text-field>
@@ -100,7 +100,7 @@
                 <v-flex xs12>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn class="elevation-0" @click="closeDialog('general')">Cancel</v-btn>
+                    <v-btn class="elevation-0" @click="closeDialog('general')">{{lang.shared.cancel}}</v-btn>
                     <v-btn color="#feae25" class="elevation-0" @click="submitDormInfo('general')" :loading="loadingBtn">{{lang.DormGeneralinfo.button}}</v-btn>
                   </v-card-actions>
                 </v-flex>
@@ -122,7 +122,7 @@
                 <v-spacer></v-spacer>
                 <v-btn color="#ffa915" depressed @click="updateDialog('location')">
                   <v-icon small color="black" left>fa-pen</v-icon>
-                  Update Address
+                  {{lang.DormGeneralinfo.button}}
                 </v-btn>
               </v-card-actions>
             </v-flex>
@@ -131,7 +131,7 @@
                 <v-flex xs12 pa-3>
                   <h3 class="heading">
                     <v-icon small class="pr-2">fa-map-marker-alt</v-icon>
-                    Address
+                    {{lang.DormGeneralinfo.DormAddress}}
                   </h3>
                   <span class="title font-weight-regular">
                     {{dorm.address}}
@@ -140,7 +140,7 @@
                 <v-flex xs12 pa-3>
                   <h3 class="heading">
                     <v-icon small class="pr-2">fa-map-pin</v-icon>
-                    Latitude
+                    {{lang.DormGeneralinfo.DormLatitude}}
                   </h3>
                   <span class="title font-weight-regular">
                     {{dorm.geo_latitude}}
@@ -149,7 +149,7 @@
                 <v-flex xs12 pa-3>
                   <h3 class="heading">
                     <v-icon class="pr-2">fa-map-pin</v-icon>
-                    Longitude
+                    {{lang.DormGeneralinfo.DormLongitude}}
                   </h3>
                   <span class="title font-weight-regular">
                     {{dorm.geo_longitude}}
@@ -168,7 +168,7 @@
                   <v-card-text>
                     <v-layout row wrap>
                       <v-flex xs12 pa-3>
-                        <h2 class="mb-4">Update Dorm Address</h2>
+                        <h2 class="mb-4">{{lang.DormGeneralinfo.updateAddress}}</h2>
                         <v-text-field v-model="dorm.address" prepend-icon="fa-map-marker-alt" :label="lang.DormGeneralinfo.DormAddress" type="text"></v-text-field>
                         <v-layout wrap row>
                           <v-flex xs12 sm6 pr-1>
@@ -179,14 +179,16 @@
                           </v-flex>
                           <v-flex class="mt-4 text-sm-center" xs12>
                             <p>You can get your dorm Latitude and Longitude from <a href="https://www.latlong.net" target="_blank">here</a> or just click on the following button</p>
-                            <v-btn color="success" @click="getGeolocation">Get my Location</v-btn>
+                            <v-btn color="success" @click="getGeolocation">
+                              {{lang.DormGeneralinfo.GetMyLocation}}
+                            </v-btn>
                           </v-flex>
                         </v-layout>
                       </v-flex>
                       <v-flex xs12>
                         <v-card-actions>
                           <v-spacer></v-spacer>
-                          <v-btn class="elevation-0" @click="closeDialog('location')">Cancel</v-btn>
+                          <v-btn class="elevation-0" @click="closeDialog('location')">{{lang.shared.cancel}}</v-btn>
                           <v-btn color="#feae25" class="elevation-0" @click="submitDormLocation('location')" :loading="loadingBtn">{{lang.DormGeneralinfo.button}}</v-btn>
                         </v-card-actions>
                       </v-flex>
@@ -209,11 +211,11 @@
 
             <v-flex xs12>
               <v-card-actions class="card-header py-3 px-4">
-                <h2 class="white--text">Dorm Features</h2>
+                <h2 class="white--text">{{lang.dormCard.dormFeatures}}</h2>
                 <v-spacer></v-spacer>
                 <v-btn color="#ffa915" depressed @click="updateDialog('features')">
                   <v-icon small color="black" left>fa-pen</v-icon>
-                  Update Features
+                  {{lang.DormGeneralinfo.button}}
                 </v-btn>
               </v-card-actions>
             </v-flex>
@@ -232,14 +234,14 @@
                     <v-layout row wrap>
                       <v-flex xs12 class="mb-4">
                         <v-card-actions>
-                          <h2>Update Dorm Features</h2>
+                          <h2>{{lang.DormGeneralinfo.updateFeatures}}</h2>
                           <v-spacer></v-spacer>
-                          <v-btn class="elevation-0" @click="closeDialog('features')">Cancel</v-btn>
+                          <v-btn class="elevation-0" @click="closeDialog('features')">{{lang.shared.cancel}}</v-btn>
                           <v-btn color="#feae25" class="elevation-0" @click="submitDormFeatures('features')" :loading="loadingBtn">{{lang.DormGeneralinfo.button}}</v-btn>
                         </v-card-actions>
                       </v-flex>
                       <v-flex xs12 md12 class="pa-3">
-                        <v-autocomplete v-model="selectedFeatures" :disabled="isUpdating" :items="dorm.all_features" box chips color="blue-grey lighten-2" label="Select" item-text="name" item-value="id" multiple>
+                        <v-autocomplete v-model="selectedFeatures" :disabled="isUpdating" :items="dorm.all_features" box chips color="blue-grey lighten-2" :label="lang.DormGeneralinfo.select" item-text="name" item-value="id" multiple>
                           <template slot="selection" slot-scope="data">
                             <v-chip :selected="data.selected" close dark class="chip--select-multi" @input="remove(data.item)">
                               {{data.item.name}}
@@ -271,22 +273,22 @@
           <v-layout wrap>
             <v-flex xs12>
               <v-card-actions class="card-header py-3 px-4">
-                <h2 class="white--text">Dorm Photos</h2>
+                <h2 class="white--text">{{lang.DormGeneralinfo.dormPhotos}}</h2>
                 <v-spacer></v-spacer>
                 <v-btn color="#ffa915" depressed @click="openPhotosDialog(null, null, true)">
                   <v-icon small color="black" left>fa-pen</v-icon>
-                  Add Photo
+                  {{lang.DormGeneralinfo.addPhoto}}
                 </v-btn>
               </v-card-actions>
             </v-flex>
             <v-flex xs12 md6 class="pa-4">
               <v-layout row wrap>
                 <v-flex>
-                  <h3 class="mb-4">Cover Photo</h3>
+                  <h3 class="mb-4">{{lang.DormGeneralinfo.coverPhoto}}</h3>
                   <v-card>
                     <label class="update-cover__btn" for="cover-img">
                       <v-icon small>fa-pen</v-icon>
-                      Update Cover
+                      {{lang.DormGeneralinfo.button}}
                     </label>
                     <v-img v-if="dorm.cover" gradient="to top right, rgba(44,40,72,.4), rgba(44,40,72,.4)" :src="dorm.cover" height="350" width="100%">
                       <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
@@ -305,7 +307,7 @@
               <v-layout row wrap>
                 <v-flex>
                   <v-layout class="mb-4">
-                    <h3 class="ma-0 pa-0">Dorm Photos</h3>
+                    <h3 class="ma-0 pa-0">{{lang.DormGeneralinfo.dormPhotos}}</h3>
                   </v-layout>
                   <v-layout v-if="dorm.photos.length" row wrap>
                     <v-flex class="px-2 pb-3 manage-dorm__photos" md3 xs6 v-for="(photo,i) in dorm.photos" :key="i">
@@ -348,7 +350,7 @@
                                         </label>
                                       </v-flex>
                                       <v-flex md9 xs12 class="text-md-left">
-                                        <p>Allowed documents: JEPG, PNG, GIF and PDF</p>
+                                        <p>{{lang.confirmPayment.allowedDocs}}: JEPG, JPG, PNG, </p>
                                       </v-flex>
                                     </v-layout>
                                     <input type="file" id="file" multiple @change="selectFile" ref="files" v-show="false">
@@ -369,14 +371,14 @@
                                       </v-flex>
                                     </v-layout>
                                   </v-flex>
-                                  <v-btn class="upload-btn mt-3 mr-2" depressed @click="resetFiles" v-show="this.files.length">reset</v-btn>
+                                  <v-btn class="upload-btn mt-3 mr-2" depressed @click="resetFiles" v-show="this.files.length">{{lang.shared.reset}}</v-btn>
                                 </v-form>
                               </div>
                             </v-flex>
                             <v-flex xs12>
                               <v-card-actions class="pa-0 mt-5">
                                 <v-spacer></v-spacer>
-                                <v-btn class="elevation-0" @click="closeDialog('photos')">Colse</v-btn>
+                                <v-btn class="elevation-0" @click="closeDialog('photos')">{{lang.shared.close}}</v-btn>
                                 <v-btn depressed v-if="this.files.length && !lightBox.is360" color="#feae25" @click="submitPhotos" :disabled="uploaderDisabled" :loading="loadingBtn">Upload</v-btn>
                                 <v-btn depressed v-if="lightBox.is360" color="#feae25" @click="submit360Photos" :disabled="uploaderDisabled" :loading="loadingBtn">Submit</v-btn>
                               </v-card-actions>
@@ -416,11 +418,11 @@
 
             <v-flex xs12>
               <v-card-actions class="card-header py-3 px-4">
-                <h2 class="white--text">Bank Accounts</h2>
+                <h2 class="white--text">{{lang.DormGeneralinfo.bankAccounts}}</h2>
                 <v-spacer></v-spacer>
                 <v-btn color="#ffa915" depressed @click="updateDialog('addBanks')">
                   <v-icon small color="black" left>fa-pen</v-icon>
-                  Add new account
+                  {{lang.DormGeneralinfo.addBankAccount}}
                 </v-btn>
               </v-card-actions>
             </v-flex>
@@ -467,21 +469,21 @@
               <v-dialog v-model="deleteRecord.confirmDialog" width="500" lazy>
                 <v-card>
                   <v-card-title class="headline text-uppercase font-weight-medium red accent-4 white--text">
-                    Confirm Delete
+                    {{lang.AddnewRoom.confirmDelete}}
                   </v-card-title>
                   <v-card-text class="subheading my-3">
                     <span v-if="!deleteRecord.photoBtn">
-                      Are You sure you want to delete this bank account?
+                      {{lang.DormGeneralinfo.deleteBankMsg}}
                     </span>
                     <span v-if="deleteRecord.photoBtn">
-                      Are You sure you want to delete this Photo?
+                      {{lang.AddnewRoom.confirmDeleteMsg}}
                     </span>
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn class="elevation-0" @click="deleteRecord.confirmDialog = false">Cancel</v-btn>
-                    <v-btn color="red" v-if="!deleteRecord.photoBtn" class="elevation-0" @click="deleteBankAccount" :loading="loadingBtn">Delete acount</v-btn>
-                    <v-btn color="red" v-if="deleteRecord.photoBtn" class="elevation-0" @click="deleteDormPhoto" :loading="loadingBtn">Delete photo</v-btn>
+                    <v-btn class="elevation-0" @click="deleteRecord.confirmDialog = false">{{lang.shared.cancel}}</v-btn>
+                    <v-btn color="red" v-if="!deleteRecord.photoBtn" class="elevation-0" @click="deleteBankAccount" :loading="loadingBtn">{{lang.shared.delete}}</v-btn>
+                    <v-btn color="red" v-if="deleteRecord.photoBtn" class="elevation-0" @click="deleteDormPhoto" :loading="loadingBtn">{{lang.shared.delete}}</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -495,23 +497,23 @@
                     <v-layout row wrap>
                       <v-flex xs12 md12 class="pa-3">
                         <h2 class="mb-4">Add new Bank Account</h2>
-                        <v-text-field v-model="bank.name" label="Bank Name" type="text" :rules="requiredRules" required></v-text-field>
-                        <v-text-field v-model="bank.accountName" label="Account Name" type="text" :rules="requiredRules" required></v-text-field>
-                        <v-select class="shift-left" v-model="bank.currency" :items="currencies" item-text="code" item-value="code" label="Currency" color="success" append-icon="expand_more" :menu-props="{
+                        <v-text-field v-model="bank.name" :label="lang.DormGeneralinfo.bankName" type="text" :rules="requiredRules" required></v-text-field>
+                        <v-text-field v-model="bank.accountName" :label="lang.DormGeneralinfo.accountName" type="text" :rules="requiredRules" required></v-text-field>
+                        <v-select class="shift-left" v-model="bank.currency" :items="currencies" item-text="code" item-value="code" :label="lang.DormGeneralinfo.currency" color="success" append-icon="expand_more" :menu-props="{
                           offsetY: '',
                           transition: 'slide-y-transition',
                           bottom: ''
                         }" :rules="requiredRules" required></v-select>
-                        <v-text-field v-model="bank.accountNumber" label="Account Number" type="text" :rules="requiredRules" required></v-text-field>
+                        <v-text-field v-model="bank.accountNumber" :label="lang.DormGeneralinfo.accountNumber" type="text" :rules="requiredRules" required></v-text-field>
                         <v-text-field v-model="bank.iban" label="IBAN" type="text" :rules="requiredRules" required></v-text-field>
                         <v-text-field v-model="bank.swift" label="Swift" type="text"></v-text-field>
                       </v-flex>
                       <v-flex xs12>
                         <v-card-actions>
                           <v-spacer></v-spacer>
-                          <v-btn class="elevation-0" @click="closeDialog('addBanks')">Cancel</v-btn>
-                          <v-btn v-if="!dialog.isEdit" color="#feae25" class="elevation-0" @click="submitNewBank" :loading="loadingBtn">Add Bank</v-btn>
-                          <v-btn v-if="dialog.isEdit" color="#feae25" class="elevation-0" @click="updateBankAccount" :loading="loadingBtn">Update</v-btn>
+                          <v-btn class="elevation-0" @click="closeDialog('addBanks')">{{lang.shared.cancel}}</v-btn>
+                          <v-btn v-if="!dialog.isEdit" color="#feae25" class="elevation-0" @click="submitNewBank" :loading="loadingBtn">{{lang.shared.submit}}</v-btn>
+                          <v-btn v-if="dialog.isEdit" color="#feae25" class="elevation-0" @click="updateBankAccount" :loading="loadingBtn">{{lang.DormGeneralinfo.button}}</v-btn>
                         </v-card-actions>
                       </v-flex>
                     </v-layout>
