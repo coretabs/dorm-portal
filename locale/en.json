@@ -53,7 +53,8 @@
             "more": "More",
             "features": "Features",
             "showDetails": "Click To show room details",
-            "roomType": "Room Type"
+            "roomType": "Room Type",
+            "roomMatchesSearch": "Rooms matches your search in this dorm"
         },
         "roomCard": {
             "roomType": "Room Type",

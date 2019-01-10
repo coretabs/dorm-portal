@@ -76,7 +76,9 @@
 
       <v-divider light></v-divider>
       <v-layout>
+        
         <v-card-actions justify-center align-center>
+          <span class="price-bar__title">{{lang.dormCard.roomMatchesSearch}} :</span>
           <div class="rooms-price-bar">
             <div class="room-price" v-for="(room,index) in orderedRooms" :key="index">
               <v-tooltip top>

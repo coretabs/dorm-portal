@@ -53,7 +53,8 @@
             "more": "Daha fazlası",
             "features": "Özellikler",
             "showDetails": "Oda ayrıntıları için tıklayın",
-            "roomType": "Oda Tipi"
+            "roomType": "Oda Tipi",
+            "roomMatchesSearch": "Rooms matches your search in this dorm"
         },
         "roomCard": {
             "roomType": "Oda Tipi",

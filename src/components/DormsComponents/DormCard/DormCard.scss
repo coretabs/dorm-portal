@@ -103,18 +103,31 @@
     background: #fbfbfb;
     width: 100%;
     min-height: 180px;
-
+    position: relative;
+    .price-bar__title{
+      position: absolute;
+      top: 30px;
+      left: 42px;
+      font-size: 18px;
+      color: #666;
+      font-weight: 500;
+      @media (max-width: 600px) {
+        left: 16px;
+        top: 28px;
+        font-size: 16px;
+      }
+    }
     .rooms-price-bar {
       height: 5px;
       width: 95%;
-      margin: 0 auto;
+      margin: 10px auto 0;
       @include radius(20px);
       position: relative;
       background-color: #dbdbdb;
       display: flex;
       justify-content: space-between;
       @media (max-width: 600px) {
-        margin-top: -50px;
+        margin-top: -5px;
       }
       .room-price{
         cursor: pointer;
