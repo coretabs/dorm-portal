@@ -1,10 +1,10 @@
 {% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
 
-<table style="width: 100%; direction: rtl; border-collapse: collapse;">
+<table style="width: 100%; direction: ltr; border-collapse: collapse; font-family: 'Cairo', sans-serif;">
     <thead>
       <tr style="text-align: center;">
-        <td style="padding:20px 0 10px;">
-          <img src="https://forums.coretabs.net/uploads/default/original/1X/a5ccc636dda6380ef461b51f79ea34b5633457e5.png" alt="Coretabs logo" width="200">
+        <td style="text-align: center; background: #254182;">
+          <img src="https://www.emu.edu.tr/images/themes/default/logo-home-en.png" alt="EMU logo" width="200">
         </td>
       </tr>
     </thead>
@@ -16,7 +16,7 @@
             Please follow the link below to confirm your email address
           </p>
 
-          <a href="{{ activate_url }}" style="display: block; width: 150px; background-color: #5355e8; background-image:linear-gradient(to left, #2d43e7, #9042e8); color:#fff; padding: 12px 10px 10px; margin: 30px auto; border-radius:100px; text-decoration: none; font-size: 18px;">Confirm Email</a>
+          <a href="{{ activate_url }}" style="display: block; width: 150px; background-color: #5355e8; background-image:linear-gradient(to left, #d28502, #fcb131); color:#000; padding: 12px 10px 10px; margin: 30px auto; border-radius:100px; text-decoration: none; font-size: 18px;">Confirm Email</a>
         </td>
       </tr>
       <tr style="padding:20px; text-align: center;">
@@ -37,12 +37,31 @@
     </tbody>
     <tfoot>
       <tr style="text-align: center;">
-        <td>
-          <span style="display: block; padding-top: 30px; color: #666;">Best Wishes</span>
-          <span  style="display: block; color: #666;">EMU Dorms Portal</span>
-        </td>
+          <td>
+              <span style="display: block; padding-top: 30px; color: #666;">Best wishes</span>
+              <span style="display: block; color: #666;">EMU Dorms Portal</span>
+          </td>
       </tr>
-    </tfoot>
+      <tr style="text-align: center; ">
+          <td style="padding: 15px 0 30px;">
+              <a href="https://www.facebook.com/eastern.med.univ" style="padding: 3px; text-decoration: none;"
+                  target="_blank" title="facebook">
+                  <img src="https://forums.coretabs.net/uploads/default/original/1X/f626d1403b20960c174d1b6adeec4c0fde4277de.png"
+                      alt="facebook">
+              </a>
+              <a href="https://twitter.com/EMUOFFICIAL" style="padding: 3px; text-decoration: none;" target="_blank"
+                  title="twitter">
+                  <img src="https://forums.coretabs.net/uploads/default/original/1X/6f8cb52ab0203ac1d7b8bbedd1b09c087db7a727.png"
+                      alt="twitter">
+              </a>
+              <a href="https://www.youtube.com/eastmeduniv" target="_blank"
+                  style="padding: 3px; text-decoration: none;" title="youtube">
+                  <img src="https://forums.coretabs.net/uploads/default/original/1X/6fdc398d1e4fa619fee7611d67b1092807305db5.png"
+                      alt="youtube">
+              </a>
+          </td>
+      </tr>
+  </tfoot>
   </table>
 
 {% endblocktrans %}{% endautoescape %}

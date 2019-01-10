@@ -1,34 +1,27 @@
 {% load i18n %}
 <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
-<table style="width: 100%; direction: rtl; font-family: 'Cairo', sans-serif; border-collapse: collapse;">
+<table style="width: 100%; direction: ltr; font-family: 'Cairo', sans-serif; border-collapse: collapse;">
     <thead>
-        <tr style="text-align: center;">
+        <tr style="text-align: center; background: #254182;">
             <td style="padding:20px 0 10px;">
-                <img src="https://forums.coretabs.net/uploads/default/original/1X/a5ccc636dda6380ef461b51f79ea34b5633457e5.png"
-                    alt="Coretabs logo" width="200">
+                <img src="https://www.emu.edu.tr/images/themes/default/logo-home-en.png"
+                    alt="EMU logo" width="200">
             </td>
         </tr>
     </thead>
     <tbody style=" background: #fafafa; padding: 20px;">
         <tr style="padding:20px; text-align: center;">
             <td style="padding-top: 40px;">
-                <h2>مرحباً</h2>
-                <p style="font-size: 18px; max-width: 600px; margin: 0 auto;">لقد قمت بطلب إعادة تعيين كلمة المرور
-                    الخاصة بك على أكاديمية كورتابز، للقيام بذلك يرجى الضغط على الزر لإعادة التعيين </p>
-                <a href="{{ review_url }}" style="display: block; width: 200px; background-color: #5355e8; background-image:linear-gradient(to left, #2d43e7, #9042e8); color:#fff; padding: 10px; margin: 30px auto; border-radius:100px; text-decoration: none; font-size: 18px;">إعادة
-                    تعيين</a>
+                <h2>Hi!</h2>
+                <p style="font-size: 18px; max-width: 600px; margin: 0 auto;">We hope you are enjoying staying at our dorm, since we value your opinion we would like to get a review from you.</p>
+                <a href="{{ review_url }}" style="display: block; width: 200px; background-color: #5355e8; background-image:linear-gradient(to left, #d28502, #fcb131); color:#000; padding: 10px; margin: 30px auto; border-radius:100px; text-decoration: none; font-size: 20px;">Review Dorm</a>
             </td>
         </tr>
-        <tr style="padding:20px; text-align: center;">
-            <td>
-                <p style="font-size: 18px; max-width: 600px; margin: 30px auto 50px; color: #666;  text-align: center;">اذا
-                    لم تقم بطلب إعادة تعيين كلمة المرور، قم بتجاهل هذه الرسالة</p>
-            </td>
-        </tr>
+        
         <tr>
             <td>
                 <p style="font-size: 14px; max-width: 600px; margin: 0px auto 50px; color: #a4a4a4; text-align: center;">إذا
-                    كان الزر لا يعمل، قم بنسخ الرابط أدناه ولصقه في المتصفح
+                    If the button above is not working, please copy the folloing link to your browser
 
                     <a href="{{ review_url }}" style="display: block; color:#9042e8; text-decoration: none;">{{
                         password_reset_url }}</a>
@@ -39,23 +32,23 @@
     <tfoot>
         <tr style="text-align: center;">
             <td>
-                <span style="display: block; padding-top: 30px; color: #666;">مع أطيب الأمنيات</span>
-                <span style="display: block; color: #666;">فريق أكاديمية كورتابز</span>
+                <span style="display: block; padding-top: 30px; color: #666;">Best wishes</span>
+                <span style="display: block; color: #666;">EMU Dorms Portal</span>
             </td>
         </tr>
         <tr style="text-align: center; ">
             <td style="padding: 15px 0 30px;">
-                <a href="https://www.facebook.com/coretabs.academy/" style="padding: 3px; text-decoration: none;"
+                <a href="https://www.facebook.com/eastern.med.univ" style="padding: 3px; text-decoration: none;"
                     target="_blank" title="facebook">
                     <img src="https://forums.coretabs.net/uploads/default/original/1X/f626d1403b20960c174d1b6adeec4c0fde4277de.png"
                         alt="facebook">
                 </a>
-                <a href="https://twitter.com/CoretabsAcademy" style="padding: 3px; text-decoration: none;" target="_blank"
+                <a href="https://twitter.com/EMUOFFICIAL" style="padding: 3px; text-decoration: none;" target="_blank"
                     title="twitter">
                     <img src="https://forums.coretabs.net/uploads/default/original/1X/6f8cb52ab0203ac1d7b8bbedd1b09c087db7a727.png"
                         alt="twitter">
                 </a>
-                <a href="https://www.youtube.com/channel/UCe47ca6TFCIIglUsgK5Ml3w?view_as=subscriber" target="_blank"
+                <a href="https://www.youtube.com/eastmeduniv" target="_blank"
                     style="padding: 3px; text-decoration: none;" title="youtube">
                     <img src="https://forums.coretabs.net/uploads/default/original/1X/6fdc398d1e4fa619fee7611d67b1092807305db5.png"
                         alt="youtube">
