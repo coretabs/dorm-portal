@@ -140,7 +140,7 @@
             "confirmButton": "Next step"
         },
         "login": {
-            "heading": "Login to You Account",
+            "heading": "Login to Your Account",
             "password": "Password",
             "email": "Email",
             "button": "Login",

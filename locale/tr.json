@@ -54,7 +54,7 @@
             "features": "Özellikler",
             "showDetails": "Oda ayrıntıları için tıklayın",
             "roomType": "Oda Tipi",
-            "roomMatchesSearch": "Rooms matches your search in this dorm"
+            "roomMatchesSearch": "Bu yurttaki aramanızla eşleşen odalar"
         },
         "roomCard": {
             "roomType": "Oda Tipi",
