@@ -47,5 +47,4 @@ RUN pip install -r requirements.txt
 RUN apk del deps
 
 # Collect static files
-RUN mkdir static
 RUN python manage.py collectstatic --noinput
