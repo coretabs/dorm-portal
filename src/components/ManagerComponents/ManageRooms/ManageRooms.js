@@ -94,7 +94,7 @@ export default {
       return totalRooms - reservedRooms;
     },
     progressColor(allowedQuota, totalRooms, reservedRooms){
-      return (allowedQuota >= 5) ? "#39c463" : ( totalRooms-reservedRooms == 0) ? "#39c463" : "#cf5151";
+      return (allowedQuota >= 5) ? "#39c463" : ( totalRooms-reservedRooms == 0 || totalRooms-(reservedRooms+allowedQuota) == 0 ) ? "#39c463" : "#cf5151";
     },
     quotaTextColor(quota, totalRooms, reservedRooms){
       return (quota < 5 && totalRooms-reservedRooms > quota ) ? "red--text" : "black--text";
