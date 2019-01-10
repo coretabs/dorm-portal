@@ -3,10 +3,7 @@ FROM node:8.11.4-alpine as build-spa-stage
 WORKDIR /dormportal/app
 COPY . ./
 
-RUN npm install
-
-RUN node --max_old_space_size=8192
-RUN npm run build
+RUN yarn install
 
 # Build spa finished here
 
