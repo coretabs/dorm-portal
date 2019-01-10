@@ -1,7 +1,7 @@
 export default {
   lang: state => {
     const currentLang = state.language
-    const lang = require(`../../locale/${currentLang}.json`);
+    const lang = require(`../../locale/lang.${currentLang}.json`);
     return lang[currentLang]
   },
   activeCurrency: state => state.currencySymbol,
