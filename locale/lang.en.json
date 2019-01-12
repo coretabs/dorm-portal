@@ -260,8 +260,8 @@
             ],
             "status": [
                 "Update",
-                "Reject",
-                "Confirm"
+                "Confirm",
+                "Reject"
             ]
         },
         "manageRooms":{

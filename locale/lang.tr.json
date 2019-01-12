@@ -260,8 +260,8 @@
             ],
             "status": [
                 "Güncelleme",
-                "Reddetme",
-                "Onaylama"
+                "Onaylama",
+                "Reddetme"
             ]
         },
         "manageRooms":{

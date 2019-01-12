@@ -20,7 +20,6 @@ export default {
         { text: '', value: 'confirmation_deadline_date' },
         { text: '', value: 'id', sortable: false }
       ],
-      status: this.$store.getters.lang.manageResrevations.status,
       currentStatus: '',
       followUpMessage: '',
       reservationID: null,
@@ -60,6 +59,9 @@ export default {
         return reservationRecords.filter(res => res.status == this.statusFilter)
       }
       return this.$store.getters.manageReservation.reservations
+    },
+    status(){
+      return this.$store.getters.lang.manageResrevations.status
     }
   },
   methods:{
