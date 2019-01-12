@@ -20,8 +20,13 @@ export default {
   fetchDorms({ commit }) {
     commit('fetchDorms');
   },
-  fetchSearchedDorms({ commit }) {
-    commit('fetchSearchedDorms');
+  fetchSearchedDorms({ commit }, data) {
+    return new Promise((resolve) => {
+      $backend.$searchDorms(data).then(responseDate => {
+        commit('fetchSearchedDorms', responseDate);
+        resolve(responseDate)
+      })
+    })
   },
   auth({ commit }) {
     return new Promise((resolve, reject) => {

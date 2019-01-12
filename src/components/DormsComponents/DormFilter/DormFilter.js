@@ -12,19 +12,19 @@ export default {
       dormSelectedFeatures: [],
       roomSelectedFeatures: [],
       roomIntegralFilters:[],
+      additionalFiltersHolder:[],
       optionsHolder: [],
       minValue: null,
-      loadingFilters: false
+      loadingFilters: false,
+      loadingDorms: false
     };
   },
   watch: {
     lang() {
-      this.fetchFilters()
-      this.fetchDorms()
+      this.updatedLocaleFetching()
     },
     activeCurrency(){
-      this.fetchFilters()
-      this.fetchDorms()
+      this.updatedLocaleFetching()
     }
   },
   methods: {
@@ -39,11 +39,11 @@ export default {
     },
     dormFeatiresFilter(){
       this.$store.state.userFilters.dorm_features = this.dormSelectedFeatures
-      this.$store.dispatch('fetchSearchedDorms')
+      this.dispatchFilter()
     },
     roomFeatiresFilter(){
       this.$store.state.userFilters.room_features = this.roomSelectedFeatures
-      this.$store.dispatch('fetchSearchedDorms')
+      this.dispatchFilter()
     },
     selectedAdditionalFilters(filterID, optionID){
       let objectUpdated = 0;
@@ -71,7 +71,7 @@ export default {
         this.optionsHolder = []
       }
       this.roomIntegralFilters = this.$store.state.userFilters.additional_filters
-      this.$store.dispatch('fetchSearchedDorms')
+      this.dispatchFilter()
     },
     integralFilter(value, id){
       const minValue = value[0]
@@ -93,8 +93,26 @@ export default {
         })
         this.roomIntegralFilters = this.$store.state.userFilters.additional_filters
        }
-      
-      this.$store.dispatch('fetchSearchedDorms')
+       this.dispatchFilter()
+    },
+    dispatchFilter(){
+      this.loadingDorms = true
+      let data = {
+        lang: this.$store.state.language,
+        currency: this.$store.state.currencyCode,
+        duration: this.$store.state.userFilters.duration,
+        category: this.$store.state.userFilters.category,
+        dormFeatures: this.$store.state.userFilters.dorm_features,
+        roomFeatures: this.$store.state.userFilters.room_features,
+        additionalFilters: this.$store.state.userFilters.additional_filters
+      }
+      this.$store.dispatch('fetchSearchedDorms', data).then(()=>{
+        this.loadingDorms = false
+      })
+    },
+    updatedLocaleFetching(){
+      this.fetchFilters()
+      this.dispatchFilter()
     }
   },
   computed: {

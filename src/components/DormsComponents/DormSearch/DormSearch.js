@@ -7,7 +7,8 @@ export default {
   data: function () {
     return {
       chosenDutarion: null,
-      chosenCategory: null
+      chosenCategory: null,
+      loading: false
     };
   },
   computed: {
@@ -27,9 +28,21 @@ export default {
   },
   methods: {
     search(){
+      this.loading = true
       this.$store.state.userFilters.category = this.chosenCategory
       this.$store.state.userFilters.duration = this.chosenDutarion
-      this.$store.dispatch('fetchSearchedDorms')
+      let data = {
+        lang: this.$store.state.language,
+        currency: this.$store.state.currencyCode,
+        duration: this.chosenDutarion,
+        category: this.chosenCategory,
+        dormFeatures: this.$store.state.userFilters.dorm_features,
+        roomFeatures: this.$store.state.userFilters.room_features,
+        additionalFilters: this.$store.state.userFilters.additional_filters
+      }
+      this.$store.dispatch('fetchSearchedDorms', data).then(()=>{
+        this.loading = false
+      })
     }
   }
 };

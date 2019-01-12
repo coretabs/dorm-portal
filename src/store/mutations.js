@@ -20,19 +20,8 @@ export default {
       state.dorms = responseDate;
     });
   },
-  fetchSearchedDorms(state) {
-    let filters = {
-      lang: state.language,
-      currency: state.currencyCode,
-      duration: state.userFilters.duration,
-      category: state.userFilters.category,
-      dormFeatures: state.userFilters.dorm_features,
-      roomFeatures: state.userFilters.room_features,
-      additionalFilters: state.userFilters.additional_filters
-    }
-    $backend.$searchDorms(filters).then(responseDate => {
-      state.dorms = responseDate;
-    });
+  fetchSearchedDorms(state, responseDate) {
+    state.dorms = responseDate;
   },
   auth_success(state) {
     state.authStatus = 'Success'

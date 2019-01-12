@@ -17,7 +17,7 @@
           }" v-model="chosenDutarion"></v-select>
     </v-flex>
     <v-flex xs12 md1>
-      <v-btn depressed large @click="search">
+      <v-btn :loading="loading" depressed large @click="search">
         <v-icon>fa-search</v-icon>{{lang.dormSearch.button}}
       </v-btn>
     </v-flex>

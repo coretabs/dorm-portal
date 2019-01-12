@@ -36,7 +36,7 @@
             <template v-if="additionalFilters.is_checkbox">
               <ul>
                 <li v-for="(option, index) in additionalFilters.options" :key="index">
-                  <v-checkbox @change="selectedAdditionalFilters(additionalFilters.id, option.id)" :value="option.id" :label="option.name" color="success"></v-checkbox>
+                  <v-checkbox v-model="additionalFiltersHolder" @change="selectedAdditionalFilters(additionalFilters.id, option.id)" :value="option.id" :label="option.name" color="success"></v-checkbox>
                 </li>
               </ul>
             </template>
@@ -89,8 +89,16 @@
              {{lang.dormFilter.noSearchResult}} {{lang.dormFilter.searchResult}}
           </div>
         </v-flex>
+        
+        <v-flex xs12 v-if="loadingDorms" class="text-xs-center">
+          <v-progress-circular
+            :size="50"
+            color="grey"
+            indeterminate
+          ></v-progress-circular>
+        </v-flex>
 
-        <v-flex xs12>
+        <v-flex xs12 v-if="!loadingDorms">
           <dorm-card :dorm="dorm" v-for="(dorm,index) in dorms" :key="index"></dorm-card>
         </v-flex>
 
