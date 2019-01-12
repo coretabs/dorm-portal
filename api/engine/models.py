@@ -34,7 +34,12 @@ class ReservationQuerySet(django_models.QuerySet):
                                            confirmation_deadline_date__lt=yesterday)
         result = expired_reservations.count()
 
-        expired_reservations.update(status=Reservation.EXPIRED_STATUS)
+        with transaction.atomic():
+            for reservation in expired_reservations.all():
+                reservation.room_characteristics.increase_quota()
+                reservation.room_characteristics.save()
+
+            expired_reservations.update(status=Reservation.EXPIRED_STATUS)
 
         return result
 

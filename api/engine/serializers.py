@@ -230,7 +230,9 @@ class ClientReservationManagementSerializer(serializers.ModelSerializer):
         if status:
             if status not in models.Reservation.STATUS_CHARS_LIST:
                 raise serializers.ValidationError(i18n.t('lang.errorMessages.manageReservation.statusDoesntExist'))
-            validated_data['status']=status
+            
+            instance.update_status(status)
+            validated_data.get('status', None)
 
         instance.last_update_date=datetime.date.today()
 

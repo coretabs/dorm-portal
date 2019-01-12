@@ -7,7 +7,7 @@ Feature: Managing reservations
         Given two managers (one for alfam&dovec and one for homedorm)
         Given we have dorms(alfam & dovec & homedorm) + 2 rooms in alfam
         Given two students reserved first room and one reserved second one
-        Given two user have expired reservations for room2 
+        Given two user have expired reservations for room2
 
         """
         available quota is generally 5 in factory.py
@@ -45,5 +45,30 @@ Feature: Managing reservations
         When hitting PUT /manager-dorms/{alfam-id}/reservations/{res1-id} into manager_updated
         Then get 200 OK for updating that reservation into manager_updated
 
+        When hitting PUT /manager-dorms/{alfam-id}/reservations/{res1-id} into rejected
+        Then get 200 OK for updating that reservation into rejected
+        And collect quota from that rejected reservation
+
         When hitting PUT non-owned reservation into manager_updated
         Then get 403 forbidden for updating non-owned reservation
+
+
+    Scenario: As a manager
+              I want to let the quota be collected automatically  
+              So that I can sleep at night well :D
+
+        Given two managers (one for alfam&dovec and one for homedorm)
+        Given we have dorms(alfam & dovec & homedorm) + 2 rooms in alfam
+        Given two students reserved first room and one reserved second one
+        Given two user have expired reservations for room2
+
+        """
+        already defined above
+        """
+
+        """
+        available quota is generally 5 in factory.py
+        """
+
+        When calling the collecting the quota command
+        Then room1_allowed_quota=4 and room2_allowed_quota=4

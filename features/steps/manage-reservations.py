@@ -1,6 +1,7 @@
 import os
 
 from django.urls import reverse
+from django.core.management import call_command
 
 from rest_framework.test import APIRequestFactory, force_authenticate, APIClient
 from rest_framework import status
@@ -190,6 +191,31 @@ def test(context):
     ).status == Reservation.MANAGER_UPDATED_STATUS
 
 
+@when('hitting PUT /manager-dorms/{alfam-id}/reservations/{res1-id} into rejected')
+def act(context):
+    context.reservation_new_data = {'status': Reservation.REJECTED_STATUS,
+                                    'follow_up_message': 'We didnt accept you'}
+    context.previous_quota = context.reservation1.room_characteristics.allowed_quota
+
+    request = APIRequestFactory().put('', context.reservation_new_data, format='json')
+    force_authenticate(request, context.john)
+    view = ReservationManagementViewSet.as_view(actions={'put': 'update'})
+    context.response = view(request, dorm_pk=context.alfam.id, pk=context.reservation1.id)
+
+
+@then('get 200 OK for updating that reservation into rejected')
+def test(context):
+    assert context.response.status_code == status.HTTP_200_OK
+
+    context.reservation1 = Reservation.objects.filter(id=context.reservation1.id).first()
+    assert context.reservation1.status == Reservation.REJECTED_STATUS
+
+
+@then('collect quota from that rejected reservation')
+def test(context):
+    assert context.reservation1.room_characteristics.allowed_quota == context.previous_quota + 1
+
+
 @when('hitting PUT non-owned reservation into manager_updated')
 def act(context):
     request = APIRequestFactory().put('', context.reservation_new_data, format='json')
@@ -201,3 +227,16 @@ def act(context):
 @then('get 403 forbidden for updating non-owned reservation')
 def test(context):
     assert context.response.status_code == status.HTTP_403_FORBIDDEN
+
+
+@when('calling the collecting the quota command')
+def act(context):
+    call_command('collectquota')
+
+
+@then('room1_allowed_quota=4 and room2_allowed_quota=4')
+def test(context):
+    context.room1 = models.RoomCharacteristics.objects.get(pk=context.room1.id)
+    context.room2 = models.RoomCharacteristics.objects.get(pk=context.room2.id)
+    assert context.room1.allowed_quota == 4
+    assert context.room2.allowed_quota == 4
