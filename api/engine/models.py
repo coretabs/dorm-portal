@@ -720,7 +720,7 @@ class UploadablePhoto(django_models.Model):
         if self.is_3d:
             return self.photo
         else:
-            return self.photo.path
+            return self.photo.url
 
     class Meta:
         abstract = True

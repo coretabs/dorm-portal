@@ -31,8 +31,10 @@ class LocalRemoteURLField(serializers.URLField):
         result = super().to_representation(value)
         media_starting_position = result.find(r'\media')
         is_slash_media_found = media_starting_position != -1
+
         if not settings.IS_PRODUCTION and is_slash_media_found:
             result = result[media_starting_position:]
+            
         return result
 
 
@@ -1154,7 +1156,7 @@ class ClientDormManagementSerializer(serializers.Serializer):
 
 
 class DormManagementSerializer(serializers.ModelSerializer):
-    cover = LocalRemoteURLField(source='cover.path')
+    cover = LocalRemoteURLField(source='cover.url')
 
     class Meta:
         model = models.Dormitory
@@ -1162,7 +1164,7 @@ class DormManagementSerializer(serializers.ModelSerializer):
 
 
 class DormManagementDetailsSerializer(serializers.ModelSerializer):
-    cover = LocalRemoteURLField(source='cover.path')
+    cover = LocalRemoteURLField(source='cover.url')
 
     bank_accounts = BankAccountSerializer(many=True)
     features = FeatureFilterSerializer(many=True)
@@ -1186,7 +1188,7 @@ class DormManagementDetailsSerializer(serializers.ModelSerializer):
 
 
 class DormSerializer(serializers.ModelSerializer):
-    cover = LocalRemoteURLField(source='cover.path')
+    cover = LocalRemoteURLField(source='cover.url')
 
     rooms_left_in_dorm = serializers.IntegerField()
 

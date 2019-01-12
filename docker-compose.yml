@@ -55,3 +55,4 @@ services:
       - 80:80
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/dormportal.conf
+      - /var/dormportal/media:/var/dormportal/media
