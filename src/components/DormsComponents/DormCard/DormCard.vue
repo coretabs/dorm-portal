@@ -82,7 +82,9 @@
           <div class="rooms-price-bar">
             <div class="room-price" v-for="(room,index) in orderedRooms" :key="index">
               <v-tooltip top>
-                <div @click="showRooms(room)" class="bar" slot="activator"></div>
+                <div @click="showRooms(room)" class="bar" slot="activator">
+                  <v-icon>fa-bed</v-icon>
+                </div>
                 <span @click="showRooms(room)" class="price" slot="activator">{{$store.getters.activeCurrency}}{{room.price}}</span>
                 <span>{{lang.dormCard.showDetails}}</span>
               </v-tooltip>

@@ -120,7 +120,7 @@
     .rooms-price-bar {
       height: 5px;
       width: 95%;
-      margin: 10px auto 0;
+      margin: 6px auto 0;
       @include radius(20px);
       position: relative;
       background-color: #dbdbdb;
@@ -132,15 +132,23 @@
       .room-price{
         cursor: pointer;
         .bar{
-          width: 5px;
-          height: 20px;
-          background-color: #999;
-          @include radius(20px);
-          margin: -7px auto 0;
+          width: 32px;
+          height: 32px;
+          text-align: center;
+          background-color: #fafafa;
+          border: 3px solid #b2b2b2;
+          @include radius(10px);
+          margin: -12px auto 0;
           transition: background-color 0.5s;
-          &:hover{
-            background-color: $light-green-color;
+          .v-icon{
+            font-size: 15px;
           }
+          &:hover{
+            .v-icon{
+              color: #1c3a70;
+            }
+          }
+          
         }
         .price{
           font-size: 18px;

@@ -54,7 +54,7 @@
             "features": "Features",
             "showDetails": "Click To show room details",
             "roomType": "Room Type",
-            "roomMatchesSearch": "Rooms matches your search in this dorm"
+            "roomMatchesSearch": "Avaliable Rooms in This Dorm"
         },
         "roomCard": {
             "roomType": "Room Type",
