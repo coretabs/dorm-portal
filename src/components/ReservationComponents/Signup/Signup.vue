@@ -14,6 +14,7 @@
       <v-form ref="form" lazy-validation>
         <v-text-field :label="lang.signup.firstName" autocomplete="on" :rules="nameRules" required type="text" v-model.trim="firstName"></v-text-field>
         <v-text-field :label="lang.signup.lastName" autocomplete="on" :rules="nameRules" required type="text" v-model.trim="lastName"></v-text-field>
+        <v-text-field :label="lang.signup.studentId" :rules="studentIdRules" :hint="lang.signup.studentIdHint" required type="text" v-model.trim="studentId"></v-text-field>
         <v-text-field :label="lang.signup.email" autocomplete="on" :rules="emailRules" required type="email" v-model.trim="email"></v-text-field>
         <v-text-field :label="lang.signup.password" v-model="password" :rules="passwordRules" required :append-icon="show ? 'visibility_off' : 'visibility'" @click:append="show = !show" :type="show ? 'text' : 'password'"></v-text-field>
       </v-form>

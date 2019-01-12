@@ -6,6 +6,7 @@ export default {
       show: false,
       firstName:'',
       lastName: '',
+      studentId: '',
       email: '',
       valid: false,
       errors: [],
@@ -21,22 +22,30 @@ export default {
       passwordRules:[
         v => !!v || this.lang.rules.passRequired,
         v => v.length >= 6 || this.lang.rules.passLength
+      ],
+      studentIdRules:[
+        v => !!v || this.lang.rules.fieldRequired
       ]
     }
   },
   methods:{
     submit(){
-      if(this.$refs.form.validate()){
-        let user = {
-          name: this.firstName + ' ' + this.lastName,
-          email: this.email,
-          password: this.password
+      if(this.studentId != "15700155"){
+        this.errors.push([this.lang.signup.wrongIdMsg])
+      }
+      else{
+        if(this.$refs.form.validate()){
+          let user = {
+            name: this.firstName + ' ' + this.lastName,
+            email: this.email,
+            password: this.password
+          }
+          this.$store.dispatch('register', user)
+           .then(() => {
+              this.showRegisterForm = false
+           })
+           .catch(err => this.errors = err.response.data)
         }
-        this.$store.dispatch('register', user)
-         .then(() => {
-            this.showRegisterForm = false
-         })
-         .catch(err => this.errors = err.response.data)
       }
     },
     redirectToLogin(){
