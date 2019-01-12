@@ -48,3 +48,8 @@ RUN apk del deps
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
+
+# add cronjob to collect quota and update rates EVERY TWO HOURS
+# more info on timing: https://crontab.guru/every-two-hours
+RUN crontab -l | { cat; echo "0 */2 * * * cd /dormportal/app; python manage.py collectquota && python manage.py update_rates"; } | crontab -
+RUN crond
