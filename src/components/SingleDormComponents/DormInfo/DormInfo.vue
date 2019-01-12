@@ -53,7 +53,7 @@
 
           <div class="review-details" v-if="isReviewed">
             <v-icon>fa-user-circle</v-icon>
-            <span>{{review.student_name}}</span>
+            <span>{{maskName(review.student_name)}}</span>
             <v-rating v-model="review.stars" length="5" readonly background-color="rgba(0,0,0,0.2)" color="yellow accent-4" empty-icon="$vuetify.icons.ratingFull" half-increments dense>
             </v-rating>
             <p>

@@ -24,6 +24,11 @@ export default {
       })
       this.reviewsModel = true;
     },
+    maskName(name){
+      return name.toLowerCase().split(' ')
+      .map((s) => s.charAt(0).toUpperCase() + Array(s.length-1).fill("*").join(''))
+      .join(' ');
+    }
   },
   computed: {
     lang() {
