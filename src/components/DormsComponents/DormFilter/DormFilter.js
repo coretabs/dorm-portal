@@ -8,7 +8,7 @@ export default {
   },
   data: function () {
     return {
-      showAlert: true,
+      showAlert: false,
       dormSelectedFeatures: [],
       roomSelectedFeatures: [],
       roomIntegralFilters:[],
@@ -108,11 +108,15 @@ export default {
       }
       this.$store.dispatch('fetchSearchedDorms', data).then(()=>{
         this.loadingDorms = false
+        this.showAlert = true
       })
     },
     updatedLocaleFetching(){
       this.fetchFilters()
       this.dispatchFilter()
+    },
+    showResultAlert(status){
+      this.showAlert = status
     }
   },
   computed: {

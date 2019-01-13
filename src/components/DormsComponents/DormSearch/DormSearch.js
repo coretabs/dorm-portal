@@ -42,6 +42,7 @@ export default {
       }
       this.$store.dispatch('fetchSearchedDorms', data).then(()=>{
         this.loading = false
+        this.$emit('showResultAlert', true)
       })
     }
   }

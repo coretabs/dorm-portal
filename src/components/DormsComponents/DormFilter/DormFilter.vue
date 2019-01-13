@@ -70,10 +70,10 @@
       <v-layout row wrap>
 
         <v-flex xs12>
-          <dorm-search :dutarion="setDuration" :category="setCategory"></dorm-search>
+          <dorm-search :dutarion="setDuration" :category="setCategory" @showResultAlert="showResultAlert($event)"></dorm-search>
         </v-flex>
 
-        <v-flex xs12>
+        <v-flex xs12 v-if="showAlert">
           <div v-if="resultAlert > 0" class="search-success">
             <v-icon small>fa-check-circle</v-icon>
             {{resultAlert}}
