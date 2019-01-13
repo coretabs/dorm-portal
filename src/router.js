@@ -16,6 +16,10 @@ Vue.use(Router)
 let router = new Router({
   routes: [
     {
+      path: '*',
+      redirect: '/'
+    },
+    {
       path: '/',
       component: DormFilter
     },
