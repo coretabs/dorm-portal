@@ -25,7 +25,7 @@ services:
 
     #command: sh -c "memcached -d -u root -s /tmp/memcached.sock && gunicorn --bind 0.0.0.0:8000 coretabs.wsgi --timeout 90 --log-level=DEBUG --daemon && celery worker -A coretabs -P solo --loglevel=INFO -n worker.%%h."
     #command: sh -c "tail -f /dev/null"
-    command: sh -c "gunicorn --bind 0.0.0.0:8000 api.wsgi --timeout 90 --log-level=DEBUG"
+    command: sh -c "crond && gunicorn --bind 0.0.0.0:8000 api.wsgi --timeout 90 --log-level=DEBUG"
     volumes:
       - /var/dormportal/media:/dormportal/app/media
     #  - ./src/api/venv/:/djangoapp/venv/
