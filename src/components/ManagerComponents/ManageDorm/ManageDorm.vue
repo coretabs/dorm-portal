@@ -441,7 +441,10 @@
                     <td class="text-xs-left">{{props.item.bank_name}}</td>
                     <td class="text-xs-left">{{props.item.account_name}}</td>
                     <td class="text-xs-left">{{props.item.account_number}}</td>
-                    <td class="text-xs-left">{{props.item.swift}}</td>
+                    <td class="text-xs-left">
+                      <span v-if="props.item.swift">{{props.item.swift}}</span>
+                      <span v-else class="grey--text">------</span>
+                    </td>
                     <td class="text-xs-left">{{props.item.iban}}</td>
                     <td class="text-xs-left">{{props.item.currency_code}}</td>
                     <td class="text-xs-left layout pl-3">

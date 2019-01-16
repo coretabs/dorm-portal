@@ -94,6 +94,9 @@ export default {
     }
   },
   methods: {
+    clean(data){
+      Object.keys(data).forEach((key) => (data[key] == null || data[key].length == 0) && delete data[key]);
+    },
     remove(item) {
       const index = this.selectedFeatures.indexOf(item.id)
       if (index >= 0) this.selectedFeatures.splice(index, 1)
@@ -253,6 +256,7 @@ export default {
     submitNewBank() {
       const id = localStorage.getItem('manageDormID')
       let data = this.bank
+      this.clean(data)
       if (this.$refs.form.validate()) {
         this.$backend.$addBankAccount(id, data).then(() => {
           let snackbar = {
@@ -322,6 +326,7 @@ export default {
       const dormId = localStorage.getItem('manageDormID')
       const accountId = this.dialog.idHolder
       let data = this.bank
+      this.clean(data)
       if (this.$refs.form.validate()) {
         this.$backend.$updateBankAccount(dormId, accountId, data).then(() => {
           let snackbar = {
