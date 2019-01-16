@@ -38,12 +38,12 @@
             "close": "Kapat",
             "successFileUpload": "Dosyalar başarıyla yüklendi",
             "wrongMsg": "Bir şeyler ters gitti! Tekrar dene",
-            "successRoomAdd": "Oda başarıyla eklendi",
-            "successRoomEdit": "Oda başarıyla güncellendi",
-            "successStatusUpdate": "Durum başarıyla güncellendi",
-            "successQuotaUpdate": "Oda kotası başarıyla güncellendi",
-            "errorQuotaUpdate" : "İzin verilen numarayı aşıyorsunuz",
-            "successRoomDelete": "Oda başarıyla silindi"
+            "successRoomAdd": "Oda başarıyla eklendi.",
+            "successRoomEdit": "Oda başarıyla güncellendi.",
+            "successStatusUpdate": "Durum başarıyla güncellendi.",
+            "successQuotaUpdate": "Oda kotası başarıyla güncellendi.",
+            "errorQuotaUpdate" : "İzin verilen numarayı aşıyorsunuz.",
+            "successRoomDelete": "Oda başarıyla silindi."
         },
         "dormCard": {
             "roomsLeft": "Kalan odalar",
@@ -54,7 +54,7 @@
             "features": "Özellikler",
             "showDetails": "Oda ayrıntıları için tıklayın",
             "roomType": "Oda Tipi",
-            "roomMatchesSearch": "Bu yurttaki aramanızla eşleşen odalar"
+            "roomMatchesSearch": "Bu Yatakhanede Mevcut Odalar"
         },
         "roomCard": {
             "roomType": "Oda Tipi",
@@ -63,8 +63,8 @@
             "characteristics": "Oda karakteristiği",
             "features": "Oda özellikleri",
             "reserveBtn": "Şimdi rezerve et",
-            "aboutDormBtn": "Yurt hakkında daha fazlasını edin",
-            "savedRoomComment": "Seçtiğiniz oda kaydedildi",
+            "aboutDormBtn": "Yurt hakkında daha fazlasını edin.",
+            "savedRoomComment": "Seçtiğiniz oda kaydedildi.",
             "delete": "Sil",
             "checkRoom": "Tekrar kontrol et"
         },
@@ -72,10 +72,10 @@
            "heading": "Odaları filtrele",
             "dormFeatures": "Yurt Özellikleri",
             "roomFeatures": "Oda Özellikleri",
-            "dorms": "Yurt",
-            "dorm": "Yurt",
+            "dorms": "yurt",
+            "dorm": "yurt",
             "searchResult": "aramanızla eşleşti.",
-            "noSearchResult": "Üzgünüm, yurt bulunamadı"
+            "noSearchResult": "Üzgünüm, yurt bulunamadı."
         },
         "dormSearch": {
             "heading": "DAÜ'deki yurtları bul",
@@ -84,14 +84,14 @@
             "allTime": "Hepsi"
         },
         "dormReview":{
-            "heading": "Yurdumuzu Değerlendirin",
-            "desc": "Yurtta kalmaktan keyif alıyorsanız, bizimle olan deneyiminizi değerlendirmek için lütfen birkaç saniyenizi ayırınız",
+            "heading": "Yurdumuzu değerlendirin",
+            "desc": "Yurtta kalmaktan keyif alıyorsanız, bizimle olan deneyiminizi değerlendirmek için lütfen birkaç saniyenizi ayırınız.",
             "successMessage": "Yorumunuz için teşekkürler",
             "backBtn": "Anasayfaya geri dön",
-            "label": "Bize bir yorum yazın",
+            "label": "Bize bir yorum yazın.",
             "review": "yorum",
             "yourName": "Adınız",
-            "noReviews": "Bu yurtta henüz yorum yok, arkadaşlarınız için ilk tavsiye eden siz olabilirsiniz"
+            "noReviews": "Bu yurtta henüz yorum yok, arkadaşlarınız için ilk tavsiye eden siz olabilirsiniz."
         },
         "dormProfile":{
             "aboutUs": "Hakkımızda",
@@ -106,10 +106,10 @@
         },
         "confirmAccount":{
             "heading": "Eposta adresiniz onaylanmıştır.",
-            "desc": "Artık rezervasyon işleminizi tamamlayabilirsiniz",
+            "desc": "Artık rezervasyon işleminizi tamamlayabilirsiniz.",
             "btn": "Devam etmek için giriş yapınız",
-            "expiredLink": "Takip ettiğiniz bağlantının süresi dolmuş olabilir, lütfen yeni bir etkinleştirme e-postası almak için E-posta adresinizi tekrar girin",
-            "notRegestered": "Girmiş olduğunuz eposta adresi sistemimizde kayıtlı değildir",
+            "expiredLink": "Takip ettiğiniz bağlantının süresi dolmuş olabilir, lütfen yeni bir etkinleştirme e-postası almak için e-posta adresinizi tekrar girin",
+            "notRegestered": "Girmiş olduğunuz eposta adresi sistemimizde kayıtlı değildir.",
             "emailSent": "Size bir eposta gönderdik, lütfen kontrol edin!"
         },
         "resendActivationEmail":{
@@ -158,7 +158,7 @@
             "repeatPass": "şifreyi tekrarla",
             "successMsg": "şifreniz başarıyla değişmiştir.",
             "successBtn": "Şimdi giriş yapın",
-            "noMatch": "şifreler eşleşmiyor"
+            "noMatch": "Şifreler eşleşmiyor"
         },
         "reservationProcess":{
             "step1": "Kayıt ol",
@@ -174,9 +174,9 @@
             "email": "Eposta",
             "firstName": "İsim",
             "lastName": "Soyisim",
-            "studentId": "Student ID",
-            "studentIdHint": "The ID in your acceptance letter or your student ID",
-            "wrongIdMsg": "Provided Student ID Can not be found in our records",
+            "studentId": "Öğrenci numaranız",
+            "studentIdHint": "Kabul mektubunuzdaki numara veya öğrenci numaranız",
+            "wrongIdMsg": "Sağlanan öğrenci numarası kayıtlarımızda bulunamadı.",
             "button": "Kaydol",
             "haveAccount": "Hesabınız var mı?",
             "successMsg": "Hesabınız başarıyla oluşturulmuştur",
@@ -254,14 +254,14 @@
                 "Son Güncelleme Tarihi",
                 "Öğrencinin Adı",
                 "Öğrencinin Eposta Adresi",
-                "Oluşturuldu",
+                "oluşturuldu",
                 "Son tarih",
                 "Eylemler"
             ],
             "status": [
                 "Güncelleme",
-                "Onaylama",
-                "Reddetme"
+                "Reddetme",
+                "Onaylama"
             ]
         },
         "manageRooms":{
@@ -275,8 +275,7 @@
             "confirm": "Onayla",
             "addUpTo": "ekleyebilirsin",
             "room": "oda",
-            "roomAvailable": "oda uygundur",
-            "noRooms": "Henüz hiç oda eklemediniz"
+            "roomAvailable": "oda uygundur"
         },
         "managerMenuItems": [
             "Rezervasyonlar",
@@ -303,7 +302,7 @@
             "button": "Güncelle",
             "About": "Yurt hakkında",
             "updateAddress": "Yurt adresini güncelle",
-            "getLatAndLong": "Yurdunuzun Enlem ve Boylamını buradan alabilirsiniz veya sadece aşağıdaki butona tıklayınız",
+            "getLatAndLong": "Yurdunuzun enlem ve boylamını buradan alabilirsiniz veya sadece aşağıdaki butona tıklayınız",
             "GetMyLocation": "Konumumu al",
             "updateFeatures": "Yurt özelliklerini güncelle",
             "select": "seç",
@@ -328,11 +327,11 @@
         "errorMessages": {
             "manageDorm": {
                 "pleaseAddEitherURLorPhoto": "Lütfen URL'yi veya yüklenen fotoğrafı ekleyin",
-                "urlOnlyWith3D": "Bir 360 resim eklemek istiyorsanız, lütfen URL'yi ekleyin ve fotoğraf yüklemeyin"
+                "urlOnlyWith3D": "360 resim eklemek istiyorsanız, lütfen URL'yi ekleyin ve fotoğraf yüklemeyin"
             },
             "manageReservation": {
-                "thisReservationIsNotReviewable": "Bu rezervasyon incelenemez",
-                "statusDoesntExist": "Seçilen durum mezcut değil!"
+                "thisReservationIsNotReviewable": "Bu rezervasyon incelenemez.",
+                "statusDoesntExist": "Seçilen durum mevcut değil!"
             },
             "auth": {
                 "emailAlreadyExists": "Kullanıcı bu eposta adresine zaten kayıtlıdır.",
