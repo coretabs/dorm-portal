@@ -918,12 +918,13 @@ class ClientAcceptedFiltersSerializer(serializers.Serializer):
 class RoomFeaturesSerializer(serializers.Serializer):
     # id = serializers.IntegerField()
     name = serializers.SerializerMethodField()
+    icon = serializers.CharField(default='fa-check')
 
     def get_name(self, obj):
         return str(obj.name)
 
     class Meta:
-        fields = ('name')
+        fields = ('name', 'icon')
 
 
 class RadioChoiceSerializer(serializers.ModelSerializer):
