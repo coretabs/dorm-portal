@@ -2,7 +2,7 @@
 <div id="manage-dorm">
   <v-card class="mb-5">
     <v-card-text>
-      <v-form ref="form" lazy-validation>
+      <v-form ref="form" enctype="multipart/form-data" lazy-validation>
         <v-layout wrap>
           <v-flex xs12 sm6 md4 pa-3>
             <h2 class="heading">{{lang.AddnewRoom.generalHeading}}:</h2>
@@ -60,7 +60,7 @@
             <div v-for="(filter,i) in roomFilters.additional_filters" :key="i">
 
               <div v-if="filter.is_checkbox">
-                <v-select class="shift-left" :items="filter.options" v-model="room.radioChoices[i]" item-text="name" item-value="id" :label="filter.name" append-icon="expand_more" :menu-props="{
+                <v-select class="shift-left" :items="filter.options" :rules="requiredRules" required v-model="room.radioChoices[i]" item-text="name" item-value="id" :label="filter.name" append-icon="expand_more" :menu-props="{
                 offsetY: '',
                 transition: 'slide-y-transition',
                 bottom: ''
@@ -68,7 +68,7 @@
 
               </div>
               <div v-if="filter.is_integral">
-                <v-text-field :label="filter.name" v-model="room.integralChoicesHolder[i]" @change="integralFilter(filter.id, i)" type="number"></v-text-field>
+                <v-text-field :label="filter.name" v-model="room.integralChoicesHolder[i]"  :rules="requiredRules" required @change="integralFilter(filter.id, i)" type="number"></v-text-field>
               </div>
 
             </div>
@@ -77,13 +77,12 @@
 
           <v-flex xs12 sm6 md4 pa-3>
             <h2 class="heading">{{lang.AddnewRoom.photosHeading}}:</h2>
-
             <div class="files-uploader">
-              <v-form enctype="multipart/form-data">
+            
                 <div class="upload">
                   <v-layout align-center wrap>
                     <v-flex md4 xs12>
-                      <label for="file">
+                      <label for="newFile">
                         <v-icon>fa-plus</v-icon>
                         {{lang.confirmPayment.chooseFile}}
                       </label>
@@ -92,7 +91,7 @@
                       <p>{{lang.confirmPayment.allowedDocs}}: JEPG, PNG, GIF</p>
                     </v-flex>
                   </v-layout>
-                  <input type="file" id="file" multiple @change="selectFile" ref="files" v-show="false">
+                  <input type="file" id="newFile" multiple @change="selectFile" ref="files" v-show="false">
                 </div>
                   <v-flex :class="`files-list ${file.invalidMessage && 'file-invalid'}`" v-for="(file,index) in files" :key="index" md12>
                     <v-layout>
@@ -111,31 +110,22 @@
                     </v-layout>
                   </v-flex>
                   <v-btn class="upload-btn mt-3 mr-2" depressed @click="resetFiles" v-show="this.files.length">{{lang.shared.reset}}</v-btn>
-              </v-form>
+            
             </div>
-
           </v-flex>
-
-          <v-flex xs12>
-            <v-card-actions>
-              <v-layout wrap row>
-
-                <v-flex xs12 md6 class="pl-2">
-                  <v-switch :label="lang.AddnewRoom.isRoomReady" color="success" v-model="room.isReady"></v-switch>
-                </v-flex>
-                
-                <v-flex xs12 md6 class="text-xs-right">
-                  <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" @click="submitNewRoom">{{lang.AddnewRoom.btn}}</v-btn>
-                </v-flex>
-
-              </v-layout>
-
-            </v-card-actions>
-          </v-flex>
-
         </v-layout>
       </v-form>
     </v-card-text>
+    <v-card-actions class="px-4">
+      <v-layout wrap row>
+        <v-flex xs12 md6 class="pl-2">
+          <v-switch :label="lang.AddnewRoom.isRoomReady" color="success" v-model="room.isReady"></v-switch>
+        </v-flex>
+        <v-flex xs12 md6 class="text-xs-right">
+          <v-btn color="#feae25" large class="elevation-0" :disabled="btnDisabled" @click="submitNewRoom">{{lang.AddnewRoom.btn}}</v-btn>
+        </v-flex>
+      </v-layout>
+    </v-card-actions>
   </v-card>
 </div>
 </template>

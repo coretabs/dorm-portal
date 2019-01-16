@@ -85,16 +85,18 @@ export default {
         }
       }
       if (success) {
-        this.files = []
-        this.uploadFiles = []
+        this.resetFiles()
+        this.$refs.form.reset()
         this.$store.state.adminActiveComponent = 'ManageRooms'
         this.$store.dispatch('fetchManagerDormRooms', dormId)
         let snackbar = {
           message: this.lang.snackbar.successRoomAdd,
           color: 'success'
         }
-        this.$refs.form.reset()
-        this.$store.commit('updateSnackbar', snackbar)
+        setTimeout(() => {
+          this.$store.commit('updateSnackbar', snackbar)
+        }, 700);
+        
       }
     },
     clean(data){
@@ -103,6 +105,9 @@ export default {
     submitNewRoom() {
       const dormID = localStorage.getItem('manageDormID')
       let roomData = this.room
+      if(roomData.radioChoices.length){
+        roomData.radioChoices = roomData.radioChoices.filter(Number)
+      }
       if (this.$refs.form.validate()) {
         this.loadingBtn = true
         this.clean(roomData)
