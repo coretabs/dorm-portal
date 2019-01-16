@@ -73,7 +73,7 @@
     </template>
 
     <v-flex v-else class="pa-4 mt-5 title text-xs-center grey--text">
-        You haven't added any room yet <a class="grey--text" href="#" @click.stop.prevent="loadComponent('AddNewRoom')">Add New room</a>
+        {{lang.manageRooms.noRooms}} <a class="grey--text" href="#" @click.stop.prevent="loadComponent('AddNewRoom')">{{lang.AddnewRoom.btn}}</a>
     </v-flex>
 
     <v-dialog v-model="deleteDialog.show" width="500" lazy>

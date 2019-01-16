@@ -275,7 +275,8 @@
             "confirm": "Confirm",
             "addUpTo": "can be add at max",
             "room": "room",
-            "roomAvailable": "room avaialable"
+            "roomAvailable": "room avaialable",
+            "noRooms": "You haven't added any rooms yet"
         },
         "managerMenuItems": [
             "Reservations",

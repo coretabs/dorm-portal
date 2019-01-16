@@ -275,7 +275,8 @@
             "confirm": "Onayla",
             "addUpTo": "ekleyebilirsin",
             "room": "oda",
-            "roomAvailable": "oda uygundur"
+            "roomAvailable": "oda uygundur",
+            "noRooms": "Henüz hiç oda eklemediniz"
         },
         "managerMenuItems": [
             "Rezervasyonlar",
