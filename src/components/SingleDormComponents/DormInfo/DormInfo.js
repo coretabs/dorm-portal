@@ -36,7 +36,11 @@ export default {
     },
     review(){
       if(this.dorm.reviews){
-        let index = this.getRandomIndex(0, 2)
+        let index 
+        if(this.isReviewed>2){
+          index = this.getRandomIndex(0, 2)
+        }
+        index = 0
         return this.dorm.reviews[index]
       }
     },
