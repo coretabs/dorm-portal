@@ -65,7 +65,9 @@ class ReservationQuerySet(django_models.QuerySet):
 class RoomCharacteristicsQuerySet(django_models.QuerySet):
 
     def with_reserved_rooms_number(self):
-        return self.annotate(reserved_rooms_number=django_models.Count('reservations', reservations__status=Reservation.CONFIRMED_STATUS))
+        reduced_quota_reservations = django_models.Q(
+            reservations__status__in=Reservation.DECREASED_QUOTA_STATUS_LIST)
+        return self.annotate(reserved_rooms_number=django_models.Count('reservations', filter=reduced_quota_reservations))
 
     def with_all_filters_and_choices(self, room_pk):
         room_characteristics = self.get(pk=room_pk)
@@ -535,6 +537,10 @@ class Reservation(django_models.Model):
     EXPIRABLE_STATUS_LIST = [PENDING_STATUS, MANAGER_UPDATED_STATUS]
     NON_UPDATABLE_STATUS_LIST = [REJECTED_STATUS, CONFIRMED_STATUS, EXPIRED_STATUS]
 
+    DECREASED_QUOTA_STATUS_LIST = [PENDING_STATUS, CONFIRMED_STATUS,
+                                   WAITING_FOR_MANAGER_ACTION_STATUS, MANAGER_UPDATED_STATUS]
+    INCREASED_QUOTA_STATUS_LIST = [REJECTED_STATUS, EXPIRED_STATUS]
+
     STATUS_CHARS_LIST = [PENDING_STATUS, REJECTED_STATUS, CONFIRMED_STATUS,
                          WAITING_FOR_MANAGER_ACTION_STATUS, MANAGER_UPDATED_STATUS]
 
@@ -650,13 +656,19 @@ class Reservation(django_models.Model):
         return result
 
     def update_status(self, new_status):
+        previous_status = self.status
         self.status = new_status
 
-        if new_status == Reservation.REJECTED_STATUS or new_status == Reservation.EXPIRED_STATUS:
+        if (previous_status in Reservation.DECREASED_QUOTA_STATUS_LIST and
+                new_status in Reservation.INCREASED_QUOTA_STATUS_LIST):
             self.room_characteristics.increase_quota()
-            with transaction.atomic():
-                self.save()
-                self.room_characteristics.save()
+        elif(previous_status in Reservation.INCREASED_QUOTA_STATUS_LIST and
+             new_status in Reservation.DECREASED_QUOTA_STATUS_LIST):
+            self.room_characteristics.decrease_quota()
+
+        with transaction.atomic():
+            self.save()
+            self.room_characteristics.save()
 
     def check_if_expired(self):
         if self.is_past_confirmation_deadline:

@@ -23,6 +23,10 @@ Feature: Managing reservations
         When changing reservation status into rejected
         Then quota of that room should increase by 1
 
+        When changing reservation status from rejected into confirmed
+        Then quota of that room should decrease by 1
+        And revert that reservation status into rejected
+
         When asking for reservations status statistics by dorm_id
         Then get the correct reservations status statistics
 

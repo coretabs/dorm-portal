@@ -87,6 +87,24 @@ def test(context):
     assert context.reservation1.room_characteristics.allowed_quota == context.quota_before_rejection + 1
 
 
+@when('changing reservation status from rejected into confirmed')
+def act(context):
+    context.quota_before_rejection = context.reservation1.room_characteristics.allowed_quota
+    context.reservation1.update_status(Reservation.CONFIRMED_STATUS)
+    context.reservation1 = Reservation.objects.get(pk=context.reservation1.id)
+
+
+@then('quota of that room should decrease by 1')
+def test(context):
+    assert context.reservation1.status == Reservation.CONFIRMED_STATUS
+    assert context.reservation1.room_characteristics.allowed_quota == context.quota_before_rejection - 1
+
+
+@then('revert that reservation status into rejected')
+def test(context):
+    context.reservation1.update_status(Reservation.REJECTED_STATUS)
+
+
 @when('asking for reservations status statistics by dorm_id')
 def act(context):
     #context.reservations_statistics = models.Reservation.objects.status_statistics(context.alfam.id)
@@ -187,8 +205,8 @@ def act(context):
 @then('get 200 OK for updating that reservation into manager_updated')
 def test(context):
     assert context.response.status_code == status.HTTP_200_OK
-    assert Reservation.objects.filter(id=context.reservation1.id).first(
-    ).status == Reservation.MANAGER_UPDATED_STATUS
+    context.reservation1 = Reservation.objects.filter(id=context.reservation1.id).first()
+    assert context.reservation1.status == Reservation.MANAGER_UPDATED_STATUS
 
 
 @when('hitting PUT /manager-dorms/{alfam-id}/reservations/{res1-id} into rejected')
