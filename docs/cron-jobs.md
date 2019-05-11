@@ -1,19 +1,17 @@
+# cron Jobs
 
-cron Jobs
----
-
-### What is cron?
+## What is cron?
 
 cron is a time-based job scheduler in Unix-like computer operating systems.
 
-### What are the scheduled jobs?
+## What are the scheduled jobs?
 
 There are two schedule jobs:
 
 1. Update exchange rates (for currency conversion).
 2. Collect quotas from non-finished reservations (efficient way to ensure non-paid reservations are cleaned up).
 
-### Configure cron jobs
+## Configure cron jobs
 
 The [`Dockerfile`](../Dockerfile) contains the cron job configuration for both jobs:
 
