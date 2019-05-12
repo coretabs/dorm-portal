@@ -15,8 +15,8 @@ If you are on Windows, you can use `Git Bash` to follow along:
 ssh -i ssh_key.pem user@yourserver.domain.com
 ```
 
-* `ssh_key.pem` is the SSH key file required to connect to the server
-* `ubuntu` is the username
+* `ssh_key.pem` is the SSH key file required to connect to the server.
+* `user` is the username.
 * `yourserver.domain.com` is the server DNS.
 
 Then be the root user
