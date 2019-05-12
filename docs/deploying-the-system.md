@@ -74,7 +74,7 @@ vim /var/dormportal/app/.env
 
 ### Changing environmental variables
 
-After changing the `.env` file, you will just need to [rebuild the containers using docker-compose](#rebuild-all-containers).
+After changing the `.env` file, you will just need to [rebuild the containers using docker-compose](./containers-management.md#rebuild-all-containers).
 
 ## 3. Configuring NGINX
 
@@ -157,4 +157,4 @@ This means that you have the three required containers (postgres, nginx, and the
 
 * You will need to open 80 port in your inbound rules (in your server security settings).
 
-* In case there was a missing container, try to [rebuild it as explained here.](#rebuild-a-specific-container)
+* In case there was a missing container, try to [rebuild it as explained here.](./containers-management.md#rebuild-a-specific-container)
