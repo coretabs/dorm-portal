@@ -13,7 +13,7 @@ There are two schedule jobs:
 
 ## Configure cron jobs
 
-The [`Dockerfile`](../Dockerfile) contains the cron job configuration for both jobs:
+The [`Dockerfile`](https://github.com/coretabs/dorm-portal/blob/master/Dockerfile) contains the cron job configuration for both jobs:
 
 ```
 RUN crontab -l | { cat; echo "0 */2 * * * cd /dormportal/app; python manage.py collectquota && python manage.py update_rates"; } | crontab -

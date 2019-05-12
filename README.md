@@ -24,6 +24,10 @@ yarn install
 yarn run serve
 ```
 
+## Deploy on Your Own Server
+
+[Please follow this guide to deploy the system on your own server.](https://coretabs.github.io/dorm-portal/)
+
 ## Deploy on Heroku
 
 <p align="center">

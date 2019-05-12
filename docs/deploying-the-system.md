@@ -45,7 +45,7 @@ To fill up your env vars, create a `.env` file using vim or nano:
 vim /var/dormportal/app/.env
 ```
 
-[Please have a look at this sample.env file to fill up your `.env`](../sample.env)
+[Please have a look at this sample.env file to fill up your `.env`](https://github.com/coretabs/dorm-portal/blob/master/sample.env)
 
 ### System Environmental Variables
 
@@ -91,7 +91,7 @@ We use it for two main purposes:
 
 ### HTTPS and WWW redirection
 
-NGINX is configure to redirect to https and www domain in [`nginx.conf`](../nginx.conf) file
+NGINX is configure to redirect to https and www domain in [`nginx.conf`](https://github.com/coretabs/dorm-portal/blob/master/nginx.conf) file
 
 ```
 if ($host !~ ^www\.) {
@@ -110,7 +110,7 @@ vim /var/dormportal/app/nginx.conf
 
 ## 4. Change API URL
 
-The API URL which the frontend uses can be located in [`backend.js`](../src/backend.js)
+The API URL which the frontend uses can be located in [`backend.js`](https://github.com/coretabs/dorm-portal/blob/master/src/backend.js)
 
 ```
 baseURL: 'http://127.0.0.1:8000/api',
