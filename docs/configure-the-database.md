@@ -30,7 +30,7 @@ python manage.py seed
 The required records are the 4 basic filters used by the filtering engine:
 
 ```
-Category (Public/Private)
+Room Type (Single/Double)
 Allowed people number in one room
 Reservation Duration (Spring/Winter/Summer/Full Year)
 Price
