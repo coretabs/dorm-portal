@@ -89,9 +89,17 @@ We use it for two main purposes:
 
 2. Serve photos (since the Django app cannot handle huge load).
 
+### Configuring domain name
+
+This line in [`nginx.conf`](https://github.com/coretabs/dorm-portal/blob/master/nginx.conf) lets NGINX know your domain name
+
+```
+server_name www.yaseralnajjar.com yaseralnajjar.com;
+```
+
 ### HTTPS and WWW redirection
 
-NGINX is configure to redirect to https and www domain in [`nginx.conf`](https://github.com/coretabs/dorm-portal/blob/master/nginx.conf) file
+NGINX is configured to redirect to https and www domain in [`nginx.conf`](https://github.com/coretabs/dorm-portal/blob/master/nginx.conf) file
 
 ```
 if ($host !~ ^www\.) {

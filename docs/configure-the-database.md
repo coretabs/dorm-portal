@@ -41,7 +41,7 @@ Price
 To login into the admin panel which is located at
 
 ```
-http://dorm.mydomain.com/api/admin
+http://dorm.mydomain.com/api/admin/
 ```
 
 So, to add the admin user run this command
