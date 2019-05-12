@@ -1,7 +1,12 @@
 # Quick Start
 
-## Deployment in 5 Mins
+## Deployment in 6 Mins
 
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/QFRnuLnEilA" 
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
 
 ## Cheat Sheet
 
