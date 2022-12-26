@@ -21,5 +21,5 @@ ptvsd==4.2.0
 python-i18n==0.3.5
 pytz==2018.5
 setuptools==40.5.0
-wheel==0.32.2
+wheel==0.38.1
 whitenoise==4.0
